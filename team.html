@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kitt - Our Team</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=9">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .page-header {
+            padding-top: 140px;
+            padding-bottom: 60px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(255, 48, 48, 0.05) 0%, var(--bg-primary) 100%);
+        }
+
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            color: var(--text-color);
+        }
+
+        .page-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .team-content {
+            padding: 80px 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .team-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .team-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .team-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 48, 48, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--accent-color);
+        }
+
+        .team-avatar i {
+            width: 36px;
+            height: 36px;
+        }
+
+        .team-name {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .team-role {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .team-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        .team-expertise {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .expertise-tag {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            background: rgba(255, 48, 48, 0.06);
+            color: var(--accent-color);
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .culture-section {
+            padding: 80px 0;
+            background-color: var(--bg-secondary);
+        }
+
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .culture-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px 24px;
+            transition: all 0.2s ease;
+        }
+
+        .culture-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .culture-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(255, 48, 48, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            color: var(--accent-color);
+        }
+
+        .culture-icon i {
+            width: 22px;
+            height: 22px;
+        }
+
+        .culture-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .culture-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        @media (max-width: 768px) {
+            .page-title { font-size: 2rem; }
+            .team-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto 80px; }
+            .culture-grid { grid-template-columns: 1fr; }
+            .team-content { padding: 56px 0; }
+            .culture-section { padding: 56px 0; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="star-background"></div>
+
+    <!-- Navigation -->
+    <nav class="header">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">kitt</a>
+            <div class="nav-links">
+                <a href="about.html">About</a>
+                <a href="team.html" style="color: var(--accent-color);">Team</a>
+                <a href="apps.html">Apps</a>
+                <a href="contact.html">Contact</a>
+                <a href="contact.html" class="nav-cta">무료 상담 신청하기</a>
+            </div>
+            <button class="nav-menu-btn">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Our Team</h1>
+            <p class="page-subtitle">
+                AI, 자동화, 비즈니스 전략 분야의 전문가들이<br>
+                기업의 실질적인 변화를 만들어갑니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Team Members -->
+    <section class="team-content">
+        <div class="container">
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i data-lucide="user-round"></i>
+                    </div>
+                    <h4 class="team-name">이정훈</h4>
+                    <span class="team-role">CEO / AI Strategist</span>
+                    <p class="team-desc">AI 도입 전략 설계 및 비즈니스 컨설팅 경력 10년 이상. 기업의 핵심 과제를 파악하고 최적의 AI 솔루션을 설계합니다.</p>
+                    <div class="team-expertise">
+                        <span class="expertise-tag">AI 전략</span>
+                        <span class="expertise-tag">DX 컨설팅</span>
+                        <span class="expertise-tag">비즈니스 설계</span>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i data-lucide="user-round"></i>
+                    </div>
+                    <h4 class="team-name">김서현</h4>
+                    <span class="team-role">CTO / Lead Engineer</span>
+                    <p class="team-desc">GPT, RAG, n8n 기반 자동화 시스템 아키텍처 설계. 복잡한 비즈니스 로직을 안정적인 시스템으로 구현합니다.</p>
+                    <div class="team-expertise">
+                        <span class="expertise-tag">GPT / RAG</span>
+                        <span class="expertise-tag">시스템 아키텍처</span>
+                        <span class="expertise-tag">n8n</span>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i data-lucide="user-round"></i>
+                    </div>
+                    <h4 class="team-name">박민수</h4>
+                    <span class="team-role">Automation Engineer</span>
+                    <p class="team-desc">RPA, API 연동, 업무 프로세스 자동화 전문. 반복 업무를 정밀하게 분석하고 자동화 파이프라인을 구축합니다.</p>
+                    <div class="team-expertise">
+                        <span class="expertise-tag">RPA</span>
+                        <span class="expertise-tag">API 연동</span>
+                        <span class="expertise-tag">프로세스 자동화</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Culture -->
+    <section class="culture-section">
+        <div class="container">
+            <div class="section-header-centered">
+                <h3 class="section-sub-title">How We Work</h3>
+                <h2 class="section-main-title">우리가 일하는 방식</h2>
+            </div>
+
+            <div class="culture-grid">
+                <div class="culture-card">
+                    <div class="culture-icon">
+                        <i data-lucide="messages-square"></i>
+                    </div>
+                    <h4 class="culture-title">투명한 소통</h4>
+                    <p class="culture-desc">고객사와의 모든 진행 과정을 투명하게 공유합니다. 기술적 결정의 이유와 기대 효과를 명확히 전달합니다.</p>
+                </div>
+                <div class="culture-card">
+                    <div class="culture-icon">
+                        <i data-lucide="rocket"></i>
+                    </div>
+                    <h4 class="culture-title">빠른 실행</h4>
+                    <p class="culture-desc">작은 단위로 빠르게 구현하고, 피드백을 반영하여 반복 개선합니다. 완벽보다 속도와 방향이 중요합니다.</p>
+                </div>
+                <div class="culture-card">
+                    <div class="culture-icon">
+                        <i data-lucide="heart-handshake"></i>
+                    </div>
+                    <h4 class="culture-title">고객 중심</h4>
+                    <p class="culture-desc">기술이 아닌 고객의 문제에서 출발합니다. 실질적인 비즈니스 가치를 만드는 것이 우리의 기준입니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="padding: 80px 0; text-align: center;">
+        <div class="container">
+            <div class="section-header-centered">
+                <h3 class="section-sub-title">Join Us</h3>
+                <h2 class="section-main-title">함께할 동료를 찾습니다</h2>
+                <p class="section-description">
+                    AI와 자동화로 비즈니스의 미래를 만들어갈<br>
+                    열정 있는 분들의 지원을 기다립니다.
+                </p>
+            </div>
+            <a href="contact.html" class="cta-button primary-cta">문의하기</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-main">
+                <h2 class="footer-copy">
+                    반복 업무에서 해방될 준비 되셨나요?<br>
+                    지금, <strong>kitt</strong>와 함께 시작하세요.
+                </h2>
+                <a href="mailto:contact@kitt-ai.com" class="footer-cta">무료 상담 신청 <i data-lucide="arrow-right"></i></a>
+            </div>
+            <div class="footer-info">
+                <div class="footer-brand">
+                    <h3>kitt</h3>
+                    <div class="footer-contact-info">
+                        <p>Email: contact@kitt-ai.com</p>
+                        <p>Address: 서울특별시 서초구 언남길 82, 효정빌딩 301호</p>
+                    </div>
+                </div>
+                <div class="footer-sns">
+                    <a href="#" class="sns-link" aria-label="Instagram">
+                        <i data-lucide="instagram"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 kitt. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=23"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

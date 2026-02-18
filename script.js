@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
             navLinks.classList.toggle('active');
         });
 
-        // Close menu when a link is clicked
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
@@ -17,40 +16,78 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Scroll Animations (Fade In)
-    const fadeObserverOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    if (header) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    }
 
-    const fadeElements = document.querySelectorAll(
-        `h1, .hero-sub-copy, .cta-button, 
-        .section-sub-title, .section-main-title, .section-description, 
-        .process-card, .solution-card, .data-item, 
-        .problem-copy, .feature-list li, 
-        .footer-copy, .footer-cta, .footer-brand, .footer-sns, .footer-bottom, 
-        .hero-visual-col, .mockup-header, .mockup-content, .noise-graphic`
-    );
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const item = btn.closest('.faq-item');
+            const isOpen = item.classList.contains('open');
+
+            // Close all other items
+            document.querySelectorAll('.faq-item.open').forEach(openItem => {
+                openItem.classList.remove('open');
+            });
+
+            // Toggle current
+            if (!isOpen) {
+                item.classList.add('open');
+            }
+        });
+    });
+
+    // Scroll Animations (Fade In)
+    const fadeSelectors = [
+        '.section-header-centered',
+        '.solution-card',
+        '.service-card',
+        '.data-item',
+        '.testimonial-card',
+        '.onboarding-step',
+        '.faq-item',
+        '.problem-content',
+        '.hero-center',
+        '.trust-bar .container',
+        '.footer-main',
+        '.footer-info',
+        '.footer-bottom'
+    ];
+
+    const fadeElements = document.querySelectorAll(fadeSelectors.join(', '));
 
     fadeElements.forEach(el => {
         el.classList.add('fade-in-element');
     });
 
-    // Validating Hero Animation: Delay observer start slightly to ensure initial state (opacity: 0) is rendered
-    setTimeout(() => {
-        const fadeObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, fadeObserverOptions);
-
-        fadeElements.forEach(el => {
-            fadeObserver.observe(el);
+    // Add stagger classes to grid children
+    document.querySelectorAll('.service-grid, .solution-grid, .data-dashboard, .testimonial-grid, .onboarding-grid').forEach(grid => {
+        Array.from(grid.children).forEach((child, i) => {
+            child.classList.add('fade-in-element', 'stagger-' + Math.min(i + 1, 4));
         });
-    }, 100);
+    });
+
+    const fadeObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in-element').forEach(el => {
+        fadeObserver.observe(el);
+    });
 
     // Number Counter Animation
     const counterObserver = new IntersectionObserver((entries, observer) => {
@@ -60,21 +97,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const start = parseFloat(target.getAttribute('data-start'));
                 const end = parseFloat(target.getAttribute('data-end'));
                 const suffix = target.getAttribute('data-suffix') || '';
-                const duration = 2000; // ms
+                const duration = 2000;
                 const startTime = performance.now();
 
                 function update(currentTime) {
                     const elapsed = currentTime - startTime;
                     const progress = Math.min(elapsed / duration, 1);
-
-                    // Ease out quart
                     const ease = 1 - Math.pow(1 - progress, 4);
-
                     const current = start + (end - start) * ease;
 
-                    // Format number: integer if whole, 1 decimal if small range/float needed
-                    // For this specific use case, our numbers are integers (40, 0, 4, 35).
-                    // However, let's keep it robust.
                     let formattedNumber = Math.floor(current);
                     if (end % 1 !== 0) {
                         formattedNumber = current.toFixed(1);
@@ -85,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (progress < 1) {
                         requestAnimationFrame(update);
                     } else {
-                        target.textContent = end + suffix; // Ensure final value is exact
+                        target.textContent = end + suffix;
                     }
                 }
 
@@ -99,5 +130,5 @@ document.addEventListener('DOMContentLoaded', () => {
         counterObserver.observe(el);
     });
 
-    console.log('Universe N - Modern Initialized');
+    console.log('kitt - Initialized');
 });
