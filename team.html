@@ -60,20 +60,18 @@
         }
 
         .team-avatar {
-            width: 80px;
-            height: 80px;
+            width: 96px;
+            height: 96px;
             border-radius: 50%;
-            background: rgba(255, 48, 48, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            overflow: hidden;
             margin: 0 auto 20px;
-            color: var(--accent-color);
+            border: 2px solid rgba(255, 48, 48, 0.3);
         }
 
-        .team-avatar i {
-            width: 36px;
-            height: 36px;
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .team-name {
@@ -218,41 +216,43 @@
             <div class="team-grid">
                 <div class="team-card">
                     <div class="team-avatar">
-                        <i data-lucide="user-round"></i>
+                        <img src="avatar-yoo.svg" alt="유승범">
                     </div>
-                    <h4 class="team-name">이정훈</h4>
-                    <span class="team-role">CEO / AI Strategist</span>
-                    <p class="team-desc">AI 도입 전략 설계 및 비즈니스 컨설팅 경력 10년 이상. 기업의 핵심 과제를 파악하고 최적의 AI 솔루션을 설계합니다.</p>
+                    <h4 class="team-name">유승범</h4>
+                    <span class="team-role">CEO / 대표이사</span>
+                    <p class="team-desc">20년 이상의 IT 업계 경력을 바탕으로 기업 전체 경영과 전략을 총괄합니다. 다양한 산업 도메인에서 시스템 구축과 프로젝트 관리를 경험했으며, AI 시대의 비즈니스 혁신을 위한 전략적 방향을 제시합니다. GPT, RAG 등 최신 AI 기술의 비즈니스 적용 가능성을 발굴하고, 기업 맞춤형 AI 솔루션 도입을 이끌고 있습니다.</p>
                     <div class="team-expertise">
-                        <span class="expertise-tag">AI 전략</span>
-                        <span class="expertise-tag">DX 컨설팅</span>
-                        <span class="expertise-tag">비즈니스 설계</span>
+                        <span class="expertise-tag">경영 총괄</span>
+                        <span class="expertise-tag">IT 전략</span>
+                        <span class="expertise-tag">AI 사업화</span>
+                        <span class="expertise-tag">프로젝트 관리</span>
                     </div>
                 </div>
                 <div class="team-card">
                     <div class="team-avatar">
-                        <i data-lucide="user-round"></i>
+                        <img src="avatar-kim.svg" alt="김상훈">
                     </div>
-                    <h4 class="team-name">김서현</h4>
-                    <span class="team-role">CTO / Lead Engineer</span>
-                    <p class="team-desc">GPT, RAG, n8n 기반 자동화 시스템 아키텍처 설계. 복잡한 비즈니스 로직을 안정적인 시스템으로 구현합니다.</p>
+                    <h4 class="team-name">김상훈</h4>
+                    <span class="team-role">CTO / AI 프로젝트 총괄</span>
+                    <p class="team-desc">10년간 커머스 플랫폼 개발과 대규모 시스템 아키텍처를 설계한 경험을 보유하고 있습니다. 현재 GPT, RAG, LangChain 기반의 AI 프로젝트를 리딩하며, n8n과 자동화 파이프라인을 통해 비즈니스 프로세스를 혁신합니다. 기술과 비즈니스의 접점에서 최적의 솔루션을 구현합니다.</p>
                     <div class="team-expertise">
                         <span class="expertise-tag">GPT / RAG</span>
+                        <span class="expertise-tag">풀스택 개발</span>
                         <span class="expertise-tag">시스템 아키텍처</span>
-                        <span class="expertise-tag">n8n</span>
+                        <span class="expertise-tag">n8n 자동화</span>
                     </div>
                 </div>
                 <div class="team-card">
                     <div class="team-avatar">
-                        <i data-lucide="user-round"></i>
+                        <img src="avatar-nam.svg" alt="남희선">
                     </div>
-                    <h4 class="team-name">박민수</h4>
-                    <span class="team-role">Automation Engineer</span>
-                    <p class="team-desc">RPA, API 연동, 업무 프로세스 자동화 전문. 반복 업무를 정밀하게 분석하고 자동화 파이프라인을 구축합니다.</p>
+                    <h4 class="team-name">남희선</h4>
+                    <span class="team-role">Designer / UI·브랜딩 디자인</span>
+                    <p class="team-desc">사용자 경험을 중심으로 UI 디자인과 브랜드 아이덴티티를 설계합니다. 직관적이고 일관된 디자인 시스템을 구축하여 제품의 완성도를 높이며, 기업 브랜딩부터 웹·앱 인터페이스까지 시각적 커뮤니케이션 전반을 담당합니다.</p>
                     <div class="team-expertise">
-                        <span class="expertise-tag">RPA</span>
-                        <span class="expertise-tag">API 연동</span>
-                        <span class="expertise-tag">프로세스 자동화</span>
+                        <span class="expertise-tag">UI/UX 디자인</span>
+                        <span class="expertise-tag">브랜드 디자인</span>
+                        <span class="expertise-tag">디자인 시스템</span>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="58" fill="#1a1a2e" stroke="#ff3030" stroke-width="1.5" opacity="0.6"/>
+  <!-- Body/Blouse -->
+  <path d="M30 105 C30 82, 42 72, 60 70 C78 72, 90 82, 90 105" fill="#2a2a3e"/>
+  <!-- Neckline -->
+  <path d="M48 73 Q60 80, 72 73" fill="none" stroke="#ff3030" stroke-width="1" opacity="0.4"/>
+  <!-- Neck -->
+  <rect x="54" y="62" width="12" height="12" rx="3" fill="#f5dcc0"/>
+  <!-- Face -->
+  <ellipse cx="60" cy="44" rx="21" ry="24" fill="#f5dcc0"/>
+  <!-- Hair - long, designer style -->
+  <path d="M39 42 C39 22, 47 14, 60 13 C73 14, 81 22, 81 42 C81 30, 75 20, 60 18 C45 20, 39 30, 39 42Z" fill="#2a1810"/>
+  <!-- Side hair flowing down -->
+  <path d="M39 42 C37 50, 35 60, 34 72 C36 70, 38 60, 39 50Z" fill="#2a1810"/>
+  <path d="M81 42 C83 50, 85 60, 86 72 C84 70, 82 60, 81 50Z" fill="#2a1810"/>
+  <!-- Bangs -->
+  <path d="M42 34 C44 24, 52 19, 60 18 C56 22, 48 26, 44 35Z" fill="#2a1810"/>
+  <path d="M78 34 C76 24, 68 19, 60 18 C64 22, 72 26, 76 35Z" fill="#2a1810"/>
+  <!-- Front hair strands -->
+  <path d="M39 42 C40 38, 42 32, 46 28 C44 34, 41 38, 39 44Z" fill="#2a1810"/>
+  <path d="M81 42 C80 38, 78 32, 74 28 C76 34, 79 38, 81 44Z" fill="#2a1810"/>
+  <!-- Eyes - friendly, creative -->
+  <ellipse cx="50" cy="44" rx="3" ry="3" fill="#1a1a1a"/>
+  <ellipse cx="70" cy="44" rx="3" ry="3" fill="#1a1a1a"/>
+  <circle cx="51.2" cy="43" r="1" fill="white"/>
+  <circle cx="71.2" cy="43" r="1" fill="white"/>
+  <!-- Eyelashes -->
+  <path d="M46 42 Q48 40, 50 41" stroke="#1a1a1a" stroke-width="0.8" fill="none"/>
+  <path d="M70 41 Q72 40, 74 42" stroke="#1a1a1a" stroke-width="0.8" fill="none"/>
+  <!-- Eyebrows - softer -->
+  <path d="M46 38 Q50 36, 54 38" stroke="#3a2818" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M66 38 Q70 36, 74 38" stroke="#3a2818" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Nose -->
+  <path d="M60 46 L59 52 Q60 53.5, 61 52 Z" fill="#e5c4a6" opacity="0.7"/>
+  <!-- Mouth - friendly smile -->
+  <path d="M53 56 Q60 61, 67 56" stroke="#d48a7a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Lips color hint -->
+  <path d="M55 57 Q60 60, 65 57" fill="#e09080" opacity="0.3"/>
+  <!-- Earrings -->
+  <circle cx="37" cy="52" r="1.5" fill="#ff3030" opacity="0.6"/>
+  <circle cx="83" cy="52" r="1.5" fill="#ff3030" opacity="0.6"/>
+  <!-- Ears -->
+  <ellipse cx="38" cy="46" rx="2.5" ry="4.5" fill="#f0d0b0"/>
+  <ellipse cx="82" cy="46" rx="2.5" ry="4.5" fill="#f0d0b0"/>
+</svg>
