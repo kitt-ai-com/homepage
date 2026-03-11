@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>물류 TMS 구축 제안서 | 운송 관리 시스템</title>
+  <meta name="description" content="물류 운송 관리 시스템(TMS) 구축 제안서 - 데이터 정립 및 핵심 프로세스 디지털화" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap');
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+    @media print {
+      .proposal-no-print { display: none !important; }
+      .proposal-nav { position: relative !important; }
+      section { break-inside: avoid; }
+    }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col bg-[#f8fafc] text-slate-900">
+
+  <!-- ══ Navigation ══ -->
+  <nav class="proposal-nav sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+          <i data-lucide="truck" class="text-white w-5 h-5"></i>
+        </div>
+        <span class="font-bold text-lg tracking-tight">대건종합특송 제안서</span>
+      </div>
+      <div class="hidden lg:flex items-center space-x-6 text-sm font-medium" id="desktopNav">
+        <a href="#hero" class="nav-link text-blue-600 font-semibold border-b-2 border-blue-600 pb-1 transition-colors" data-section="hero">개요</a>
+        <a href="#analysis" class="nav-link text-slate-500 hover:text-blue-600 pb-1 transition-colors" data-section="analysis">현황 분석</a>
+        <a href="#tech" class="nav-link text-slate-500 hover:text-blue-600 pb-1 transition-colors" data-section="tech">기술 스택</a>
+        <a href="#roadmap" class="nav-link text-slate-500 hover:text-blue-600 pb-1 transition-colors" data-section="roadmap">로드맵</a>
+        <a href="#features" class="nav-link text-slate-500 hover:text-blue-600 pb-1 transition-colors" data-section="features">기능 상세</a>
+        <a href="#timeline" class="nav-link text-slate-500 hover:text-blue-600 pb-1 transition-colors" data-section="timeline">타임라인</a>
+        <a href="#pricing" class="nav-link text-slate-500 hover:text-blue-600 pb-1 transition-colors" data-section="pricing">견적</a>
+        <a href="#team" class="nav-link text-slate-500 hover:text-blue-600 pb-1 transition-colors" data-section="team">팀 구성</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="window.print()" class="proposal-no-print bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-800 transition-all flex items-center gap-2">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">PDF 다운로드</span>
+        </button>
+        <button class="lg:hidden p-2 proposal-no-print" id="mobileMenuBtn">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+    <div class="lg:hidden bg-white border-t border-slate-100 px-6 py-4 space-y-2 hidden" id="mobileMenu">
+      <a href="#hero" class="block w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600">개요</a>
+      <a href="#analysis" class="block w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600">현황 분석</a>
+      <a href="#tech" class="block w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600">기술 스택</a>
+      <a href="#roadmap" class="block w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600">로드맵</a>
+      <a href="#features" class="block w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600">기능 상세</a>
+      <a href="#timeline" class="block w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600">타임라인</a>
+      <a href="#pricing" class="block w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600">견적</a>
+      <a href="#team" class="block w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600">팀 구성</a>
+    </div>
+  </nav>
+
+  <div>
+    <!-- ══ Hero ══ -->
+    <section id="hero" class="bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 text-white">
+      <div class="max-w-7xl mx-auto px-6 py-20 md:py-28">
+        <div class="max-w-3xl space-y-6">
+          <div class="inline-flex items-center px-4 py-1.5 bg-blue-500/20 text-blue-300 rounded-full text-sm font-bold backdrop-blur-sm">
+            <i data-lucide="zap" class="w-4 h-4 mr-2"></i> Transportation Management System
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight">
+            대건종합특송<br />
+            <span class="text-blue-400">스마트 배차 관리 시스템</span>
+          </h1>
+          <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">
+            4개 화물 플랫폼을 하나로 통합하고, AI 챗봇과 자동 견적서 발행으로<br />
+            대형차 배차 업무를 완전 자동화합니다.
+          </p>
+          <div class="flex flex-wrap gap-4 pt-4 proposal-no-print">
+            <button onclick="window.print()" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-blue-900/30 hover:bg-blue-500 transition-all flex items-center">
+              <i data-lucide="download" class="w-5 h-5 mr-2"></i> 제안서 PDF 다운로드
+            </button>
+            <a href="#pricing" class="border border-slate-500 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all flex items-center">
+              상세 견적 보기 <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
+            </a>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+          <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-white mb-2">3개월</div>
+            <div class="text-sm font-semibold text-blue-300">프로젝트 기간</div>
+            <div class="text-xs text-slate-400 mt-1">12주 완성형 시스템</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-white mb-2">70%</div>
+            <div class="text-sm font-semibold text-blue-300">업무 시간 절감</div>
+            <div class="text-xs text-slate-400 mt-1">플랫폼 통합 효과</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-white mb-2">87% &darr;</div>
+            <div class="text-sm font-semibold text-blue-300">견적서 작성</div>
+            <div class="text-xs text-slate-400 mt-1">자동화로 15분&rarr;2분</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 현황 분석 ══ -->
+    <section id="analysis" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-red-50 text-red-600 text-sm font-bold mb-4">
+            <i data-lucide="alert-triangle" class="w-4 h-4 mr-2"></i> 현황 분석
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">현재 업무 환경의 구조적 문제</h2>
+          <p class="text-slate-500 text-lg">데이터 파편화와 수기 프로세스로 인한 월 750~1,600만 원의 손실이 발생하고 있습니다.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <!-- Pain Point Cards -->
+          <div class="bg-white p-6 rounded-2xl border-l-4 border-l-red-500 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-bold text-lg text-slate-900">권한 관리</h3>
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-red-50 text-red-600">심각</span>
+            </div>
+            <p class="text-sm text-slate-400 mb-2">현재: 체계적 관리 부재</p>
+            <p class="text-sm text-slate-600 mb-3">직원별 역할과 권한이 관리되지 않음</p>
+            <div class="text-sm font-semibold text-red-600">손실: 보안 위험</div>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border-l-4 border-l-red-500 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-bold text-lg text-slate-900">고객사 정보</h3>
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-red-50 text-red-600">심각</span>
+            </div>
+            <p class="text-sm text-slate-400 mb-2">현재: 엑셀, 수첩 분산</p>
+            <p class="text-sm text-slate-600 mb-3">고객사 정보가 여러 곳에 흩어져 관리 어려움</p>
+            <div class="text-sm font-semibold text-red-600">손실: 정보 접근 시간</div>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border-l-4 border-l-red-500 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-bold text-lg text-slate-900">4개 플랫폼 조회</h3>
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-red-50 text-red-600">심각</span>
+            </div>
+            <p class="text-sm text-slate-400 mb-2">현재: 개별 사이트 접속</p>
+            <p class="text-sm text-slate-600 mb-3">동일 정보를 4번 입력, 비교 시간 소모</p>
+            <div class="text-sm font-semibold text-red-600">손실: 20분/건 소요</div>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border-l-4 border-l-amber-400 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-bold text-lg text-slate-900">업무 메뉴얼</h3>
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-600">주의</span>
+            </div>
+            <p class="text-sm text-slate-400 mb-2">현재: 문서 찾아보기</p>
+            <p class="text-sm text-slate-600 mb-3">부서별 메뉴얼 확인에 시간 지연</p>
+            <div class="text-sm font-semibold text-red-600">손실: 10분/회</div>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border-l-4 border-l-red-500 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-bold text-lg text-slate-900">견적서 작성</h3>
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-red-50 text-red-600">심각</span>
+            </div>
+            <p class="text-sm text-slate-400 mb-2">현재: 수동 작성</p>
+            <p class="text-sm text-slate-600 mb-3">고객사별 견적서를 일일이 작성</p>
+            <div class="text-sm font-semibold text-red-600">손실: 15분/건</div>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border-l-4 border-l-amber-400 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-bold text-lg text-slate-900">견적 요청 접수</h3>
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-600">주의</span>
+            </div>
+            <p class="text-sm text-slate-400 mb-2">현재: 카카오톡 파일</p>
+            <p class="text-sm text-slate-600 mb-3">견적 요청 파일이 분산되어 관리 불가</p>
+            <div class="text-sm font-semibold text-red-600">손실: 업무 효율 저하</div>
+          </div>
+        </div>
+
+        <!-- Monthly Loss Summary -->
+        <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl p-8 border border-red-100">
+          <h3 class="text-xl font-bold text-red-800 mb-4">월간 추정 손실 요약</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white/80 rounded-xl p-4">
+              <div class="text-sm text-slate-600 mb-1">플랫폼 조회 시간 낭비</div>
+              <div class="font-bold text-red-700">20분/건 &times; 일 10건</div>
+            </div>
+            <div class="bg-white/80 rounded-xl p-4">
+              <div class="text-sm text-slate-600 mb-1">견적서 수동 작성 시간</div>
+              <div class="font-bold text-red-700">15분/건 &times; 일 5건</div>
+            </div>
+            <div class="bg-white/80 rounded-xl p-4">
+              <div class="text-sm text-slate-600 mb-1">고객사 정보 검색 시간</div>
+              <div class="font-bold text-red-700">5분/건 &times; 일 20건</div>
+            </div>
+            <div class="bg-white/80 rounded-xl p-4">
+              <div class="text-sm text-slate-600 mb-1">메뉴얼 확인 시간</div>
+              <div class="font-bold text-red-700">10분/회 &times; 일 5회</div>
+            </div>
+          </div>
+          <div class="flex items-center justify-center gap-2 text-2xl font-black text-red-700">
+            <i data-lucide="target" class="w-6 h-6"></i>
+            월 합계: 600~1,200만 원
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 기술 스택 ══ -->
+    <section id="tech" class="py-20">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm font-bold mb-4">
+            <i data-lucide="layers" class="w-4 h-4 mr-2"></i> Technology Stack
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">검증된 기술 스택</h2>
+          <p class="text-slate-500 text-lg">확장 가능하고 유지보수성 높은 모던 웹 기술로 구축합니다.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6">
+              <i data-lucide="monitor" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-4">Frontend</h3>
+            <div class="space-y-3">
+              <div><div class="font-semibold text-sm text-slate-900">Next.js / React</div><div class="text-xs text-slate-400">서버 사이드 렌더링 + SPA</div></div>
+              <div><div class="font-semibold text-sm text-slate-900">TypeScript</div><div class="text-xs text-slate-400">타입 안정성 보장</div></div>
+              <div><div class="font-semibold text-sm text-slate-900">Tailwind CSS</div><div class="text-xs text-slate-400">유틸리티 기반 스타일링</div></div>
+            </div>
+          </div>
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6">
+              <i data-lucide="server" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-4">Backend</h3>
+            <div class="space-y-3">
+              <div><div class="font-semibold text-sm text-slate-900">Node.js / NestJS</div><div class="text-xs text-slate-400">모듈형 API 서버</div></div>
+              <div><div class="font-semibold text-sm text-slate-900">REST API</div><div class="text-xs text-slate-400">표준 HTTP 인터페이스</div></div>
+              <div><div class="font-semibold text-sm text-slate-900">JWT Auth</div><div class="text-xs text-slate-400">역할 기반 인증/인가</div></div>
+            </div>
+          </div>
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6">
+              <i data-lucide="database" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-4">Database</h3>
+            <div class="space-y-3">
+              <div><div class="font-semibold text-sm text-slate-900">PostgreSQL</div><div class="text-xs text-slate-400">관계형 데이터 저장소</div></div>
+              <div><div class="font-semibold text-sm text-slate-900">Redis</div><div class="text-xs text-slate-400">캐싱 및 세션 관리</div></div>
+              <div><div class="font-semibold text-sm text-slate-900">Prisma ORM</div><div class="text-xs text-slate-400">타입 안전 DB 쿼리</div></div>
+            </div>
+          </div>
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6">
+              <i data-lucide="cloud" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-4">Infrastructure</h3>
+            <div class="space-y-3">
+              <div><div class="font-semibold text-sm text-slate-900">AWS / NCP</div><div class="text-xs text-slate-400">클라우드 인프라</div></div>
+              <div><div class="font-semibold text-sm text-slate-900">Docker</div><div class="text-xs text-slate-400">컨테이너 배포 환경</div></div>
+              <div><div class="font-semibold text-sm text-slate-900">GitHub Actions</div><div class="text-xs text-slate-400">CI/CD 자동화</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 로드맵 ══ -->
+    <section id="roadmap" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <h2 class="text-3xl md:text-4xl font-black mb-4">2단계 접근 전략</h2>
+          <p class="text-slate-500 text-lg">리스크를 최소화하면서 확실한 ROI를 보장하는 단계별 구축 전략</p>
+        </div>
+
+        <!-- Phase Toggle -->
+        <div class="flex justify-center mb-12">
+          <div class="inline-flex bg-slate-100 rounded-xl p-1">
+            <button id="phase1Btn" onclick="setPhase(1)" class="px-6 py-3 rounded-lg text-sm font-bold transition-all bg-blue-600 text-white shadow-md">
+              1차 사업 — 데이터 정립 &amp; 디지털화
+            </button>
+            <button id="phase2Btn" onclick="setPhase(2)" class="px-6 py-3 rounded-lg text-sm font-bold transition-all text-slate-500 hover:text-slate-700">
+              2차 사업 — AI 배차 &amp; 관제 고도화
+            </button>
+          </div>
+        </div>
+
+        <!-- Phase Summary -->
+        <div id="phaseSummary" class="rounded-2xl p-8 mb-8 bg-blue-50 border border-blue-100">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+              <h3 id="phaseTitle" class="text-xl font-bold mb-1">1차 사업: 데이터 정립 &amp; 핵심 프로세스 디지털화</h3>
+              <p id="phaseSub" class="text-sm text-slate-600">표준화 · 자동화 · 신뢰성 — DX를 위한 Stable Base 구축</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module Cards -->
+        <div id="moduleCards" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+
+        <!-- Common Module (Phase 1) -->
+        <div id="commonModule" class="mt-6 bg-slate-50 rounded-2xl p-8 border border-slate-100">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-lg">공통 기능 및 인프라</h3>
+            <span class="text-lg font-black text-slate-600">500만 원</span>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>요구사항 분석 및 DB 설계</div>
+            <div class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>UI/UX 화면 설계 (Figma)</div>
+            <div class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>서버 인프라 세팅</div>
+            <div class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>CI/CD 파이프라인 구축</div>
+            <div class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>사용자 교육 및 안정화</div>
+            <div class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>운영 매뉴얼 제작</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 기능 상세 ══ -->
+    <section id="features" class="py-20">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm font-bold mb-4">
+            <i data-lucide="package" class="w-4 h-4 mr-2"></i> Feature Details
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">핵심 기능 상세</h2>
+          <p class="text-slate-500 text-lg">1차 사업 4개 모듈 + 2차 사업 5개 모듈의 주요 기능을 확인하세요.</p>
+        </div>
+
+        <!-- Phase 1 Features -->
+        <div class="mb-12">
+          <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+            <div class="w-3 h-3 rounded-full bg-blue-600"></div> 1차 사업 모듈
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center"><i data-lucide="users" class="w-5 h-5"></i></div>
+                <h4 class="font-bold">사용자 &amp; 고객사 관리</h4>
+              </div>
+              <ul class="space-y-1.5">
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>계정/권한 관리 (RBAC)</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>고객사 통합 CRM</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>부서별 메뉴 접근 제어</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>감사 로그 시스템</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center"><i data-lucide="package" class="w-5 h-5"></i></div>
+                <h4 class="font-bold">파일 업로드 시스템</h4>
+              </div>
+              <ul class="space-y-1.5">
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>카카오톡 견적 파일 업로드</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>자동 분류 및 저장</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>파일 검색 및 이력 관리</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>처리 상태 관리</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center"><i data-lucide="brain-circuit" class="w-5 h-5"></i></div>
+                <h4 class="font-bold">AI 챗봇 메뉴얼 시스템</h4>
+              </div>
+              <ul class="space-y-1.5">
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>ChatGPT/Gemini API 연동</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>부서별 메뉴얼 RAG 구축</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>실시간 질의응답</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>답변 유용성 평가</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center"><i data-lucide="layers" class="w-5 h-5"></i></div>
+                <h4 class="font-bold">4개 플랫폼 API 통합</h4>
+              </div>
+              <ul class="space-y-1.5">
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>전국24시콜화물·화물맨·원콜·인성데이타</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>통합 입력 인터페이스</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>실시간 견적 비교</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>최적 견적 자동 추천</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 2 Features -->
+        <div>
+          <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+            <div class="w-3 h-3 rounded-full bg-emerald-600"></div> 2차 사업 모듈
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center"><i data-lucide="file-text" class="w-5 h-5"></i></div>
+                <h4 class="font-bold">표준 견적서 자동 작성</h4>
+              </div>
+              <ul class="space-y-1.5">
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>템플릿 기반 자동 생성</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>고객사 정보 자동 연동</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>PDF 생성 및 이메일 발송</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>견적서 이력 관리</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center"><i data-lucide="clipboard-list" class="w-5 h-5"></i></div>
+                <h4 class="font-bold">제품/판매 관리 시스템</h4>
+              </div>
+              <ul class="space-y-1.5">
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>멀티 LLM API 통합</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>제품 카탈로그 및 재고 관리</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>판매 주문 처리 자동화</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>AI 기반 판매 예측</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center"><i data-lucide="map-pin" class="w-5 h-5"></i></div>
+                <h4 class="font-bold">AI 차량 전용 내비게이션</h4>
+              </div>
+              <ul class="space-y-1.5">
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>대형차량 특화 경로 최적화</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>실시간 교통 상황 반영</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>AI 기반 최적 경로 추천</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>배차 시간 예측 및 알림</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center"><i data-lucide="truck" class="w-5 h-5"></i></div>
+                <h4 class="font-bold">차량 제원 및 정보 관리</h4>
+              </div>
+              <ul class="space-y-1.5">
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>차량별 제원 데이터베이스</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>차량 가용성 실시간 관리</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>정비 이력 추적</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>운행 일지 자동 기록</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center"><i data-lucide="smartphone" class="w-5 h-5"></i></div>
+                <h4 class="font-bold">모바일 앱 개발</h4>
+              </div>
+              <ul class="space-y-1.5">
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>iOS/Android 네이티브 앱</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>실시간 푸시 알림</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>모바일 견적서 발행</li>
+                <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400 flex-shrink-0"></i>드라이버 앱 연동</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 타임라인 ══ -->
+    <section id="timeline" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm font-bold mb-4">
+            <i data-lucide="clock" class="w-4 h-4 mr-2"></i> Project Timeline
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">3개월 프로젝트 타임라인</h2>
+          <p class="text-slate-500 text-lg">8개 마일스톤으로 구성된 체계적인 프로젝트 수행 계획</p>
+        </div>
+
+        <!-- Horizontal Stepper -->
+        <div class="mb-12 overflow-x-auto pb-4">
+          <div class="flex items-center min-w-[800px] px-4" id="stepper"></div>
+        </div>
+
+        <!-- Active Milestone Detail -->
+        <div id="milestoneDetail" class="bg-gradient-to-br from-blue-50 to-slate-50 rounded-2xl p-8 border border-blue-100"></div>
+
+        <!-- Gantt Chart -->
+        <div class="mt-8 space-y-2" id="ganttChart"></div>
+      </div>
+    </section>
+
+    <!-- ══ 견적 ══ -->
+    <section id="pricing" class="py-20">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm font-bold mb-4">
+            <i data-lucide="bar-chart-3" class="w-4 h-4 mr-2"></i> Pricing &amp; ROI
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">투자 견적 &amp; 기대 효과</h2>
+          <p class="text-slate-500 text-lg">명확한 견적과 검증된 ROI로 투자 가치를 확인하세요.</p>
+        </div>
+
+        <!-- Pricing Table -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-8">
+          <table class="w-full">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200">
+                <th class="text-left px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">No.</th>
+                <th class="text-left px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">항목</th>
+                <th class="text-left px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider hidden md:table-cell">주요 기능</th>
+                <th class="text-right px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">금액</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr class="hover:bg-slate-50/50">
+                <td class="px-6 py-5 text-sm font-bold text-slate-400">1</td>
+                <td class="px-6 py-5 font-bold text-sm">사용자 &amp; 고객사 관리</td>
+                <td class="px-6 py-5 hidden md:table-cell">
+                  <ul class="space-y-1">
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>계정/권한 관리 (RBAC)</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>고객사 통합 CRM</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>부서별 메뉴 접근 제어</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>감사 로그 시스템</li>
+                  </ul>
+                </td>
+                <td class="px-6 py-5 text-right font-bold text-sm whitespace-nowrap">800만 원</td>
+              </tr>
+              <tr class="hover:bg-slate-50/50">
+                <td class="px-6 py-5 text-sm font-bold text-slate-400">2</td>
+                <td class="px-6 py-5 font-bold text-sm">파일 업로드 시스템</td>
+                <td class="px-6 py-5 hidden md:table-cell">
+                  <ul class="space-y-1">
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>카카오톡 견적 파일 업로드</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>자동 분류 및 저장</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>파일 검색 및 이력 관리</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>처리 상태 관리</li>
+                  </ul>
+                </td>
+                <td class="px-6 py-5 text-right font-bold text-sm whitespace-nowrap">500만 원</td>
+              </tr>
+              <tr class="hover:bg-slate-50/50">
+                <td class="px-6 py-5 text-sm font-bold text-slate-400">3</td>
+                <td class="px-6 py-5 font-bold text-sm">AI 챗봇 메뉴얼 시스템</td>
+                <td class="px-6 py-5 hidden md:table-cell">
+                  <ul class="space-y-1">
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>ChatGPT/Gemini API 연동</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>부서별 메뉴얼 RAG 구축</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>실시간 질의응답</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>답변 유용성 평가</li>
+                  </ul>
+                </td>
+                <td class="px-6 py-5 text-right font-bold text-sm whitespace-nowrap">700만 원</td>
+              </tr>
+              <tr class="hover:bg-slate-50/50">
+                <td class="px-6 py-5 text-sm font-bold text-slate-400">4</td>
+                <td class="px-6 py-5 font-bold text-sm">4개 플랫폼 API 통합</td>
+                <td class="px-6 py-5 hidden md:table-cell">
+                  <ul class="space-y-1">
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>전국24시콜화물·화물맨·원콜·인성데이타</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>통합 입력 인터페이스</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>실시간 견적 비교</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>최적 견적 자동 추천</li>
+                  </ul>
+                </td>
+                <td class="px-6 py-5 text-right font-bold text-sm whitespace-nowrap">800만 원</td>
+              </tr>
+              <tr class="hover:bg-slate-50/50">
+                <td class="px-6 py-5 text-sm font-bold text-slate-400">5</td>
+                <td class="px-6 py-5 font-bold text-sm">공통 기능 및 인프라</td>
+                <td class="px-6 py-5 hidden md:table-cell">
+                  <ul class="space-y-1">
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>요구사항 분석 및 DB 설계</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>UI/UX 화면 설계 (Figma)</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>서버 인프라 세팅</li>
+                    <li class="flex items-center gap-1.5 text-xs text-slate-500"><i data-lucide="check-circle-2" class="w-3 h-3 text-blue-400 flex-shrink-0"></i>CI/CD 파이프라인 구축</li>
+                  </ul>
+                </td>
+                <td class="px-6 py-5 text-right font-bold text-sm whitespace-nowrap">500만 원</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="border-t-2 border-slate-200 bg-slate-50">
+                <td colspan="3" class="px-6 py-4 text-right font-bold text-sm">개발비 합계</td>
+                <td class="px-6 py-4 text-right font-black text-lg">&yen;33,000,000</td>
+              </tr>
+              <tr class="bg-slate-50">
+                <td colspan="3" class="px-6 py-3 text-right text-sm text-slate-500">부가가치세 (10%)</td>
+                <td class="px-6 py-3 text-right text-sm text-slate-500">&yen;3,300,000</td>
+              </tr>
+              <tr class="bg-blue-50 border-t-2 border-blue-200">
+                <td colspan="3" class="px-6 py-5 text-right font-black text-lg text-blue-900">총 견적 금액 (VAT 포함)</td>
+                <td class="px-6 py-5 text-right font-black text-2xl text-blue-600">&yen;36,300,000</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <!-- Payment Terms -->
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 mb-8">
+          <h3 class="text-xl font-bold mb-6">대금 지불 조건</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl p-6 text-center">
+              <div class="text-4xl font-black mb-2">40%</div>
+              <div class="font-bold text-sm mb-1">1차 (계약금)</div>
+              <div class="text-xs text-blue-200 mb-3">계약 체결 시</div>
+              <div class="bg-white/20 rounded-lg px-3 py-2 text-sm font-bold">&yen;13,200,000</div>
+            </div>
+            <div class="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl p-6 text-center">
+              <div class="text-4xl font-black mb-2">40%</div>
+              <div class="font-bold text-sm mb-1">2차 (중도금)</div>
+              <div class="text-xs text-blue-200 mb-3">개발 50% 완료</div>
+              <div class="bg-white/20 rounded-lg px-3 py-2 text-sm font-bold">&yen;13,200,000</div>
+            </div>
+            <div class="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl p-6 text-center">
+              <div class="text-4xl font-black mb-2">20%</div>
+              <div class="font-bold text-sm mb-1">3차 (잔금)</div>
+              <div class="text-xs text-blue-200 mb-3">최종 납품 완료</div>
+              <div class="bg-white/20 rounded-lg px-3 py-2 text-sm font-bold">&yen;6,600,000</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROI -->
+        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 rounded-2xl p-8 md:p-12 text-white">
+          <h3 class="text-2xl font-black mb-8 text-center">투자 대비 기대효과 (ROI)</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="text-center">
+              <div class="text-5xl font-black text-blue-400 mb-2">274%</div>
+              <div class="text-sm text-slate-300">3년 누적 ROI</div>
+            </div>
+            <div class="text-center">
+              <div class="text-5xl font-black text-emerald-400 mb-2">~4개월</div>
+              <div class="text-sm text-slate-300">투자 회수 기간</div>
+            </div>
+            <div class="text-center">
+              <div class="text-5xl font-black text-amber-400 mb-2">&yen;12,000만</div>
+              <div class="text-sm text-slate-300">연간 비용 절감</div>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-slate-300">업무 시간 70% 절감</span>
+                <span class="text-white font-semibold">연 3,500만 원</span>
+              </div>
+              <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-500 rounded-full" style="width:29%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-slate-300">처리량 200% 증가 매출</span>
+                <span class="text-white font-semibold">연 8,000만 원</span>
+              </div>
+              <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-500 rounded-full" style="width:67%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-slate-300">견적서 외주 비용 절감</span>
+                <span class="text-white font-semibold">연 500만 원</span>
+              </div>
+              <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-500 rounded-full" style="width:4%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 팀 구성 ══ -->
+    <section id="team" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm font-bold mb-4">
+            <i data-lucide="users" class="w-4 h-4 mr-2"></i> Team &amp; Support
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">소수정예 전담팀 &amp; 유지보수 계획</h2>
+          <p class="text-slate-500 text-lg">멀티 역할 전문가로 구성된 전담팀이 기획부터 운영까지 책임집니다.</p>
+        </div>
+
+        <!-- Team Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-blue-200 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="users" class="w-6 h-6"></i>
+            </div>
+            <h4 class="font-bold text-lg mb-2">PM &amp; 풀스택 리드</h4>
+            <p class="text-sm text-slate-500 mb-5">프로젝트 기획부터 개발 총괄까지 전 과정을 책임지는 핵심 리더</p>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 flex-shrink-0 text-blue-600"></i>프로젝트 총괄 관리 &amp; 일정 운영</li>
+              <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 flex-shrink-0 text-blue-600"></i>시스템 아키텍처 설계</li>
+              <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 flex-shrink-0 text-blue-600"></i>고객 커뮤니케이션 &amp; 요구사항 관리</li>
+              <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 flex-shrink-0 text-blue-600"></i>풀스택 개발 리드 &amp; 코드 리뷰</li>
+            </ul>
+          </div>
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-violet-200 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-violet-50 text-violet-600 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="users" class="w-6 h-6"></i>
+            </div>
+            <h4 class="font-bold text-lg mb-2">Frontend &amp; UI/UX 엔지니어</h4>
+            <p class="text-sm text-slate-500 mb-5">사용자 경험 설계부터 프론트엔드 구현까지 인터페이스 전문가</p>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 flex-shrink-0 text-violet-600"></i>React / Next.js 화면 개발</li>
+              <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 flex-shrink-0 text-violet-600"></i>반응형 웹 UI &amp; 디자인 시스템 구축</li>
+              <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 flex-shrink-0 text-violet-600"></i>UI/UX 설계 (Figma)</li>
+              <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 flex-shrink-0 text-violet-600"></i>API 연동 &amp; 상태 관리</li>
+            </ul>
+          </div>
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-emerald-200 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="users" class="w-6 h-6"></i>
+            </div>
+            <h4 class="font-bold text-lg mb-2">Backend &amp; Infrastructure 엔지니어</h4>
+            <p class="text-sm text-slate-500 mb-5">서버 아키텍처부터 인프라 운영까지 시스템 전반을 관리하는 기술 전문가</p>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 flex-shrink-0 text-emerald-600"></i>API 서버 개발 &amp; DB 설계</li>
+              <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 flex-shrink-0 text-emerald-600"></i>인증/인가 &amp; 보안 시스템</li>
+              <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 flex-shrink-0 text-emerald-600"></i>클라우드 인프라 &amp; CI/CD 구축</li>
+              <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 flex-shrink-0 text-emerald-600"></i>QA 자동화 &amp; 성능 최적화</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Team Advantages -->
+        <div class="bg-gradient-to-r from-blue-50 to-slate-50 rounded-2xl p-8 border border-blue-100 mb-16">
+          <h3 class="text-lg font-bold mb-1">전담팀 운영 방식의 강점</h3>
+          <p class="text-sm text-slate-500 mb-6">각 멤버가 복수 도메인을 커버하는 크로스펑셔널 구조로, 대형 팀 대비 높은 효율을 발휘합니다.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white rounded-xl p-5">
+              <h4 class="font-bold text-sm mb-2 text-blue-700">직접 소통</h4>
+              <p class="text-xs text-slate-500 leading-relaxed">중간 전달 과정 없이 고객과 개발자가 직접 소통하여 요구사항을 정확히 반영합니다.</p>
+            </div>
+            <div class="bg-white rounded-xl p-5">
+              <h4 class="font-bold text-sm mb-2 text-blue-700">높은 몰입도</h4>
+              <p class="text-xs text-slate-500 leading-relaxed">전담 인력이 프로젝트에 100% 집중하여 품질과 속도를 동시에 보장합니다.</p>
+            </div>
+            <div class="bg-white rounded-xl p-5">
+              <h4 class="font-bold text-sm mb-2 text-blue-700">빠른 의사결정</h4>
+              <p class="text-xs text-slate-500 leading-relaxed">의사결정 단계를 최소화하여 변경 요청에 당일 내 즉각 대응합니다.</p>
+            </div>
+            <div class="bg-white rounded-xl p-5">
+              <h4 class="font-bold text-sm mb-2 text-blue-700">일관된 품질</h4>
+              <p class="text-xs text-slate-500 leading-relaxed">소수 전문가가 전체 코드를 직접 작성하여 아키텍처 일관성과 완성도를 유지합니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agile -->
+        <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 mb-16">
+          <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+            <i data-lucide="circle-dot" class="w-5 h-5 text-blue-600"></i> 애자일(Agile) 개발 방법론
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-white rounded-xl p-5"><h4 class="font-bold text-sm mb-2">2주 스프린트</h4><p class="text-xs text-slate-500 leading-relaxed">격주 단위로 기능을 계획하고 개발·검증합니다.</p></div>
+            <div class="bg-white rounded-xl p-5"><h4 class="font-bold text-sm mb-2">월간 진행 보고</h4><p class="text-xs text-slate-500 leading-relaxed">매월 진행 현황과 이슈를 정리하여 고객에게 공유합니다.</p></div>
+            <div class="bg-white rounded-xl p-5"><h4 class="font-bold text-sm mb-2">스프린트 리뷰</h4><p class="text-xs text-slate-500 leading-relaxed">매 스프린트 종료 시 고객에게 결과물을 시연합니다.</p></div>
+            <div class="bg-white rounded-xl p-5"><h4 class="font-bold text-sm mb-2">회고 &amp; 개선</h4><p class="text-xs text-slate-500 leading-relaxed">프로세스를 지속적으로 개선하여 품질을 높입니다.</p></div>
+          </div>
+        </div>
+
+        <!-- Maintenance -->
+        <div>
+          <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+            <i data-lucide="shield" class="w-5 h-5 text-blue-600"></i> 유지보수 서비스
+          </h3>
+          <p class="text-sm text-slate-600 mb-6 flex items-center gap-2">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-green-600"></i> 납품 후 3개월 무상 유지보수
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            <div class="bg-white rounded-2xl p-8 shadow-sm border-2 border-slate-100 hover:shadow-md transition-shadow">
+              <h4 class="text-xl font-bold mb-2">Basic</h4>
+              <div class="text-2xl font-black text-blue-600 mb-6">월 30만 원</div>
+              <ul class="space-y-2">
+                <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0"></i>긴급 버그 패치</li>
+                <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0"></i>이메일 기술 지원</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-2xl p-8 shadow-sm border-2 border-blue-500 hover:shadow-md transition-shadow relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">추천</div>
+              <h4 class="text-xl font-bold mb-2">Standard</h4>
+              <div class="text-2xl font-black text-blue-600 mb-6">월 50만 원</div>
+              <ul class="space-y-2">
+                <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0"></i>Basic 전체 포함</li>
+                <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0"></i>기능 소규모 개선 (월 8h)</li>
+                <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0"></i>전화/메신저 기술 지원</li>
+                <li class="flex items-start gap-2 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0"></i>성능 최적화 및 보안 점검 (패치 등)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Costs -->
+        <div class="mt-12 pt-8 border-t border-slate-200">
+          <div class="bg-amber-50 border border-amber-200 rounded-xl p-6 max-w-3xl mx-auto">
+            <h4 class="font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-600"></i> 별도 비용 안내
+            </h4>
+            <div class="space-y-3">
+              <div class="flex items-start gap-3">
+                <div class="w-1.5 h-1.5 rounded-full bg-amber-600 mt-2 flex-shrink-0"></div>
+                <div class="text-sm"><span class="font-semibold text-slate-900">서버 호스팅 비용</span><span class="text-slate-600"> - 실사용량 기준 월 청구 (AWS/GCP 등)</span></div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-1.5 h-1.5 rounded-full bg-amber-600 mt-2 flex-shrink-0"></div>
+                <div class="text-sm"><span class="font-semibold text-slate-900">AI API 사용 비용</span><span class="text-slate-600"> - ChatGPT, Gemini, Claude API 실사용량 기준 청구</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ Footer ══ -->
+    <footer class="bg-slate-900 text-white py-20">
+      <div class="max-w-7xl mx-auto px-6 text-center space-y-8">
+        <div class="space-y-4">
+          <h2 class="text-3xl md:text-4xl font-black">디지털 전환, 지금 시작하세요</h2>
+          <p class="text-slate-400 max-w-xl mx-auto text-lg">
+            데이터 기반의 스마트 물류 시스템으로 운영 효율을 극대화하고<br />
+            매월 750~1,600만 원의 비용 절감을 실현하세요.
+          </p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-4 pt-4 proposal-no-print">
+          <button onclick="window.print()" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-500 transition-all flex items-center gap-2">
+            <i data-lucide="download" class="w-5 h-5"></i> 제안서 PDF 다운로드
+          </button>
+          <a href="#hero" class="border border-slate-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all flex items-center gap-2">
+            <i data-lucide="arrow-right" class="w-5 h-5"></i> 맨 위로 이동
+          </a>
+        </div>
+        <div class="flex flex-wrap justify-center gap-12 text-sm pt-12 border-t border-slate-800">
+          <div class="flex items-center gap-2 text-slate-400">
+            <i data-lucide="mail" class="w-4 h-4"></i> contact@kitt.ai.kr
+          </div>
+          <div class="flex items-center gap-2 text-slate-400">
+            <i data-lucide="external-link" class="w-4 h-4"></i> www.kitt.ai.kr
+          </div>
+        </div>
+        <div class="pt-8 text-xs text-slate-600">
+          &copy; 2026 kitt | Always On. Always Thinking. All rights reserved. 물류운송관리시스템(TMS)구축 제안서
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // ─── Data ───
+    const PHASE1_MODULES = [
+      { id: "user-crm", name: "사용자 & 고객사 관리", price: 8000000, icon: "users",
+        features: ["계정/권한 관리 (RBAC)", "고객사 통합 CRM", "부서별 메뉴 접근 제어", "감사 로그 시스템"] },
+      { id: "file-upload", name: "파일 업로드 시스템", price: 5000000, icon: "package",
+        features: ["카카오톡 견적 파일 업로드", "자동 분류 및 저장", "파일 검색 및 이력 관리", "처리 상태 관리"] },
+      { id: "ai-chatbot", name: "AI 챗봇 메뉴얼 시스템", price: 7000000, icon: "brain-circuit",
+        features: ["ChatGPT/Gemini API 연동", "부서별 메뉴얼 RAG 구축", "실시간 질의응답", "답변 유용성 평가"] },
+      { id: "platform-integration", name: "4개 플랫폼 API 통합", price: 8000000, icon: "layers",
+        features: ["전국24시콜화물·화물맨·원콜·인성데이타", "통합 입력 인터페이스", "실시간 견적 비교", "최적 견적 자동 추천"] },
+    ];
+
+    const PHASE2_MODULES = [
+      { id: "auto-quotation", name: "표준 견적서 자동 작성", price: 2000000, icon: "file-text",
+        features: ["템플릿 기반 자동 생성", "고객사 정보 자동 연동", "PDF 생성 및 이메일 발송", "견적서 이력 관리"] },
+      { id: "product-sales", name: "제품/판매 관리 시스템", price: 12000000, icon: "clipboard-list",
+        features: ["멀티 LLM API 통합", "제품 카탈로그 및 재고 관리", "판매 주문 처리 자동화", "AI 기반 판매 예측"] },
+      { id: "ai-navigation", name: "AI 차량 전용 내비게이션", price: 15000000, icon: "map-pin",
+        features: ["대형차량 특화 경로 최적화", "실시간 교통 상황 반영", "AI 기반 최적 경로 추천", "배차 시간 예측 및 알림"] },
+      { id: "vehicle-db", name: "차량 제원 및 정보 관리", price: 8000000, icon: "truck",
+        features: ["차량별 제원 데이터베이스", "차량 가용성 실시간 관리", "정비 이력 추적", "운행 일지 자동 기록"] },
+      { id: "mobile-app", name: "모바일 앱 개발", price: 10000000, icon: "smartphone",
+        features: ["iOS/Android 네이티브 앱", "실시간 푸시 알림", "모바일 견적서 발행", "드라이버 앱 연동"] },
+    ];
+
+    const MILESTONES = [
+      { id: "M1", week: "1~2주차", title: "킥오프 & 요구사항", tasks: ["프로젝트 킥오프 미팅", "업무 프로세스 분석", "요구사항 확정", "WBS 수립"] },
+      { id: "M2", week: "2~3주차", title: "설계 완료", tasks: ["ERD / DB 스키마 설계", "API 명세서 작성", "UI/UX 화면 설계 (Figma)", "개발 환경 구축"] },
+      { id: "M3", week: "3~5주차", title: "마스터 데이터 개발", tasks: ["거래처 관리 CRUD", "기사/차량 DB 구현", "상하차지 거점 관리", "통합 검색 필터링"] },
+      { id: "M4", week: "5~6주차", title: "오더 관리 개발", tasks: ["오더 등록 폼 구현", "엑셀 업로드 파싱/검증", "오더 목록 & 필터링", "대시보드 KPI 위젯"] },
+      { id: "M5", week: "6~8주차", title: "배차/운송장 개발", tasks: ["배차 등록/수정 기능", "기사 배정 매칭 로직", "디지털 운송장 자동 발행", "PDF 출력 기능"] },
+      { id: "M6", week: "8~9주차", title: "정산 개발", tasks: ["매출/매입 리스트 자동 생성", "정산 마감 로직 구현", "보고서 출력 (PDF/Excel)", "정산 이력 관리"] },
+      { id: "M7", week: "9~11주차", title: "통합 테스트", tasks: ["전체 기능 통합 테스트", "성능 최적화", "버그 수정 & QA", "UAT (사용자 인수 테스트)"] },
+      { id: "M8", week: "11~12주차", title: "납품 & 교육", tasks: ["운영 서버 배포", "사용자 교육 실시", "운영 매뉴얼 전달", "안정화 지원 시작"] },
+    ];
+
+    let activePhase = 1;
+    let activeMilestone = 0;
+
+    function formatManWon(amount) {
+      return new Intl.NumberFormat("ko-KR").format(amount / 10000) + "만 원";
+    }
+
+    // ─── Phase Toggle ───
+    function setPhase(phase) {
+      activePhase = phase;
+      const modules = phase === 1 ? PHASE1_MODULES : PHASE2_MODULES;
+      const colorClass = phase === 1 ? "blue" : "emerald";
+
+      document.getElementById("phase1Btn").className = `px-6 py-3 rounded-lg text-sm font-bold transition-all ${phase === 1 ? "bg-blue-600 text-white shadow-md" : "text-slate-500 hover:text-slate-700"}`;
+      document.getElementById("phase2Btn").className = `px-6 py-3 rounded-lg text-sm font-bold transition-all ${phase === 2 ? "bg-emerald-600 text-white shadow-md" : "text-slate-500 hover:text-slate-700"}`;
+
+      const summary = document.getElementById("phaseSummary");
+      summary.className = `rounded-2xl p-8 mb-8 ${phase === 1 ? "bg-blue-50 border border-blue-100" : "bg-emerald-50 border border-emerald-100"}`;
+      document.getElementById("phaseTitle").textContent = phase === 1 ? "1차 사업: 데이터 정립 & 핵심 프로세스 디지털화" : "2차 사업: AI 배차 & 지능형 관제 고도화";
+      document.getElementById("phaseSub").textContent = phase === 1 ? "표준화 · 자동화 · 신뢰성 — DX를 위한 Stable Base 구축" : "지능화 · 가시성 · 최적화 — 데이터 기반 Smart 물류 플랫폼 완성";
+
+      const container = document.getElementById("moduleCards");
+      container.innerHTML = modules.map(mod => `
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center ${phase === 1 ? "bg-blue-50 text-blue-600" : "bg-emerald-50 text-emerald-600"}">
+              <i data-lucide="${mod.icon}" class="w-6 h-6"></i>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-4">${mod.name}</h3>
+          <ul class="space-y-2">
+            ${mod.features.map(f => `
+              <li class="flex items-start gap-2 text-sm text-slate-600">
+                <i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 flex-shrink-0 ${phase === 1 ? "text-blue-500" : "text-emerald-500"}"></i>
+                ${f}
+              </li>
+            `).join("")}
+          </ul>
+        </div>
+      `).join("");
+
+      document.getElementById("commonModule").style.display = phase === 1 ? "block" : "none";
+      lucide.createIcons();
+    }
+
+    // ─── Timeline ───
+    function renderTimeline() {
+      const starts = [0, 1, 2, 4, 5, 7, 8, 10];
+      const ends = [2, 3, 5, 6, 8, 9, 11, 12];
+      const TOTAL = 12;
+
+      // Stepper
+      const stepper = document.getElementById("stepper");
+      stepper.innerHTML = MILESTONES.map((ms, idx) => `
+        <button onclick="setMilestone(${idx})" class="flex-shrink-0 flex flex-col items-center group cursor-pointer">
+          <div id="step-${idx}" class="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold transition-all ${idx === 0 ? "bg-blue-600 text-white shadow-lg shadow-blue-200 scale-110" : "bg-slate-100 text-slate-400 group-hover:bg-slate-200"}">${ms.id}</div>
+          <span id="stepLabel-${idx}" class="mt-2 text-xs font-semibold whitespace-nowrap ${idx === 0 ? "text-blue-600" : "text-slate-400"}">${ms.week}</span>
+        </button>
+        ${idx < MILESTONES.length - 1 ? `<div id="stepLine-${idx}" class="flex-1 h-0.5 mx-2 bg-slate-200"></div>` : ""}
+      `).join("");
+
+      // Gantt
+      const gantt = document.getElementById("ganttChart");
+      gantt.innerHTML = `
+        <div class="text-sm font-bold text-slate-500 mb-3">12주 간트차트 개요</div>
+        ${MILESTONES.map((ms, idx) => {
+          const left = (starts[idx] / TOTAL) * 100;
+          const width = ((ends[idx] - starts[idx]) / TOTAL) * 100;
+          return `
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-semibold text-slate-500 w-8">${ms.id}</span>
+              <div class="flex-1 h-6 bg-slate-100 rounded-full relative overflow-hidden">
+                <div id="gantt-${idx}" onclick="setMilestone(${idx})" class="absolute top-0 h-full rounded-full cursor-pointer transition-all ${idx === 0 ? "bg-blue-600" : "bg-blue-200 hover:bg-blue-300"}" style="left:${left}%;width:${width}%">
+                  <span class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white truncate px-1">${ms.title}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join("")}
+        <div class="flex justify-between text-[10px] text-slate-400 mt-1 pl-11">
+          ${Array.from({length: 13}, (_, i) => `<span>${i}W</span>`).join("")}
+        </div>
+      `;
+
+      setMilestone(0);
+    }
+
+    function setMilestone(idx) {
+      activeMilestone = idx;
+      const ms = MILESTONES[idx];
+
+      // Update detail
+      document.getElementById("milestoneDetail").innerHTML = `
+        <div class="flex items-start gap-4 mb-6">
+          <div class="w-14 h-14 bg-blue-600 text-white rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0">${ms.id}</div>
+          <div>
+            <h3 class="text-2xl font-bold text-slate-900">${ms.title}</h3>
+            <span class="text-sm text-blue-600 font-semibold">${ms.week}</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          ${ms.tasks.map(task => `
+            <div class="flex items-center gap-3 bg-white rounded-xl px-4 py-3 shadow-sm">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-500 flex-shrink-0"></i>
+              <span class="text-sm font-medium text-slate-700">${task}</span>
+            </div>
+          `).join("")}
+        </div>
+      `;
+
+      // Update stepper styles
+      MILESTONES.forEach((_, i) => {
+        const step = document.getElementById(`step-${i}`);
+        const label = document.getElementById(`stepLabel-${i}`);
+        const ganttBar = document.getElementById(`gantt-${i}`);
+        if (step) {
+          if (i === idx) {
+            step.className = "w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold transition-all bg-blue-600 text-white shadow-lg shadow-blue-200 scale-110";
+            label.className = "mt-2 text-xs font-semibold whitespace-nowrap text-blue-600";
+          } else if (i < idx) {
+            step.className = "w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold transition-all bg-blue-100 text-blue-600";
+            label.className = "mt-2 text-xs font-semibold whitespace-nowrap text-slate-400";
+          } else {
+            step.className = "w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold transition-all bg-slate-100 text-slate-400 group-hover:bg-slate-200";
+            label.className = "mt-2 text-xs font-semibold whitespace-nowrap text-slate-400";
+          }
+        }
+        if (i < MILESTONES.length - 1) {
+          const line = document.getElementById(`stepLine-${i}`);
+          if (line) line.className = `flex-1 h-0.5 mx-2 ${i < idx ? "bg-blue-300" : "bg-slate-200"}`;
+        }
+        if (ganttBar) ganttBar.className = `absolute top-0 h-full rounded-full cursor-pointer transition-all ${i === idx ? "bg-blue-600" : "bg-blue-200 hover:bg-blue-300"}`;
+      });
+
+      lucide.createIcons();
+    }
+
+    // ─── Scroll Spy ───
+    function initScrollSpy() {
+      const sections = ["hero", "analysis", "tech", "roadmap", "features", "timeline", "pricing", "team"];
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            document.querySelectorAll(".nav-link").forEach(link => {
+              if (link.dataset.section === entry.target.id) {
+                link.className = "nav-link text-blue-600 font-semibold border-b-2 border-blue-600 pb-1 transition-colors";
+              } else {
+                link.className = "nav-link text-slate-500 hover:text-blue-600 pb-1 transition-colors";
+              }
+            });
+          }
+        });
+      }, { rootMargin: "-20% 0px -70% 0px", threshold: 0 });
+
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    }
+
+    // ─── Mobile Menu ───
+    document.getElementById("mobileMenuBtn").addEventListener("click", () => {
+      const menu = document.getElementById("mobileMenu");
+      menu.classList.toggle("hidden");
+    });
+
+    document.querySelectorAll("#mobileMenu a").forEach(a => {
+      a.addEventListener("click", () => {
+        document.getElementById("mobileMenu").classList.add("hidden");
+      });
+    });
+
+    // ─── Init ───
+    document.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+      setPhase(1);
+      renderTimeline();
+      initScrollSpy();
+    });
+  </script>
+</body>
+</html>

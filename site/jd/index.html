@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>정동병원 스마트 재고관리 & AI 자동화 플랫폼 제안서</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+html{scroll-behavior:smooth}
+@media print{.no-print{display:none!important}.proposal-nav{position:static!important}}
+</style>
+</head>
+<body class="min-h-screen bg-[#f8fafc] text-slate-900 font-sans">
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav" class="proposal-nav no-print sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center space-x-2">
+      <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center"><i data-lucide="activity" class="text-white w-5 h-5"></i></div>
+      <span class="font-bold text-lg tracking-tight">병원 재고관리 제안서</span>
+    </div>
+    <div class="hidden lg:flex items-center space-x-6 text-sm font-medium" id="desktopNav"></div>
+    <div class="flex items-center gap-3">
+      <button onclick="window.print()" class="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-800 transition-all flex items-center gap-2">
+        <i data-lucide="download" class="w-4 h-4"></i><span class="hidden sm:inline">PDF 다운로드</span>
+      </button>
+      <button class="lg:hidden p-2" onclick="toggleMobile()"><i data-lucide="menu" class="w-5 h-5" id="menuIcon"></i></button>
+    </div>
+  </div>
+  <div id="mobileNav" class="hidden lg:hidden bg-white border-t border-slate-100 px-6 py-4 space-y-2"></div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero" class="bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white relative overflow-hidden">
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-20 right-20 w-96 h-96 bg-teal-500 rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-10 left-10 w-72 h-72 bg-blue-500 rounded-full blur-[100px]"></div>
+  </div>
+  <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 relative z-10">
+    <div class="flex flex-wrap items-center gap-3 mb-8">
+      <div class="inline-flex items-center px-4 py-1.5 bg-blue-500/20 text-blue-300 rounded-full text-xs font-bold backdrop-blur-sm border border-blue-500/20"><i data-lucide="zap" class="w-3 h-3 mr-1.5"></i> kitt AI MEDICAL</div>
+      <div class="inline-flex items-center px-4 py-1.5 bg-teal-500/20 text-teal-300 rounded-full text-xs font-bold backdrop-blur-sm border border-teal-500/20">2026 Smart Hospital Solution</div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6">
+        <div>
+          <p class="text-sm font-semibold text-blue-400 tracking-widest uppercase mb-3">Hospital Inventory & AI Automation</p>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight">
+            정동병원<br>
+            <span class="bg-gradient-to-r from-teal-300 to-blue-300 bg-clip-text text-transparent">스마트 재고관리</span><br>
+            <span class="text-3xl md:text-4xl lg:text-5xl text-slate-300">& AI 자동화 플랫폼</span>
+          </h1>
+        </div>
+        <p class="text-base md:text-lg text-slate-400 leading-relaxed max-w-xl">세금계산서 등록만으로 입출고가 자동 처리되고, AI가 재고 부족을 감지해 납품업체에 자동 발주합니다. 단순 전화 문의는 AI 보이스 에이전트가 24시간 응대합니다.</p>
+        <div class="flex flex-col sm:flex-row gap-3 pt-2">
+          <div class="flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-lg px-4 py-2.5">
+            <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+            <span class="text-sm text-blue-200"><strong class="text-white">1차</strong> 입출고 자동화 + AI + 협업 포털</span>
+          </div>
+          <div class="flex items-center gap-2 bg-slate-500/10 border border-slate-500/20 rounded-lg px-4 py-2.5">
+            <div class="w-2 h-2 bg-slate-400 rounded-full"></div>
+            <span class="text-sm text-slate-300"><strong class="text-white">2차</strong> 바코드 기반 정밀 재고관리</span>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-4 pt-4 no-print">
+          <button onclick="window.print()" class="bg-gradient-to-r from-teal-500 to-blue-500 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-teal-900/40 hover:shadow-teal-900/60 transition-all flex items-center"><i data-lucide="download" class="w-5 h-5 mr-2"></i>제안서 PDF 다운로드</button>
+          <button onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})" class="border border-slate-600 text-slate-300 px-8 py-4 rounded-xl font-bold hover:bg-white/5 hover:border-slate-500 transition-all flex items-center">상세 견적 보기 <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i></button>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <div class="bg-gradient-to-br from-blue-600/20 to-teal-600/20 backdrop-blur-md border border-white/10 rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-teal-500 rounded-lg flex items-center justify-center"><i data-lucide="file-text" class="w-5 h-5 text-white"></i></div>
+            <div><div class="text-xs text-teal-300 font-semibold">핵심 프로세스</div><div class="text-white font-bold">세금계산서 → 자동 입출고</div></div>
+          </div>
+          <div class="grid grid-cols-3 gap-3">
+            <div class="bg-white/5 rounded-lg p-3 text-center"><div class="text-2xl font-black text-teal-300">등록</div><div class="text-[10px] text-slate-400 mt-1">세금계산서</div></div>
+            <div class="bg-white/5 rounded-lg p-3 text-center flex flex-col items-center justify-center"><i data-lucide="arrow-right" class="w-5 h-5 text-blue-400"></i><div class="text-[10px] text-slate-400 mt-1">자동 처리</div></div>
+            <div class="bg-white/5 rounded-lg p-3 text-center"><div class="text-2xl font-black text-blue-300">입고</div><div class="text-[10px] text-slate-400 mt-1">재고 반영</div></div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
+            <div class="flex items-center gap-2 mb-3"><i data-lucide="phone" class="w-4 h-4 text-blue-400"></i><span class="text-xs font-semibold text-blue-300">AI 보이스 에이전트</span></div>
+            <div class="text-3xl font-black text-white mb-1">80%</div>
+            <div class="text-xs text-slate-400">단순 문의 자동 처리</div>
+            <div class="mt-3"><div class="h-1.5 bg-blue-500/30 rounded-full overflow-hidden"><div class="h-full w-4/5 bg-gradient-to-r from-blue-400 to-teal-400 rounded-full"></div></div></div>
+          </div>
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
+            <div class="flex items-center gap-2 mb-3"><i data-lucide="trending-up" class="w-4 h-4 text-teal-400"></i><span class="text-xs font-semibold text-teal-300">예약 성공률</span></div>
+            <div class="text-3xl font-black text-white mb-1">+40%</div>
+            <div class="text-xs text-slate-400">24시간 AI 예약 접수</div>
+            <div class="mt-3"><div class="h-1.5 bg-teal-500/30 rounded-full overflow-hidden"><div class="h-full w-2/5 bg-gradient-to-r from-teal-400 to-green-400 rounded-full"></div></div></div>
+          </div>
+        </div>
+        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-teal-500 rounded-lg flex items-center justify-center"><i data-lucide="brain-circuit" class="w-5 h-5 text-white"></i></div>
+            <div><div class="text-sm font-bold text-white">AI 자동 발주</div><div class="text-xs text-slate-400">재고 부족 감지 → 납품업체 자동 발주 요청</div></div>
+          </div>
+          <div class="px-3 py-1 bg-teal-500/20 text-teal-300 rounded-full text-xs font-bold">자동화</div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-16 pt-8 border-t border-white/10">
+      <div class="flex flex-wrap justify-center items-center gap-x-10 gap-y-4 text-xs text-slate-500">
+        <div class="flex items-center gap-2"><i data-lucide="shield" class="w-4 h-4"></i><span>개인정보보호법 준수</span></div>
+        <div class="flex items-center gap-2"><i data-lucide="database" class="w-4 h-4"></i><span>EMR 연동 (API 지원시)</span></div>
+        <div class="flex items-center gap-2"><i data-lucide="cloud" class="w-4 h-4"></i><span>클라우드 기반 SaaS</span></div>
+        <div class="flex items-center gap-2"><i data-lucide="smartphone" class="w-4 h-4"></i><span>모바일 대응</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROBLEMS ═══ -->
+<section id="problems" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="inline-flex items-center px-3 py-1 rounded-full bg-red-50 text-red-600 text-sm font-bold mb-4"><i data-lucide="alert-triangle" class="w-4 h-4 mr-2"></i> 현황 분석</div>
+      <h2 class="text-3xl md:text-4xl font-black mb-4">병원 재고관리의 주요 문제점</h2>
+      <p class="text-slate-500 text-lg">수작업 중심의 프로세스로 인한 시간 낭비와 재고 사고가 발생하고 있습니다.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="problemsGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ SOLUTION ═══ -->
+<section id="solution" class="py-20 bg-gradient-to-br from-blue-50 to-teal-50">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-bold mb-4"><i data-lucide="check-circle-2" class="w-4 h-4 mr-2"></i> 솔루션 개요</div>
+      <h2 class="text-3xl md:text-4xl font-black mb-4">kitt INVENTORY MEDICAL</h2>
+      <p class="text-slate-600 text-lg">세금계산서 기반 자동 입출고 + AI 보이스 에이전트 + 바코드 재고관리</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="solutionGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES ═══ -->
+<section id="features" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="inline-flex items-center px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-sm font-bold mb-4"><i data-lucide="package" class="w-4 h-4 mr-2"></i> 핵심 기능</div>
+      <h2 class="text-3xl md:text-4xl font-black mb-4">단계별 핵심 모듈</h2>
+      <p class="text-slate-500 text-lg">1차 개발로 즉시 효과를 확보하고, 2차 개발로 고도화합니다.</p>
+    </div>
+    <div class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-black">1차 개발</div>
+        <span class="text-slate-500 text-sm font-medium">세금계산서 입출고 + AI 보이스 에이전트 + AI 자동 발주 + 공급업체 포털</span>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="features1"></div>
+    </div>
+    <div>
+      <div class="flex items-center gap-3 mb-6">
+        <div class="px-4 py-2 bg-slate-600 text-white rounded-full text-sm font-black">2차 개발</div>
+        <span class="text-slate-500 text-sm font-medium">바코드 재고관리 + AI 내부 메신저 + 고급 분석 리포트</span>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="features2"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DIFFERENTIATION ═══ -->
+<section id="differentiation" class="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-bold mb-4"><i data-lucide="shield" class="w-4 h-4 mr-2"></i> 차별화</div>
+      <h2 class="text-3xl md:text-4xl font-black mb-4">차별화된 시스템 구조</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="diffGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ PROCESS ═══ -->
+<section id="process" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="inline-flex items-center px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-sm font-bold mb-4"><i data-lucide="clock" class="w-4 h-4 mr-2"></i> 도입 프로세스</div>
+      <h2 class="text-3xl md:text-4xl font-black mb-4">단계별 도입 프로세스</h2>
+      <p class="text-slate-500 text-lg">1차 8주 + 2차 8주 (2차는 1차 안정화 후 진행)</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="processGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section id="pricing" class="py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-teal-800 text-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="inline-flex items-center px-3 py-1 rounded-full bg-white/20 text-white text-sm font-bold mb-4"><i data-lucide="receipt" class="w-4 h-4 mr-2"></i> 비용 안내</div>
+      <h2 class="text-3xl md:text-4xl font-black mb-4">가격 플랜</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12" id="pricingGrid"></div>
+    <div class="max-w-4xl mx-auto">
+      <h3 class="text-2xl font-bold mb-6 text-center">추가 옵션 서비스</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="addOnGrid"></div>
+    </div>
+    <div class="max-w-4xl mx-auto mt-12 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+      <h4 class="text-sm font-bold text-amber-300 mb-3 flex items-center gap-2"><i data-lucide="alert-triangle" class="w-4 h-4"></i>별도 청구 안내</h4>
+      <ul class="space-y-2" id="pricingNotes"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RESULTS ═══ -->
+<section id="results" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-bold mb-4"><i data-lucide="trending-up" class="w-4 h-4 mr-2"></i> 기대 효과</div>
+      <h2 class="text-3xl md:text-4xl font-black mb-4">도입 후 기대 효과</h2>
+    </div>
+    <div class="mb-16">
+      <h3 class="text-2xl font-bold mb-6 text-center">정량적 효과</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="quantGrid"></div>
+    </div>
+    <div class="mb-16">
+      <h3 class="text-2xl font-bold mb-6 text-center">정성적 효과</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="qualGrid"></div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="bg-gradient-to-br from-blue-600 to-teal-600 text-white p-8 rounded-2xl">
+        <div class="flex items-center gap-3 mb-6"><i data-lucide="building-2" class="w-8 h-8"></i><h3 class="text-2xl font-bold">정동병원</h3></div>
+        <div class="space-y-3" id="profileCard"></div>
+      </div>
+      <div class="bg-gradient-to-br from-green-600 to-blue-600 text-white p-8 rounded-2xl">
+        <div class="flex items-center gap-3 mb-6"><i data-lucide="bar-chart-3" class="w-8 h-8"></i><h3 class="text-2xl font-bold">투자 수익 분석 (ROI)</h3></div>
+        <div class="space-y-4" id="roiCard"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="py-12 bg-slate-900 text-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-8"><h3 class="text-2xl font-bold mb-2">문의하기</h3><p class="text-slate-400">궁금하신 사항은 언제든지 연락주세요</p></div>
+    <div class="flex flex-col md:flex-row justify-center items-center gap-6 text-sm">
+      <div class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4 text-blue-400"></i><span>inventory@kitt.ai</span></div>
+      <div class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-blue-400"></i><span>02-1234-5678</span></div>
+    </div>
+    <div class="text-center mt-8 text-xs text-slate-500">&copy; 2026 kitt AI Intelligence. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+// ─── Data ───
+const NAV_LINKS=[{id:"hero",label:"개요"},{id:"problems",label:"현황 분석"},{id:"solution",label:"솔루션"},{id:"features",label:"핵심 기능"},{id:"differentiation",label:"차별화"},{id:"process",label:"도입 프로세스"},{id:"pricing",label:"비용 안내"},{id:"results",label:"기대 효과"}];
+
+const PROBLEMS=[
+{area:"납품업체별 세금계산서 수기 관리의 한계",issues:["납품업체마다 세금계산서를 하나씩 수기로 작성·관리하여 누락 및 오류 빈번","세금계산서와 실제 입출고 데이터가 분리되어 재고 현황 파악 불가","재고 부족 시 수동 확인 후 개별 업체에 전화/이메일로 발주 요청 → 지연 발생"],severity:"critical"},
+{area:"수작업 중심의 재고 관리 (바코드 미도입)",issues:["엑셀 또는 수기 장부로 관리하여 실시간 재고 파악 어려움","입출고 데이터 입력 시 휴먼 에러 빈번 발생","바코드/QR 기반 추적 시스템 부재로 재고 실사 시 많은 시간 소요"],severity:"critical"},
+{area:"원무 업무 과부하 (전화 응대)",issues:["위치, 진료시간, 주차 등 단순 반복 전화가 업무 시간의 상당 부분 차지","점심시간·야간·공휴일 전화 응대 불가로 예약 기회 손실","환자 문의 데이터 축적·분석 체계 부재"],severity:"critical"},
+{area:"EMR 시스템 연동 확장 가능성",issues:["EMR(전자의무기록) 시스템의 API 지원 여부에 따라 연동 가능","EMR 벤더별 API 제공 시 예약·차트 시스템 자동 연동 지원","환자 개인정보 보호 및 의료법 준수 설계 적용"],severity:"warning"}
+];
+
+const SOLUTION_INDICATORS=[
+{title:"[1차] 세금계산서 → 자동 입출고",metric:"자동화",benefits:["납품업체 세금계산서 등록 시 제품 입고 자동 처리","출고 시 재고 자동 차감 및 실시간 현황 반영","AI 데드라인 설정 & 재고 부족 시 자동 발주"]},
+{title:"[1차] AI 보이스 에이전트",metric:"80%",benefits:["단순 문의(위치/진료시간/주차) 자동 응대","24시간 AI 예약 접수로 예약 성공률 +40%","환자 문의 데이터 자동 분석 및 통계"]},
+{title:"[2차] 바코드 기반 재고관리",metric:"고도화",benefits:["바코드/QR 스캔으로 즉시 입출고 등록","부서별/창고별 분산 재고 통합 관리","재고 실사 및 선입선출(FIFO) 자동화"]},
+{title:"EMR 연동 (API 지원시)",metric:"연동",benefits:["EMR API 지원 시 예약·차트 시스템 자동 연동","AI 보이스 에이전트와 EMR 예약 시스템 통합 운영","환자 개인정보 보호 및 의료법 준수 설계"]}
+];
+
+const FEATURES=[
+{title:"세금계산서 기반 자동 입출고 관리",phase:"1차",icon:"file-text",capabilities:["납품업체 세금계산서 플랫폼 등록 시 제품 입고 자동 처리","출고 등록 시 재고 자동 차감 및 실시간 현황 업데이트","납품업체별 거래 내역 및 세금계산서 이력 통합 관리","월별/분기별 정산 리포트 자동 생성","회계 프로그램 연동 (더존, 더샵 등)"],highlights:["세금계산서 등록 = 입고 완료 (원클릭 프로세스)","AI 데드라인 설정으로 발주 시점 자동 알림","재고 부족 감지 시 납품업체에 자동 발주 요청","납품업체별 거래 현황 대시보드"]},
+{title:"AI 자동화 & 스마트 발주",phase:"1차",icon:"brain-circuit",capabilities:["품목별 데드라인 설정 및 자동 알림 (AI 기반)","재고 부족 감지 시 납품업체에 자동 발주 요청","과거 소비 패턴 기반 최적 발주량·발주 시점 추천","계절별/요일별 소비 트렌드 분석","맞춤형 KPI 대시보드 및 알림 설정"],highlights:["AI 기반 재고 데드라인 자동 설정","재고 부족 → 자동 발주 → 납품업체 확인까지 원스톱","머신러닝 기반 수요 예측 및 발주 최적화","맞춤형 리포트 생성 (주간/월간/분기별)"]},
+{title:"AI 보이스 에이전트 (전화 응대 자동화)",phase:"1차",icon:"phone",capabilities:["단순 반복 문의(위치/진료시간/주차) AI 자동 응대","24시간 실시간 예약 접수 (점심·야간·공휴일 포함)","문맥 이해형 음성 엔진으로 모호한 표현도 정확 파악","환자 문의 데이터 자동 수집·분석·통계 리포트","병원 톤앤매너 맞춤 학습"],highlights:["단순 문의 80% 자동 처리 → 직원 대면 업무 집중","예약 성공률 +40% (24시간 응대)","EMR 예약 시스템 연동 (API 지원시 연동가능)","다국어 상담 지원 가능 (영/중/일)"]},
+{title:"공급업체 협업 포털",phase:"1차",icon:"users",capabilities:["발주서 자동 전송 및 공급업체 승인 시스템","배송 상태 실시간 추적","공급업체별 가격 비교 및 협상 이력 관리","신규 공급업체 등록 및 평가 시스템","공급업체 전용 모바일 앱 제공"],highlights:["공급업체 포털 로그인 (별도 권한)","발주 알림 및 확인 기능","납품 예정일 등록 및 알림","공급업체 평가 및 등급 관리"]},
+{title:"바코드/QR 기반 재고 추적 시스템",phase:"2차",icon:"package",capabilities:["바코드/QR 스캔 입출고 자동 등록","품목별 최소/최대 재고 설정 및 자동 알림","유통기한 관리 및 선입선출(FIFO) 자동화","부서별/창고별 재고 분산 관리","모바일 앱 실시간 재고 확인"],highlights:["실시간 재고 현황 대시보드","입출고 이력 완전 추적 (스캔 기반)","재고 실사 기능 (실제 재고 vs 시스템 재고)","재고 이동 관리 (부서 간 이동)"]},
+{title:"AI 챗봇 내부 메신저 (업무 자동화)",phase:"2차",icon:"brain-circuit",capabilities:["AI 모듈 탑재 내부 메신저로 업무 처리 자동화","자연어 명령으로 환자 정보 즉시 조회 (예: '홍길동님 수납금액?')","조회 결과 엑셀 다운로드 및 공유 기능","부서 간 업무 요청·승인 메신저 통합","AI 기반 업무 알림 및 일정 관리"],highlights:["대화형 AI로 복잡한 조회도 한 줄 명령으로 처리","수납/매출/재고 데이터 즉시 조회 & 엑셀 다운로드","부서별 그룹 채팅 및 업무 히스토리 관리","모바일 앱 지원으로 언제 어디서나 업무 처리"]},
+{title:"고급 분석 & 리포트 시스템",phase:"2차",icon:"bar-chart-3",capabilities:["재고 회전율 및 비용 절감 기회 자동 분석","이상 거래 탐지 및 부정 사용 방지","맞춤형 KPI 대시보드 고도화","다지점 통합 관리 (확장 시)","HIS 시스템 완전 통합"],highlights:["재고 최적화 시뮬레이션","비용 분석 및 절감 제안 리포트","맞춤형 리포트 생성 (주간/월간/분기별)","경영진용 요약 대시보드"]}
+];
+
+const DIFFERENTIATION=[
+{title:"단계별 도입 전략 (1차 → 2차)",points:["1차: 세금계산서 기반 입출고 + AI 보이스 에이전트로 즉시 효과 확보","2차: 바코드/QR 기반 정밀 재고관리로 고도화","단계별 도입으로 초기 투자 부담 최소화 및 안정적 전환"]},
+{title:"EMR 연동 설계 (API 지원시 연동가능)",points:["EMR 벤더의 API 지원 시 예약·차트 시스템 자동 연동 가능","AI 보이스 에이전트와 EMR 예약 시스템 통합 운영 지원","환자 개인정보 보호법 및 의료법 준수 설계 반영","EMR API 미지원 시 독립 운영 모드 지원"]},
+{title:"금융권 수준의 보안",points:["권한별 접근 제어 (관리자/담당자/조회자)","접속 로그 관리 및 감사 추적","개인정보보호법 및 의료법 준수"]}
+];
+
+const PROCESS=[
+{week:"1차 WEEK 01-02",title:"현황 분석 & 요구사항 정의",activities:["납품업체별 세금계산서 처리 현황 분석","기존 EMR 시스템 API 지원 여부 확인 (지원 시 연동 진행)","AI 보이스 에이전트용 FAQ 데이터 수집 (진료과목/위치/시간 등)","품목 분류 체계 설계 및 납품업체 목록 정리","전체 시스템 아키텍처 설계 및 UI/UX 기획"],deliverables:["요구사항 정의서","EMR API 지원 확인서","AI 학습용 FAQ 데이터셋","시스템 설계서 및 화면 설계서"]},
+{week:"1차 WEEK 03-04",title:"플랫폼 핵심 모듈 개발",activities:["세금계산서 등록 → 자동 입고 모듈 개발","출고 관리 및 재고 자동 차감 기능 구현","AI 자동화 모듈 개발 (데드라인 설정, 자동 발주)","관리자 대시보드 및 리포트 기능 구현"],deliverables:["세금계산서 기반 입출고 시스템","AI 자동 발주 모듈","관리자 대시보드 베타"]},
+{week:"1차 WEEK 05-06",title:"AI 보이스 & 공급업체 포털 구축",activities:["AI 보이스 에이전트 병원 맞춤 학습 및 음성 엔진 최적화","AI 챗봇 상담 시나리오 설계 및 구현","공급업체 협업 포털 구축 (발주/납품/정산)","납품업체 계정 생성 및 포털 연동"],deliverables:["AI 보이스 에이전트 베타","AI 챗봇 베타","공급업체 포털 베타"]},
+{week:"1차 WEEK 07-08",title:"통합 테스트 & 정식 오픈",activities:["세금계산서 → 입고 자동화 시범 운영 및 검증","AI 보이스 에이전트 시범 통화 테스트 및 품질 튜닝","공급업체 포털 시범 운영 및 피드백 반영","원무과/재고 담당자 실무 교육 및 매뉴얼 배포","1차 시스템 정식 가동 및 안정화 모니터링"],deliverables:["테스트 결과 보고서","사용자 매뉴얼","1차 오픈 완료 보고서","2차 고도화 계획서"]},
+{week:"2차 WEEK 01-02",title:"바코드 시스템 설계 & 개발",activities:["바코드/QR 스캔 입출고 자동 등록 시스템 설계","바코드 라벨 체계 설계 및 기존 품목 매핑","부서별/창고별 재고 분산 관리 모듈 설계","1차 시스템과의 데이터 통합 연동 설계"],deliverables:["바코드 시스템 설계서","바코드 라벨 체계 정의서","통합 연동 설계서"]},
+{week:"2차 WEEK 03-04",title:"바코드 시스템 구축 & AI 내부 메신저 개발",activities:["바코드/QR 스캔 입출고 자동 등록 시스템 개발","바코드 라벨 출력 및 기존 품목 부착 작업","AI 챗봇 내부 메신저 핵심 기능 개발","자연어 명령 기반 데이터 조회·엑셀 다운로드 기능 구현"],deliverables:["바코드 스캔 시스템 베타","바코드 라벨 (전 품목)","AI 내부 메신저 베타"]},
+{week:"2차 WEEK 05-06",title:"고급 분석 & 통합 고도화",activities:["재고 실사 기능 구현 (실제 재고 vs 시스템 재고)","선입선출(FIFO) 자동화 및 유통기한 관리 구현","고급 분석 리포트 및 경영진 대시보드 구축","AI 내부 메신저 부서별 그룹 채팅 및 업무 히스토리 기능"],deliverables:["고급 분석 시스템","통합 재고 대시보드","AI 내부 메신저 완성본"]},
+{week:"2차 WEEK 07-08",title:"전체 통합 테스트 & 정식 오픈",activities:["바코드 + AI 메신저 + 분석 시스템 통합 테스트","1차·2차 전체 시스템 연동 검증","실무자 교육 및 운영 매뉴얼 배포","전체 시스템 정식 오픈 및 안정화 모니터링"],deliverables:["통합 테스트 보고서","통합 운영 매뉴얼","전체 시스템 오픈 보고서"]}
+];
+
+const PRICING=[
+{name:"AI 챗봇 에이전트",target:"병원 맞춤 AI 챗봇 상담 자동화",setup:3500000,monthly:150000,features:["병원 맞춤형 AI 챗봇 구축","단순 문의 자동 응대 (위치/진료시간/주차 등)","FAQ 학습 및 시나리오 설계","환자 문의 데이터 분석 리포트","관리자 대시보드 제공","이메일 고객 지원"]},
+{name:"AI 챗봇 + 유선전화 (In/Outbound)",target:"AI 챗봇 + 보이스 에이전트 통합",setup:8000000,monthly:300000,features:["AI 챗봇 에이전트 모든 기능 포함","유선전화 Inbound 자동 응대 (음성 AI)","Outbound 자동 발신 (예약 확인/리마인드)","문맥 이해형 음성 엔진","24시간 예약 접수 (점심·야간·공휴일)","상담 분석 리포트 및 통계","EMR 예약 시스템 연동 (API 지원시 연동가능)"]},
+{name:"1차 통합: 재고 + AI + 협업",target:"세금계산서 입출고 + AI 보이스 + 공급업체 포털",setup:15000000,monthly:450000,features:["AI 챗봇 + 유선전화 모든 기능 포함","세금계산서 등록 → 자동 입고/출고 관리","AI 데드라인 설정 & 재고 부족 시 자동 발주","공급업체 협업 포털 (발주/납품/정산)","납품업체별 거래 현황 대시보드","정산 리포트 자동 생성","EMR 연동 (API 지원시 연동가능)"],recommended:true}
+];
+
+const PRICING_NOTES=["보안서버(SSL) 인증서 비용은 별도 청구될 수 있습니다.","AI 서비스 이용료(음성 인식, 자연어 처리 등)는 사용량에 따라 별도 청구될 수 있습니다.","상기 금액은 VAT 별도이며, 계약 조건에 따라 조정될 수 있습니다."];
+
+const ADD_ONS=[
+{name:"2차 고도화: 바코드 재고관리",desc:["바코드/QR 스캔 입출고 시스템","바코드 장비 패키지 (스캐너+프린터)","고급 분석 리포트 & 대시보드"],price:"별도 협의"},
+{name:"AI 보이스 다국어 확장",desc:["영어/중국어/일본어 상담 지원","다국어 FAQ 학습 추가","외국인 환자 예약 자동 처리"],price:"별도 협의"},
+{name:"EMR 심화 연동 개발",desc:["EMR API 지원 시 맞춤 연동 개발","환자 예약/차트 시스템 실시간 연동","의료법 준수 보안 설계 포함"],price:"별도 협의"}
+];
+
+const QUANT=[
+{title:"[1차] 세금계산서 → 입출고 자동화",before:"납품업체별 세금계산서 수기 관리, 입출고 별도 기록",after:"세금계산서 등록만으로 입고 자동 처리, AI 자동 발주",impact:"수기 업무 제거 및 재고 관리 정확도 극대화"},
+{title:"[1차] 원무 전화 응대 80% 자동화",before:"단순 문의 전화가 업무 시간 대부분 차지, 야간/공휴일 응대 불가",after:"AI 보이스 에이전트가 80% 자동 처리, 24시간 예약 접수",impact:"원무 직원 대면 업무 집중, 예약 성공률 +40%"},
+{title:"[2차] 바코드 기반 정밀 재고관리",before:"수기 입출고 기록으로 휴먼 에러 빈번, 재고 실사 시간 과다",after:"바코드 스캔 자동 등록, 실시간 재고 추적 및 FIFO 자동화",impact:"재고 관련 비용 30% 절감, 재고 실사 시간 90% 단축"}
+];
+
+const QUAL=[
+{title:"재고 부족 사고 예방",benefits:["실시간 알림으로 필수 의료 물품 결품 방지","환자 진료 차질 최소화","병원 신뢰도 향상"]},
+{title:"투명한 재무 관리",benefits:["모든 거래 내역의 추적 및 감사 가능","부정 사용 및 횡령 방지","내부 통제 강화"]},
+{title:"공급업체와의 협업 강화",benefits:["실시간 정보 공유로 원활한 소통","납품 지연 및 오류 감소","장기 거래 파트너십 구축"]},
+{title:"AI 챗봇 도입으로 예약 관리 업무 효율화",benefits:["24시간 AI 자동 예약 접수로 예약 누락 및 부도율(No-Show) 감소","예약 변경·취소·리마인드 자동 처리로 원무 업무 부담 경감","예약 데이터 자동 집계로 진료 스케줄 최적화 가능"]},
+{title:"외국인 환자 응대 역량 강화",benefits:["다국어 AI 챗봇(영/중/일)으로 외국인 환자 즉시 상담 가능","언어 장벽 없는 예약·안내 서비스로 의료관광 경쟁력 확보","외국인 환자 문의 데이터 축적으로 맞춤 서비스 개선"]},
+{title:"자동화 서비스 도입으로 고객 신뢰 향상",benefits:["빠르고 정확한 AI 응대로 환자 만족도 및 재방문율 향상","야간·공휴일에도 끊김 없는 서비스 제공으로 병원 브랜드 가치 상승","일관된 응대 품질 유지로 환자 신뢰 및 추천율 증가"]},
+{title:"데이터 기반 경영 의사결정",benefits:["재고 데이터를 활용한 전략적 의사결정","환자 문의·예약 패턴 분석으로 마케팅 전략 수립","병원 경영 효율화 및 예산 계획 정확성 향상"]}
+];
+
+const PROFILE={name:"정동병원",location:"서울 동작구 상도동",spec:"보건복지부 인증 관절·척추 특화 종합병원",beds:"약 70~100병상",depts:"정형외과, 신경외과, 내과",specialized:"관절·척추 수술 전문",extra:"검진센터, 재활치료센터 운영"};
+const ROI={setup:15000000,opex:5400000,saving:30000000,roi:47};
+
+// ─── Helpers ───
+const krw=n=>new Intl.NumberFormat("ko-KR").format(n)+"원";
+const mKrw=n=>"월 "+krw(n);
+const ck=(icon)=>`<i data-lucide="${icon}" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0"></i>`;
+let activeSection="hero";
+
+// ─── Mobile Menu ───
+function toggleMobile(){
+  const m=document.getElementById("mobileNav");
+  m.classList.toggle("hidden");
+}
+
+// ─── Nav ───
+function buildNav(){
+  const d=document.getElementById("desktopNav");
+  const m=document.getElementById("mobileNav");
+  NAV_LINKS.forEach(l=>{
+    const btn=document.createElement("button");
+    btn.textContent=l.label;
+    btn.className="transition-colors pb-1 text-slate-500 hover:text-blue-600";
+    btn.dataset.nav=l.id;
+    btn.onclick=()=>{document.getElementById(l.id).scrollIntoView({behavior:"smooth"});document.getElementById("mobileNav").classList.add("hidden")};
+    d.appendChild(btn);
+    const mb=btn.cloneNode(true);
+    mb.className="block w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors text-slate-600 hover:bg-slate-50 hover:text-blue-600";
+    mb.dataset.nav=l.id;
+    mb.onclick=btn.onclick;
+    m.appendChild(mb);
+  });
+}
+
+function updateActiveNav(id){
+  activeSection=id;
+  document.querySelectorAll("[data-nav]").forEach(b=>{
+    if(b.dataset.nav===id){b.classList.add("text-blue-600","font-semibold");b.classList.remove("text-slate-500","text-slate-600")}
+    else{b.classList.remove("text-blue-600","font-semibold");b.classList.add("text-slate-500")}
+  });
+}
+
+// ─── Scroll Spy ───
+function initScrollSpy(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)updateActiveNav(e.target.id)});
+  },{rootMargin:"-20% 0px -70% 0px",threshold:0});
+  NAV_LINKS.forEach(l=>{const el=document.getElementById(l.id);if(el)obs.observe(el)});
+}
+
+// ─── Render Functions ───
+function renderProblems(){
+  const g=document.getElementById("problemsGrid");
+  g.innerHTML=PROBLEMS.map(p=>`
+    <div class="bg-white p-6 rounded-2xl border-l-4 shadow-sm hover:shadow-md transition-shadow ${p.severity==="critical"?"border-l-red-500":"border-l-amber-400"}">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="font-bold text-lg text-slate-900">${p.area}</h3>
+        <span class="px-2 py-0.5 rounded-full text-xs font-bold ${p.severity==="critical"?"bg-red-100 text-red-700":"bg-amber-100 text-amber-700"}">${p.severity==="critical"?"긴급":"주의"}</span>
+      </div>
+      <ul class="space-y-2">${p.issues.map(i=>`<li class="flex items-start text-sm text-slate-600"><i data-lucide="alert-triangle" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0 text-slate-400"></i><span>${i}</span></li>`).join("")}</ul>
+    </div>`).join("");
+}
+
+function renderSolution(){
+  const g=document.getElementById("solutionGrid");
+  g.innerHTML=SOLUTION_INDICATORS.map(s=>`
+    <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+      <div class="flex items-center justify-between mb-4">
+        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center"><i data-lucide="trending-up" class="w-6 h-6 text-blue-600"></i></div>
+        <div class="text-2xl font-black text-blue-600">${s.metric}</div>
+      </div>
+      <h3 class="font-bold text-lg mb-3 text-slate-900">${s.title}</h3>
+      <ul class="space-y-2">${s.benefits.map(b=>`<li class="flex items-start text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0 text-green-500"></i><span>${b}</span></li>`).join("")}</ul>
+    </div>`).join("");
+}
+
+function renderFeatures(){
+  const render=(arr,containerId,phase)=>{
+    const items=arr.filter(f=>f.phase===phase);
+    const is1=phase==="1차";
+    const g=document.getElementById(containerId);
+    g.innerHTML=items.map(f=>`
+      <div class="${is1?"bg-blue-50 border-blue-200":"bg-slate-50 border-slate-200"} p-8 rounded-2xl border-2">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 ${is1?"bg-blue-600":"bg-slate-600"} rounded-xl flex items-center justify-center text-white"><i data-lucide="${f.icon}" class="w-6 h-6"></i></div>
+          <div>
+            <span class="text-xs font-bold ${is1?"text-blue-600 bg-blue-100":"text-slate-600 bg-slate-200"} px-2 py-0.5 rounded-full">${phase}</span>
+            <h3 class="font-bold text-xl text-slate-900">${f.title}</h3>
+          </div>
+        </div>
+        <div class="mb-4">
+          <h4 class="font-semibold text-sm text-slate-500 mb-2">주요 기능</h4>
+          <ul class="space-y-2">${f.capabilities.map(c=>`<li class="flex items-start text-sm text-slate-700"><i data-lucide="check-square" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0 ${is1?"text-blue-600":"text-slate-500"}"></i><span>${c}</span></li>`).join("")}</ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm text-slate-500 mb-2">특징</h4>
+          <ul class="space-y-2">${f.highlights.map(h=>`<li class="flex items-start text-sm text-slate-600"><i data-lucide="chevron-right" class="w-4 h-4 mr-1 mt-0.5 flex-shrink-0 ${is1?"text-teal-500":"text-slate-400"}"></i><span>${h}</span></li>`).join("")}</ul>
+        </div>
+      </div>`).join("");
+  };
+  render(FEATURES,"features1","1차");
+  render(FEATURES,"features2","2차");
+}
+
+function renderDiff(){
+  const icons=["zap","database","shield"];
+  document.getElementById("diffGrid").innerHTML=DIFFERENTIATION.map((d,i)=>`
+    <div class="bg-white p-8 rounded-2xl shadow-sm">
+      <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-teal-500 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="${icons[i]}" class="w-7 h-7 text-white"></i></div>
+      <h3 class="font-bold text-xl mb-4 text-slate-900">${d.title}</h3>
+      <ul class="space-y-3">${d.points.map(p=>`<li class="flex items-start text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0 text-green-500"></i><span>${p}</span></li>`).join("")}</ul>
+    </div>`).join("");
+}
+
+function renderProcess(){
+  document.getElementById("processGrid").innerHTML=PROCESS.map((w,i)=>{
+    const is1=w.week.startsWith("1차");
+    return`<div class="p-6 rounded-2xl border-2 ${is1?"bg-gradient-to-br from-blue-50 to-teal-50 border-blue-200":"bg-gradient-to-br from-slate-50 to-slate-100 border-slate-300"}">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-black text-lg ${is1?"bg-blue-600":"bg-slate-600"}">${i+1}</div>
+        <div><div class="text-xs font-semibold ${is1?"text-blue-600":"text-slate-600"}">${w.week}</div><div class="font-bold text-slate-900">${w.title}</div></div>
+      </div>
+      <div class="mb-4"><h4 class="text-xs font-semibold text-slate-500 mb-2">주요 활동</h4><ul class="space-y-1">${w.activities.map(a=>`<li class="text-xs text-slate-600 flex items-start"><span class="mr-1">•</span><span>${a}</span></li>`).join("")}</ul></div>
+      <div><h4 class="text-xs font-semibold text-slate-500 mb-2">산출물</h4><ul class="space-y-1">${w.deliverables.map(d=>`<li class="text-xs text-slate-600 flex items-start"><i data-lucide="check-circle-2" class="w-3 h-3 mr-1 mt-0.5 flex-shrink-0 text-green-500"></i><span>${d}</span></li>`).join("")}</ul></div>
+    </div>`;
+  }).join("");
+}
+
+function renderPricing(){
+  document.getElementById("pricingGrid").innerHTML=PRICING.map(p=>`
+    <div class="rounded-2xl p-8 transition-all ${p.recommended?"bg-white text-slate-900 ring-4 ring-teal-400 scale-105":"bg-white/10 backdrop-blur-sm border border-white/20"}">
+      ${p.recommended?'<div class="inline-block px-3 py-1 bg-teal-500 text-white text-xs font-bold rounded-full mb-4">⭐ 추천</div>':""}
+      <h3 class="text-2xl font-black mb-2 ${p.recommended?"text-slate-900":"text-white"}">${p.name}</h3>
+      <p class="text-sm mb-6 ${p.recommended?"text-slate-600":"text-blue-200"}">${p.target}</p>
+      <div class="mb-6"><div class="text-3xl font-black mb-1 ${p.recommended?"text-blue-600":"text-white"}">${krw(p.setup)}</div><div class="text-sm ${p.recommended?"text-slate-500":"text-blue-200"}">구축비 (VAT 별도)</div></div>
+      <div class="mb-6"><div class="text-xl font-bold ${p.recommended?"text-slate-700":"text-teal-300"}">${mKrw(p.monthly)}</div><div class="text-sm ${p.recommended?"text-slate-500":"text-blue-200"}">월 운영료 (VAT 별도)</div></div>
+      <ul class="space-y-3">${p.features.map(f=>`<li class="flex items-start text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0 ${p.recommended?"text-green-600":"text-teal-300"}"></i><span class="${p.recommended?"text-slate-700":"text-blue-100"}">${f}</span></li>`).join("")}</ul>
+    </div>`).join("");
+
+  document.getElementById("addOnGrid").innerHTML=ADD_ONS.map(s=>`
+    <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+      <h4 class="font-bold text-lg mb-3 text-white">${s.name}</h4>
+      <ul class="space-y-2 mb-4">${s.desc.map(d=>`<li class="text-sm text-blue-200 flex items-start"><i data-lucide="chevron-right" class="w-4 h-4 mr-1 mt-0.5 flex-shrink-0"></i><span>${d}</span></li>`).join("")}</ul>
+      <div class="text-teal-300 font-bold">${s.price}</div>
+    </div>`).join("");
+
+  document.getElementById("pricingNotes").innerHTML=PRICING_NOTES.map(n=>`<li class="text-sm text-slate-300 flex items-start"><span class="text-amber-400 mr-2 mt-0.5">•</span><span>${n}</span></li>`).join("");
+}
+
+function renderResults(){
+  document.getElementById("quantGrid").innerHTML=QUANT.map(b=>`
+    <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-2xl">
+      <h4 class="font-bold text-lg mb-4 text-slate-900">${b.title}</h4>
+      <div class="space-y-3">
+        <div class="bg-white rounded-lg p-3"><div class="text-xs text-slate-500 mb-1">현재</div><div class="text-sm text-slate-700">${b.before}</div></div>
+        <div class="text-center"><i data-lucide="arrow-right" class="w-5 h-5 mx-auto text-blue-600"></i></div>
+        <div class="bg-white rounded-lg p-3"><div class="text-xs text-slate-500 mb-1">도입 후</div><div class="text-sm font-semibold text-green-600">${b.after}</div></div>
+        <div class="bg-blue-600 text-white rounded-lg p-3 text-center"><div class="text-xs mb-1">효과</div><div class="text-sm font-bold">${b.impact}</div></div>
+      </div>
+    </div>`).join("");
+
+  document.getElementById("qualGrid").innerHTML=QUAL.map(b=>`
+    <div class="bg-slate-50 p-6 rounded-2xl">
+      <h4 class="font-bold text-lg mb-3 text-slate-900">${b.title}</h4>
+      <ul class="space-y-2">${b.benefits.map(i=>`<li class="flex items-start text-sm text-slate-700"><i data-lucide="check-circle-2" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0 text-green-500"></i><span>${i}</span></li>`).join("")}</ul>
+    </div>`).join("");
+
+  const profileItems=[["위치",PROFILE.location],["특성",PROFILE.spec],["병상 수",PROFILE.beds],["주요 진료과",PROFILE.depts],["특화 분야",PROFILE.specialized],["부가 서비스",PROFILE.extra]];
+  document.getElementById("profileCard").innerHTML=profileItems.map(([l,v])=>`<div><div class="text-xs text-blue-200 mb-1">${l}</div><div class="font-semibold">${v}</div></div>`).join("");
+
+  document.getElementById("roiCard").innerHTML=`
+    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4"><div class="text-xs text-green-200 mb-1">초기 투자</div><div class="text-2xl font-black">${krw(ROI.setup)}</div></div>
+    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4"><div class="text-xs text-green-200 mb-1">연간 운영료</div><div class="text-2xl font-black">${krw(ROI.opex)}</div></div>
+    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4"><div class="text-xs text-green-200 mb-1">연간 절감 효과</div><div class="text-2xl font-black">${krw(ROI.saving)}</div></div>
+    <div class="bg-green-500 rounded-lg p-4 text-center"><div class="text-xs mb-1">1년차 ROI</div><div class="text-4xl font-black">${ROI.roi}%</div></div>`;
+}
+
+// ─── Init ───
+document.addEventListener("DOMContentLoaded",()=>{
+  buildNav();
+  renderProblems();
+  renderSolution();
+  renderFeatures();
+  renderDiff();
+  renderProcess();
+  renderPricing();
+  renderResults();
+  lucide.createIcons();
+  initScrollSpy();
+});
+</script>
+</body>
+</html>
