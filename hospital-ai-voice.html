@@ -436,30 +436,142 @@
         }
 
         @media (max-width: 900px) {
+            .app-hero {
+                padding-top: 120px;
+                padding-bottom: 60px;
+            }
+
             .app-hero-layout {
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
 
             .app-headline {
-                font-size: 2.2rem;
+                font-size: 2rem;
+            }
+
+            .app-subheadline {
+                font-size: 1rem;
+            }
+
+            .app-subheadline br {
+                display: none;
+            }
+
+            .app-actions {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .app-actions a {
+                text-align: center;
+            }
+
+            .app-preview-image {
+                width: 220px;
+                transform: none;
+            }
+
+            .app-visual-col {
+                order: -1;
+            }
+
+            .stats-section {
+                padding: 60px 0;
             }
 
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .stat-value {
+                font-size: 2.2rem;
+            }
+
+            .stat-label {
+                font-size: 0.85rem;
+            }
+
+            .features-section,
+            .usecases-section,
+            .steps-section {
+                padding: 70px 0;
             }
 
             .features-grid,
             .related-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .feature-item {
+                padding: 28px;
             }
 
             .usecases-grid {
                 grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .usecase-card {
+                padding: 24px;
+            }
+
+            .step-list {
+                padding-left: 30px;
+            }
+
+            .step-marker {
+                left: -41px;
+            }
+
+            .step-title {
+                font-size: 1.1rem;
+            }
+
+            .section-header-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .breadcrumb {
+                margin-bottom: 30px;
+            }
+
+            .icon-box-large {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 20px;
+            }
+
+            .icon-box-large i {
+                width: 30px;
+                height: 30px;
+            }
+
+            .related-section {
+                padding: 60px 0 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-headline {
+                font-size: 1.7rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .stat-value {
+                font-size: 1.8rem;
             }
 
             .app-preview-image {
-                transform: none;
+                width: 180px;
             }
         }
     </style>
