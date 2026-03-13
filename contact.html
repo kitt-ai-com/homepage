@@ -240,26 +240,26 @@
     <section class="contact-section">
         <div class="container">
             <div class="contact-grid">
-                <form class="contact-form" onsubmit="event.preventDefault(); alert('상담 신청이 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.');">
+                <form id="contactForm" class="contact-form">
                     <div class="form-group">
                         <label class="form-label">회사명</label>
-                        <input type="text" class="form-input" placeholder="회사명을 입력하세요" required>
+                        <input type="text" name="company" class="form-input" placeholder="회사명을 입력하세요" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">담당자명</label>
-                        <input type="text" class="form-input" placeholder="이름을 입력하세요" required>
+                        <input type="text" name="name" class="form-input" placeholder="이름을 입력하세요" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">이메일</label>
-                        <input type="email" class="form-input" placeholder="email@company.com" required>
+                        <input type="email" name="email" class="form-input" placeholder="email@company.com" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">연락처</label>
-                        <input type="tel" class="form-input" placeholder="010-0000-0000">
+                        <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000">
                     </div>
                     <div class="form-group">
                         <label class="form-label">관심 분야</label>
-                        <select class="form-select">
+                        <select name="interest" class="form-select">
                             <option value="">선택해주세요</option>
                             <option value="ai-dev">AI 서비스 개발</option>
                             <option value="automation">업무 자동화 (RPA/n8n)</option>
@@ -270,9 +270,10 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">문의 내용</label>
-                        <textarea class="form-textarea" placeholder="현재 겪고 있는 문제나 자동화하고 싶은 업무를 자유롭게 적어주세요."></textarea>
+                        <textarea name="message" class="form-textarea" placeholder="현재 겪고 있는 문제나 자동화하고 싶은 업무를 자유롭게 적어주세요."></textarea>
                     </div>
-                    <button type="submit" class="form-submit">무료 상담 신청하기</button>
+                    <button type="submit" class="form-submit" id="submitBtn">무료 상담 신청하기</button>
+                    <div id="formMessage" style="display:none; text-align:center; padding:12px; border-radius:10px; font-size:0.9rem; margin-top:4px;"></div>
                 </form>
 
                 <div class="contact-info-side">
@@ -335,9 +336,67 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js?v=23"></script>
     <script>
         lucide.createIcons();
+
+        // ============================================
+        // Supabase 연동 - 프로젝트 생성 후 아래 값을 교체하세요
+        // ============================================
+        const SUPABASE_URL = 'https://qyxksdiwizixpapxwkxf.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5eGtzZGl3aXppeHBhcHh3a3hmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNzYzNjMsImV4cCI6MjA4ODk1MjM2M30.P8ywG7iLguKn2Fe7iB7ZkIyk1m1dIG1It_vEJoyoP3U';
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formMessage = document.getElementById('formMessage');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // 로딩 상태
+            submitBtn.disabled = true;
+            submitBtn.textContent = '전송 중...';
+            formMessage.style.display = 'none';
+
+            const formData = {
+                company: contactForm.company.value.trim(),
+                name: contactForm.name.value.trim(),
+                email: contactForm.email.value.trim(),
+                phone: contactForm.phone.value.trim(),
+                interest: contactForm.interest.value,
+                message: contactForm.message.value.trim()
+            };
+
+            try {
+                const { error } = await supabaseClient
+                    .from('contact_inquiries')
+                    .insert([formData]);
+
+                if (error) throw error;
+
+                // 성공
+                formMessage.style.display = 'block';
+                formMessage.style.background = 'rgba(34, 197, 94, 0.1)';
+                formMessage.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+                formMessage.style.color = '#22c55e';
+                formMessage.textContent = '상담 신청이 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.';
+                contactForm.reset();
+            } catch (err) {
+                // 에러
+                formMessage.style.display = 'block';
+                formMessage.style.background = 'rgba(239, 68, 68, 0.1)';
+                formMessage.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+                formMessage.style.color = '#ef4444';
+                formMessage.textContent = '전송에 실패했습니다. 잠시 후 다시 시도하거나 이메일로 문의해주세요.';
+                console.error('Supabase error:', err);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '무료 상담 신청하기';
+            }
+        });
     </script>
 </body>
 
