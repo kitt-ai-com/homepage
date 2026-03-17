@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>네놈마켓 B2B 플랫폼 — WBS</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #ffffff;
+            color: #222;
+            line-height: 1.8;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 48px 28px 80px;
+        }
+
+        /* Header */
+        h1 {
+            font-size: 1.7rem;
+            color: #111;
+            border-bottom: 2px solid #222;
+            padding-bottom: 10px;
+            margin-bottom: 6px;
+        }
+        .doc-subtitle {
+            color: #888;
+            font-size: 0.88rem;
+            margin-bottom: 32px;
+        }
+        h2 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        h3 {
+            font-size: 1rem;
+            color: #444;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+
+        /* Meta Card */
+        .meta-card {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin-bottom: 32px;
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+            font-size: 0.88rem;
+        }
+        .meta-item { display: flex; flex-direction: column; gap: 2px; }
+        .meta-label { color: #999; font-size: 0.73rem; text-transform: uppercase; letter-spacing: 0.3px; }
+        .meta-value { color: #333; font-weight: 600; }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+        }
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 20px;
+            font-size: 0.84rem;
+        }
+        th {
+            background: #f1f3f5;
+            color: #333;
+            font-weight: 600;
+            text-align: left;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        td {
+            padding: 8px 12px;
+            border: 1px solid #e8e8e8;
+            vertical-align: top;
+        }
+        tr:nth-child(even) { background: #fafbfc; }
+        tr:hover { background: #f0f7ff; }
+        td:first-child, td:nth-child(2) { text-align: center; white-space: nowrap; }
+        td:nth-child(4), td:nth-child(5) { text-align: center; white-space: nowrap; font-size: 0.82rem; }
+
+        /* Phase badges */
+        .phase {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .phase-p  { background: #fff3e0; color: #e65100; }
+        .phase-d  { background: #f3e8fd; color: #7c3aed; }
+        .phase-be { background: #e8f4fd; color: #1a73e8; }
+        .phase-fe { background: #e8f8e8; color: #1a8a1a; }
+        .phase-qa { background: #fce4ec; color: #c62828; }
+
+        /* Week header */
+        .week-header {
+            background: linear-gradient(135deg, #1a73e8 0%, #4a90d9 100%);
+            color: #fff;
+            padding: 16px 22px;
+            border-radius: 10px;
+            margin-top: 36px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .week-header h2 {
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            border: none;
+            font-size: 1.15rem;
+        }
+        .week-dates {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* Section header row */
+        .section-header td {
+            background: #e8f4fd;
+            font-weight: 600;
+            color: #1a73e8;
+            border-bottom: 2px solid #1a73e8;
+        }
+
+        /* Milestone box */
+        .milestone-box {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-left: 4px solid #1a73e8;
+            border-radius: 0 10px 10px 0;
+            padding: 16px 20px;
+            margin: 16px 0 8px;
+        }
+        .milestone-box h4 {
+            font-size: 0.88rem;
+            color: #1a73e8;
+            margin-bottom: 8px;
+        }
+        .milestone-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .milestone-box li {
+            font-size: 0.84rem;
+            color: #444;
+            padding: 3px 0;
+        }
+        .milestone-box li::before {
+            content: '☐ ';
+            color: #999;
+        }
+
+        /* Summary table */
+        .summary-table td:nth-child(2),
+        .summary-table td:nth-child(3) { text-align: center; }
+
+        /* Schedule overview */
+        .schedule-overview th:first-child,
+        .schedule-overview td:first-child { text-align: center; width: 50px; }
+
+        /* Mermaid */
+        .mermaid-wrap {
+            background: #fafbfc;
+            border: 1px solid #e8e8e8;
+            border-radius: 10px;
+            padding: 24px 16px;
+            margin: 16px 0 24px;
+            text-align: center;
+            overflow-x: auto;
+        }
+
+        /* Risk table */
+        .risk-high { color: #c62828; font-weight: 600; }
+        .risk-mid { color: #e67700; font-weight: 600; }
+
+        /* Info box */
+        .info-box {
+            background: #f0f7ff;
+            border-left: 3px solid #1a73e8;
+            padding: 14px 18px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.86rem;
+            color: #444;
+        }
+
+        /* Stat cards */
+        .stat-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 16px 0 24px;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1a73e8;
+        }
+        .stat-label {
+            font-size: 0.78rem;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        /* Progress bar */
+        .progress-bar-wrap {
+            display: flex;
+            height: 24px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 12px 0 8px;
+            border: 1px solid #e0e0e0;
+        }
+        .progress-seg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 0;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #888;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+        .tab:hover { color: #444; }
+        .tab.active {
+            color: #1a73e8;
+            border-bottom-color: #1a73e8;
+            font-weight: 600;
+        }
+        .tab-content { display: none; padding-top: 16px; }
+        .tab-content.active { display: block; }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e0e0e0;
+            margin: 36px 0;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 48px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+        }
+        .print-btn {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.88rem;
+        }
+        .print-btn:hover { background: #555; }
+
+        /* Print */
+        @media print {
+            body { padding: 20px; max-width: 100%; }
+            .tabs { display: none; }
+            .tab-content { display: block !important; }
+            .no-print { display: none; }
+            .week-header { break-before: page; }
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            body { padding: 20px 14px 60px; }
+            h1 { font-size: 1.3rem; }
+            .meta-card { gap: 16px; }
+            table { font-size: 0.78rem; }
+            th, td { padding: 6px 8px; }
+            .tab { padding: 8px 12px; font-size: 0.78rem; }
+            .stat-cards { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>네놈마켓 B2B 플랫폼 — WBS</h1>
+    <p class="doc-subtitle">Work Breakdown Structure &middot; Admin + Seller + AI 범위 &middot; 7주 개발 일정</p>
+
+    <div class="meta-card">
+        <div class="meta-item">
+            <span class="meta-label">문서 유형</span>
+            <span class="meta-value">WBS</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">프로젝트 기간</span>
+            <span class="meta-value">2026-03-23 ~ 2026-05-08 (7주)</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">작성일</span>
+            <span class="meta-value">2026-03-17</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">기준</span>
+            <span class="meta-value">PRD 전체 기능</span>
+        </div>
+    </div>
+
+    <!-- 범례 -->
+    <div class="legend">
+        <span class="legend-item"><span class="legend-dot" style="background:#e65100"></span><span class="phase phase-p">P</span> 기획</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#7c3aed"></span><span class="phase phase-d">D</span> 디자인</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#1a73e8"></span><span class="phase phase-be">BE</span> 백엔드</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#1a8a1a"></span><span class="phase phase-fe">FE</span> 프론트엔드</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#c62828"></span><span class="phase phase-qa">QA</span> 검수</span>
+    </div>
+
+    <!-- 통계 카드 -->
+    <div class="stat-cards">
+        <div class="stat-card">
+            <div class="stat-number">7</div>
+            <div class="stat-label">Phase (주차)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">22</div>
+            <div class="stat-label">대분류 (Level 2)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">112</div>
+            <div class="stat-label">세부 작업 (Level 3)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">48</div>
+            <div class="stat-label">BE 작업</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">16</div>
+            <div class="stat-label">FE 작업</div>
+        </div>
+    </div>
+
+    <!-- 단계별 비중 바 -->
+    <h3>단계별 작업 비중</h3>
+    <div class="progress-bar-wrap">
+        <div class="progress-seg" style="width:14%; background:#e65100;">P 14%</div>
+        <div class="progress-seg" style="width:11%; background:#7c3aed;">D 11%</div>
+        <div class="progress-seg" style="width:43%; background:#1a73e8;">BE 43%</div>
+        <div class="progress-seg" style="width:14%; background:#1a8a1a;">FE 14%</div>
+        <div class="progress-seg" style="width:18%; background:#c62828;">QA 18%</div>
+    </div>
+
+    <hr>
+
+    <!-- 전체 일정 요약 -->
+    <h2>전체 일정 요약</h2>
+    <table class="schedule-overview">
+        <thead>
+            <tr><th>주차</th><th>기간</th><th>Phase</th><th style="text-align:left">핵심 목표</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>W1</strong></td><td>03/23 ~ 03/27</td><td>기반 구축</td><td style="text-align:left">프로젝트 셋업, DB 설계, 인증/초대 시스템</td></tr>
+            <tr><td><strong>W2</strong></td><td>03/30 ~ 04/03</td><td>핵심 기능 (1)</td><td style="text-align:left">상품 관리, 카테고리, 등급/가격 시스템</td></tr>
+            <tr><td><strong>W3</strong></td><td>04/06 ~ 04/10</td><td>핵심 기능 (2)</td><td style="text-align:left">주문 시스템, 발주/공급사, 엑셀 처리</td></tr>
+            <tr><td><strong>W4</strong></td><td>04/13 ~ 04/17</td><td>관리 기능</td><td style="text-align:left">정산/예치금, 클레임, 회원관리, 알림</td></tr>
+            <tr><td><strong>W5</strong></td><td>04/20 ~ 04/24</td><td>플랫폼 기능</td><td style="text-align:left">멀티테넌시, 대시보드/통계, 게시판/공지</td></tr>
+            <tr><td><strong>W6</strong></td><td>04/27 ~ 05/01</td><td>고급 기능</td><td style="text-align:left">AI 채팅, 택배API, 카카오 알림톡, AI 엑셀매핑</td></tr>
+            <tr><td><strong>W7</strong></td><td>05/04 ~ 05/08</td><td>안정화 &amp; 배포</td><td style="text-align:left">통합 테스트, 보안, 최적화, 배포</td></tr>
+        </tbody>
+    </table>
+
+    <!-- 의존성 다이어그램 -->
+    <h3>주차별 의존성</h3>
+    <div class="mermaid-wrap">
+        <pre class="mermaid">
+flowchart LR
+    W1["W1\n기반+인증"] --> W2["W2\n상품"]
+    W2 --> W3["W3\n주문/발주"]
+    W3 --> W4["W4\n정산/예치금\n클레임/회원"]
+    W4 --> W5["W5\n멀티테넌시\n대시보드/알림"]
+    W5 --> W6["W6\nAI/택배\n알림톡"]
+    W6 --> W7["W7\n테스트/배포"]
+        </pre>
+    </div>
+
+    <hr>
+
+    <!-- Week Tabs -->
+    <div class="tabs no-print">
+        <button class="tab active" onclick="switchTab('w1')">W1</button>
+        <button class="tab" onclick="switchTab('w2')">W2</button>
+        <button class="tab" onclick="switchTab('w3')">W3</button>
+        <button class="tab" onclick="switchTab('w4')">W4</button>
+        <button class="tab" onclick="switchTab('w5')">W5</button>
+        <button class="tab" onclick="switchTab('w6')">W6</button>
+        <button class="tab" onclick="switchTab('w7')">W7</button>
+        <button class="tab" onclick="switchTab('risk')">리스크</button>
+    </div>
+
+    <!-- W1 -->
+    <div id="tab-w1" class="tab-content active">
+        <div class="week-header">
+            <h2>W1: 기반 구축</h2>
+            <span class="week-dates">03/23 (월) ~ 03/27 (금)</span>
+        </div>
+
+        <h3>1.1 프로젝트 셋업</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>1.1.1</td><td><span class="phase phase-p">P</span></td><td>기술 스택 확정 + 개발 환경 규칙 문서화</td><td>03/23</td><td>03/23</td><td>기술 스택 문서</td></tr>
+                <tr><td>1.1.2</td><td><span class="phase phase-be">BE</span></td><td>Next.js + TypeScript 프로젝트 생성</td><td>03/23</td><td>03/23</td><td>프로젝트 보일러플레이트</td></tr>
+                <tr><td>1.1.3</td><td><span class="phase phase-fe">FE</span></td><td>Tailwind CSS + shadcn/ui + ESLint 설정</td><td>03/23</td><td>03/23</td><td>UI 프레임워크, 린트 설정</td></tr>
+                <tr><td>1.1.4</td><td><span class="phase phase-be">BE</span></td><td>Git 저장소 + 브랜치 전략 + CI 파이프라인</td><td>03/23</td><td>03/23</td><td>.gitignore, 브랜치 규칙</td></tr>
+            </tbody>
+        </table>
+
+        <h3>1.2 데이터베이스 설계</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>1.2.1</td><td><span class="phase phase-p">P</span></td><td>전체 ERD 설계 + 테이블 관계 정의</td><td>03/24</td><td>03/24</td><td>ERD 문서</td></tr>
+                <tr><td>1.2.2</td><td><span class="phase phase-be">BE</span></td><td>Prisma 설정 + Supabase PostgreSQL 연결</td><td>03/24</td><td>03/24</td><td>prisma.config, .env</td></tr>
+                <tr><td>1.2.3</td><td><span class="phase phase-be">BE</span></td><td>사용자/인증 스키마 (User, SellerProfile, SellerGrade)</td><td>03/24</td><td>03/24</td><td>schema.prisma</td></tr>
+                <tr><td>1.2.4</td><td><span class="phase phase-be">BE</span></td><td>상품 스키마 (Product, Category, ProductPrice, SellerPrice)</td><td>03/24</td><td>03/25</td><td>schema.prisma</td></tr>
+                <tr><td>1.2.5</td><td><span class="phase phase-be">BE</span></td><td>주문 스키마 (Order, OrderItem, Claim, OrderModification)</td><td>03/25</td><td>03/25</td><td>schema.prisma</td></tr>
+                <tr><td>1.2.6</td><td><span class="phase phase-be">BE</span></td><td>공급사/발주 스키마 (Supplier, PurchaseOrder, ExcelTemplate)</td><td>03/25</td><td>03/25</td><td>schema.prisma</td></tr>
+                <tr><td>1.2.7</td><td><span class="phase phase-be">BE</span></td><td>정산/예치금 스키마 (Settlement, Deposit, DepositTransaction, DepositRequest)</td><td>03/25</td><td>03/26</td><td>schema.prisma</td></tr>
+                <tr><td>1.2.8</td><td><span class="phase phase-be">BE</span></td><td>멀티테넌시 스키마 (Tenant, Plan, Subscription, InviteLink)</td><td>03/26</td><td>03/26</td><td>schema.prisma</td></tr>
+                <tr><td>1.2.9</td><td><span class="phase phase-be">BE</span></td><td>커뮤니케이션 스키마 (Inquiry, Notice, Notification, ChatMessage)</td><td>03/26</td><td>03/26</td><td>schema.prisma</td></tr>
+                <tr><td>1.2.10</td><td><span class="phase phase-be">BE</span></td><td>마이그레이션 실행 + 시드 데이터</td><td>03/26</td><td>03/26</td><td>초기 마이그레이션</td></tr>
+                <tr><td>1.2.11</td><td><span class="phase phase-qa">QA</span></td><td>DB 연결 테스트 + 시드 데이터 검증</td><td>03/26</td><td>03/26</td><td>검증 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>1.3 인증 시스템</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>1.3.1</td><td><span class="phase phase-p">P</span></td><td>인증 플로우 설계 (로그인, 회원가입, 초대코드, 역할별 접근)</td><td>03/27</td><td>03/27</td><td>인증 플로우 문서</td></tr>
+                <tr><td>1.3.2</td><td><span class="phase phase-d">D</span></td><td>로그인/회원가입/초대 페이지 와이어프레임</td><td>03/27</td><td>03/27</td><td>와이어프레임</td></tr>
+                <tr><td>1.3.3</td><td><span class="phase phase-be">BE</span></td><td>NextAuth.js 설정 (JWT, Credentials Provider)</td><td>03/27</td><td>03/27</td><td>auth.ts, auth.config.ts</td></tr>
+                <tr><td>1.3.4</td><td><span class="phase phase-be">BE</span></td><td>로그인/로그아웃 + 관리자 회원가입 (Tenant 자동생성) API</td><td>03/27</td><td>03/27</td><td>/api/auth/*</td></tr>
+                <tr><td>1.3.5</td><td><span class="phase phase-be">BE</span></td><td>셀러 회원가입 (초대코드 + 사업자등록증) API</td><td>03/27</td><td>03/27</td><td>/api/auth/register, /api/invite</td></tr>
+                <tr><td>1.3.6</td><td><span class="phase phase-be">BE</span></td><td>미들웨어 (역할별 라우트 보호)</td><td>03/27</td><td>03/27</td><td>middleware.ts</td></tr>
+                <tr><td>1.3.7</td><td><span class="phase phase-fe">FE</span></td><td>로그인/회원가입 UI + 초대 페이지 UI</td><td>03/27</td><td>03/27</td><td>/login, /register, /invite/[code]</td></tr>
+                <tr><td>1.3.8</td><td><span class="phase phase-qa">QA</span></td><td>로그인/회원가입/초대코드 플로우 검수</td><td>03/27</td><td>03/27</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <div class="milestone-box">
+            <h4>W1 마일스톤</h4>
+            <ul>
+                <li>프로젝트 실행 가능 (dev server)</li>
+                <li>DB 연결 + 전체 스키마 마이그레이션 완료</li>
+                <li>로그인/회원가입/초대코드 플로우 검수 완료</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- W2 -->
+    <div id="tab-w2" class="tab-content">
+        <div class="week-header">
+            <h2>W2: 핵심 기능 (1) — 상품 관리</h2>
+            <span class="week-dates">03/30 (월) ~ 04/03 (금)</span>
+        </div>
+
+        <h3>2.1 공통 레이아웃</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>2.1.1</td><td><span class="phase phase-d">D</span></td><td>관리자/셀러 레이아웃 설계</td><td>03/30</td><td>03/30</td><td>레이아웃 와이어프레임</td></tr>
+                <tr><td>2.1.2</td><td><span class="phase phase-fe">FE</span></td><td>관리자 사이드바 + 레이아웃</td><td>03/30</td><td>03/30</td><td>admin-sidebar, admin layout</td></tr>
+                <tr><td>2.1.3</td><td><span class="phase phase-fe">FE</span></td><td>셀러 사이드바 + 레이아웃</td><td>03/30</td><td>03/30</td><td>seller-sidebar, seller layout</td></tr>
+                <tr><td>2.1.4</td><td><span class="phase phase-fe">FE</span></td><td>공통 UI 컴포넌트 (Table, Form, Dialog, Pagination)</td><td>03/30</td><td>03/31</td><td>재사용 컴포넌트</td></tr>
+                <tr><td>2.1.5</td><td><span class="phase phase-qa">QA</span></td><td>레이아웃 반응형 + 네비게이션 검수</td><td>03/31</td><td>03/31</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>2.2 카테고리 관리</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>2.2.1</td><td><span class="phase phase-p">P</span></td><td>카테고리 계층 구조 기획</td><td>03/31</td><td>03/31</td><td>카테고리 트리 문서</td></tr>
+                <tr><td>2.2.2</td><td><span class="phase phase-be">BE</span></td><td>카테고리 CRUD API (계층형)</td><td>03/31</td><td>03/31</td><td>/api/admin/categories</td></tr>
+                <tr><td>2.2.3</td><td><span class="phase phase-fe">FE</span></td><td>카테고리 관리 UI</td><td>03/31</td><td>03/31</td><td>/admin/categories 페이지</td></tr>
+            </tbody>
+        </table>
+
+        <h3>2.3 등급/가격 시스템</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>2.3.1</td><td><span class="phase phase-p">P</span></td><td>등급별 가격/수수료 정책 기획</td><td>04/01</td><td>04/01</td><td>가격 정책 문서</td></tr>
+                <tr><td>2.3.2</td><td><span class="phase phase-d">D</span></td><td>등급/가격 관리 화면 설계</td><td>04/01</td><td>04/01</td><td>와이어프레임</td></tr>
+                <tr><td>2.3.3</td><td><span class="phase phase-be">BE</span></td><td>셀러 등급 CRUD + 수수료율 설정 API</td><td>04/01</td><td>04/01</td><td>/api/admin/grades</td></tr>
+                <tr><td>2.3.4</td><td><span class="phase phase-be">BE</span></td><td>등급별 차등 가격 + 셀러별 개별 가격 API</td><td>04/01</td><td>04/01</td><td>/api/admin/prices</td></tr>
+                <tr><td>2.3.5</td><td><span class="phase phase-fe">FE</span></td><td>등급/가격 관리 UI</td><td>04/01</td><td>04/02</td><td>/admin/grades, /admin/prices</td></tr>
+                <tr><td>2.3.6</td><td><span class="phase phase-qa">QA</span></td><td>등급별 가격 차등 적용 검수</td><td>04/02</td><td>04/02</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>2.4 상품 관리</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>2.4.1</td><td><span class="phase phase-p">P</span></td><td>상품 등록/관리 프로세스 기획 (엑셀 포함)</td><td>04/02</td><td>04/02</td><td>상품 기획서</td></tr>
+                <tr><td>2.4.2</td><td><span class="phase phase-d">D</span></td><td>상품 관리 화면 설계 (목록, 등록폼, 상세)</td><td>04/02</td><td>04/02</td><td>와이어프레임</td></tr>
+                <tr><td>2.4.3</td><td><span class="phase phase-be">BE</span></td><td>상품 CRUD API (등록/수정/삭제/목록/상세)</td><td>04/02</td><td>04/02</td><td>/api/admin/products</td></tr>
+                <tr><td>2.4.4</td><td><span class="phase phase-be">BE</span></td><td>상품 상태 관리 + 재고 관리 + 재고 부족 자동 알림</td><td>04/02</td><td>04/03</td><td>상태/재고 로직</td></tr>
+                <tr><td>2.4.5</td><td><span class="phase phase-be">BE</span></td><td>상품 엑셀 대량 등록 + 가격 일괄 수정 API</td><td>04/03</td><td>04/03</td><td>엑셀 처리 로직</td></tr>
+                <tr><td>2.4.6</td><td><span class="phase phase-be">BE</span></td><td>셀러용 상품 조회 API + 엑셀 다운로드</td><td>04/03</td><td>04/03</td><td>/api/seller/products</td></tr>
+                <tr><td>2.4.7</td><td><span class="phase phase-fe">FE</span></td><td>관리자 상품 관리 UI (목록, 등록, 상세, 엑셀)</td><td>04/03</td><td>04/03</td><td>/admin/products 페이지</td></tr>
+                <tr><td>2.4.8</td><td><span class="phase phase-fe">FE</span></td><td>셀러 상품 조회 UI</td><td>04/03</td><td>04/03</td><td>/seller/products 페이지</td></tr>
+                <tr><td>2.4.9</td><td><span class="phase phase-qa">QA</span></td><td>상품 CRUD + 엑셀 업/다운로드 + 재고 알림 검수</td><td>04/03</td><td>04/03</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <div class="milestone-box">
+            <h4>W2 마일스톤</h4>
+            <ul>
+                <li>관리자/셀러 레이아웃 완성</li>
+                <li>상품 등록~조회 전체 플로우 검수 통과</li>
+                <li>등급별 가격 차등 적용 검수 통과</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- W3 -->
+    <div id="tab-w3" class="tab-content">
+        <div class="week-header">
+            <h2>W3: 핵심 기능 (2) — 주문/발주 시스템</h2>
+            <span class="week-dates">04/06 (월) ~ 04/10 (금)</span>
+        </div>
+
+        <h3>3.1 주문 관리 — 관리자</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>3.1.1</td><td><span class="phase phase-p">P</span></td><td>주문 플로우 기획 (접수→발주→송장→배송완료)</td><td>04/06</td><td>04/06</td><td>주문 플로우 문서</td></tr>
+                <tr><td>3.1.2</td><td><span class="phase phase-d">D</span></td><td>관리자 주문 관리 화면 설계</td><td>04/06</td><td>04/06</td><td>와이어프레임</td></tr>
+                <tr><td>3.1.3</td><td><span class="phase phase-be">BE</span></td><td>주문 목록/상세 API (필터, 정렬, 페이지네이션)</td><td>04/06</td><td>04/06</td><td>/api/admin/orders</td></tr>
+                <tr><td>3.1.4</td><td><span class="phase phase-be">BE</span></td><td>주문 상태 변경 + 엑셀 대량 등록 API</td><td>04/06</td><td>04/07</td><td>상태/엑셀 로직</td></tr>
+                <tr><td>3.1.5</td><td><span class="phase phase-be">BE</span></td><td>송장번호 개별 입력 / 엑셀 일괄 등록</td><td>04/07</td><td>04/07</td><td>송장 입력 API</td></tr>
+                <tr><td>3.1.6</td><td><span class="phase phase-be">BE</span></td><td>공급사 송장 엑셀 업로드 → 주문별 자동 매칭</td><td>04/07</td><td>04/07</td><td>송장 매칭 로직</td></tr>
+                <tr><td>3.1.7</td><td><span class="phase phase-be">BE</span></td><td>주문 수정 요청 관리 API</td><td>04/07</td><td>04/07</td><td>/api/admin/order-modifications</td></tr>
+                <tr><td>3.1.8</td><td><span class="phase phase-fe">FE</span></td><td>관리자 주문 관리 UI (목록, 상세, 상태변경, 엑셀)</td><td>04/07</td><td>04/08</td><td>/admin/orders 페이지</td></tr>
+                <tr><td>3.1.9</td><td><span class="phase phase-qa">QA</span></td><td>관리자 주문 관리 검수 (상태변경, 송장매칭)</td><td>04/08</td><td>04/08</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>3.2 주문 관리 — 셀러</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>3.2.1</td><td><span class="phase phase-d">D</span></td><td>셀러 주문 화면 설계</td><td>04/08</td><td>04/08</td><td>와이어프레임</td></tr>
+                <tr><td>3.2.2</td><td><span class="phase phase-be">BE</span></td><td>셀러 주문 생성 API (개별 + 엑셀)</td><td>04/08</td><td>04/08</td><td>/api/seller/orders</td></tr>
+                <tr><td>3.2.3</td><td><span class="phase phase-be">BE</span></td><td>셀러 주문 현황 조회 + 송장 확인 + 수정 요청 API</td><td>04/08</td><td>04/08</td><td>셀러 주문 API</td></tr>
+                <tr><td>3.2.4</td><td><span class="phase phase-fe">FE</span></td><td>셀러 주문 UI (주문생성, 목록, 상세, 엑셀업로드)</td><td>04/08</td><td>04/09</td><td>/seller/orders 페이지</td></tr>
+                <tr><td>3.2.5</td><td><span class="phase phase-qa">QA</span></td><td>셀러 주문 생성~송장 확인 플로우 검수</td><td>04/09</td><td>04/09</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>3.3 공급사/발주 관리</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>3.3.1</td><td><span class="phase phase-p">P</span></td><td>발주 프로세스 기획 (주문취합→발주서→송장회신)</td><td>04/09</td><td>04/09</td><td>발주 플로우 문서</td></tr>
+                <tr><td>3.3.2</td><td><span class="phase phase-d">D</span></td><td>공급사/발주 관리 화면 설계</td><td>04/09</td><td>04/09</td><td>와이어프레임</td></tr>
+                <tr><td>3.3.3</td><td><span class="phase phase-be">BE</span></td><td>공급사 CRUD + 발주 엑셀 양식 템플릿 관리 API</td><td>04/09</td><td>04/09</td><td>/api/admin/suppliers</td></tr>
+                <tr><td>3.3.4</td><td><span class="phase phase-be">BE</span></td><td>주문 취합 → 공급사별 발주서 엑셀 자동 생성</td><td>04/09</td><td>04/10</td><td>발주서 생성 로직</td></tr>
+                <tr><td>3.3.5</td><td><span class="phase phase-be">BE</span></td><td>발주/입고 이력 관리 API</td><td>04/10</td><td>04/10</td><td>/api/admin/purchase-orders</td></tr>
+                <tr><td>3.3.6</td><td><span class="phase phase-fe">FE</span></td><td>공급사 관리 UI + 발주서 UI</td><td>04/10</td><td>04/10</td><td>/admin/suppliers, /admin/purchase-orders</td></tr>
+                <tr><td>3.3.7</td><td><span class="phase phase-qa">QA</span></td><td>주문→발주서 생성→송장 매칭 전체 플로우 검수</td><td>04/10</td><td>04/10</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <div class="milestone-box">
+            <h4>W3 마일스톤</h4>
+            <ul>
+                <li>셀러 주문 → 관리자 확인 → 발주서 생성 플로우 검수 통과</li>
+                <li>송장 매칭 자동화 검수 통과</li>
+                <li>엑셀 업/다운로드 전체 검수 통과</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- W4 -->
+    <div id="tab-w4" class="tab-content">
+        <div class="week-header">
+            <h2>W4: 관리 기능</h2>
+            <span class="week-dates">04/13 (월) ~ 04/17 (금)</span>
+        </div>
+
+        <h3>4.1 정산/매출 관리</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>4.1.1</td><td><span class="phase phase-p">P</span></td><td>정산 정책 기획 (수수료, 마진, 반영 시점)</td><td>04/13</td><td>04/13</td><td>정산 정책 문서</td></tr>
+                <tr><td>4.1.2</td><td><span class="phase phase-d">D</span></td><td>정산/매출 관리 화면 설계</td><td>04/13</td><td>04/13</td><td>와이어프레임</td></tr>
+                <tr><td>4.1.3</td><td><span class="phase phase-be">BE</span></td><td>셀러별 매출 집계 + 수수료 자동 계산 API</td><td>04/13</td><td>04/13</td><td>매출/수수료 로직</td></tr>
+                <tr><td>4.1.4</td><td><span class="phase phase-be">BE</span></td><td>반품/환불 금액 정산 반영 + 마진율 관리 API</td><td>04/13</td><td>04/14</td><td>정산 반영 로직</td></tr>
+                <tr><td>4.1.5</td><td><span class="phase phase-be">BE</span></td><td>정산 내역 엑셀 다운로드</td><td>04/14</td><td>04/14</td><td>정산 엑셀 생성</td></tr>
+                <tr><td>4.1.6</td><td><span class="phase phase-fe">FE</span></td><td>관리자 정산 UI + 셀러 정산 조회 UI</td><td>04/14</td><td>04/14</td><td>/admin/settlements, /seller/settlements</td></tr>
+                <tr><td>4.1.7</td><td><span class="phase phase-qa">QA</span></td><td>정산 계산 정확성 + 엑셀 다운로드 검수</td><td>04/14</td><td>04/14</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>4.2 예치금 관리</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>4.2.1</td><td><span class="phase phase-p">P</span></td><td>예치금 충전/차감 프로세스 기획</td><td>04/14</td><td>04/14</td><td>예치금 정책 문서</td></tr>
+                <tr><td>4.2.2</td><td><span class="phase phase-d">D</span></td><td>예치금 관리 화면 설계 (관리자: 잔액+요청 2탭, 셀러: 잔액+내역+요청)</td><td>04/15</td><td>04/15</td><td>와이어프레임</td></tr>
+                <tr><td>4.2.3</td><td><span class="phase phase-be">BE</span></td><td>관리자 예치금 API (셀러 잔액 목록, 거래내역, 수동 충전/차감/환불)</td><td>04/15</td><td>04/15</td><td>/api/admin/deposits</td></tr>
+                <tr><td>4.2.4</td><td><span class="phase phase-be">BE</span></td><td>관리자 충전 요청 API (목록 조회, 승인/반려 + 관리자 메모)</td><td>04/15</td><td>04/15</td><td>/api/admin/deposits/requests</td></tr>
+                <tr><td>4.2.5</td><td><span class="phase phase-be">BE</span></td><td>셀러 예치금 API (잔액/내역 조회, 충전 요청 등록/내역)</td><td>04/15</td><td>04/16</td><td>/api/seller/deposits</td></tr>
+                <tr><td>4.2.6</td><td><span class="phase phase-fe">FE</span></td><td>관리자 예치금 관리 UI (잔액 탭 + 충전 요청 탭)</td><td>04/16</td><td>04/16</td><td>/admin/deposits 페이지</td></tr>
+                <tr><td>4.2.7</td><td><span class="phase phase-fe">FE</span></td><td>셀러 예치금 UI (잔액 카드 + 내역 탭 + 요청 탭 + 충전 요청 모달)</td><td>04/16</td><td>04/16</td><td>/seller/deposits 페이지</td></tr>
+                <tr><td>4.2.8</td><td><span class="phase phase-qa">QA</span></td><td>셀러 충전 요청→관리자 승인→잔액 반영 플로우 검수</td><td>04/16</td><td>04/16</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>4.3 클레임 관리</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>4.3.1</td><td><span class="phase phase-p">P</span></td><td>클레임 처리 프로세스 기획 (반품/환불/교환)</td><td>04/16</td><td>04/16</td><td>클레임 플로우 문서</td></tr>
+                <tr><td>4.3.2</td><td><span class="phase phase-d">D</span></td><td>클레임 관리 화면 설계</td><td>04/16</td><td>04/16</td><td>와이어프레임</td></tr>
+                <tr><td>4.3.3</td><td><span class="phase phase-be">BE</span></td><td>클레임 CRUD API + 셀러 요청 API</td><td>04/16</td><td>04/16</td><td>/api/admin/claims, /api/seller/claims</td></tr>
+                <tr><td>4.3.4</td><td><span class="phase phase-be">BE</span></td><td>클레임 승인 → 정산 자동 반영 + 교환 재배송 로직</td><td>04/16</td><td>04/17</td><td>클레임-정산 연동</td></tr>
+                <tr><td>4.3.5</td><td><span class="phase phase-fe">FE</span></td><td>클레임 UI (관리자 + 셀러)</td><td>04/17</td><td>04/17</td><td>/admin/claims, /seller/claims</td></tr>
+                <tr><td>4.3.6</td><td><span class="phase phase-qa">QA</span></td><td>클레임 요청→승인→정산 반영 검수</td><td>04/17</td><td>04/17</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>4.4 회원 관리</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>4.4.1</td><td><span class="phase phase-p">P</span></td><td>회원 관리 정책 기획 (승인, 등급변경, 초대코드)</td><td>04/17</td><td>04/17</td><td>회원 정책 문서</td></tr>
+                <tr><td>4.4.2</td><td><span class="phase phase-d">D</span></td><td>회원 관리 화면 설계 (셀러 목록 + 초대코드 관리 모달)</td><td>04/17</td><td>04/17</td><td>와이어프레임</td></tr>
+                <tr><td>4.4.3</td><td><span class="phase phase-be">BE</span></td><td>셀러 승인/반려 + 정보 관리 API</td><td>04/17</td><td>04/17</td><td>/api/admin/sellers</td></tr>
+                <tr><td>4.4.4</td><td><span class="phase phase-be">BE</span></td><td>초대 코드/링크 CRUD + 활성/비활성 토글 API</td><td>04/17</td><td>04/17</td><td>/api/admin/invites</td></tr>
+                <tr><td>4.4.5</td><td><span class="phase phase-fe">FE</span></td><td>회원 관리 UI (셀러 목록 + 초대코드 관리 모달)</td><td>04/17</td><td>04/17</td><td>/admin/sellers 페이지</td></tr>
+                <tr><td>4.4.6</td><td><span class="phase phase-qa">QA</span></td><td>셀러 가입→승인→등급설정 + 초대코드 관리 검수</td><td>04/17</td><td>04/17</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <div class="milestone-box">
+            <h4>W4 마일스톤</h4>
+            <ul>
+                <li>정산 자동 계산 + 클레임 반영 검수 통과</li>
+                <li>예치금 충전 요청→승인→잔액 반영 검수 통과</li>
+                <li>회원 승인/관리 + 초대코드 관리 검수 통과</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- W5 -->
+    <div id="tab-w5" class="tab-content">
+        <div class="week-header">
+            <h2>W5: 플랫폼 기능</h2>
+            <span class="week-dates">04/20 (월) ~ 04/24 (금)</span>
+        </div>
+
+        <h3>5.1 멀티테넌시</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>5.1.1</td><td><span class="phase phase-p">P</span></td><td>멀티테넌시 데이터 격리 정책 기획</td><td>04/20</td><td>04/20</td><td>테넌트 격리 정책</td></tr>
+                <tr><td>5.1.2</td><td><span class="phase phase-be">BE</span></td><td>Tenant Context 유틸 (tenantFilter, getTenantContext)</td><td>04/20</td><td>04/20</td><td>tenant.ts</td></tr>
+                <tr><td>5.1.3</td><td><span class="phase phase-be">BE</span></td><td>전체 API에 tenantId 필터 적용</td><td>04/20</td><td>04/21</td><td>전체 API 수정</td></tr>
+                <tr><td>5.1.4</td><td><span class="phase phase-be">BE</span></td><td>요금제별 사용량 제한 (주문수, 셀러수, 상품수, AI 채팅)</td><td>04/21</td><td>04/21</td><td>checkUsageLimit, UsageTracker</td></tr>
+                <tr><td>5.1.5</td><td><span class="phase phase-qa">QA</span></td><td>테넌트 간 데이터 격리 검수 + 요금제 제한 검수</td><td>04/21</td><td>04/22</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>5.2 알림 시스템</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>5.2.1</td><td><span class="phase phase-p">P</span></td><td>알림 유형/트리거 조건 기획 (10가지)</td><td>04/22</td><td>04/22</td><td>알림 정책 문서</td></tr>
+                <tr><td>5.2.2</td><td><span class="phase phase-be">BE</span></td><td>알림 생성 유틸 (createNotification) + API (목록, 읽음, 삭제)</td><td>04/22</td><td>04/22</td><td>/api/notifications</td></tr>
+                <tr><td>5.2.3</td><td><span class="phase phase-be">BE</span></td><td>재고 부족 자동 알림 + 가격 변동/품절 안내 알림</td><td>04/22</td><td>04/23</td><td>자동 알림 트리거</td></tr>
+                <tr><td>5.2.4</td><td><span class="phase phase-fe">FE</span></td><td>알림 UI (헤더 벨 아이콘 + 알림 목록)</td><td>04/23</td><td>04/23</td><td>알림 컴포넌트</td></tr>
+                <tr><td>5.2.5</td><td><span class="phase phase-qa">QA</span></td><td>알림 트리거 + 수신 + 읽음 처리 검수</td><td>04/23</td><td>04/23</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>5.3 대시보드/통계</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>5.3.1</td><td><span class="phase phase-d">D</span></td><td>대시보드/통계 차트 화면 설계</td><td>04/23</td><td>04/23</td><td>와이어프레임</td></tr>
+                <tr><td>5.3.2</td><td><span class="phase phase-be">BE</span></td><td>관리자 대시보드 통계 API (매출, 주문, Top N, 기간비교)</td><td>04/23</td><td>04/24</td><td>/api/admin/dashboard, /api/admin/stats</td></tr>
+                <tr><td>5.3.3</td><td><span class="phase phase-be">BE</span></td><td>셀러 대시보드 통계 API (내 매출, 주문현황, 월별 추이)</td><td>04/24</td><td>04/24</td><td>/api/seller/dashboard, /api/seller/stats</td></tr>
+                <tr><td>5.3.4</td><td><span class="phase phase-be">BE</span></td><td>활동 로그 API</td><td>04/24</td><td>04/24</td><td>/api/admin/logs</td></tr>
+                <tr><td>5.3.5</td><td><span class="phase phase-fe">FE</span></td><td>차트 컴포넌트 (Recharts — 월별, 기간별, 상품별)</td><td>04/24</td><td>04/24</td><td>차트 컴포넌트</td></tr>
+                <tr><td>5.3.6</td><td><span class="phase phase-fe">FE</span></td><td>관리자 대시보드 UI + 셀러 대시보드 UI</td><td>04/24</td><td>04/24</td><td>/admin/dashboard, /seller/dashboard</td></tr>
+                <tr><td>5.3.7</td><td><span class="phase phase-qa">QA</span></td><td>통계 데이터 정확성 + 차트 렌더링 검수</td><td>04/24</td><td>04/24</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>5.4 게시판/문의/공지</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>5.4.1</td><td><span class="phase phase-be">BE</span></td><td>문의 CRUD + 답변 API + 공지사항 CRUD API</td><td>04/24</td><td>04/24</td><td>/api/admin/inquiries, notices</td></tr>
+                <tr><td>5.4.2</td><td><span class="phase phase-fe">FE</span></td><td>문의/공지 UI (관리자 + 셀러)</td><td>04/24</td><td>04/24</td><td>문의/공지 페이지</td></tr>
+                <tr><td>5.4.3</td><td><span class="phase phase-qa">QA</span></td><td>문의 작성→답변→공지 발송 검수</td><td>04/24</td><td>04/24</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <div class="milestone-box">
+            <h4>W5 마일스톤</h4>
+            <ul>
+                <li>멀티테넌시 데이터 격리 검수 통과</li>
+                <li>관리자/셀러 대시보드 통계 차트 검수 통과</li>
+                <li>알림 시스템 + 게시판/공지 검수 통과</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- W6 -->
+    <div id="tab-w6" class="tab-content">
+        <div class="week-header">
+            <h2>W6: 고급 기능</h2>
+            <span class="week-dates">04/27 (월) ~ 05/01 (금)</span>
+        </div>
+
+        <h3>6.1 AI 채팅 시스템</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>6.1.1</td><td><span class="phase phase-p">P</span></td><td>AI 채팅 권한/명령어 범위 기획 (역할별)</td><td>04/27</td><td>04/27</td><td>AI 채팅 기능 명세</td></tr>
+                <tr><td>6.1.2</td><td><span class="phase phase-d">D</span></td><td>채팅 패널 UI 설계 (대시보드 우측)</td><td>04/27</td><td>04/27</td><td>와이어프레임</td></tr>
+                <tr><td>6.1.3</td><td><span class="phase phase-be">BE</span></td><td>AI 채팅 API (Google Generative AI 연동)</td><td>04/27</td><td>04/27</td><td>/api/chat</td></tr>
+                <tr><td>6.1.4</td><td><span class="phase phase-be">BE</span></td><td>역할별 시스템 프롬프트 (관리자/셀러)</td><td>04/27</td><td>04/28</td><td>system-prompt.ts</td></tr>
+                <tr><td>6.1.5</td><td><span class="phase phase-be">BE</span></td><td>AI 도구 정의 (자연어 → 기능 실행 매핑)</td><td>04/28</td><td>04/28</td><td>tools.ts</td></tr>
+                <tr><td>6.1.6</td><td><span class="phase phase-be">BE</span></td><td>채팅 메시지 저장/조회 + 일일 사용량 제한</td><td>04/28</td><td>04/28</td><td>ChatMessage CRUD, UsageTracker</td></tr>
+                <tr><td>6.1.7</td><td><span class="phase phase-fe">FE</span></td><td>채팅 UI (대시보드 우측 패널)</td><td>04/28</td><td>04/29</td><td>ChatPanel 컴포넌트</td></tr>
+                <tr><td>6.1.8</td><td><span class="phase phase-fe">FE</span></td><td>채팅 내 파일 업로드/다운로드</td><td>04/29</td><td>04/29</td><td>파일 처리 로직</td></tr>
+                <tr><td>6.1.9</td><td><span class="phase phase-qa">QA</span></td><td>AI 채팅 명령어 + 역할별 권한 + 사용량 제한 검수</td><td>04/29</td><td>04/29</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>6.2 AI 엑셀 자동 매핑</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>6.2.1</td><td><span class="phase phase-p">P</span></td><td>엑셀 컬럼 매핑 규칙 기획 (쿠팡/스마트스토어 등)</td><td>04/29</td><td>04/29</td><td>매핑 규칙 문서</td></tr>
+                <tr><td>6.2.2</td><td><span class="phase phase-be">BE</span></td><td>AI 엑셀 컬럼 자동 인식 엔진</td><td>04/29</td><td>04/30</td><td>컬럼 매핑 로직</td></tr>
+                <tr><td>6.2.3</td><td><span class="phase phase-be">BE</span></td><td>다양한 양식 지원 + 셀러 주문 AI 자동 처리</td><td>04/30</td><td>04/30</td><td>매핑 룰셋, 주문 자동 등록</td></tr>
+                <tr><td>6.2.4</td><td><span class="phase phase-qa">QA</span></td><td>다양한 엑셀 양식 AI 인식 정확도 검수</td><td>04/30</td><td>04/30</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>6.3 택배사 API 연동</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>6.3.1</td><td><span class="phase phase-p">P</span></td><td>택배 연동 프로세스 기획 (집하→송장→추적)</td><td>04/30</td><td>04/30</td><td>택배 연동 문서</td></tr>
+                <tr><td>6.3.2</td><td><span class="phase phase-be">BE</span></td><td>CJ대한통운 API 연동 (집하 요청 + 송장 자동 수신)</td><td>04/30</td><td>05/01</td><td>CJ API 클라이언트</td></tr>
+                <tr><td>6.3.3</td><td><span class="phase phase-be">BE</span></td><td>배송 추적 API</td><td>05/01</td><td>05/01</td><td>배송 추적 로직</td></tr>
+                <tr><td>6.3.4</td><td><span class="phase phase-fe">FE</span></td><td>배송 추적 UI</td><td>05/01</td><td>05/01</td><td>배송 추적 컴포넌트</td></tr>
+                <tr><td>6.3.5</td><td><span class="phase phase-qa">QA</span></td><td>집하요청→송장수신→배송추적 플로우 검수</td><td>05/01</td><td>05/01</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>6.4 카카오 알림톡</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>6.4.1</td><td><span class="phase phase-p">P</span></td><td>알림톡 발송 시나리오 기획</td><td>05/01</td><td>05/01</td><td>알림톡 기획서</td></tr>
+                <tr><td>6.4.2</td><td><span class="phase phase-be">BE</span></td><td>카카오 알림톡 API 연동 + 템플릿</td><td>05/01</td><td>05/01</td><td>카카오 API 클라이언트</td></tr>
+                <tr><td>6.4.3</td><td><span class="phase phase-qa">QA</span></td><td>알림톡 발송 테스트</td><td>05/01</td><td>05/01</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <h3>6.5 셀러 AI 1차 응답</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>6.5.1</td><td><span class="phase phase-be">BE</span></td><td>문의 AI 자동 응답 + 관리자 에스컬레이션</td><td>05/01</td><td>05/01</td><td>AI 자동 응답 로직</td></tr>
+                <tr><td>6.5.2</td><td><span class="phase phase-qa">QA</span></td><td>AI 자동 응답 정확도 검수</td><td>05/01</td><td>05/01</td><td>검수 완료</td></tr>
+            </tbody>
+        </table>
+
+        <div class="milestone-box">
+            <h4>W6 마일스톤</h4>
+            <ul>
+                <li>AI 채팅으로 자연어 업무 처리 검수 통과</li>
+                <li>택배사 API 연동 + 배송추적 검수 통과</li>
+                <li>카카오 알림톡 발송 검수 통과</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- W7 -->
+    <div id="tab-w7" class="tab-content">
+        <div class="week-header">
+            <h2>W7: 안정화 &amp; 배포</h2>
+            <span class="week-dates">05/04 (월) ~ 05/08 (금)</span>
+        </div>
+
+        <h3>7.1 통합 테스트</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>7.1.1</td><td><span class="phase phase-qa">QA</span></td><td>API 통합 테스트 (인증, 주문, 정산, 예치금 핵심 플로우)</td><td>05/04</td><td>05/04</td><td>테스트 코드</td></tr>
+                <tr><td>7.1.2</td><td><span class="phase phase-qa">QA</span></td><td>주요 UI 컴포넌트 테스트</td><td>05/04</td><td>05/05</td><td>컴포넌트 테스트</td></tr>
+                <tr><td>7.1.3</td><td><span class="phase phase-qa">QA</span></td><td>E2E 테스트 (핵심 비즈니스 시나리오)</td><td>05/05</td><td>05/05</td><td>E2E 테스트</td></tr>
+                <tr><td>7.1.4</td><td><span class="phase phase-qa">QA</span></td><td>크로스 브라우저 + 반응형 테스트</td><td>05/05</td><td>05/05</td><td>호환성 검수</td></tr>
+            </tbody>
+        </table>
+
+        <h3>7.2 보안 점검</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>7.2.1</td><td><span class="phase phase-qa">QA</span></td><td>인증/인가 보안 점검 (RBAC, 테넌트 격리)</td><td>05/05</td><td>05/06</td><td>보안 체크리스트</td></tr>
+                <tr><td>7.2.2</td><td><span class="phase phase-be">BE</span></td><td>API 입력 검증 강화 (Zod 스키마 점검)</td><td>05/06</td><td>05/06</td><td>검증 보완</td></tr>
+                <tr><td>7.2.3</td><td><span class="phase phase-qa">QA</span></td><td>XSS/CSRF/SQL Injection 방어 확인</td><td>05/06</td><td>05/06</td><td>보안 패치</td></tr>
+                <tr><td>7.2.4</td><td><span class="phase phase-be">BE</span></td><td>환경변수 + 시크릿 관리 점검</td><td>05/06</td><td>05/06</td><td>.env 정리</td></tr>
+            </tbody>
+        </table>
+
+        <h3>7.3 성능 최적화</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>7.3.1</td><td><span class="phase phase-be">BE</span></td><td>DB 쿼리 최적화 (N+1, 인덱스)</td><td>05/06</td><td>05/07</td><td>인덱스 추가</td></tr>
+                <tr><td>7.3.2</td><td><span class="phase phase-fe">FE</span></td><td>프론트엔드 번들 최적화 (코드 스플리팅)</td><td>05/07</td><td>05/07</td><td>next.config 최적화</td></tr>
+                <tr><td>7.3.3</td><td><span class="phase phase-fe">FE</span></td><td>이미지/정적 자산 최적화</td><td>05/07</td><td>05/07</td><td>에셋 최적화</td></tr>
+            </tbody>
+        </table>
+
+        <h3>7.4 배포</h3>
+        <table>
+            <thead><tr><th>ID</th><th>단계</th><th>작업 항목</th><th>시작</th><th>종료</th><th>산출물</th></tr></thead>
+            <tbody>
+                <tr><td>7.4.1</td><td><span class="phase phase-be">BE</span></td><td>Vercel 배포 설정 + 환경변수</td><td>05/07</td><td>05/07</td><td>배포 설정</td></tr>
+                <tr><td>7.4.2</td><td><span class="phase phase-be">BE</span></td><td>Supabase 프로덕션 DB 설정</td><td>05/07</td><td>05/08</td><td>프로덕션 DB</td></tr>
+                <tr><td>7.4.3</td><td><span class="phase phase-be">BE</span></td><td>도메인 연결 + SSL</td><td>05/08</td><td>05/08</td><td>도메인 설정</td></tr>
+                <tr><td>7.4.4</td><td><span class="phase phase-qa">QA</span></td><td>프로덕션 스모크 테스트</td><td>05/08</td><td>05/08</td><td>배포 검증</td></tr>
+                <tr><td>7.4.5</td><td><span class="phase phase-be">BE</span></td><td>모니터링 설정 (에러 추적, 로깅)</td><td>05/08</td><td>05/08</td><td>모니터링</td></tr>
+            </tbody>
+        </table>
+
+        <div class="milestone-box">
+            <h4>W7 마일스톤</h4>
+            <ul>
+                <li>핵심 플로우 통합 테스트 통과</li>
+                <li>보안 점검 + 성능 최적화 완료</li>
+                <li>프로덕션 배포 + 스모크 테스트 통과</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 리스크 탭 -->
+    <div id="tab-risk" class="tab-content">
+        <h2>리스크 및 주의사항</h2>
+        <table>
+            <thead><tr><th>리스크</th><th style="width:80px">영향도</th><th>대응 방안</th></tr></thead>
+            <tbody>
+                <tr><td>택배사 API 연동 지연</td><td class="risk-high">높음</td><td>W6에 배치, 수동 송장입력으로 우회 가능</td></tr>
+                <tr><td>카카오 알림톡 심사 지연</td><td class="risk-mid">중간</td><td>시스템 내 알림으로 대체 후 추후 연동</td></tr>
+                <tr><td>AI 엑셀 자동 매핑 정확도</td><td class="risk-mid">중간</td><td>사용자 확인 단계 추가, 수동 매핑 폴백</td></tr>
+                <tr><td>멀티테넌시 데이터 격리</td><td class="risk-high">높음</td><td>W5 집중 검수, 보안 점검에서 재확인</td></tr>
+                <tr><td>예치금 잔액 정합성</td><td class="risk-high">높음</td><td>트랜잭션 처리, 동시성 테스트 필수</td></tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2>전체 작업 통계</h2>
+        <table class="summary-table">
+            <thead><tr><th>단계</th><th>작업 수</th><th>비중</th></tr></thead>
+            <tbody>
+                <tr><td><span class="phase phase-p">P</span> 기획</td><td>16개</td><td>14%</td></tr>
+                <tr><td><span class="phase phase-d">D</span> 디자인</td><td>12개</td><td>11%</td></tr>
+                <tr><td><span class="phase phase-be">BE</span> 백엔드</td><td>48개</td><td>43%</td></tr>
+                <tr><td><span class="phase phase-fe">FE</span> 프론트엔드</td><td>16개</td><td>14%</td></tr>
+                <tr><td><span class="phase phase-qa">QA</span> 검수</td><td>20개</td><td>18%</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer class="no-print">
+        <button class="print-btn" onclick="window.print()">인쇄하기</button>
+    </footer>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+        });
+
+        async function initMermaid() {
+            document.querySelectorAll('.tab-content').forEach(c => {
+                c.style.display = 'block';
+                c.style.visibility = 'hidden';
+                c.style.position = 'absolute';
+            });
+            await mermaid.run();
+            document.querySelectorAll('.tab-content').forEach(c => {
+                c.style.display = '';
+                c.style.visibility = '';
+                c.style.position = '';
+            });
+        }
+
+        initMermaid();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
