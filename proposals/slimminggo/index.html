@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>슬리밍고 AI 자동화 제안서 | kitt</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8faf9;
+            color: #1a1a1a;
+            min-height: 100vh;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #2d6a4f 0%, #1b4332 100%);
+            color: #fff;
+            padding: 80px 24px 64px;
+            text-align: center;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(4px);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 16px;
+        }
+        .hero p {
+            font-size: 1.05rem;
+            opacity: 0.85;
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Cards */
+        .cards-section {
+            max-width: 960px;
+            margin: -40px auto 0;
+            padding: 0 24px 80px;
+            position: relative;
+            z-index: 1;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px 28px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            border: 1px solid #e8ece9;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(45,106,79,0.12);
+            border-color: #2d6a4f;
+        }
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2d6a4f, #40916c);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .card-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+        .card-num {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #2d6a4f;
+            letter-spacing: 1px;
+        }
+        .card h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1.4;
+        }
+        .card p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.7;
+            flex: 1;
+        }
+        .card-arrow {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2d6a4f;
+        }
+        .card-arrow svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s;
+        }
+        .card:hover .card-arrow svg {
+            transform: translateX(4px);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 24px;
+            color: #999;
+            font-size: 0.82rem;
+        }
+        .footer a {
+            color: #2d6a4f;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        @media (max-width: 640px) {
+            .hero { padding: 60px 20px 48px; }
+            .hero h1 { font-size: 1.6rem; }
+            .hero p { font-size: 0.95rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .cards-section { margin-top: -28px; }
+            .card { padding: 24px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<section class="hero">
+    <div class="hero-badge">PROPOSAL — (주)kitt</div>
+    <h1>슬리밍고<br>AI 자동화 제안서</h1>
+    <p>슬리밍고의 비즈니스 성장을 위한 4가지 핵심 솔루션을 제안합니다</p>
+</section>
+
+<section class="cards-section">
+    <div class="cards-grid">
+
+        <a href="final_proposal_chatbot.html" class="card">
+            <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6V2H8"/><path d="m8 18-4 4V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2Z"/><path d="M2 12h2"/><path d="M9 11v2"/><path d="M15 11v2"/><path d="M20 12h2"/></svg></div>
+            <span class="card-num">PROPOSAL 01</span>
+            <h2>AI 챗봇 시스템</h2>
+            <p>고객 문의 자동 응답, 상담 이력 관리, 개인화된 추천까지 — AI 기반 스마트 챗봇 시스템 구축</p>
+            <div class="card-arrow">자세히 보기 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div>
+        </a>
+
+        <a href="final_proposal_crm.html" class="card">
+            <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <span class="card-num">PROPOSAL 02</span>
+            <h2>고객 여정 관리 시스템</h2>
+            <p>고객 유입부터 전환·재구매까지 전 여정을 데이터로 추적하고 자동화하는 CRM 시스템</p>
+            <div class="card-arrow">자세히 보기 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div>
+        </a>
+
+        <a href="final_proposal_hr.html" class="card">
+            <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg></div>
+            <span class="card-num">PROPOSAL 03</span>
+            <h2>인사관리 시스템</h2>
+            <p>직원 정보, 근태, 급여, 평가를 통합 관리하는 스마트 HR 시스템으로 인사 업무 효율화</p>
+            <div class="card-arrow">자세히 보기 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div>
+        </a>
+
+        <a href="final_proposal_marketing.html" class="card">
+            <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
+            <span class="card-num">PROPOSAL 04</span>
+            <h2>디지털 마케팅 대행</h2>
+            <p>데이터 기반 타겟팅, 콘텐츠 자동화, 캠페인 최적화를 통한 디지털 마케팅 성과 극대화</p>
+            <div class="card-arrow">자세히 보기 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div>
+        </a>
+
+    </div>
+</section>
+
+<div class="footer">
+    <p>© 2025 <a href="https://kitt.ai.kr">(주)kitt</a> — AI 자동화 솔루션</p>
+</div>
+
+</body>
+</html>

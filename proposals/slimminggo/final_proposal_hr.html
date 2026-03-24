@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>슬리밍고 인사관리 시스템 개발 제안서 - (주)kitt</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brand: #2d6a4f;
+    --brand-light: #40916c;
+    --brand-lighter: #b7e4c7;
+    --brand-bg: #f0faf4;
+    --text: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --border: #d5d5d5;
+    --bg-white: #ffffff;
+    --bg-gray: #f8f9fa;
+  }
+
+  html { font-size: 15px; scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text);
+    line-height: 1.75;
+    background: var(--bg-gray);
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--bg-white);
+    padding: 60px 50px;
+  }
+
+  /* --- Header --- */
+  .doc-header {
+    text-align: center;
+    border-bottom: 3px solid var(--brand);
+    padding-bottom: 30px;
+    margin-bottom: 40px;
+  }
+  .doc-header h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--brand);
+    margin-bottom: 12px;
+  }
+  .doc-header .meta {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .doc-header .meta strong { color: var(--brand); }
+
+  /* --- TOC --- */
+  .toc {
+    background: var(--brand-bg);
+    border: 1px solid var(--brand-lighter);
+    border-radius: 8px;
+    padding: 24px 32px;
+    margin-bottom: 48px;
+  }
+  .toc h2 {
+    font-size: 1.15rem;
+    color: var(--brand);
+    margin-bottom: 12px;
+    border: none;
+    padding-left: 0;
+  }
+  .toc ol {
+    padding-left: 20px;
+    list-style: decimal;
+  }
+  .toc li { margin-bottom: 6px; }
+  .toc a {
+    color: var(--brand);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .toc a:hover { text-decoration: underline; }
+
+  /* --- Headings --- */
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--brand);
+    border-left: 5px solid var(--brand);
+    padding-left: 14px;
+    margin-top: 56px;
+    margin-bottom: 24px;
+  }
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 36px;
+    margin-bottom: 14px;
+  }
+  h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--brand-light);
+    margin-top: 24px;
+    margin-bottom: 10px;
+  }
+
+  /* --- Paragraphs --- */
+  p { margin-bottom: 14px; }
+
+  /* --- Tables --- */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 0.9rem;
+  }
+  thead th {
+    background: var(--brand);
+    color: #fff;
+    font-weight: 500;
+    padding: 10px 12px;
+    text-align: left;
+    border: 1px solid var(--brand);
+  }
+  tbody td {
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: var(--bg-gray); }
+  tbody tr:hover { background: #edf6f0; }
+  tbody td strong { color: var(--brand); }
+
+  /* --- Blockquote --- */
+  blockquote {
+    background: var(--brand-bg);
+    border-left: 4px solid var(--brand);
+    padding: 14px 20px;
+    margin: 16px 0 24px;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.95rem;
+  }
+  blockquote strong { color: var(--brand); }
+
+  /* --- Lists --- */
+  ul, ol { padding-left: 24px; margin-bottom: 14px; }
+  li { margin-bottom: 4px; }
+
+  /* --- Separator --- */
+  hr {
+    border: none;
+    border-top: 2px solid var(--brand-lighter);
+    margin: 48px 0;
+  }
+
+  /* --- Budget highlight --- */
+  .budget-highlight {
+    text-align: center;
+    background: var(--brand);
+    color: #fff;
+    border-radius: 8px;
+    padding: 28px 24px;
+    margin: 24px 0;
+  }
+  .budget-highlight .amount {
+    font-size: 1.8rem;
+    font-weight: 900;
+    display: block;
+    margin: 8px 0;
+  }
+  .budget-highlight .sub { font-size: 0.9rem; opacity: 0.9; }
+
+  /* --- Footer --- */
+  .doc-footer {
+    margin-top: 56px;
+    border-top: 3px solid var(--brand);
+    padding-top: 24px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.9;
+  }
+  .doc-footer .company {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--brand);
+  }
+
+  /* --- Print (A4) --- */
+  @media print {
+    html { font-size: 11pt; }
+    body { background: #fff; }
+    .container { max-width: none; padding: 0; box-shadow: none; }
+    h2 { page-break-before: auto; }
+    table, blockquote, .budget-highlight { page-break-inside: avoid; }
+    a { color: var(--brand) !important; text-decoration: none !important; }
+    @page {
+      size: A4;
+      margin: 20mm 18mm;
+    }
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 768px) {
+    .container { padding: 28px 18px; }
+    h2 { font-size: 1.25rem; }
+    table { font-size: 0.82rem; }
+    thead th, tbody td { padding: 7px 8px; }
+    .budget-highlight .amount { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="doc-header">
+    <h1>슬리밍고 인사관리 시스템<br>개발 제안서</h1>
+    <div class="meta">
+      <strong>프로젝트명</strong>: 슬리밍고(Slimming Go) 인사관리 시스템<br>
+      <strong>제출일</strong>: 2026-03-23 &nbsp;|&nbsp; <strong>제출사</strong>: (주)kitt
+    </div>
+  </header>
+
+  <!-- ==================== TOC ==================== -->
+  <nav class="toc">
+    <h2>목차</h2>
+    <ol>
+      <li><a href="#sec1">제안 개요</a></li>
+      <li><a href="#sec2">현황 분석 및 요구사항</a></li>
+      <li><a href="#sec3">제안 솔루션</a></li>
+      <li><a href="#sec4">UI/UX 설계 방향</a></li>
+      <li><a href="#sec5">예산</a></li>
+      <li><a href="#sec6">유지보수 및 운영</a></li>
+      <li><a href="#sec7">기대 효과</a></li>
+    </ol>
+  </nav>
+
+  <!-- ==================== 1. 제안 개요 ==================== -->
+  <h2 id="sec1">1. 제안 개요</h2>
+
+  <h3>1.1 현재 상황</h3>
+  <p>슬리밍고는 자세/체형 관리 전문 브랜드로서 전국 11개 지점과 본사를 운영하며 빠르게 성장하고 있습니다. 첫방문이벤트(55,000원)부터 쓰리데이(500,000원)까지 6종의 프로그램과 자세 교정 의류 판매/렌탈 사업을 전개하고 있으며, 각 매장에서 활발한 고객 상담과 서비스를 제공하고 있습니다.</p>
+  <p>그러나 현재 인사관리 영역에서는 <strong>별도의 시스템 없이 엑셀 업무일지만으로 모든 것을 관리</strong>하고 있어, 아래와 같은 실질적인 문제들이 발생하고 있습니다.</p>
+
+  <table>
+    <thead><tr><th>영역</th><th>현재 방식</th><th>실제 발생하는 문제</th></tr></thead>
+    <tbody>
+      <tr><td><strong>출퇴근 관리</strong></td><td>엑셀에 수기 기록</td><td>기록 누락이 잦고, 근무시간 산정이 부정확합니다. 초과근무나 지각 여부를 사후에 확인하기 어렵습니다</td></tr>
+      <tr><td><strong>직원 성과 평가</strong></td><td>관리자의 기억과 감에 의존</td><td>프로그램별 매출, 고객 수, 리뷰 점수 등이 체계적으로 집계되지 않아 공정한 평가가 어렵습니다</td></tr>
+      <tr><td><strong>본사 직원 평가</strong></td><td>별도 기준 없음</td><td>마케팅, 교육, 운영 등 역할별 성과를 측정할 기준 자체가 없습니다</td></tr>
+      <tr><td><strong>실적 취합</strong></td><td>매달 각 지점에서 수동 취합</td><td>11개 지점의 실적을 취합하는 데만 상당한 시간이 소요되고, 수치 오류가 발생합니다</td></tr>
+      <tr><td><strong>인사 현황 파악</strong></td><td>파편화된 엑셀 파일</td><td>전체 조직의 인력 현황, 직원 이력을 한눈에 파악하기 어렵습니다</td></tr>
+    </tbody>
+  </table>
+
+  <h3>1.2 프로젝트 목적</h3>
+  <p>본 프로젝트는 슬리밍고의 인사관리를 엑셀 기반에서 <strong>웹 기반 통합 시스템</strong>으로 전환하여, 다음 네 가지 핵심 목적을 달성하고자 합니다.</p>
+
+  <h4>1) 정확한 근태 관리</h4>
+  <ul>
+    <li>회사 사원카드를 발급하고, 각 지점 바코드 리더기에 스캔하여 출퇴근을 체크합니다</li>
+    <li>근무시간, 초과근무, 지각/조퇴가 자동으로 계산됩니다</li>
+    <li>사원카드 한 장으로 어느 지점에서든 출퇴근이 가능합니다</li>
+  </ul>
+
+  <h4>2) 공정하고 투명한 성과 평가</h4>
+  <ul>
+    <li>매장 직원은 프로그램 매출, 제품 매출, 고객 수, 리뷰 점수, 상담 건수 등 <strong>객관적 숫자</strong>로 평가합니다</li>
+    <li>본사 직원은 각 역할에 맞는 <strong>개별 KPI</strong>를 설정하여 평가합니다</li>
+    <li>월별 실적이 자동 집계되고, 반기/연간 종합 평가까지 시스템에서 일관되게 관리합니다</li>
+  </ul>
+
+  <h4>3) 업무일지와 KPI의 자동 연결 (AI 기반) -- 핵심 차별 기능</h4>
+  <ul>
+    <li>직원이 매일 작성하는 업무일지를 AI가 분석하여 KPI 항목과 자동으로 매칭합니다</li>
+    <li>"오늘 3건의 프로그램 상담을 진행했습니다"라고 쓰면, AI가 상담 건수 KPI에 자동 반영합니다</li>
+    <li>현재 달성률과 함께 구체적인 개선 방향까지 피드백합니다</li>
+  </ul>
+
+  <h4>4) 데이터 기반 경영 의사결정</h4>
+  <ul>
+    <li>본사에서 전국 11개 지점의 인력 현황, 성과, 근태 상황을 실시간으로 파악합니다</li>
+    <li>지점 간 성과 비교, 직원별 성과 추이 등을 대시보드에서 한눈에 확인합니다</li>
+  </ul>
+
+  <h3>1.3 기대 효과 (정량적 목표)</h3>
+  <table>
+    <thead><tr><th>목표</th><th>현재</th><th>도입 후 기대</th><th>개선 효과</th></tr></thead>
+    <tbody>
+      <tr><td>출퇴근 기록 누락률</td><td>잦은 누락 발생</td><td>5% 미만</td><td>90% 이상 감소</td></tr>
+      <tr><td>월간 평가 집계 소요 시간</td><td>수일 소요</td><td>자동 집계</td><td>80% 이상 단축</td></tr>
+      <tr><td>실적 데이터 정확도</td><td>수기 취합으로 오류 빈번</td><td>자동 수집/집계</td><td>데이터 신뢰도 대폭 향상</td></tr>
+      <tr><td>인사 현황 파악 속도</td><td>별도 요청 후 수 시간</td><td>대시보드 즉시 확인</td><td>실시간 확인 가능</td></tr>
+      <tr><td>업무일지 → KPI 반영</td><td>수기 대조 필요</td><td>AI 자동 매칭</td><td>관리 부담 제거</td></tr>
+    </tbody>
+  </table>
+
+  <h3>1.4 제안 범위</h3>
+  <table>
+    <thead><tr><th>구분</th><th>포함 기능</th><th>설명</th></tr></thead>
+    <tbody>
+      <tr><td><strong>근태 관리</strong></td><td>사원카드 바코드 출퇴근 체크, 근무시간 자동 계산, 근태 이력 조회, 수정 요청/승인, 휴가/연차 관리, 초과근무 관리, 근무 스케줄, 월간 리포트</td><td>엑셀 업무일지를 완전히 대체하는 디지털 근태 관리 체계</td></tr>
+      <tr><td><strong>KPI/성과 관리 (매장)</strong></td><td>프로그램별 매출 실적, 제품 매출 실적, 고객 수, 리뷰 점수, 상담 건수, 목표 설정/달성률</td><td>매장 직원 5대 KPI의 체계적 관리</td></tr>
+      <tr><td><strong>KPI/성과 관리 (본사)</strong></td><td>역할별 개별 평가 항목 설정, 가중치 관리, 정량/정성 평가</td><td>본사 직원 맞춤형 성과 관리</td></tr>
+      <tr><td><strong>AI 업무일지 연동</strong></td><td>업무일지 작성, 이력 조회, AI가 KPI 항목 자동 매칭, 달성률 피드백, 개선사항 제안</td><td><strong>핵심 차별 기능</strong></td></tr>
+      <tr><td><strong>평가 관리</strong></td><td>월별 실적 리포트, 반기/연간 종합 평가, 자기 평가, 상위자 평가, 평가 등급 자동 산출, PDF 출력</td><td>체계적인 다단계 평가 시스템</td></tr>
+      <tr><td><strong>인사 정보 관리</strong></td><td>직원 프로필, 조직도, 발령/이동 이력, 엑셀 일괄 등록, 퇴사 처리</td><td>통합 인사 정보 DB</td></tr>
+      <tr><td><strong>대시보드/리포트</strong></td><td>본사 통합 대시보드, 지점별 성과 비교, 개인 성과 추이, 매출 순위, 엑셀/PDF 내보내기</td><td>데이터 기반 의사결정 지원</td></tr>
+      <tr><td><strong>관리자 설정</strong></td><td>KPI 항목/가중치 설정, 평가 기간/등급 기준 설정, 근무시간 정책, 프로그램/제품 단가 관리</td><td>유연한 운영 설정</td></tr>
+      <tr><td><strong>시스템 관리</strong></td><td>사용자 계정, 권한(4단계), 지점 관리, 접속 로그, 데이터 백업</td><td>안정적인 시스템 운영</td></tr>
+    </tbody>
+  </table>
+  <hr>
+
+  <!-- ==================== 2. 현황 분석 ==================== -->
+  <h2 id="sec2">2. 현황 분석 및 요구사항</h2>
+
+  <h3>2.1 유사 서비스 분석</h3>
+  <p>기존 HR 솔루션과 본 프로젝트를 비교하였습니다.</p>
+  <table>
+    <thead><tr><th>비교 항목</th><th>기존 HR 솔루션</th><th>본 프로젝트</th></tr></thead>
+    <tbody>
+      <tr><td><strong>주요 기능</strong></td><td>근태, 급여, 인사 DB, 전자결재, 평가</td><td>근태(바코드), 인사 DB, 매장 KPI 평가, AI 업무일지, 통합 대시보드</td></tr>
+      <tr><td><strong>장점</strong></td><td>범용적, 다양한 기능</td><td>슬리밍고 비즈니스에 최적화된 맞춤형 시스템</td></tr>
+      <tr><td><strong>한계</strong></td><td>매장 KPI 맞춤 평가 불가, 프로그램별 매출 구분 어려움</td><td>-</td></tr>
+      <tr><td><strong>매장 KPI 평가</strong></td><td>미지원 또는 제한적</td><td>6종 프로그램별 매출 자동 구분, 5대 KPI 관리</td></tr>
+      <tr><td><strong>프로그램/제품 매출 구분</strong></td><td>불가</td><td>완전 지원</td></tr>
+      <tr><td><strong>AI 업무일지 → KPI 자동 매칭</strong></td><td>미지원</td><td>완전 지원</td></tr>
+      <tr><td><strong>지점별 성과 비교</strong></td><td>제한적</td><td>실시간 통합 대시보드</td></tr>
+    </tbody>
+  </table>
+  <blockquote><strong>분석 결론</strong>: 기존 HR 솔루션은 일반적인 근태/인사 관리에는 적합하나, 슬리밍고의 핵심 요구인 "매장별 프로그램/제품 매출 기반 KPI 평가"와 "업무일지 → KPI 자동 연결"을 지원하지 못합니다. <strong>맞춤 개발이 필수적</strong>입니다.</blockquote>
+
+  <h3>2.2 시장 현황 및 트렌드</h3>
+  <table>
+    <thead><tr><th>트렌드</th><th>설명</th><th>슬리밍고 적용 방향</th></tr></thead>
+    <tbody>
+      <tr><td><strong>HR 디지털 전환</strong></td><td>중소기업도 엑셀/수기에서 클라우드 기반 HR로 전환하는 추세</td><td>엑셀 업무일지를 웹 기반 시스템으로 완전 대체</td></tr>
+      <tr><td><strong>데이터 기반 성과 관리</strong></td><td>주관적 평가에서 객관적 지표 기반 평가로 전환 확산</td><td>매출, 고객 수, 리뷰 등 객관적 데이터로 평가</td></tr>
+      <tr><td><strong>AI 기반 업무 자동화</strong></td><td>AI를 활용한 분류/매칭/분석 업무 자동화 가속화</td><td>업무일지 텍스트를 AI가 분석하여 KPI 자동 매칭</td></tr>
+      <tr><td><strong>스마트 근태 관리</strong></td><td>수기 기록에서 디지털 근태 관리로 전환하는 추세 확산</td><td>사원카드 바코드 스캔 방식으로 정확하고 빠른 출퇴근 기록</td></tr>
+      <tr><td><strong>맞춤형 평가 체계</strong></td><td>직무별/역할별 다른 평가 기준 적용 요구 증가</td><td>매장 직원과 본사 직원에 서로 다른 평가 항목 적용</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- ==================== 3. 제안 솔루션 ==================== -->
+  <h2 id="sec3">3. 제안 솔루션</h2>
+
+  <h3>3.1 핵심 차별점 3가지</h3>
+  <p>기존 HR 솔루션은 일반적인 근태 관리와 인사 관리에는 적합하지만, 슬리밍고의 비즈니스에 맞는 "매장별 프로그램/제품 매출 기반 KPI 평가"를 지원하지 못합니다. 본 시스템은 슬리밍고만을 위한 세 가지 핵심 차별점을 갖추고 있습니다.</p>
+
+  <h4>차별점 1: AI 업무일지 → KPI 자동 연결 (가장 큰 차별 기능)</h4>
+  <blockquote><strong>"업무일지를 쓰면, AI가 알아서 성과에 반영해 줍니다"</strong></blockquote>
+  <p>기존 방식에서는 직원이 업무일지를 작성하고, 관리자가 이를 별도로 확인한 뒤, 다시 성과 평가 시트에 수기로 옮겨야 했습니다. 이 과정에서 누락과 오류가 발생하고, 관리자의 시간이 낭비됩니다.</p>
+  <p>본 시스템에서는 이 과정을 AI가 자동으로 처리합니다.</p>
+
+  <p><strong>작동 방식:</strong></p>
+  <ol>
+    <li>직원이 업무일지를 자유롭게 작성합니다.<br>
+      <em>예: "오늘 첫방문이벤트 고객 2명 상담, 1명 등록 완료. 스마트 프로그램 기존 고객 1명 추가 등록. 네이버 리뷰 요청 드렸고 1건 등록 확인."</em></li>
+    <li>AI가 자동으로 분석하여 KPI에 매칭합니다.
+      <ul>
+        <li>상담 건수: +2건 (첫방문이벤트 고객 2명 상담)</li>
+        <li>프로그램 매출: +55,000원 (첫방문이벤트 1건)</li>
+        <li>프로그램 매출: +110,000원 (스마트 1건)</li>
+        <li>리뷰 점수: +1건 (네이버 리뷰 1건 확인)</li>
+      </ul>
+    </li>
+    <li>AI가 달성률 피드백 + 개선사항을 제안합니다.
+      <ul>
+        <li>이번 달 프로그램 매출 달성률 68%, 리뷰 달성률 60% 등</li>
+        <li>"리뷰 달성률이 60%로 가장 낮습니다. 이번 주 남은 4일간 하루 1건씩 리뷰를 요청하시면 목표 달성이 가능합니다."</li>
+      </ul>
+    </li>
+  </ol>
+
+  <p><strong>이 기능이 가져오는 가치:</strong></p>
+  <table>
+    <thead><tr><th>기존 방식</th><th>AI 자동 연결 후</th></tr></thead>
+    <tbody>
+      <tr><td>업무일지와 성과 평가가 별개 → 관리자가 수기 대조</td><td>업무일지 작성 = 성과 기록 (자동 연결)</td></tr>
+      <tr><td>월말에야 달성률 확인 가능</td><td>매일 실시간으로 달성률 확인</td></tr>
+      <tr><td>"뭘 더 해야 하는지" 스스로 판단</td><td>AI가 구체적인 개선 방향 제시</td></tr>
+      <tr><td>관리자가 개별 피드백에 시간 소요</td><td>AI가 1차 피드백, 관리자는 핵심만 보충</td></tr>
+    </tbody>
+  </table>
+
+  <h4>차별점 2: 슬리밍고 맞춤형 매장 KPI 평가 체계</h4>
+  <blockquote><strong>"프로그램 6종의 매출을 자동으로 구분하고, 5대 KPI로 공정하게 평가합니다"</strong></blockquote>
+  <p>기존 HR 솔루션에서는 "전체 매출"만 집계할 수 있지만, 슬리밍고에서는 프로그램별 매출 구분이 필수적입니다.</p>
+
+  <p><strong>슬리밍고 매장 직원 5대 KPI:</strong></p>
+  <table>
+    <thead><tr><th>KPI 항목</th><th>측정 방식</th><th>관리자가 설정 가능한 것</th></tr></thead>
+    <tbody>
+      <tr><td><strong>프로그램 매출</strong></td><td>첫방문이벤트, 원데이, 쓰리데이, 스마트, 셀톡신, 에너지밸런스 -- 프로그램별 매출 자동 분류</td><td>월간 목표 금액, 프로그램별 가중치</td></tr>
+      <tr><td><strong>제품 매출</strong></td><td>자세 교정 의류 판매/렌탈 매출</td><td>월간 목표 금액</td></tr>
+      <tr><td><strong>고객 수</strong></td><td>담당 고객 수, 신규 고객 유치 수</td><td>월간 목표 고객 수</td></tr>
+      <tr><td><strong>리뷰 점수</strong></td><td>고객이 남긴 매장/직원 평가 점수</td><td>월간 목표 리뷰 건수, 최소 점수 기준</td></tr>
+      <tr><td><strong>상담 건수</strong></td><td>고객 상담 건수 (전화/방문/온라인)</td><td>월간 목표 건수</td></tr>
+    </tbody>
+  </table>
+  <p>각 KPI 항목의 <strong>비중(가중치)을 본사에서 자유롭게 설정</strong>할 수 있어, "이번 분기는 신규 고객 확보에 집중하자"는 전략적 방향을 평가 체계에 즉시 반영할 수 있습니다.</p>
+
+  <h4>차별점 3: 11개 지점 통합 실시간 성과 관리</h4>
+  <blockquote><strong>"본사에서 전 지점의 상황을 한 화면에서 실시간으로 파악합니다"</strong></blockquote>
+  <p>11개 지점이 각각의 엑셀 파일로 관리되던 방식에서, <strong>하나의 통합 대시보드</strong>로 전환됩니다.</p>
+  <p><strong>본사 통합 대시보드에서 확인할 수 있는 것:</strong></p>
+  <ul>
+    <li><strong>인력 현황</strong>: 전체 직원 수, 지점별 인원 배치, 신규 입사/퇴사 현황</li>
+    <li><strong>근태 현황</strong>: 오늘 전 지점 출근율, 지각/결근 현황, 초과근무 발생 지점</li>
+    <li><strong>성과 현황</strong>: 지점별 프로그램 매출 순위, 제품 매출 순위, 이번 달 목표 달성률</li>
+    <li><strong>평가 현황</strong>: 진행 중인 평가 완료율, 미제출 직원 현황</li>
+  </ul>
+  <p><strong>지점 간 성과 비교 기능</strong>으로 건전한 경쟁을 유도하고, <strong>개인별 성과 추이 그래프</strong>로 직원의 성장 흐름을 한눈에 파악할 수 있습니다.</p>
+
+  <h3>3.2 데이터 보안</h3>
+  <table>
+    <thead><tr><th>대상</th><th>보안 방식</th></tr></thead>
+    <tbody>
+      <tr><td>개인식별정보</td><td>암호화 저장 (이름, 연락처, 주소 등)</td></tr>
+      <tr><td>비밀번호</td><td>단방향 해싱 처리</td></tr>
+      <tr><td>지점별 데이터 격리</td><td>매장 직원은 자기 지점 직원 데이터만 조회 가능</td></tr>
+      <tr><td>평가 데이터 접근 제한</td><td>타인의 평가 결과는 권한에 따라 접근 제한</td></tr>
+      <tr><td>업무일지 접근 제한</td><td>본인의 업무일지만 조회 가능, 관리자는 소속 지점 직원 것만 조회</td></tr>
+      <tr><td>접근 기록</td><td>인사정보 조회/수정/삭제 시 자동 기록</td></tr>
+      <tr><td>데이터 보관</td><td>퇴직 후 3년 보관 후 파기 (근로기준법 준수)</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- ==================== 4. UI/UX ==================== -->
+  <h2 id="sec4">4. UI/UX 설계 방향</h2>
+
+  <h3>4.1 UX 설계 원칙</h3>
+  <p>슬리밍고 인사관리 시스템의 주요 사용자는 <strong>IT 전문가가 아닌 매장 직원과 관리자</strong>입니다. 따라서 다음 5가지 원칙을 UX 설계의 기본 방향으로 설정합니다.</p>
+  <table>
+    <thead><tr><th>원칙</th><th>핵심 내용</th></tr></thead>
+    <tbody>
+      <tr><td><strong>3초 안에 이해되는 화면</strong></td><td>화면을 열었을 때 3초 안에 "이 화면에서 뭘 할 수 있는지" 파악할 수 있어야 합니다. 전문 용어 대신 일상 언어를 사용합니다</td></tr>
+      <tr><td><strong>2번 이내 클릭으로 핵심 기능 도달</strong></td><td>가장 자주 쓰는 기능(출퇴근 체크, 내 실적 확인)은 로그인 직후 첫 화면에서 바로 사용할 수 있습니다</td></tr>
+      <tr><td><strong>실수해도 되돌릴 수 있는 안전함</strong></td><td>중요한 작업에는 확인 단계를 두고, 잘못 입력한 기록은 수정 요청으로 보정할 수 있습니다</td></tr>
+      <tr><td><strong>PC와 스마트폰 모두에서 편안한 사용</strong></td><td>매장 직원은 스마트폰, 본사 관리자는 PC를 주로 사용하므로 반응형 디자인을 적용합니다</td></tr>
+      <tr><td><strong>데이터가 스스로 말하게 하는 시각화</strong></td><td>숫자 나열 대신 그래프, 게이지, 진행률 바 등 시각적 요소를 적극 활용합니다</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.2 핵심 사용자 시나리오</h3>
+
+  <h4>시나리오 1: 매장 직원의 하루 -- 출퇴근 + 업무일지 + AI 피드백</h4>
+  <p><strong>사용자</strong>: 강남점 매장 직원 김수진 (입사 6개월)</p>
+
+  <p><strong>아침 출근 (오전 9:50)</strong></p>
+  <ol>
+    <li>매장에 도착하여 바코드 리더기에 사원카드를 스캔합니다</li>
+    <li>시스템에 09:50 출근이 자동으로 기록됩니다</li>
+    <li>시스템에 접속하면 이번 달 실적 요약을 확인할 수 있습니다</li>
+  </ol>
+
+  <p><strong>업무 중 (오후 5시) -- AI 업무일지 작성</strong></p>
+  <ol>
+    <li>오늘 업무를 마무리하며 업무일지를 작성합니다</li>
+    <li>자유롭게 텍스트로 입력합니다</li>
+    <li>"저장 및 AI 분석" 버튼을 누르면 AI가 업무일지를 분석합니다</li>
+    <li>AI 분석 결과(KPI 자동 매칭), 달성률 업데이트, 개선 제안이 화면에 표시됩니다</li>
+    <li>김수진 직원은 AI 피드백을 확인하고, 내일 리뷰 요청에 더 신경 쓰기로 합니다</li>
+  </ol>
+
+  <p><strong>퇴근 (오후 6:10)</strong></p>
+  <ol>
+    <li>퇴근 시 바코드 리더기에 사원카드를 스캔합니다</li>
+    <li>18:10 퇴근이 기록되고, 오늘 근무시간이 자동 계산됩니다</li>
+  </ol>
+
+  <h4>시나리오 2: 매장 관리자의 팀원 성과 확인 + 평가</h4>
+  <p><strong>사용자</strong>: 강남점 점장 이현우</p>
+  <ol>
+    <li>PC 브라우저에서 시스템 접속 → 지점 대시보드가 첫 화면</li>
+    <li>오늘 출근 현황, 이번 달 매출, 목표 달성률을 한눈에 확인</li>
+    <li>직원별 KPI 현황 테이블에서 각 직원의 5대 KPI 달성률 확인</li>
+    <li>반기 평가 시 시스템이 자동 집계한 6개월 KPI 실적을 기반으로 상위자 평가 작성</li>
+  </ol>
+
+  <h4>시나리오 3: 본사에서 전 지점 성과 비교 대시보드 조회</h4>
+  <p><strong>사용자</strong>: 슬리밍고 본사 운영팀장 박정민</p>
+  <ol>
+    <li>본사 통합 대시보드에서 전 직원 인력 현황, 출근율, 총 매출, 달성률 확인</li>
+    <li>지점별 프로그램 매출 비교 차트로 11개 지점 성과 순위 파악</li>
+    <li>목표 미달 지점은 빨간색으로 표시 → 클릭 시 해당 지점 상세 현황으로 이동</li>
+    <li>필요 데이터를 엑셀/PDF로 내보내기하여 경영진 보고에 활용</li>
+  </ol>
+
+  <h3>4.3 역할별 화면 구성</h3>
+  <table>
+    <thead><tr><th>역할</th><th>첫 화면 (메인)</th><th>주요 사용 화면</th></tr></thead>
+    <tbody>
+      <tr><td><strong>매장 직원</strong></td><td>내 실적 요약 + 근태 현황</td><td>근태 조회, 업무일지(AI 피드백), 내 실적, 목표 달성률, 내 평가 이력</td></tr>
+      <tr><td><strong>매장 관리자</strong></td><td>지점 대시보드 (근태 + 실적 + 평가 요약)</td><td>팀원 성과 관리, 근태/휴가 승인, 스케줄 관리, 상위자 평가 작성</td></tr>
+      <tr><td><strong>본사 관리자</strong></td><td>본사 통합 대시보드 (전 지점 현황)</td><td>지점별 비교, 직원 인사 관리, 평가 기간 관리, KPI/정책 설정</td></tr>
+      <tr><td><strong>대표</strong></td><td>본사 통합 대시보드 (핵심 지표 중심)</td><td>전 지점 성과 비교, 매출 순위, 종합 리포트</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.4 모바일 대응</h3>
+  <p>매장 직원의 경우 스마트폰 사용 비율이 높을 것으로 예상되므로, 모바일 환경에서 아래 기능이 원활하게 동작하도록 최적화합니다.</p>
+  <ul>
+    <li><strong>업무일지 작성</strong>: 모바일 키보드에 최적화된 입력 폼</li>
+    <li><strong>내 실적 확인</strong>: 세로 스크롤로 KPI 카드를 하나씩 확인하는 구조</li>
+    <li><strong>근태 현황 조회</strong>: 이번 달 출퇴근 기록, 근무시간 확인</li>
+    <li><strong>알림 확인</strong>: 앱처럼 알림 수신 가능</li>
+  </ul>
+
+  <h3>4.5 초보자 친화적 UX</h3>
+  <table>
+    <thead><tr><th>기능</th><th>설명</th></tr></thead>
+    <tbody>
+      <tr><td><strong>첫 사용 가이드</strong></td><td>최초 로그인 시 주요 기능 3가지를 풀스크린 슬라이드로 소개</td></tr>
+      <tr><td><strong>물음표(?) 아이콘</strong></td><td>이해가 어려울 수 있는 용어 옆에 배치. 클릭하면 쉬운 말로 설명</td></tr>
+      <tr><td><strong>빈 상태 안내</strong></td><td>데이터가 없는 화면에 다음 행동을 안내</td></tr>
+      <tr><td><strong>친절한 오류 메시지</strong></td><td>"입력한 내용에 빈칸이 있습니다" 등 안내</td></tr>
+      <tr><td><strong>충분한 글자 크기</strong></td><td>본문 최소 14px, 중요 숫자 18px 이상</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- ==================== 5. 예산 ==================== -->
+  <h2 id="sec5">5. 예산</h2>
+
+  <h3>5.1 프로젝트 일정 (3개월)</h3>
+  <table>
+    <thead><tr><th>단계</th><th>기간</th><th>주요 내용</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1단계: 기반 구축</strong></td><td>1개월차 (4주)</td><td>시스템 아키텍처 설계, 근태 관리(바코드), 인사 정보 관리, 기본 인프라 구축</td></tr>
+      <tr><td><strong>2단계: 핵심 기능</strong></td><td>2개월차 (4주)</td><td>KPI/성과 관리, AI 업무일지-KPI 연동, 평가 시스템, 대시보드</td></tr>
+      <tr><td><strong>3단계: 통합 · 오픈</strong></td><td>3개월차 (4주)</td><td>관리자 설정, 통합 테스트, 안정화, 운영 교육, 정식 오픈</td></tr>
+    </tbody>
+  </table>
+
+  <h3>5.2 개발 비용 상세</h3>
+  <table>
+    <thead><tr><th>항목</th><th>비용 (만원)</th></tr></thead>
+    <tbody>
+      <tr><td>AI 업무일지-KPI 자동 연동</td><td style="text-align:right">600</td></tr>
+      <tr><td>KPI/성과 관리 시스템 (매장 + 본사)</td><td style="text-align:right">550</td></tr>
+      <tr><td>근태 관리 (바코드 사원카드)</td><td style="text-align:right">400</td></tr>
+      <tr><td>평가 관리 시스템</td><td style="text-align:right">350</td></tr>
+      <tr><td>본사 통합 대시보드 / 리포트</td><td style="text-align:right">350</td></tr>
+      <tr><td>인사 정보 관리</td><td style="text-align:right">250</td></tr>
+      <tr><td>인프라 구축 및 배포</td><td style="text-align:right">200</td></tr>
+      <tr><td>QA / 통합 테스트 / 안정화</td><td style="text-align:right">100</td></tr>
+      <tr><td>PM / 기획 / 설계 / 교육</td><td style="text-align:right">200</td></tr>
+      <tr style="background:var(--brand-bg)"><td><strong>합계</strong></td><td style="text-align:right"><strong>3,000</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>5.3 총 견적</h3>
+  <div class="budget-highlight">
+    <span class="sub">총 개발 금액</span>
+    <span class="amount">3,000만원 (VAT 별도)</span>
+    <span class="sub">VAT 포함: 3,300만원 &nbsp;|&nbsp; 개발 기간: 12주 (약 3개월)</span>
+  </div>
+
+  <hr>
+
+  <!-- ==================== 6. 유지보수 ==================== -->
+  <h2 id="sec6">6. 유지보수 및 운영</h2>
+
+  <h3>6.1 유지보수 범위</h3>
+  <p><strong>월 유지보수 비용: 총 70만원</strong> (VAT 별도, 1년 계약 기준)</p>
+
+  <h4>유지보수 (40만원/월)</h4>
+  <table>
+    <thead><tr><th>항목</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td>인프라 운영</td><td>시스템 안정 운영 및 장애 대응</td></tr>
+      <tr><td>모니터링</td><td>24시간 시스템 모니터링</td></tr>
+      <tr><td>경미한 기능 개선</td><td>월 2건 이내</td></tr>
+    </tbody>
+  </table>
+
+  <h4>실비 (30만원/월)</h4>
+  <table>
+    <thead><tr><th>항목</th><th>비용</th></tr></thead>
+    <tbody>
+      <tr><td>API 사용료</td><td>15만원</td></tr>
+      <tr><td>서버 · DB 사용료</td><td>15만원</td></tr>
+    </tbody>
+  </table>
+  <blockquote>오픈 후 2개월간은 하자 보수 기간으로 무상 지원됩니다.</blockquote>
+
+  <h3>6.2 교육 계획</h3>
+  <table>
+    <thead><tr><th>교육 대상</th><th>교육 내용</th><th>방식</th><th>시간</th></tr></thead>
+    <tbody>
+      <tr><td><strong>매장 직원</strong></td><td>사원카드 사용법, 업무일지 작성, 내 실적 확인</td><td>온라인 교육 (영상)</td><td>1시간</td></tr>
+      <tr><td><strong>매장 관리자</strong></td><td>팀원 성과 관리, 근태/휴가 승인, 지점 대시보드</td><td>현장 교육 + 실습</td><td>2시간</td></tr>
+      <tr><td><strong>본사 관리자</strong></td><td>통합 대시보드, 인사 관리, KPI/평가 설정</td><td>현장 교육 + 실습</td><td>3시간</td></tr>
+    </tbody>
+  </table>
+  <blockquote>관리자 운영 매뉴얼(웹 문서 형태)을 제공합니다.</blockquote>
+
+  <hr>
+
+  <!-- ==================== 7. 기대 효과 ==================== -->
+  <h2 id="sec7">7. 기대 효과</h2>
+
+  <h3>7.1 정량적 기대 효과</h3>
+  <p>본 시스템 도입 후 6개월 이내에 다음과 같은 정량적 효과를 기대합니다.</p>
+  <table>
+    <thead><tr><th>효과 영역</th><th>현재</th><th>도입 후</th><th>개선 효과</th></tr></thead>
+    <tbody>
+      <tr><td><strong>근태 관리 누락</strong></td><td>월 평균 다수 건 발생</td><td>월 3건 이내</td><td>90% 이상 감소</td></tr>
+      <tr><td><strong>월간 실적 집계 시간</strong></td><td>11개 지점 x 수 시간</td><td>시스템 자동 집계 (즉시)</td><td>80% 이상 절감</td></tr>
+      <tr><td><strong>평가 업무 시간</strong></td><td>수기 취합 + 엑셀 정리</td><td>자동 산출 + 코멘트만</td><td>70% 이상 절감</td></tr>
+      <tr><td><strong>업무일지 → 실적 반영</strong></td><td>관리자가 수기 대조</td><td>AI 자동 매칭</td><td>관리 부담 제거</td></tr>
+      <tr><td><strong>인사 현황 파악</strong></td><td>별도 요청 후 수 시간 대기</td><td>대시보드 즉시 확인</td><td>실시간 가능</td></tr>
+      <tr><td><strong>초과근무 산정 오류</strong></td><td>수기 계산으로 오류 가능</td><td>자동 계산</td><td>오류 0건</td></tr>
+    </tbody>
+  </table>
+
+  <h3>7.2 정성적 기대 효과</h3>
+  <table>
+    <thead><tr><th>효과 영역</th><th>기대 효과</th></tr></thead>
+    <tbody>
+      <tr><td><strong>직원 동기부여 향상</strong></td><td>객관적 숫자로 공정하게 평가받는다는 신뢰감이 직원의 업무 몰입도를 높입니다. AI가 매일 달성률과 개선 방향을 알려주어, 막연한 노력이 아닌 목표 지향적 업무가 가능해집니다</td></tr>
+      <tr><td><strong>관리자 리더십 강화</strong></td><td>관리자가 감에 의존하지 않고, 데이터에 기반한 피드백과 코칭을 할 수 있게 됩니다</td></tr>
+      <tr><td><strong>경영 의사결정 품질 향상</strong></td><td>실적이 부진한 지점을 조기에 파악하고, 인력 재배치나 지원 전략을 빠르게 수립할 수 있습니다</td></tr>
+      <tr><td><strong>조직 문화 개선</strong></td><td>체계적인 시스템을 사용함으로써 "전문적인 회사"라는 조직 자부심이 높아집니다</td></tr>
+      <tr><td><strong>업무 효율성 향상</strong></td><td>단순 반복 업무가 사라지고, 관리자는 직원 코칭과 매장 운영 전략 등 본질적인 업무에 집중할 수 있게 됩니다</td></tr>
+      <tr><td><strong>슬리밍고 브랜드 가치 향상</strong></td><td>체계적인 인사관리 시스템을 갖춘 브랜드로서, 우수 인재 채용 시 경쟁력이 높아집니다</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="doc-footer">
+    <p>본 문서는 "슬리밍고 인사관리 시스템" 개발을 위한 최종 제안서입니다.<br>
+    문의 사항이 있으시면 언제든지 연락 주시기 바랍니다.</p>
+    <p class="company">(주)kitt</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
