@@ -213,9 +213,28 @@
     thead th, tbody td { padding: 7px 8px; }
     .budget-highlight .amount { font-size: 1.4rem; }
   }
+
+  /* ===== Proposal Nav ===== */
+  .proposal-nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid #e0e0e0; padding: 0 20px; }
+  .proposal-nav ul { display: flex; align-items: center; justify-content: center; gap: 4px; max-width: 1100px; margin: 0 auto; list-style: none; padding: 0; overflow-x: auto; }
+  .proposal-nav li { list-style-type: none; margin: 0; padding: 0; font-size: 13px; line-height: normal; }
+  .proposal-nav li a { display: block; padding: 10px 14px; font-size: 13px; font-weight: 500; color: #555; text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+  .proposal-nav li a:hover { color: #2d6a4f; border-bottom-color: #2d6a4f; }
+  .proposal-nav li a.nav-active { color: #2d6a4f; border-bottom-color: #2d6a4f; }
+  .proposal-nav li.nav-home a { font-weight: 700; color: #2d6a4f; }
+  @media print { .proposal-nav { display: none !important; } }
 </style>
 </head>
 <body>
+<nav class="proposal-nav">
+  <ul>
+    <li class="nav-home"><a href="index.html">전체 제안서</a></li>
+    <li><a href="final_proposal_chatbot.html">AI 챗봇</a></li>
+    <li><a href="final_proposal_crm.html">고객 여정 CRM</a></li>
+    <li><a href="final_proposal_hr.html" class="nav-active">인사관리</a></li>
+    <li><a href="final_proposal_marketing.html">마케팅</a></li>
+  </ul>
+</nav>
 
 <div class="container">
 

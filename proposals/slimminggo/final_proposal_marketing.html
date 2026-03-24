@@ -263,6 +263,14 @@
       border-radius: 10px;
       padding: 22px 24px;
       text-align: center;
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .metric-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      background: rgba(255,255,255,0.22);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      border-color: rgba(255,255,255,0.4);
     }
     .metric-card .metric-label {
       font-size: 0.82rem;
@@ -362,9 +370,28 @@
         print-color-adjust: exact;
       }
     }
+
+    /* ===== Proposal Nav ===== */
+    .proposal-nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid #e0e0e0; padding: 0 20px; }
+    .proposal-nav ul { display: flex; align-items: center; justify-content: center; gap: 4px; max-width: 1100px; margin: 0 auto; list-style: none; padding: 0; overflow-x: auto; }
+    .proposal-nav li { list-style-type: none; margin: 0; padding: 0; font-size: 13px; line-height: normal; }
+    .proposal-nav li a { display: block; padding: 10px 14px; font-size: 13px; font-weight: 500; color: #555; text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+    .proposal-nav li a:hover { color: #2d6a4f; border-bottom-color: #2d6a4f; }
+    .proposal-nav li a.nav-active { color: #2d6a4f; border-bottom-color: #2d6a4f; }
+    .proposal-nav li.nav-home a { font-weight: 700; color: #2d6a4f; }
+    @media print { .proposal-nav { display: none !important; } }
   </style>
 </head>
 <body>
+  <nav class="proposal-nav">
+    <ul>
+      <li class="nav-home"><a href="index.html">전체 제안서</a></li>
+      <li><a href="final_proposal_chatbot.html">AI 챗봇</a></li>
+      <li><a href="final_proposal_crm.html">고객 여정 CRM</a></li>
+      <li><a href="final_proposal_hr.html">인사관리</a></li>
+      <li><a href="final_proposal_marketing.html" class="nav-active">마케팅</a></li>
+    </ul>
+  </nav>
 
 <div class="page-wrapper">
 
@@ -432,7 +459,7 @@
         <tbody>
           <tr><td><strong>인스타그램 광고</strong></td><td>신규 고객 유입 엔진</td><td>브랜드 인지도 광고, 매장 방문 전환 광고, 리타겟팅 광고</td></tr>
           <tr><td><strong>인스타그램 콘텐츠</strong></td><td>브랜드 신뢰 구축 허브</td><td>피드/릴스/스토리 제작 (월 8회), 채널 성장 관리</td></tr>
-          <tr><td><strong>지역별 소모임</strong></td><td>지역 밀착 커뮤니티</td><td>월 1~2개 소모임 운영 지원, 운영 노하우 제공</td></tr>
+          <tr><td><strong>지역별 소모임</strong></td><td>지역 밀착 커뮤니티</td><td>월 1~2개 소모임 운영 지원, 관리자 배치, 운영 노하우 제공</td></tr>
         </tbody>
       </table>
     </div>
@@ -446,7 +473,8 @@
           <tr><td><strong>광고 운영</strong></td><td>인스타그램 광고 제작/집행/최적화 (광고비는 실비 정산)</td></tr>
           <tr><td><strong>콘텐츠 제작</strong></td><td>인스타그램 콘텐츠 (월 8회)</td></tr>
           <tr><td><strong>채널 관리</strong></td><td>인스타그램 채널 관리</td></tr>
-          <tr><td><strong>소모임 운영</strong></td><td>지역별 소모임 기획/운영 지원</td></tr>
+          <tr><td><strong>소모임 운영</strong></td><td>지역별 소모임 기획/관리자 배치/운영 지원</td></tr>
+          <tr><td><strong>네이버 검색 노출</strong></td><td>키워드 전략 수립, 블로그·지식iN 콘텐츠 배치, 연관 검색어 노출 관리</td></tr>
           <tr><td><strong>리포팅</strong></td><td>월간 성과 리포트, 월 1회 정기 미팅</td></tr>
         </tbody>
       </table>
@@ -472,7 +500,33 @@
       <li>첫방문 이벤트(55,000원) + AI 분석 체험을 핵심 전환 메시지로 활용</li>
     </ul>
 
-    <h4>차별점 3: 온라인 + 오프라인 커뮤니티 결합</h4>
+    <h4>차별점 3: 10년 동반성장의 파트너, (주)kitt</h4>
+    <p>(주)kitt는 <strong>10년 이상</strong> 다양한 업종의 클라이언트와 함께 코워크하며 동반성장해 온 디지털 마케팅 전문 기업입니다. 국내 시장은 물론, <strong>아마존 US</strong>와 <strong>라쿠텐(Rakuten)</strong>을 통한 해외 시장 진출까지 폭넓은 경험을 보유하고 있습니다.</p>
+
+    <h4>광고 운영 레퍼런스</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>업종</th><th>클라이언트</th><th>주요 성과 및 운영 내용</th></tr></thead>
+        <tbody>
+          <tr><td style="white-space:nowrap"><strong>인테리어 / 실링팬</strong></td><td>A***way</td><td>스마트 실링팬 브랜드. 라이프스타일 연출형 광고 + 기능 소구형 광고 병행 운영. "호텔같은 무드, 전기세 800원", "역방향 모드 겨울 난방비 절감" 등 시즌별 소구 전략으로 전환율 극대화</td></tr>
+          <tr><td style="white-space:nowrap"><strong>식품 / 온라인몰</strong></td><td>청**켓</td><td>강원도 제철 찰옥수수. 농부 인터뷰형, 제품 클로즈업형, 가격 강조형 등 다양한 소재 A/B 테스트. "배송비 포함 10개 9,800원" 가격 소구 + 희소성("수량 소진 시 종료") 전략 운영</td></tr>
+          <tr><td style="white-space:nowrap"><strong>식품 / 전통식품</strong></td><td>기**전통장</td><td>국산 100% 원재료 전통장류. 첨가물 없는 국산재료 고집 메시지로 프리미엄 신뢰 구축. 한정 프로모션 캠페인 운영 + 기간 한정 할인 긴급성 전략 병행</td></tr>
+          <tr><td style="white-space:nowrap"><strong>식품 / 간편식</strong></td><td>찬**</td><td>3,900원 닭다리삼계탕 간편식. "3,900원 삼계탕… 고민하는 순간 품절", "사장님이 미쳤어요!" 등 파격 가격 소구 + 품절 긴급성 전략. 두툼한 닭다리 클로즈업으로 제품력 강조, 다양한 소재 A/B 테스트 운영</td></tr>
+          <tr><td><strong>유아용품</strong></td><td>치**산 (프랑스)</td><td>프랑스 프리미엄 유아용품 브랜드. 해외 브랜드 국내 시장 진입을 위한 인지도 확보 및 전환 캠페인 운영. 안전성·프리미엄 소구 콘텐츠 제작, 육아맘 타겟 정밀 광고 집행</td></tr>
+          <tr><td style="white-space:nowrap"><strong>제조 / 물류 자동화</strong></td><td>씨**코리아</td><td>자율주행 물류 로봇 B2B 광고. "야간·휴일 인력난 로봇이 해결", "인프라 공사 NO! 하루 만에 자동화" 등 기업 페인포인트 직접 소구. 도입 컨설팅 신청 전환 캠페인 운영</td></tr>
+          <tr><td><strong>라이브 방송</strong></td><td>다수 클라이언트</td><td>라이브 커머스 기획·운영·광고 연동. 실시간 판매 전환 극대화를 위한 라이브 전용 광고 소재 제작 및 트래픽 유입 캠페인 운영</td></tr>
+          <tr><td><strong>해외 진출</strong></td><td>아마존 US / 라쿠텐</td><td>국내 브랜드의 글로벌 마켓플레이스 진출 지원. 아마존 US, 라쿠텐(일본) 입점 및 광고 운영, 현지화 콘텐츠 제작</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <blockquote>
+      <p><strong>10년간 식품, 제조, 인테리어, 뷰티 등 다양한 업종에서 검증된 광고 운영 노하우</strong>를 슬리밍고에 맞춤 적용합니다. 업종별 타겟 특성과 전환 구조를 이해하고 있기에, 초기부터 효율적인 캠페인 설계가 가능합니다.</p>
+    </blockquote>
+
+    <hr>
+
+    <h4>차별점 4: 온라인 + 오프라인 커뮤니티 결합</h4>
     <p>고객은 하나의 채널에서만 방문을 결정하지 않습니다. 인스타그램에서 브랜드를 알게 되고, 소모임에서 직접 경험을 공유하며, 자연스럽게 매장을 방문합니다.</p>
     <ul>
       <li><strong>인지(인스타 광고/릴스)</strong> &rarr; <strong>관심(인스타 콘텐츠)</strong> &rarr; <strong>신뢰(지역 소모임)</strong> &rarr; <strong>방문(전환 광고/예약)</strong></li>
@@ -516,6 +570,25 @@
       </table>
     </div>
 
+    <h4>유사 브랜드 분석</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>브랜드</th><th>주요 특징</th><th>슬리밍고 대비 차별점</th></tr></thead>
+        <tbody>
+          <tr><td><strong>닥터 코르셋</strong></td><td>'입는 의료기' 콘셉트, 척추·골반 교정 특허, 전국 대리점(비전센터) 망</td><td>슬리밍고와 가장 유사. AI 분석·12만 명 데이터 부재</td></tr>
+          <tr><td><strong>바디로직</strong></td><td>특허 '토크 밴드' 기술, 골반·하체 회전 교정 타이즈/거들 주력</td><td>하체 중심 제품에 한정</td></tr>
+          <tr><td><strong>제니패션</strong></td><td>바니시안·러빈스 등 운영, 맞춤형 기능성 보정속옷 전통 강자 (7년 연속 브랜드 대상)</td><td>보정속옷 중심, 체형 분석 솔루션 부재</td></tr>
+          <tr><td><strong>스타일코리아 (BX Wear)</strong></td><td>일본 MTG사 카이로프랙틱 기술 응용, 어깨·등 교정 경량 의류</td><td>글로벌 기술력 강조, 국내 지점 서비스 없음</td></tr>
+          <tr><td><strong>브리스코리아</strong></td><td>척추·골반 지지 기능성 이너웨어, 의료기기적 성격 강조 (20년+ 업력)</td><td>통증 완화 집중, 디지털 마케팅 미약</td></tr>
+          <tr><td><strong>SNPE</strong></td><td>바른 자세 벨트·운동 도구 기반, 강력한 커뮤니티형 경쟁사</td><td>의류 전문이 아닌 운동·도구 중심</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <blockquote>
+      <p><strong>슬리밍고 핵심 우위:</strong> 경쟁 브랜드 대부분이 제품(의류·도구) 판매에 집중하는 반면, 슬리밍고는 <strong>AI 자세 분석 + 12만 명 데이터 + 15년 연구 + 전국 11개 지점 오프라인 서비스</strong>를 결합한 유일한 '데이터 기반 체형 관리 솔루션'입니다.</p>
+    </blockquote>
+
     <hr>
 
     <h3>2-3. 슬리밍고 현황 분석</h3>
@@ -538,9 +611,11 @@
       <table>
         <thead><tr><th>타겟</th><th>특징</th><th>전환 포인트</th></tr></thead>
         <tbody>
-          <tr><td><strong>3040 워킹맘</strong></td><td>출산 후 골반 틀어짐, 오래 앉아 일하며 생긴 거북목</td><td>전후 비교 사진, 후기, AI 분석 근거, 55,000원 체험가</td></tr>
-          <tr><td><strong>2030 직장 여성</strong></td><td>하루 8시간+ 컴퓨터 앞, 거북목/체형 불균형</td><td>릴스 콘텐츠, AI 분석 체험, 55,000원 이벤트</td></tr>
-          <tr><td><strong>4050 여성</strong></td><td>만성 허리/무릎 통증, 체형 틀어짐</td><td>전문 상담사 신뢰감, 15년 연구/12만 명 근거, 리뷰</td></tr>
+          <tr><td><strong>2030 직장 여성</strong></td><td>하루 8시간+ 컴퓨터 앞, 거북목/체형 불균형, 외모·체형에 대한 높은 관심</td><td>릴스 콘텐츠, AI 분석 체험, 55,000원 이벤트, SNS 후기</td></tr>
+          <tr><td><strong>2030 웨딩/신혼부부</strong></td><td>결혼 준비 중 드레스·턱시도 핏을 위한 체형 교정 니즈, 웨딩 사진 전 라인 관리</td><td>웨딩 전 체형 관리 패키지, 전후 비교 콘텐츠, 커플 체험 이벤트</td></tr>
+          <tr><td><strong>3040 워킹맘</strong></td><td>출산 후 골반 틀어짐, 오래 앉아 일하며 생긴 거북목, 육아로 인한 어깨·허리 통증</td><td>전후 비교 사진, 후기, AI 분석 근거, 55,000원 체험가</td></tr>
+          <tr><td><strong>4050 여성</strong></td><td>만성 허리/무릎 통증, 체형 틀어짐, 갱년기 전후 체형 변화 관리</td><td>전문 상담사 신뢰감, 15년 연구/12만 명 근거, 리뷰</td></tr>
+          <tr><td><strong>2050 남성</strong></td><td>장시간 사무직/운전으로 인한 거북목·허리 디스크, 운동 후 체형 불균형</td><td>AI 자세 분석 데이터 기반 소구, 전문성 강조 콘텐츠</td></tr>
         </tbody>
       </table>
     </div>
@@ -647,9 +722,10 @@
     <h4>콘텐츠 유형별 전략</h4>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>유형</th><th>주간 수량</th><th>핵심 전략</th></tr></thead>
+        <thead><tr><th>유형</th><th>핵심 전략</th></tr></thead>
         <tbody>
-          <tr><td><strong>피드</strong></td><td>1건</td><td>카루셀(교육/정보), 단일이미지(후기/이벤트). 신뢰 구축</td></tr>
+          <tr><td><strong>릴스</strong></td><td>15~30초 핵심 메시지. 첫 3초 후킹. 신규 팔로워 유입</td></tr>
+          <tr><td><strong>피드</strong></td><td>카루셀(교육/정보), 단일이미지(후기/이벤트). 신뢰 구축</td></tr>
         </tbody>
       </table>
     </div>
@@ -668,11 +744,44 @@
         <thead><tr><th>항목</th><th>내용</th></tr></thead>
         <tbody>
           <tr><td>운영 규모</td><td>월 1~2개 소모임</td></tr>
+          <tr><td>관리자</td><td>각 소모임당 관리자 1명 배치</td></tr>
           <tr><td>주요 활동</td><td>자세 관리 노하우 공유, 체험 후기 교류, 소모임 전용 이벤트</td></tr>
           <tr><td>지원 내용</td><td>소모임 운영 노하우 제공, 콘텐츠 지원, 오프라인 모임 기획</td></tr>
         </tbody>
       </table>
     </div>
+
+    <h4>지역 연계 프로그램</h4>
+
+    <p><strong>1) 직장인 [오피스 거북목 탈출] 챌린지</strong></p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>항목</th><th>내용</th></tr></thead>
+        <tbody>
+          <tr><td><strong>협력 파트너</strong></td><td>지역 상공회의소, 산업단지·테크노파크, 시청·구청 등 관공서</td></tr>
+          <tr><td><strong>점심시간 팝업 컨설팅</strong></td><td>사내 휴게실에 '바른 자세 진단 존' 설치, 개인별 체형 상담 진행</td></tr>
+          <tr><td><strong>30일 자세 교정 챌린지</strong></td><td>슬리밍고 제품 착용 후 비포&애프터 측정, 우수자에게 지역 화폐·건강검진권 증정</td></tr>
+          <tr><td><strong>워크숍 프로그램</strong></td><td>직장인 근골격계 질환 예방을 위한 이론·실습 교육 세션 운영</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>2) 시니어 [당당한 노년, 꼿꼿한 인생] 프로젝트</strong></p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>항목</th><th>내용</th></tr></thead>
+        <tbody>
+          <tr><td><strong>협력 파트너</strong></td><td>지역 보건소, 노인복지관, 시니어 클럽</td></tr>
+          <tr><td><strong>찾아가는 체형 측정</strong></td><td>3D 체형 분석 장비로 어르신 골반 틀어짐·거북목 상태 무료 측정</td></tr>
+          <tr><td><strong>바른 자세 걷기 강좌</strong></td><td>자세 교정 제품 착용 후 올바른 걷기·스트레칭 교육</td></tr>
+          <tr><td><strong>효도 패키지 보급</strong></td><td>지자체 바우처 연계, 저소득층 어르신 자세 교정 의류 지원</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <blockquote>
+      <p><strong>지역 화폐 연계:</strong> 챌린지 보상 및 컨설팅·제품 결제 시 지역 화폐 활용으로 지자체 협력 기반 마련</p>
+    </blockquote>
 
     <h4>기대 효과</h4>
     <div class="table-wrap">
@@ -683,9 +792,32 @@
           <tr><td><strong>입소문 효과</strong></td><td>소모임 참여자가 자발적 추천인이 되는 구조</td></tr>
           <tr><td><strong>재방문율 향상</strong></td><td>소모임 활동을 통한 지속적 매장 방문 유도</td></tr>
           <tr><td><strong>콘텐츠 소재 확보</strong></td><td>소모임 활동 자체가 인스타그램 콘텐츠 소재로 활용</td></tr>
+          <tr><td><strong>B2B 채널 확대</strong></td><td>관공서·기업 대상 단체 프로그램으로 안정적 매출 기반 구축</td></tr>
+          <tr><td><strong>시니어 시장 선점</strong></td><td>고령화 지역 특성 활용, 낙상 예방·건강 관리 브랜드 이미지 확립</td></tr>
         </tbody>
       </table>
     </div>
+
+    <hr>
+
+    <h3>3-5. 네이버 검색 노출 키워드 전략</h3>
+    <blockquote>
+      <p><strong>네이버 연관 검색어 등재를 위한 '조합 키워드' 반복 노출 전략</strong></p>
+    </blockquote>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>단계</th><th>목적</th><th>추천 키워드</th><th>활용 방법</th></tr></thead>
+        <tbody>
+          <tr><td style="white-space:nowrap"><strong>1단계</strong></td><td style="white-space:nowrap">신뢰도 확보<br>(브랜드 + 공공기관)</td><td>슬리밍고 보건소 협력, 슬리밍고 바른자세 캠페인, 지자체 체형교정 사업</td><td>블로그·지식iN에 기관명과 슬리밍고를 나란히 배치하여 "공공기관이 인정한 업체" 인식 확보</td></tr>
+          <tr><td style="white-space:nowrap"><strong>2단계</strong></td><td style="white-space:nowrap">호기심 유발<br>(브랜드 + 효과)</td><td>슬리밍고 내돈내산, 슬리밍고 입는 바른자세 후기, 슬리밍고 전후 사진</td><td>3D 체형 리포트 등 실제 변화 데이터를 강조, 검색자가 결과물을 기대하도록 유도</td></tr>
+          <tr><td style="white-space:nowrap"><strong>3단계</strong></td><td style="white-space:nowrap">유사 키워드 하이재킹<br>(경쟁사 vs 슬리밍고)</td><td>자세교정 밴드 말고 슬리밍고, 보정속옷 차이점 슬리밍고</td><td>저가형 밴드·일반 보정속옷에 실망한 고객을 슬리밍고로 유입시키는 비교 분석 콘텐츠 생성</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>지역 협력 프로젝트 연계 검색 전략</h4>
+    <p>지역별 프로젝트 진행 시, <strong>"[지역명] + 거북목 교정"</strong> 검색 결과에 <strong>"[지역명] 보건소 슬리밍고 캠페인"</strong> 관련 콘텐츠가 노출되도록 세팅합니다. 지역 협력 활동 자체가 검색 노출 콘텐츠의 소재가 되는 구조입니다.</p>
 
     <hr>
 
@@ -731,21 +863,36 @@
 
     <hr>
 
+    <h3>4-3. 릴스 기획안</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>릴스</th><th>콘셉트</th><th>길이</th></tr></thead>
+        <tbody>
+          <tr><td><strong>3초 자세 진단 시리즈</strong></td><td>일상 속 잘못된 자세를 3초 만에 짚어주기</td><td>15초</td></tr>
+          <tr><td><strong>AI가 내 자세를 분석하면?</strong></td><td>실제 고객 AI 분석 전과정 밀착 촬영</td><td>20초</td></tr>
+          <tr><td><strong>Before vs After</strong></td><td>고객 체형 변화 타임랩스</td><td>15초</td></tr>
+          <tr><td><strong>관리사에게 물어보세요</strong></td><td>자주 묻는 질문 직접 답변</td><td>20초</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr>
 
     <!-- ============================================================ -->
     <!-- SECTION 5 -->
     <!-- ============================================================ -->
     <h2 id="section5" class="page-break-before">5. 예산</h2>
 
-    <h3>월간 예산 (700만 원, VAT 별도)</h3>
+    <h3>월간 예산 (800만 원)</h3>
     <div class="table-wrap">
       <table>
         <thead><tr><th>항목</th><th>월 예산</th><th>비중</th><th>설명</th></tr></thead>
         <tbody>
-          <tr><td>인스타그램 콘텐츠 제작</td><td>400만 원</td><td>57%</td><td>피드/릴스/스토리 제작 및 채널 운영 (월 8회)</td></tr>
-          <tr><td>광고 집행 관리</td><td>150만 원</td><td>21%</td><td>타겟팅 최적화, A/B 테스트, 성과 분석, 리포팅</td></tr>
-          <tr><td>지역별 소모임 운영 지원</td><td>150만 원</td><td>21%</td><td>월 1~2개 소모임, 운영 노하우 지원</td></tr>
-          <tr class="total-row"><td><strong>합계</strong></td><td><strong>700만 원</strong></td><td><strong>100%</strong></td><td></td></tr>
+          <tr><td>인스타그램 콘텐츠 제작</td><td>350만 원</td><td>44%</td><td>피드/릴스/스토리 제작 및 채널 운영 (월 8회)</td></tr>
+          <tr><td>광고 집행 관리</td><td>150만 원</td><td>19%</td><td>타겟팅 최적화, A/B 테스트, 성과 분석, 리포팅</td></tr>
+          <tr><td>지역별 소모임 운영 지원</td><td>200만 원</td><td>25%</td><td>월 1~2개 소모임, 관리자 배치, 운영 노하우 지원</td></tr>
+          <tr><td>네이버 검색 노출 키워드 전략</td><td>100만 원</td><td>12%</td><td>블로그·지식iN 키워드 배치, 연관 검색어 노출, 지역 연계 콘텐츠</td></tr>
+          <tr class="total-row"><td><strong>합계</strong></td><td><strong>800만 원</strong></td><td><strong>100%</strong></td><td></td></tr>
         </tbody>
       </table>
     </div>
@@ -807,7 +954,7 @@
         <tbody>
           <tr><td>인스타그램 채널 세팅 + 초기 콘텐츠 발행</td><td>채널 기반 완성</td></tr>
           <tr><td>인스타 광고 첫 캠페인 론칭 + A/B 테스트</td><td>성과 높은 소재/타겟 발굴</td></tr>
-          <tr><td>1차 소모임 기획</td><td>소모임 운영 체계 구축</td></tr>
+          <tr><td>1차 소모임 기획 및 관리자 배치</td><td>소모임 운영 체계 구축</td></tr>
         </tbody>
       </table>
     </div>
@@ -870,8 +1017,10 @@
         <thead><tr><th>항목</th><th>내용</th></tr></thead>
         <tbody>
           <tr><td>첫방문 &rarr; 정규 프로그램 전환율 (가정)</td><td>약 30%</td></tr>
-          <tr><td>첫방문 기준 ROAS</td><td>투자 대비 <strong>150~200%</strong></td></tr>
-          <tr><td>정규 프로그램 전환 포함 ROAS</td><td>투자 대비 <strong>300~400%</strong></td></tr>
+          <tr><td>첫방문 기준 ROAS</td><td>투자 대비 <strong>120~170%</strong></td></tr>
+          <tr><td>정규 프로그램 전환 포함 ROAS</td><td>투자 대비 <strong>250~350%</strong></td></tr>
+          <tr><td><strong>인스타그램 노출 성과</strong></td><td>월 평균 노출 수 10만~30만 회, 브랜드 인지도 및 팔로워 지속 성장으로 오가닉 유입 확대</td></tr>
+          <tr><td><strong>네이버 검색 노출 효과</strong></td><td>브랜드 검색 유입 증가로 광고 의존도 점진적 감소, 장기 ROI 상승</td></tr>
         </tbody>
       </table>
     </div>
@@ -895,14 +1044,6 @@
 
     <hr>
 
-    <blockquote>
-      <p><strong>문서 끝</strong></p>
-      <p>본 제안서는 (주)kitt가 슬리밍고에 제안하는 디지털 마케팅 대행 제안서입니다.</p>
-      <p><strong>월간 예산</strong>: 700만 원 (VAT 별도, 광고비 실비 별도)</p>
-      <p><strong>제안일</strong>: 2026년 3월 25일<br>
-      <strong>제안사</strong>: (주)kitt</p>
-    </blockquote>
-
   </div><!-- /.content -->
 
   <!-- ====== FOOTER SUMMARY ====== -->
@@ -911,20 +1052,20 @@
     <p class="footer-note">슬리밍고 디지털 마케팅 대행 핵심 지표</p>
     <div class="footer-metrics">
       <div class="metric-card">
-        <div class="metric-label">월 예산</div>
-        <div class="metric-value">700만원<small style="font-size:0.5em;opacity:0.7"> (VAT별도)</small></div>
+        <div class="metric-label">인스타그램</div>
+        <div class="metric-value">브랜드 신뢰 구축</div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">광고비</div>
-        <div class="metric-value">실비 별도</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">인스타 콘텐츠</div>
-        <div class="metric-value">월 8회</div>
+        <div class="metric-label">광고 운영</div>
+        <div class="metric-value">매장 방문 전환</div>
       </div>
       <div class="metric-card">
         <div class="metric-label">소모임</div>
-        <div class="metric-value">월 1~2개</div>
+        <div class="metric-value">지역 밀착 커뮤니티</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">네이버</div>
+        <div class="metric-value">검색 노출 선점</div>
       </div>
     </div>
     <div class="footer-bottom">
@@ -935,6 +1076,10 @@
   </div>
 
 </div><!-- /.page-wrapper -->
+
+<footer style="text-align: center; padding: 20px 0; color: #999; font-size: 0.8rem; background: #f4f6f5;">
+  &copy; 2026 (주)kitt. All rights reserved. 본 제안서의 내용은 (주)kitt의 지적재산으로 무단 복제 및 배포를 금합니다.
+</footer>
 
 </body>
 </html>
