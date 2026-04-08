@@ -1,0 +1,2695 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>kitt | Meta 광고 전문 마케팅 에이전시</title>
+  <meta name="description" content="kitt - 데이터 기반 Meta(Facebook/Instagram) 광고 운영 전문 마케팅 에이전시. 30개+ 브랜드 운영 경험." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            kai: { 50:'#eef7ff', 100:'#d9edff', 200:'#bce0ff', 300:'#8eccff', 400:'#59b0ff', 500:'#3391ff', 600:'#1a73f5', 700:'#135de1', 800:'#164bb6', 900:'#17408f', 950:'#132957' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap');
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+    html { scroll-behavior: smooth; }
+    @media print {
+      .no-print { display: none !important; }
+      nav { position: relative !important; }
+      section { break-inside: avoid; }
+    }
+    .counter { animation: countUp 2s ease-out forwards; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeInUp 0.6s ease-out forwards; }
+    .client-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+    .client-card { transition: all 0.3s ease; }
+    .gradient-text {
+      background: linear-gradient(135deg, #3391ff, #1a73f5, #8eccff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col bg-[#f8fafc] text-slate-900">
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#hero" class="flex items-center space-x-2">
+        <img src="logo.png" alt="kitt" class="w-8 h-8 object-contain">
+        <span class="font-bold text-lg tracking-tight">kitt</span>
+      </a>
+      <div class="hidden lg:flex items-center space-x-6 text-sm font-medium" id="desktopNav">
+        <a href="#hero" class="nav-link text-kai-600 font-semibold border-b-2 border-kai-600 pb-1 transition-colors" data-section="hero">회사 소개</a>
+        <a href="#services" class="nav-link text-slate-500 hover:text-kai-600 pb-1 transition-colors" data-section="services">서비스</a>
+        <a href="#portfolio" class="nav-link text-slate-500 hover:text-kai-600 pb-1 transition-colors" data-section="portfolio">포트폴리오</a>
+        <a href="#system" class="nav-link text-slate-500 hover:text-kai-600 pb-1 transition-colors" data-section="system">운영 시스템</a>
+        <a href="#automation" class="nav-link text-slate-500 hover:text-kai-600 pb-1 transition-colors" data-section="automation">업무자동화</a>
+        <a href="#process" class="nav-link text-slate-500 hover:text-kai-600 pb-1 transition-colors" data-section="process">프로세스</a>
+        <a href="#contact" class="nav-link text-slate-500 hover:text-kai-600 pb-1 transition-colors" data-section="contact">문의</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="window.print()" class="no-print bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-800 transition-all flex items-center gap-2">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">PDF 다운로드</span>
+        </button>
+        <button class="lg:hidden p-2 no-print" id="mobileMenuBtn">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+    <div class="lg:hidden bg-white border-t border-slate-100 px-6 py-4 space-y-2 hidden" id="mobileMenu">
+      <a href="#hero" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50">회사 소개</a>
+      <a href="#services" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50">서비스</a>
+      <a href="#portfolio" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50">포트폴리오</a>
+      <a href="#system" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50">운영 시스템</a>
+      <a href="#automation" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50">업무자동화</a>
+      <a href="#process" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50">프로세스</a>
+      <a href="#contact" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50">문의</a>
+    </div>
+  </nav>
+
+  <div>
+    <!-- Hero Section -->
+    <section id="hero" class="bg-gradient-to-br from-slate-900 via-slate-800 to-kai-900 text-white">
+      <div class="max-w-7xl mx-auto px-6 py-20 md:py-28">
+        <div class="max-w-3xl space-y-6">
+          <div class="inline-flex items-center px-4 py-1.5 bg-kai-500/20 text-kai-300 rounded-full text-sm font-bold backdrop-blur-sm">
+            <i data-lucide="target" class="w-4 h-4 mr-2"></i> Meta Ads Specialist Agency
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight">
+            데이터로 성장을 설계하는<br />
+            <span class="gradient-text">Meta 광고 전문 에이전시</span>
+          </h1>
+          <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">
+            30개 이상의 브랜드를 운영하며 검증된 성과를 만들어온 kitt.<br />
+            AI 기반 리포팅 시스템과 데이터 중심 운영으로 광고의 효율을 극대화합니다.
+          </p>
+          <div class="flex flex-wrap gap-4 pt-4 no-print">
+            <a href="#contact" class="bg-kai-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-kai-900/30 hover:bg-kai-500 transition-all flex items-center">
+              <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i> 문의하기
+            </a>
+            <a href="#portfolio" class="border border-slate-500 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all flex items-center">
+              포트폴리오 보기 <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
+            </a>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-16">
+          <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-white mb-2">30+</div>
+            <div class="text-sm font-semibold text-kai-300">광고 운영 브랜드</div>
+            <div class="text-xs text-slate-400 mt-1">다양한 업종 경험</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-white mb-2">10년+</div>
+            <div class="text-sm font-semibold text-kai-300">광고 운영 경력</div>
+            <div class="text-xs text-slate-400 mt-1">Meta 공식 파트너</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-white mb-2">AI</div>
+            <div class="text-sm font-semibold text-kai-300">자동화 리포팅</div>
+            <div class="text-xs text-slate-400 mt-1">실시간 성과 모니터링</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-white mb-2">글로벌</div>
+            <div class="text-sm font-semibold text-kai-300">해외 마케팅 대응</div>
+            <div class="text-xs text-slate-400 mt-1">호주, 미국 등</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-kai-50 text-kai-600 text-sm font-bold mb-4">
+            <i data-lucide="building-2" class="w-4 h-4 mr-2"></i> About Us
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">광고는 노출을 만들지만,<br />운영은 브랜드의 성장을 만듭니다</h2>
+          <p class="text-slate-500 text-lg">광고 집행을 넘어, 브랜드의 성장 구조를 설계하고 데이터로 효율을 극대화합니다.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-gradient-to-br from-kai-50 to-white p-8 rounded-2xl border border-kai-100">
+            <div class="w-14 h-14 bg-kai-100 rounded-2xl flex items-center justify-center mb-6">
+              <i data-lucide="bar-chart-3" class="w-7 h-7 text-kai-600"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">데이터 중심 운영</h3>
+            <p class="text-slate-500 leading-relaxed">감이 아닌 데이터로 의사결정합니다. ROAS, CPA, CTR 등 핵심 지표를 실시간 모니터링하고 AI가 자동으로 인사이트를 도출합니다.</p>
+          </div>
+          <div class="bg-gradient-to-br from-kai-50 to-white p-8 rounded-2xl border border-kai-100">
+            <div class="w-14 h-14 bg-kai-100 rounded-2xl flex items-center justify-center mb-6">
+              <i data-lucide="refresh-cw" class="w-7 h-7 text-kai-600"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">성장 구조 설계</h3>
+            <p class="text-slate-500 leading-relaxed">유입 → 전환 → 재구매로 이어지는 흐름을 설계합니다. 단기 매출이 아닌 반복 가능한 성장 시스템을 구축합니다.</p>
+          </div>
+          <div class="bg-gradient-to-br from-kai-50 to-white p-8 rounded-2xl border border-kai-100">
+            <div class="w-14 h-14 bg-kai-100 rounded-2xl flex items-center justify-center mb-6">
+              <i data-lucide="globe" class="w-7 h-7 text-kai-600"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">글로벌 대응력</h3>
+            <p class="text-slate-500 leading-relaxed">국내 KRW 캠페인뿐 아니라 호주, 미국 등 해외 USD 캠페인까지 운영합니다. 글로벌 시장 진출을 위한 마케팅 파트너입니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-kai-50 text-kai-600 text-sm font-bold mb-4">
+            <i data-lucide="layers" class="w-4 h-4 mr-2"></i> Services
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">Meta 광고 전문 서비스</h2>
+          <p class="text-slate-500 text-lg">Facebook & Instagram 광고의 기획부터 운영, 분석까지 풀퍼널 마케팅을 제공합니다.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Service 1 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="megaphone" class="w-6 h-6 text-blue-600"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Meta 광고 운영</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">Facebook & Instagram 광고 캠페인 기획, 세팅, 최적화까지 전 과정을 대행합니다.</p>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-kai-600 mr-2 flex-shrink-0"></i> 캠페인 전략 수립</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-kai-600 mr-2 flex-shrink-0"></i> 타겟 오디언스 설계</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-kai-600 mr-2 flex-shrink-0"></i> A/B 테스트 최적화</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-kai-600 mr-2 flex-shrink-0"></i> 리타겟팅 전략</li>
+            </ul>
+          </div>
+          <!-- Service 2 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="palette" class="w-6 h-6 text-purple-600"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2">크리에이티브 제작</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">전환율을 높이는 광고 소재를 기획하고 제작합니다. 업종별 최적화된 크리에이티브를 제공합니다.</p>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-purple-600 mr-2 flex-shrink-0"></i> 이미지/영상 소재 제작</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-purple-600 mr-2 flex-shrink-0"></i> 릴스/스토리 콘텐츠</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-purple-600 mr-2 flex-shrink-0"></i> 카피라이팅</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-purple-600 mr-2 flex-shrink-0"></i> 랜딩페이지 최적화</li>
+            </ul>
+          </div>
+          <!-- Service 3 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="line-chart" class="w-6 h-6 text-green-600"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2">데이터 분석 & 리포팅</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">AI 기반 자동 리포팅 시스템으로 일간/주간/월간 성과를 분석합니다.</p>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-600 mr-2 flex-shrink-0"></i> AI 자동 리포트 생성</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-600 mr-2 flex-shrink-0"></i> ROAS 실시간 모니터링</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-600 mr-2 flex-shrink-0"></i> 경쟁사 벤치마킹</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-600 mr-2 flex-shrink-0"></i> 인사이트 액션 플랜</li>
+            </ul>
+          </div>
+          <!-- Service 4 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+            <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="shopping-cart" class="w-6 h-6 text-orange-600"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2">이커머스 마케팅</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">쇼핑몰 매출 극대화를 위한 전환 최적화 캠페인을 운영합니다.</p>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-orange-600 mr-2 flex-shrink-0"></i> 카탈로그 광고</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-orange-600 mr-2 flex-shrink-0"></i> 다이나믹 리타겟팅</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-orange-600 mr-2 flex-shrink-0"></i> 전환 API 연동</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-orange-600 mr-2 flex-shrink-0"></i> 픽셀 최적화</li>
+            </ul>
+          </div>
+          <!-- Service 5 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+            <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="store" class="w-6 h-6 text-red-600"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2">쇼핑몰 구축 & 운영</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">UX/UI 기반 쇼핑몰 구축부터 운영 자동화까지 원스톱 서비스를 제공합니다.</p>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2 flex-shrink-0"></i> 쇼핑몰 구축</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2 flex-shrink-0"></i> 상세페이지 제작</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2 flex-shrink-0"></i> 운영 자동화</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2 flex-shrink-0"></i> CRM 연동</li>
+            </ul>
+          </div>
+          <!-- Service 6 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+            <div class="w-12 h-12 bg-cyan-100 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="globe" class="w-6 h-6 text-cyan-600"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2">글로벌 마케팅</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">아마존, 라쿠텐 등 해외 플랫폼과 글로벌 Meta 광고를 운영합니다.</p>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-cyan-600 mr-2 flex-shrink-0"></i> 아마존 US 마케팅</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-cyan-600 mr-2 flex-shrink-0"></i> 라쿠텐 일본 진출</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-cyan-600 mr-2 flex-shrink-0"></i> 호주/미국 Meta 광고</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-cyan-600 mr-2 flex-shrink-0"></i> 다국어 캠페인</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section - Performance Data -->
+    <section id="portfolio" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-kai-50 text-kai-600 text-sm font-bold mb-4">
+            <i data-lucide="briefcase" class="w-4 h-4 mr-2"></i> Portfolio &amp; Performance
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">검증된 실제 성과 포트폴리오</h2>
+          <p class="text-slate-500 text-lg">감이 아닌 데이터로 증명합니다. 메타 광고 관리자 실데이터 기반 성과입니다.</p>
+        </div>
+
+        <!-- Performance Hero Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+          <div class="bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-orange-600">16.2%</div>
+            <div class="text-sm text-slate-500 mt-1">최고 CTR 달성</div>
+            <div class="text-xs text-slate-400">업계 평균 대비 10배</div>
+          </div>
+          <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-blue-600">25.44x</div>
+            <div class="text-sm text-slate-500 mt-1">최고 ROAS</div>
+            <div class="text-xs text-slate-400">광고비 대비 매출</div>
+          </div>
+          <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-emerald-600">2,544%</div>
+            <div class="text-sm text-slate-500 mt-1">ROAS 달성</div>
+            <div class="text-xs text-slate-400">목표 300% 초과</div>
+          </div>
+          <div class="bg-gradient-to-br from-rose-50 to-pink-50 border border-rose-200 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-rose-600">500+</div>
+            <div class="text-sm text-slate-500 mt-1">광고 소재 제작</div>
+            <div class="text-xs text-slate-400">다양한 업종 경험</div>
+          </div>
+        </div>
+
+        <!-- === 미친특가 Case Study === -->
+        <div class="mb-16">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center shadow-lg shadow-orange-200">
+              <i data-lucide="flame" class="w-6 h-6 text-white"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-black">미친특가</h3>
+              <p class="text-slate-500 text-sm">종합 이커머스 | CTR 16.2% 달성 사례</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 mb-1">CTR (클릭률)</div>
+              <div class="text-2xl font-black text-orange-600">16.2%</div>
+              <div class="text-xs mt-1"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">+1,520%</span></div>
+            </div>
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 mb-1">CPC (클릭 단가)</div>
+              <div class="text-2xl font-black text-orange-600">38원</div>
+              <div class="text-xs text-slate-400 mt-1">업계 평균 500원+</div>
+            </div>
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 mb-1">랜딩 조회 비용</div>
+              <div class="text-2xl font-black text-orange-600">43원</div>
+              <div class="text-xs text-slate-400 mt-1">페이지 조회당</div>
+            </div>
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 mb-1">총 클릭수</div>
+              <div class="text-2xl font-black text-orange-600">14,000+</div>
+              <div class="text-xs text-slate-400 mt-1">단일 캠페인</div>
+            </div>
+          </div>
+          <!-- Channel Revenue -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4">
+              <div class="text-xs text-purple-600 font-semibold">인스타그램</div>
+              <div class="text-lg font-black text-purple-700">매출 1위</div>
+              <div class="text-xs text-purple-500">전체 매출 58%</div>
+            </div>
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4">
+              <div class="text-xs text-blue-600 font-semibold">페이스북</div>
+              <div class="text-lg font-black text-blue-700">매출 2위</div>
+              <div class="text-xs text-blue-500">16.9%</div>
+            </div>
+            <div class="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl p-4">
+              <div class="text-xs text-amber-600 font-semibold">카카오톡</div>
+              <div class="text-lg font-black text-amber-700">매출 기여</div>
+            </div>
+            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4">
+              <div class="text-xs text-green-600 font-semibold">APP</div>
+              <div class="text-lg font-black text-green-700">매출 기여</div>
+            </div>
+          </div>
+          <div class="bg-orange-50 border border-orange-200 rounded-xl p-4 flex items-start gap-3">
+            <i data-lucide="info" class="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0"></i>
+            <p class="text-sm text-orange-800"><strong>구매건수 202건</strong>, 전환율 가장 높음. 광고 소재 107개 동시 운영. 남들 1명 데려올 돈으로 30명을 데려옵니다.</p>
+          </div>
+
+          <!-- 미친특가 소재 제작 -->
+          <div class="mt-6 bg-white border border-slate-200 rounded-2xl p-6">
+            <h4 class="font-bold mb-4 flex items-center gap-2">
+              <i data-lucide="video" class="w-5 h-5 text-orange-500"></i> 지역별 맞춤 영상 소재 제작 (23편)
+            </h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
+              <div class="rounded-lg overflow-hidden border border-orange-100 shadow-sm bg-black">
+                <div class="relative"><video src="images/michinteukga/영상-광주.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full aspect-[9/16] object-cover" playsinline webkit-playsinline onmouseenter="this.play();this.parentElement.querySelector('.play-overlay').style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.parentElement.querySelector('.play-overlay').style.opacity=1"></video><div class="play-overlay absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none"><div class="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-3 h-3 text-orange-600 ml-0.5"></i></div></div></div>
+                <div class="bg-orange-50 text-center py-1 text-[10px] font-bold text-orange-700">광주</div>
+              </div>
+              <div class="rounded-lg overflow-hidden border border-orange-100 shadow-sm bg-black">
+                <div class="relative"><video src="images/michinteukga/영상-대구.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full aspect-[9/16] object-cover" onmouseenter="this.play();this.parentElement.querySelector('.play-overlay').style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.parentElement.querySelector('.play-overlay').style.opacity=1"></video><div class="play-overlay absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none"><div class="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-3 h-3 text-orange-600 ml-0.5"></i></div></div></div>
+                <div class="bg-orange-50 text-center py-1 text-[10px] font-bold text-orange-700">대구</div>
+              </div>
+              <div class="rounded-lg overflow-hidden border border-orange-100 shadow-sm bg-black">
+                <div class="relative"><video src="images/michinteukga/영상-대전.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full aspect-[9/16] object-cover" onmouseenter="this.play();this.parentElement.querySelector('.play-overlay').style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.parentElement.querySelector('.play-overlay').style.opacity=1"></video><div class="play-overlay absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none"><div class="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-3 h-3 text-orange-600 ml-0.5"></i></div></div></div>
+                <div class="bg-orange-50 text-center py-1 text-[10px] font-bold text-orange-700">대전</div>
+              </div>
+              <div class="rounded-lg overflow-hidden border border-orange-100 shadow-sm bg-black">
+                <div class="relative"><video src="images/michinteukga/영상-부산.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full aspect-[9/16] object-cover" onmouseenter="this.play();this.parentElement.querySelector('.play-overlay').style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.parentElement.querySelector('.play-overlay').style.opacity=1"></video><div class="play-overlay absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none"><div class="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-3 h-3 text-orange-600 ml-0.5"></i></div></div></div>
+                <div class="bg-orange-50 text-center py-1 text-[10px] font-bold text-orange-700">부산</div>
+              </div>
+              <div class="rounded-lg overflow-hidden border border-orange-100 shadow-sm bg-black">
+                <div class="relative"><video src="images/michinteukga/영상-분당.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full aspect-[9/16] object-cover" onmouseenter="this.play();this.parentElement.querySelector('.play-overlay').style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.parentElement.querySelector('.play-overlay').style.opacity=1"></video><div class="play-overlay absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none"><div class="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-3 h-3 text-orange-600 ml-0.5"></i></div></div></div>
+                <div class="bg-orange-50 text-center py-1 text-[10px] font-bold text-orange-700">분당</div>
+              </div>
+              <div class="rounded-lg overflow-hidden border border-orange-100 shadow-sm bg-black">
+                <div class="relative"><video src="images/michinteukga/영상-서울.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full aspect-[9/16] object-cover" onmouseenter="this.play();this.parentElement.querySelector('.play-overlay').style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.parentElement.querySelector('.play-overlay').style.opacity=1"></video><div class="play-overlay absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none"><div class="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-3 h-3 text-orange-600 ml-0.5"></i></div></div></div>
+                <div class="bg-orange-50 text-center py-1 text-[10px] font-bold text-orange-700">서울</div>
+              </div>
+              <div class="rounded-lg overflow-hidden border border-orange-100 shadow-sm bg-black">
+                <div class="relative"><video src="images/michinteukga/영상-성남.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full aspect-[9/16] object-cover" onmouseenter="this.play();this.parentElement.querySelector('.play-overlay').style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.parentElement.querySelector('.play-overlay').style.opacity=1"></video><div class="play-overlay absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none"><div class="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-3 h-3 text-orange-600 ml-0.5"></i></div></div></div>
+                <div class="bg-orange-50 text-center py-1 text-[10px] font-bold text-orange-700">성남</div>
+              </div>
+              <div class="rounded-lg overflow-hidden border border-orange-100 shadow-sm bg-black">
+                <div class="relative"><video src="images/michinteukga/영상-울산-1.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full aspect-[9/16] object-cover" onmouseenter="this.play();this.parentElement.querySelector('.play-overlay').style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.parentElement.querySelector('.play-overlay').style.opacity=1"></video><div class="play-overlay absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none"><div class="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-3 h-3 text-orange-600 ml-0.5"></i></div></div></div>
+                <div class="bg-orange-50 text-center py-1 text-[10px] font-bold text-orange-700">울산</div>
+              </div>
+              <div class="rounded-lg overflow-hidden border border-orange-100 shadow-sm bg-black">
+                <div class="relative"><video src="images/michinteukga/영상-창원-1.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full aspect-[9/16] object-cover" onmouseenter="this.play();this.parentElement.querySelector('.play-overlay').style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.parentElement.querySelector('.play-overlay').style.opacity=1"></video><div class="play-overlay absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none"><div class="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-3 h-3 text-orange-600 ml-0.5"></i></div></div></div>
+                <div class="bg-orange-50 text-center py-1 text-[10px] font-bold text-orange-700">창원</div>
+              </div>
+              <div class="rounded-lg overflow-hidden border border-orange-100 shadow-sm bg-black">
+                <div class="relative"><video src="images/michinteukga/영상-여수-1.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full aspect-[9/16] object-cover" onmouseenter="this.play();this.parentElement.querySelector('.play-overlay').style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.parentElement.querySelector('.play-overlay').style.opacity=1"></video><div class="play-overlay absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none"><div class="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-3 h-3 text-orange-600 ml-0.5"></i></div></div></div>
+                <div class="bg-orange-50 text-center py-1 text-[10px] font-bold text-orange-700">여수</div>
+              </div>
+              <div class="rounded-lg overflow-hidden border border-orange-100 shadow-sm bg-black">
+                <div class="relative"><video src="images/michinteukga/영상-인천-1.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full aspect-[9/16] object-cover" onmouseenter="this.play();this.parentElement.querySelector('.play-overlay').style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.parentElement.querySelector('.play-overlay').style.opacity=1"></video><div class="play-overlay absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none"><div class="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-3 h-3 text-orange-600 ml-0.5"></i></div></div></div>
+                <div class="bg-orange-50 text-center py-1 text-[10px] font-bold text-orange-700">인천</div>
+              </div>
+              <div class="rounded-lg overflow-hidden border border-slate-200 shadow-sm bg-slate-100 flex items-center justify-center aspect-[9/16]">
+                <div class="text-center p-2">
+                  <div class="text-lg font-black text-slate-500">+12</div>
+                  <div class="text-[9px] text-slate-400">더보기</div>
+                </div>
+              </div>
+            </div>
+            <p class="mt-3 text-xs text-slate-400">* 터치 또는 마우스 오버 시 영상 재생 | 11개 지역 × 총 23편 제작</p>
+          </div>
+        </div>
+
+        <!-- === 리바스인테리어 Case Study === -->
+        <div class="mb-16">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-200">
+              <i data-lucide="home" class="w-6 h-6 text-white"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-black">리바스인테리어</h3>
+              <p class="text-slate-500 text-sm">프리미엄 인테리어 | ROAS 25.44배 달성 사례</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- ROAS Summary Card -->
+            <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-6 text-white">
+              <h4 class="font-bold mb-4 flex items-center gap-2"><i data-lucide="trophy" class="w-5 h-5 text-amber-300"></i> 핵심 수치</h4>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white/10 rounded-xl p-4 backdrop-blur">
+                  <div class="text-sm text-blue-200">총 광고비</div>
+                  <div class="text-xl font-black">비공개</div>
+                  <div class="text-xs text-blue-300">소액 운영</div>
+                </div>
+                <div class="bg-white/10 rounded-xl p-4 backdrop-blur">
+                  <div class="text-sm text-blue-200">총 매출</div>
+                  <div class="text-xl font-black">비공개</div>
+                  <div class="text-xs text-blue-300">광고비 대비 8.9배</div>
+                </div>
+                <div class="bg-white/10 rounded-xl p-4 backdrop-blur">
+                  <div class="text-sm text-blue-200">전체 ROAS</div>
+                  <div class="text-xl font-black text-amber-300">8.90배</div>
+                </div>
+                <div class="bg-white/10 rounded-xl p-4 backdrop-blur">
+                  <div class="text-sm text-blue-200">순이익률</div>
+                  <div class="text-xl font-black text-emerald-300">약 89%</div>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-white/20 grid grid-cols-2 gap-3">
+                <div><div class="text-sm text-blue-200">총 구매</div><div class="text-lg font-bold">44건</div></div>
+                <div><div class="text-sm text-blue-200">평균 객단가</div><div class="text-lg font-bold">고객단가</div></div>
+              </div>
+            </div>
+            <!-- Meta Ads Manager Data -->
+            <div class="bg-white rounded-2xl border-2 border-blue-100 p-6">
+              <h4 class="font-bold mb-4 flex items-center gap-2"><i data-lucide="monitor" class="w-5 h-5 text-blue-500"></i> 메타 광고 관리자 실데이터</h4>
+              <div class="bg-slate-50 rounded-xl p-4 mb-4">
+                <div class="text-xs text-slate-500 mb-3">측정 기간: 2026.1.26 ~ 2026.2.11</div>
+                <div class="space-y-3">
+                  <div>
+                    <div class="flex justify-between items-baseline mb-1">
+                      <span class="text-sm text-slate-600">웹사이트 구매 ROAS</span>
+                      <span class="text-2xl font-black text-blue-600">25.44배</span>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-2.5"><div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-2.5 rounded-full" style="width: 95%"></div></div>
+                  </div>
+                  <div class="flex justify-between items-baseline">
+                    <span class="text-sm text-slate-600">구매 전환값</span>
+                    <span class="text-xl font-black text-slate-900">비공개</span>
+                  </div>
+                  <div class="flex justify-between items-baseline">
+                    <span class="text-sm text-slate-600">구매당 비용</span>
+                    <span class="text-lg font-bold text-slate-700">업계 최저 수준</span>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-blue-50 border border-blue-200 rounded-xl p-3 flex items-start gap-2">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0"></i>
+                <p class="text-xs text-blue-800">광고 소재 <strong>500개 이상</strong> 제작. "결국 사람 마음 흔드는 건 화려한 그래픽이 아니라 <strong>'한 줄의 공감'</strong>이더라."</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 리바스인테리어 소재 제작 -->
+          <div class="mt-6 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6">
+            <h4 class="font-bold mb-4 flex items-center gap-2">
+              <i data-lucide="image" class="w-5 h-5 text-blue-500"></i> 욕실 인테리어 광고 소재 제작 (이미지 8종 + 영상 2편)
+            </h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2">
+              <div class="rounded-lg overflow-hidden border border-blue-100 shadow-sm"><img src="images/ribas/1(세).png" alt="1세" class="w-full h-auto"></div>
+              <div class="rounded-lg overflow-hidden border border-blue-100 shadow-sm"><img src="images/ribas/1(정).png" alt="1정" class="w-full h-auto"></div>
+              <div class="rounded-lg overflow-hidden border border-blue-100 shadow-sm"><img src="images/ribas/2(세).png" alt="2세" class="w-full h-auto"></div>
+              <div class="rounded-lg overflow-hidden border border-blue-100 shadow-sm"><img src="images/ribas/2(정).png" alt="2정" class="w-full h-auto"></div>
+              <div class="rounded-lg overflow-hidden border border-blue-100 shadow-sm"><img src="images/ribas/3(세).png" alt="3세" class="w-full h-auto"></div>
+              <div class="rounded-lg overflow-hidden border border-blue-100 shadow-sm"><img src="images/ribas/3(정).png" alt="3정" class="w-full h-auto"></div>
+              <div class="rounded-lg overflow-hidden border border-blue-100 shadow-sm"><img src="images/ribas/4(세).png" alt="4세" class="w-full h-auto"></div>
+              <div class="rounded-lg overflow-hidden border border-blue-100 shadow-sm"><img src="images/ribas/4(정).png" alt="4정" class="w-full h-auto"></div>
+              <div class="rounded-lg overflow-hidden border border-blue-100 shadow-sm bg-black relative">
+                <video src="images/ribas/영상-1.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full h-auto" onmouseenter="this.play();this.nextElementSibling.style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.nextElementSibling.style.opacity=1"></video>
+                <div class="absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none">
+                  <div class="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-4 h-4 text-blue-600 ml-0.5"></i></div>
+                </div>
+                <div class="bg-blue-50 text-center py-0.5 text-[9px] font-bold text-blue-600">영상 1</div>
+              </div>
+              <div class="rounded-lg overflow-hidden border border-blue-100 shadow-sm bg-black relative">
+                <video src="images/ribas/영상-2.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full h-auto" onmouseenter="this.play();this.nextElementSibling.style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.nextElementSibling.style.opacity=1"></video>
+                <div class="absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none">
+                  <div class="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-4 h-4 text-blue-600 ml-0.5"></i></div>
+                </div>
+                <div class="bg-blue-50 text-center py-0.5 text-[9px] font-bold text-blue-600">영상 2</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- === 기순도 Case Study === -->
+        <div class="mb-16">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-200">
+              <i data-lucide="utensils" class="w-6 h-6 text-white"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-black">기순도</h3>
+              <p class="text-slate-500 text-sm">프리미엄 식품 | ROAS 2,544% 달성 사례</p>
+            </div>
+          </div>
+          <div class="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-6 text-white mb-6">
+            <p class="text-emerald-100 text-sm">
+              이번 캠페인은 <strong class="text-white">ROAS 2,544%</strong>라는 경이로운 수치를 기록하며 목표를 초과 달성. 특히 <strong class="text-white">61만 원대의 높은 객단가</strong>를 유지하면서도 <strong class="text-white">3.56%의 우수한 전환율(CVR)</strong>을 확보.
+            </p>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-center">
+              <div class="text-sm text-emerald-600 font-semibold mb-1">ROAS</div>
+              <div class="text-2xl font-black text-emerald-700">2,544%</div>
+              <div class="text-xs text-emerald-500">목표 300% 초과</div>
+            </div>
+            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-center">
+              <div class="text-sm text-emerald-600 font-semibold mb-1">매출 성장</div>
+              <div class="text-2xl font-black text-emerald-700">+123%</div>
+              <div class="text-xs text-emerald-500">전년 대비 Q1</div>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 text-center">
+              <div class="text-sm text-slate-600 font-semibold mb-1">총 광고비</div>
+              <div class="text-2xl font-black text-slate-700">소액 운영</div>
+              <div class="text-xs text-slate-500">일 예산 소규모</div>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 text-center">
+              <div class="text-sm text-slate-600 font-semibold mb-1">CPA</div>
+              <div class="text-2xl font-black text-slate-700">업계 최저</div>
+              <div class="text-xs text-slate-500">매우 효율적</div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+            <table class="w-full text-sm">
+              <thead class="bg-slate-50">
+                <tr>
+                  <th class="text-left px-6 py-3 font-semibold text-slate-600">지표</th>
+                  <th class="text-center px-6 py-3 font-semibold text-slate-600">수치</th>
+                  <th class="text-left px-6 py-3 font-semibold text-slate-600">전문가 평가</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr>
+                  <td class="px-6 py-3 font-medium">CTR (클릭률)</td>
+                  <td class="text-center px-6 py-3"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-lg font-bold">1.60%</span></td>
+                  <td class="px-6 py-3 text-slate-600">양호 (1.5% 이상 유지)</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-3 font-medium">CPC (클릭 단가)</td>
+                  <td class="text-center px-6 py-3"><span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-lg font-bold">862원</span></td>
+                  <td class="px-6 py-3 text-slate-600">주의 (목표 800원 대비 다소 높음)</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-3 font-medium">CVR (전환율)</td>
+                  <td class="text-center px-6 py-3"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-lg font-bold">3.56%</span></td>
+                  <td class="px-6 py-3 text-slate-600">우수 (구매 의도 높은 타겟)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 기순도몰 매출 분석 리포트 -->
+          <div class="mt-6 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl overflow-hidden">
+            <div class="p-6 text-white">
+              <h4 class="font-bold text-lg mb-1 flex items-center gap-2">
+                <i data-lucide="trending-up" class="w-5 h-5"></i> 기순도몰 매출 분석 리포트
+              </h4>
+              <p class="text-blue-200 text-xs">2025년 vs 2026년 1분기 (1~3월) 비교 분석 | 2026.04.01 기준</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 px-6 pb-4">
+              <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center text-white">
+                <div class="text-xs text-blue-200">Q1 매출 성장률</div>
+                <div class="text-xl font-black text-green-300">+123.3%</div>
+                <div class="text-xs text-blue-200 mt-1">전년 동기 대비</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center text-white">
+                <div class="text-xs text-blue-200">Q1 결제건수 성장</div>
+                <div class="text-xl font-black text-green-300">+84.2%</div>
+                <div class="text-xs text-blue-200 mt-1">전년 동기 대비</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center text-white">
+                <div class="text-xs text-blue-200">네이버 매출 성장</div>
+                <div class="text-xl font-black text-green-300">+9.0%</div>
+                <div class="text-xs text-blue-200 mt-1">전년 동기 대비</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center text-white">
+                <div class="text-xs text-blue-200">25년 연간 대비</div>
+                <div class="text-xl font-black">52.0%</div>
+                <div class="text-xs text-amber-300 font-bold mt-1">Q1만으로 절반 달성</div>
+              </div>
+            </div>
+            <div class="bg-white/5 backdrop-blur mx-6 mb-4 rounded-xl overflow-hidden">
+              <table class="w-full text-sm text-white">
+                <thead class="bg-white/10">
+                  <tr>
+                    <th class="text-left px-4 py-2 font-semibold text-blue-200">월</th>
+                    <th class="text-center px-4 py-2 font-semibold text-blue-200">전년 대비 성장률</th>
+                    <th class="text-center px-4 py-2 font-semibold text-blue-200">평가</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/10">
+                  <tr>
+                    <td class="px-4 py-2 font-medium">1월</td>
+                    <td class="text-center px-4 py-2"><span class="bg-green-500/20 text-green-300 px-3 py-1 rounded font-bold">+3.5%</span></td>
+                    <td class="text-center px-4 py-2 text-blue-200 text-xs">안정적 성장 유지</td>
+                  </tr>
+                  <tr class="bg-white/5">
+                    <td class="px-4 py-2 font-medium">2월</td>
+                    <td class="text-center px-4 py-2"><span class="bg-green-500/30 text-green-300 px-3 py-1 rounded font-black text-lg">+737.9%</span></td>
+                    <td class="text-center px-4 py-2 text-amber-300 text-xs font-bold">폭발적 성장</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2 font-medium">3월</td>
+                    <td class="text-center px-4 py-2"><span class="bg-green-500/20 text-green-300 px-3 py-1 rounded font-bold">+39.3%</span></td>
+                    <td class="text-center px-4 py-2 text-blue-200 text-xs">고성장 지속</td>
+                  </tr>
+                  <tr class="bg-white/10 font-bold">
+                    <td class="px-4 py-2">Q1 합계</td>
+                    <td class="text-center px-4 py-2"><span class="bg-green-500/30 text-green-300 px-3 py-1 rounded font-black">+123.3%</span></td>
+                    <td class="text-center px-4 py-2 text-green-300 text-xs font-bold">2배 이상 성장</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="mx-6 mb-6 bg-amber-500/20 border border-amber-400/30 rounded-xl p-4 flex items-start gap-2">
+              <i data-lucide="zap" class="w-4 h-4 text-amber-300 mt-0.5 flex-shrink-0"></i>
+              <p class="text-xs text-amber-100"><strong class="text-white">핵심 인사이트:</strong> 2월 매출이 전년 대비 <strong class="text-amber-300">+738%</strong> 폭발적 성장. 26년 Q1 매출만으로 25년 연간 매출의 <strong class="text-amber-300">52%</strong>를 이미 달성.</p>
+            </div>
+          </div>
+
+          <!-- 기순도 메타광고 소재 제작 -->
+          <div class="mt-6 bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl p-6">
+            <h4 class="font-bold mb-4 flex items-center gap-2">
+              <i data-lucide="image" class="w-5 h-5 text-emerald-500"></i> Meta 광고 소재 제작 (4개 캠페인)
+            </h4>
+
+            <!-- 설 이벤트 -->
+            <div class="mb-4">
+              <div class="text-xs font-bold text-emerald-700 mb-2">설 이벤트 캠페인 (이미지 8종 + 영상 1편)</div>
+              <div class="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-9 gap-1.5">
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1080-1.png" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1080-2.png" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1080-3.png" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1080-4.png" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1920-1.png" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1920-2.png" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1920-3.png" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1920-4.png" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm bg-black relative">
+                  <video src="images/gisundo/영상.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full h-auto" onmouseenter="this.play();this.parentElement.querySelector('.play-overlay').style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.parentElement.querySelector('.play-overlay').style.opacity=1"></video>
+                  <div class="play-overlay absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none"><div class="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-3 h-3 text-emerald-600 ml-0.5"></i></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 추석 이벤트 -->
+            <div class="mb-4">
+              <div class="text-xs font-bold text-emerald-700 mb-2">추석 이벤트 캠페인 (이미지 4종 + 영상 2편 + GIF 1종)</div>
+              <div class="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-7 gap-1.5">
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1080-10.png" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1080-11.png" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1080-12.png" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1080-13.png" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/기순도추석-메타광고.gif" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm bg-black relative">
+                  <video src="images/gisundo/0910.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full aspect-square object-cover" onmouseenter="this.play();this.parentElement.querySelector('.play-overlay').style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.parentElement.querySelector('.play-overlay').style.opacity=1"></video>
+                  <div class="play-overlay absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none"><div class="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-3 h-3 text-emerald-600 ml-0.5"></i></div></div>
+                </div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm bg-black relative">
+                  <video src="images/gisundo/0909.mp4" muted playsinline webkit-playsinline preload="auto" class="w-full aspect-square object-cover" onmouseenter="this.play();this.parentElement.querySelector('.play-overlay').style.opacity=0" onmouseleave="this.pause();this.currentTime=0;this.parentElement.querySelector('.play-overlay').style.opacity=1"></video>
+                  <div class="play-overlay absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity pointer-events-none"><div class="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center"><i data-lucide="play" class="w-3 h-3 text-emerald-600 ml-0.5"></i></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 기순도데이 -->
+            <div>
+              <div class="text-xs font-bold text-emerald-700 mb-2">기순도데이 캠페인 (이미지 2종 + GIF 2종)</div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-1.5">
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1920-1(세).png" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1080-1(정).png" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1080-2(세).gif" alt="" class="w-full h-auto"></div>
+                <div class="rounded-lg overflow-hidden border border-emerald-100 shadow-sm"><img src="images/gisundo/1080×1080-2(정).gif" alt="" class="w-full h-auto"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- === 네이버 검색광고 성과 (기순도) === -->
+        <div class="mb-16">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg shadow-green-200">
+              <i data-lucide="search" class="w-6 h-6 text-white"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-black">네이버 검색광고 성과 (기순도)</h3>
+              <p class="text-slate-500 text-sm">프리미엄 식품 | 네이버 광고주센터 실데이터</p>
+            </div>
+          </div>
+          <div class="bg-white border-2 border-green-100 rounded-2xl p-6">
+            <div class="bg-slate-50 rounded-xl p-4 mb-4">
+              <div class="text-xs text-slate-500 mb-3">네이버 광고주센터 실데이터 | 기간: 2월</div>
+              <div class="grid grid-cols-3 gap-3 mb-4">
+                <div class="text-center">
+                  <div class="text-2xl font-black text-green-600">3,938</div>
+                  <div class="text-xs text-slate-500">총 노출수</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-2xl font-black text-amber-500">1,156</div>
+                  <div class="text-xs text-slate-500">총 클릭수</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-2xl font-black text-blue-600">252</div>
+                  <div class="text-xs text-slate-500">총 전환수</div>
+                </div>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead class="bg-slate-50">
+                  <tr>
+                    <th class="text-left px-4 py-2 font-semibold text-slate-600">캠페인</th>
+                    <th class="text-right px-4 py-2 font-semibold text-slate-600">비용</th>
+                    <th class="text-right px-4 py-2 font-semibold text-slate-600">전환율</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr>
+                    <td class="px-4 py-2 font-medium">기순도 스마트스토어</td>
+                    <td class="text-right px-4 py-2">비공개</td>
+                    <td class="text-right px-4 py-2"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded font-bold">26.4%</span></td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2 font-medium">기순도-고추장</td>
+                    <td class="text-right px-4 py-2">비공개</td>
+                    <td class="text-right px-4 py-2"><span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded font-bold">8.5%</span></td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2 font-medium">기순도-된장</td>
+                    <td class="text-right px-4 py-2">비공개</td>
+                    <td class="text-right px-4 py-2">0.0%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="mt-4 bg-green-50 border border-green-200 rounded-xl p-3 flex items-start gap-2">
+              <i data-lucide="trending-up" class="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0"></i>
+              <p class="text-xs text-green-800">스마트스토어 캠페인 <strong>전환율 26.4%</strong> 달성. 평균 대비 지출 <strong>+254%</strong> 증가로 공격적 운영 중.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- === 자동물류센터 로봇 (씨앤씨코리아) === -->
+        <div class="mb-16">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-12 h-12 bg-gradient-to-br from-purple-600 to-violet-700 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-200">
+              <i data-lucide="bot" class="w-6 h-6 text-white"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-black">자동물류센터 로봇 (씨앤씨코리아)</h3>
+              <p class="text-slate-500 text-sm">물류 자동화 | 메타 광고 소재 제작</p>
+            </div>
+          </div>
+          <div class="bg-gradient-to-br from-purple-50 to-violet-50 border border-purple-200 rounded-2xl p-6">
+            <h4 class="font-bold mb-4 flex items-center gap-2">
+              <i data-lucide="image" class="w-5 h-5 text-purple-500"></i> Meta 광고 소재 제작
+            </h4>
+            <div class="grid grid-cols-2 md:grid-cols-2 gap-3">
+              <div class="bg-white rounded-xl p-4 border border-purple-100">
+                <p class="font-bold text-sm">"야간·휴일 인력난 로봇이 해결합니다!"</p>
+                <p class="text-xs text-slate-500 mt-1">24시간 쉬지 않는 자율주행 로봇 | 도입 컨설팅 신청 CTA</p>
+              </div>
+              <div class="bg-white rounded-xl p-4 border border-purple-100">
+                <p class="font-bold text-sm">"인프라 공사 NO! 하루 만에 자동화되는 물류센터"</p>
+                <p class="text-xs text-slate-500 mt-1">설치 공사 없이 2주 이내 안정화 | OPEX 렌탈 리스크 ZERO</p>
+              </div>
+              <div class="bg-white rounded-xl p-4 border border-purple-100">
+                <p class="font-bold text-sm">"도입 즉시 인건비 64% 절감!"</p>
+                <p class="text-xs text-slate-500 mt-1">로봇 10대가 피커 6명을 대체 | 연간 1억 원 이상 절감</p>
+              </div>
+              <div class="bg-white rounded-xl p-4 border border-purple-100">
+                <p class="font-bold text-sm">"피로도 0% 오출고 0건 정확도가 다릅니다"</p>
+                <p class="text-xs text-slate-500 mt-1">AI 피킹 효율화 | 로봇과 사람이 함께 일하는 물류현장</p>
+              </div>
+            </div>
+            <a href="https://kaicompany.super.site/sns-%eb%a9%94%ed%83%80-%ec%bb%a8%ed%85%90%ec%b8%a0/%ea%b8%b0%ed%83%80-%ec%9e%90%eb%8f%99%eb%ac%bc%eb%a5%98%ec%84%bc%ed%84%b0-%eb%a9%94%ed%83%80%ec%bb%a8%ed%85%90%ec%b8%a0" target="_blank" class="mt-4 inline-flex items-center text-sm text-purple-600 font-semibold hover:underline">
+              <i data-lucide="external-link" class="w-4 h-4 mr-1"></i> 전체 소재 보기
+            </a>
+          </div>
+        </div>
+
+        <!-- === 개발 프로젝트 포트폴리오 === -->
+        <div class="mb-16">
+          <div class="text-center mb-10">
+            <div class="inline-flex items-center px-3 py-1 rounded-full bg-violet-50 text-violet-600 text-sm font-bold mb-4">
+              <i data-lucide="code-2" class="w-4 h-4 mr-2"></i> Development Projects
+            </div>
+            <h3 class="text-2xl md:text-3xl font-black mb-2">웹/앱 개발 프로젝트</h3>
+            <p class="text-slate-500">마케팅뿐 아니라 플랫폼 개발까지 원스톱으로 제공합니다.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- 네놈마켓 B2B 플랫폼 -->
+            <div class="card-hover bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+              <div class="bg-gradient-to-r from-indigo-600 to-violet-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                  <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
+                    <i data-lucide="store" class="w-6 h-6 text-white"></i>
+                  </div>
+                  <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">B2B SaaS</span>
+                </div>
+                <h4 class="text-xl font-bold text-white">네놈마켓 B2B 유통 플랫폼</h4>
+                <p class="text-indigo-200 text-sm mt-1">농수축산물 B2B 도매·유통 관리 SaaS</p>
+              </div>
+              <!-- 대시보드 미리보기 -->
+              <div class="p-4 bg-slate-50 border-b border-slate-200">
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden text-[10px]">
+                  <div class="flex">
+                    <!-- 사이드바 -->
+                    <div class="w-[90px] bg-white border-r border-slate-100 p-2 flex-shrink-0 hidden sm:block">
+                      <div class="font-black text-[9px] text-slate-800 mb-2">네놈마켓 <span class="text-slate-400 font-normal">관리자</span></div>
+                      <div class="space-y-1">
+                        <div class="bg-indigo-50 text-indigo-600 rounded px-1.5 py-0.5 font-bold text-[8px]">대시보드</div>
+                        <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">상품 관리</div>
+                        <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">가격 관리</div>
+                        <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">주문 관리</div>
+                        <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">발주 관리</div>
+                        <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">공급사 관리</div>
+                        <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">셀러 관리</div>
+                        <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">정산 관리</div>
+                        <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">통계</div>
+                      </div>
+                    </div>
+                    <!-- 메인 -->
+                    <div class="flex-1 p-3">
+                      <div class="font-bold text-[10px] text-slate-800 mb-2">관리자 대시보드</div>
+                      <div class="grid grid-cols-4 gap-1.5 mb-2">
+                        <div class="border border-slate-100 rounded-lg p-1.5"><div class="text-[8px] text-slate-400">오늘 주문</div><div class="text-sm font-black text-slate-800">312<span class="text-[8px] font-normal text-slate-400 ml-0.5">건</span></div></div>
+                        <div class="border border-slate-100 rounded-lg p-1.5"><div class="text-[8px] text-slate-400">이번달 매출</div><div class="text-sm font-black text-slate-800">4,280<span class="text-[8px] font-normal text-slate-400 ml-0.5">만</span></div></div>
+                        <div class="border border-slate-100 rounded-lg p-1.5"><div class="text-[8px] text-slate-400">총 상품</div><div class="text-sm font-black text-slate-800">1,847<span class="text-[8px] font-normal text-slate-400 ml-0.5">활성</span></div></div>
+                        <div class="border border-slate-100 rounded-lg p-1.5"><div class="text-[8px] text-slate-400">활성 셀러</div><div class="text-sm font-black text-slate-800">56<span class="text-[8px] font-normal text-slate-400 ml-0.5">명</span></div></div>
+                      </div>
+                      <div class="grid grid-cols-2 gap-1.5">
+                        <div class="border border-slate-100 rounded-lg p-1.5">
+                          <div class="text-[8px] text-slate-500 font-semibold mb-1">최근 주문</div>
+                          <div class="grid grid-cols-4 gap-1 text-[7px] text-slate-400"><span>주문번호</span><span>셀러</span><span>상태</span><span>금액</span></div>
+                        </div>
+                        <div class="border border-slate-100 rounded-lg p-1.5">
+                          <div class="text-[8px] text-slate-500 font-semibold mb-1">대기중 클레임</div>
+                          <div class="grid grid-cols-4 gap-1 text-[7px] text-slate-400"><span>주문번호</span><span>유형</span><span>셀러</span><span>요청일</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <p class="text-sm text-slate-600 mb-4">발주부터 정산까지, B2B 유통의 모든 과정을 하나의 플랫폼에서 관리하는 웹 기반 SaaS 시스템 구축</p>
+
+                <!-- 핵심 기능 -->
+                <div class="space-y-2 mb-5">
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 flex-shrink-0"></i>
+                    <span>주문 자동화 (엑셀 업로드 → 일괄 등록)</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 flex-shrink-0"></i>
+                    <span>공급사별 발주서 자동 생성</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 flex-shrink-0"></i>
+                    <span>송장 자동 매칭 (업로드 → 즉시 반영)</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 flex-shrink-0"></i>
+                    <span>등급별 차등 가격 + 정산 자동화</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 flex-shrink-0"></i>
+                    <span>관리자 대시보드 14개 + 셀러 대시보드 7개 화면</span>
+                  </div>
+                </div>
+
+                <!-- 기대효과 -->
+                <div class="grid grid-cols-2 gap-3 mb-5">
+                  <div class="bg-indigo-50 rounded-xl p-3 text-center">
+                    <div class="text-lg font-black text-indigo-700">80%</div>
+                    <div class="text-xs text-indigo-500">주문처리 시간 단축</div>
+                  </div>
+                  <div class="bg-indigo-50 rounded-xl p-3 text-center">
+                    <div class="text-lg font-black text-indigo-700">0.5%</div>
+                    <div class="text-xs text-indigo-500">발주 오류율 (5%→0.5%)</div>
+                  </div>
+                  <div class="bg-indigo-50 rounded-xl p-3 text-center">
+                    <div class="text-lg font-black text-indigo-700">70%</div>
+                    <div class="text-xs text-indigo-500">품절 손실 감소</div>
+                  </div>
+                  <div class="bg-indigo-50 rounded-xl p-3 text-center">
+                    <div class="text-lg font-black text-indigo-700">3,800만</div>
+                    <div class="text-xs text-indigo-500">연간 비용 절감</div>
+                  </div>
+                </div>
+
+                <!-- 기술 스택 -->
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Next.js 15</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">TypeScript</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">PostgreSQL</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Prisma</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Supabase</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Tailwind CSS</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 중소기업 재무 분석 서비스 -->
+            <div class="card-hover bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+              <div class="bg-gradient-to-r from-slate-800 to-slate-950 p-6">
+                <div class="flex items-center justify-between mb-4">
+                  <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
+                    <i data-lucide="bar-chart-2" class="w-6 h-6 text-white"></i>
+                  </div>
+                  <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">FinTech</span>
+                </div>
+                <h4 class="text-xl font-bold text-white">중소기업 재무 분석 서비스</h4>
+                <p class="text-slate-300 text-sm mt-1">기업 재무 데이터 자동 분석 웹 서비스</p>
+              </div>
+              <!-- 재무 분석 결과 미리보기 -->
+              <div class="p-4 bg-slate-50 border-b border-slate-200">
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden text-[10px]">
+                  <!-- 기업 정보 -->
+                  <div class="p-3 border-b border-slate-100">
+                    <div class="font-black text-[11px] text-slate-800 mb-1">(주)왔구나</div>
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-0.5 text-[8px] text-slate-500">
+                      <div>기업형태: 법인 또는 기타사업자</div>
+                      <div>업종: 신선, 냉동 및 기타 수산물 도매업</div>
+                      <div>설립일: 2025-04-09</div>
+                      <div>주소: 강원 동해시 구호동</div>
+                    </div>
+                  </div>
+                  <!-- 리스크 -->
+                  <div class="mx-3 mt-2 px-2 py-1 bg-green-50 border border-green-200 rounded text-[9px] text-green-700 font-medium">특이 리스크가 감지되지 않았습니다.</div>
+                  <!-- 재무제표 -->
+                  <div class="p-3">
+                    <div class="text-[9px] font-bold text-slate-700 mb-1.5">재무제표 (단위: 원)</div>
+                    <table class="w-full text-[8px]">
+                      <thead><tr class="border-b border-slate-200 text-slate-500">
+                        <th class="text-left py-1">결산년도</th><th class="text-right py-1">자산총계</th><th class="text-right py-1">매출액</th><th class="text-right py-1">영업이익</th><th class="text-right py-1">당기순이익</th>
+                      </tr></thead>
+                      <tbody><tr class="text-slate-700">
+                        <td class="py-1">2025</td><td class="text-right">380,185,000</td><td class="text-right font-bold">2,998,979,000</td><td class="text-right text-green-600">90,682,000</td><td class="text-right text-green-600">90,859,000</td>
+                      </tr></tbody>
+                    </table>
+                  </div>
+                  <!-- 차트 -->
+                  <div class="px-3 pb-3">
+                    <div class="text-[9px] font-bold text-slate-700 mb-1.5">재무 추이</div>
+                    <div class="flex items-end gap-1 h-12">
+                      <div class="flex-1 flex flex-col items-center gap-0.5">
+                        <div class="w-full bg-blue-500 rounded-t" style="height: 40px"></div>
+                        <div class="w-full bg-green-500 rounded-t" style="height: 2px"></div>
+                        <div class="w-full bg-orange-400 rounded-t" style="height: 2px"></div>
+                      </div>
+                    </div>
+                    <div class="flex justify-center gap-3 mt-1.5 text-[7px] text-slate-500">
+                      <span class="flex items-center gap-0.5"><span class="w-1.5 h-1.5 bg-blue-500 rounded-sm"></span> 매출액</span>
+                      <span class="flex items-center gap-0.5"><span class="w-1.5 h-1.5 bg-green-500 rounded-sm"></span> 영업이익</span>
+                      <span class="flex items-center gap-0.5"><span class="w-1.5 h-1.5 bg-orange-400 rounded-sm"></span> 당기순이익</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <p class="text-sm text-slate-600 mb-4">회사명 검색만으로 중소기업의 재무 상태를 자동 분석하여 시각화된 리포트를 제공하는 FinTech 웹 서비스</p>
+
+                <!-- 핵심 기능 -->
+                <div class="space-y-2 mb-5">
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-slate-500 flex-shrink-0"></i>
+                    <span>회사명 검색 → 재무 데이터 자동 수집</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-slate-500 flex-shrink-0"></i>
+                    <span>재무제표 자동 분석 (수익성/안정성/성장성)</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-slate-500 flex-shrink-0"></i>
+                    <span>동종 업계 비교 분석 및 벤치마킹</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-slate-500 flex-shrink-0"></i>
+                    <span>시각화 대시보드 (차트/그래프 리포트)</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-slate-500 flex-shrink-0"></i>
+                    <span>AI 기반 재무 건전성 진단 및 리스크 분석</span>
+                  </div>
+                </div>
+
+                <!-- 핵심 지표 -->
+                <div class="grid grid-cols-2 gap-3 mb-5">
+                  <div class="bg-slate-100 rounded-xl p-3 text-center">
+                    <div class="text-lg font-black text-slate-700">80만+</div>
+                    <div class="text-xs text-slate-500">분석 가능 기업수</div>
+                  </div>
+                  <div class="bg-slate-100 rounded-xl p-3 text-center">
+                    <div class="text-lg font-black text-slate-700">실시간</div>
+                    <div class="text-xs text-slate-500">공공 데이터 연동</div>
+                  </div>
+                  <div class="bg-slate-100 rounded-xl p-3 text-center">
+                    <div class="text-lg font-black text-slate-700">5초</div>
+                    <div class="text-xs text-slate-500">분석 리포트 생성</div>
+                  </div>
+                  <div class="bg-slate-100 rounded-xl p-3 text-center">
+                    <div class="text-lg font-black text-slate-700">PDF</div>
+                    <div class="text-xs text-slate-500">리포트 다운로드</div>
+                  </div>
+                </div>
+
+                <!-- 기술 스택 -->
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Next.js</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Python</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">FastAPI</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">PostgreSQL</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">DART API</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Chart.js</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 정동병원 AI 챗봇 + 슬리밍고 AI 챗봇 -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+
+            <!-- 정동병원 AI 챗봇 -->
+            <div class="card-hover bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+              <div class="bg-gradient-to-r from-teal-600 to-emerald-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                  <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
+                    <i data-lucide="heart-pulse" class="w-6 h-6 text-white"></i>
+                  </div>
+                  <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">AI 챗봇</span>
+                </div>
+                <h4 class="text-xl font-bold text-white">정동병원 AI 챗봇 서비스</h4>
+                <p class="text-teal-200 text-sm mt-1">병원 재고관리 + AI 음성봇 통합 서비스</p>
+              </div>
+              <!-- AI 음성봇 미리보기 -->
+              <div class="p-5 bg-gradient-to-b from-sky-100 to-sky-50 border-b border-slate-200">
+                <div class="bg-gradient-to-b from-sky-200/60 to-white rounded-2xl p-5 text-center shadow-md border border-sky-200/50 max-w-[220px] mx-auto">
+                  <div class="text-[11px] font-black text-sky-700 mb-0.5">🏥 든든한 서울 내과</div>
+                  <div class="text-[10px] font-bold text-sky-600 mb-0.5">AI 상담 간호사 '건강이'</div>
+                  <div class="text-[9px] text-sky-500 mb-3">진료 예약, 병원 이용, 건강 관련 질문을 도와드립니다</div>
+                  <div class="w-14 h-14 bg-gradient-to-br from-sky-400 to-cyan-500 rounded-full mx-auto flex items-center justify-center mb-3 shadow-lg shadow-sky-300/50">
+                    <i data-lucide="mic" class="w-7 h-7 text-white"></i>
+                  </div>
+                  <div class="text-[10px] text-slate-400 flex items-center justify-center gap-1 mb-3">
+                    <span class="w-2 h-2 bg-slate-300 rounded-full"></span> 대기 중
+                  </div>
+                  <div class="bg-gradient-to-r from-sky-400 to-cyan-500 rounded-lg py-1.5 text-[10px] font-bold text-white mb-1.5">도입 문의</div>
+                  <div class="text-[9px] text-sky-400">AI Voice Assistant</div>
+                </div>
+              </div>
+              <div class="p-6">
+                <p class="text-sm text-slate-600 mb-4">정동병원 맞춤 AI 챗봇 및 재고관리 자동화 플랫폼. 환자 문의 자동 응대부터 의료 재고 예측까지 원스톱 솔루션</p>
+                <div class="space-y-2 mb-5">
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-teal-500 flex-shrink-0"></i>
+                    <span>환자 문의 AI 자동 응대 (카카오톡 + 웹)</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-teal-500 flex-shrink-0"></i>
+                    <span>실시간 의료 재고관리 (바코드/QR 스캔)</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-teal-500 flex-shrink-0"></i>
+                    <span>세금계산서 자동 발행 (국세청 연동)</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-teal-500 flex-shrink-0"></i>
+                    <span>AI 수요 예측 + 재고 최적화 시뮬레이션</span>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-5">
+                  <div class="bg-teal-50 rounded-xl p-3 text-center">
+                    <div class="text-lg font-black text-teal-700">91%</div>
+                    <div class="text-xs text-teal-500">1년차 ROI</div>
+                  </div>
+                  <div class="bg-teal-50 rounded-xl p-3 text-center">
+                    <div class="text-lg font-black text-teal-700">3,000만</div>
+                    <div class="text-xs text-teal-500">연간 절감 효과</div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Next.js</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Claude API</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">KakaoTalk</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">PostgreSQL</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- GW영어학원 LMS -->
+            <div class="card-hover bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+              <div class="bg-gradient-to-r from-amber-500 to-yellow-600 p-6">
+                <div class="flex items-center justify-between mb-4">
+                  <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 text-white"></i>
+                  </div>
+                  <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">EduTech</span>
+                </div>
+                <h4 class="text-xl font-bold text-white">GW영어학원 학생관리 시스템</h4>
+                <p class="text-amber-100 text-sm mt-1">학원 LMS + 학생/학부모 관리 플랫폼</p>
+              </div>
+              <!-- 대시보드 미리보기 -->
+              <div class="p-4 bg-slate-50 border-b border-slate-200">
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden text-[10px]">
+                  <div class="flex">
+                    <div class="w-[80px] bg-slate-800 p-2 flex-shrink-0 hidden sm:block">
+                      <div class="text-[8px] text-white font-bold mb-2">TestAdmin</div>
+                      <div class="space-y-0.5">
+                        <div class="text-amber-400 text-[7px]">HOME</div>
+                        <div class="text-slate-400 text-[7px]">Evaluation</div>
+                        <div class="text-white bg-slate-700 rounded px-1 py-0.5 text-[7px]">Students</div>
+                        <div class="text-slate-400 text-[7px]">Book</div>
+                        <div class="text-slate-400 text-[7px]">Audio Book</div>
+                        <div class="text-slate-400 text-[7px]">Ranks</div>
+                        <div class="text-slate-400 text-[7px]">Content</div>
+                      </div>
+                    </div>
+                    <div class="flex-1 p-2">
+                      <div class="flex justify-between items-center mb-1.5">
+                        <div class="font-bold text-slate-800">Student</div>
+                        <div class="text-[8px] text-slate-400">On-going: 31 | Waiting: 1</div>
+                      </div>
+                      <div class="grid grid-cols-4 gap-1 text-[7px] bg-amber-50 rounded p-1 mb-1">
+                        <span class="font-semibold text-slate-600">Username</span>
+                        <span class="font-semibold text-slate-600">Name</span>
+                        <span class="font-semibold text-slate-600">Grade</span>
+                        <span class="font-semibold text-slate-600">Status</span>
+                      </div>
+                      <div class="space-y-0.5 text-[7px] text-slate-500">
+                        <div class="grid grid-cols-4 gap-1"><span>구자성5</span><span>구자성5</span><span>Grade 5</span><span class="text-green-600">On-going</span></div>
+                        <div class="grid grid-cols-4 gap-1"><span>권도윤5</span><span>권도윤5</span><span>Grade 5</span><span class="text-green-600">On-going</span></div>
+                        <div class="grid grid-cols-4 gap-1"><span>김나봄5</span><span>김나봄5</span><span>Grade 5</span><span class="text-green-600">On-going</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <p class="text-sm text-slate-600 mb-4">영어학원 학생/학부모/교사 통합 관리 시스템. 수업 평가, 도서 관리, 리딩 레벨 추적까지 원스톱 LMS</p>
+                <div class="space-y-2 mb-5">
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i>
+                    <span>학생 관리 (등급/반/학부모 연동)</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i>
+                    <span>평가 시스템 (Essay/Reading/Grammar)</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i>
+                    <span>도서/오디오북 관리 + 랭킹 시스템</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i>
+                    <span>엑셀 업로드/다운로드 일괄 관리</span>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-5">
+                  <div class="bg-amber-50 rounded-xl p-3 text-center">
+                    <div class="text-lg font-black text-amber-700">150+</div>
+                    <div class="text-xs text-amber-500">학생 관리</div>
+                  </div>
+                  <div class="bg-amber-50 rounded-xl p-3 text-center">
+                    <div class="text-lg font-black text-amber-700">E·D·R·G</div>
+                    <div class="text-xs text-amber-500">4영역 평가</div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">PHP</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Laravel</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">MySQL</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Bootstrap</span>
+                  <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">jQuery</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 쇼핑몰 구축 포트폴리오 -->
+          <div class="mt-8">
+            <div class="text-center mb-8">
+              <div class="inline-flex items-center px-3 py-1 rounded-full bg-red-50 text-red-600 text-sm font-bold mb-4">
+                <i data-lucide="shopping-cart" class="w-4 h-4 mr-2"></i> Shopping Mall
+              </div>
+              <h3 class="text-2xl md:text-3xl font-black mb-2">쇼핑몰 구축 포트폴리오</h3>
+              <p class="text-slate-500">쇼핑몰 기획, 디자인, 구축까지 원스톱 서비스</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <!-- 청담마켓 -->
+              <a href="https://www.chungdam-market.com/" target="_blank" class="card-hover block bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="h-36 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center p-3">
+                  <img src="https://spdy-flexg-ha.flexgate.co.kr/data/main_logo/chungdam/앱링크공유그래픽스이미지1024×500.jpg" alt="청담마켓" class="w-full h-full object-cover rounded-lg shadow-md">
+                </div>
+                <div class="p-4">
+                  <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">식품</span>
+                  <h4 class="font-bold text-sm mt-2">청담마켓 쇼핑몰</h4>
+                  <p class="text-[10px] text-slate-400 mt-0.5">농수축산물 프리미엄 쇼핑몰</p>
+                </div>
+              </a>
+              <!-- 찬스몰 -->
+              <a href="https://www.chansmall.com/" target="_blank" class="card-hover block bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="h-36 bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center p-3">
+                  <img src="https://spdy-flexg-ha.flexgate.co.kr/data/main_logo/bsdj8484/1024×500.png" alt="찬스몰" class="w-full h-full object-cover rounded-lg shadow-md">
+                </div>
+                <div class="p-4">
+                  <span class="text-[10px] bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full font-bold">식품</span>
+                  <h4 class="font-bold text-sm mt-2">찬스몰 쇼핑몰</h4>
+                  <p class="text-[10px] text-slate-400 mt-0.5">밥상대장 간편식 전문</p>
+                </div>
+              </a>
+              <!-- 기순도전통장 -->
+              <a href="https://www.ksdo.co.kr/" target="_blank" class="card-hover block bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="h-36 bg-gradient-to-br from-emerald-100 to-teal-200 flex items-center justify-center p-3">
+                  <img src="https://spdy-flexg-ha.flexgate.co.kr/data/main_logo/kisoondo/오픈그래프_20240826105807345_1.jpg" alt="기순도전통장" class="w-full h-full object-cover rounded-lg shadow-md">
+                </div>
+                <div class="p-4">
+                  <span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">식품</span>
+                  <h4 class="font-bold text-sm mt-2">기순도전통장 쇼핑몰</h4>
+                  <p class="text-[10px] text-slate-400 mt-0.5">대한민국 식품명인 제35호</p>
+                </div>
+              </a>
+              <!-- 볼트문 -->
+              <a href="https://samjunginst.flexg.shop/" target="_blank" class="card-hover block bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm" id="voltmoon-card">
+                <div class="h-36 bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center p-3">
+                  <img src="https://spdy-flexg-ha.flexgate.co.kr/data/main_logo/samjunginst/오픈그래프.png" alt="볼트문" class="w-full h-full object-cover rounded-lg shadow-md">
+                </div>
+                <div class="p-4">
+                  <span class="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-bold">기타</span>
+                  <h4 class="font-bold text-sm mt-2">볼트문 쇼핑몰</h4>
+                  <p class="text-[10px] text-slate-400 mt-0.5">LED 인테리어 조명</p>
+                </div>
+              </a>
+              <!-- 네놈마켓 -->
+              <a href="https://www.dokjeom.com/" target="_blank" class="card-hover block bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm" id="nenom-card">
+                <div class="h-36 bg-gradient-to-br from-red-100 to-rose-200 flex items-center justify-center p-3">
+                  <img src="https://spdy-flexg-ha.flexgate.co.kr/data/main_logo/wguna2025/Frame37.png" alt="네놈마켓" class="h-full object-contain">
+                </div>
+                <div class="p-4">
+                  <span class="text-[10px] bg-red-100 text-red-700 px-2 py-0.5 rounded-full font-bold">식품</span>
+                  <h4 class="font-bold text-sm mt-2">네놈마켓 쇼핑몰</h4>
+                  <p class="text-[10px] text-slate-400 mt-0.5">식품 종합 쇼핑몰</p>
+                </div>
+              </a>
+              <!-- 맛과당 -->
+              <a href="https://matgwadang.co.kr/" target="_blank" class="card-hover block bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="h-36 bg-gradient-to-br from-yellow-100 to-amber-200 flex items-center justify-center p-3">
+                  <img src="https://spdy-flexg-ha.flexgate.co.kr/data/main_logo/matgwadang/Frame95.jpg" alt="맛과당" class="w-full h-full object-cover rounded-lg shadow-md">
+                </div>
+                <div class="p-4">
+                  <span class="text-[10px] bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full font-bold">식품</span>
+                  <h4 class="font-bold text-sm mt-2">맛과당 쇼핑몰</h4>
+                  <p class="text-[10px] text-slate-400 mt-0.5">프리미엄 농수산물</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Filter (기존 클라이언트 목록) -->
+        <div class="mt-8 mb-8">
+          <h3 class="text-2xl font-black mb-6 text-center">전체 운영 클라이언트</h3>
+          <div class="flex flex-wrap justify-center gap-3 mb-8 no-print">
+            <button class="filter-btn px-5 py-2 rounded-full text-sm font-semibold bg-kai-600 text-white" data-filter="all">전체</button>
+            <button class="filter-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-kai-50 hover:text-kai-600 transition-colors" data-filter="ecommerce">이커머스</button>
+            <button class="filter-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-kai-50 hover:text-kai-600 transition-colors" data-filter="food">식품</button>
+            <button class="filter-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-kai-50 hover:text-kai-600 transition-colors" data-filter="interior">인테리어/가전</button>
+            <button class="filter-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-kai-50 hover:text-kai-600 transition-colors" data-filter="global">글로벌</button>
+            <button class="filter-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-kai-50 hover:text-kai-600 transition-colors" data-filter="dev">개발</button>
+          </div>
+        </div>
+
+        <!-- Client Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="clientGrid">
+
+          <!-- 독점마켓 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="ecommerce">
+            <div class="bg-gradient-to-r from-emerald-500 to-teal-600 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="shopping-bag" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">운영 중</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">독점마켓</h3>
+              <p class="text-emerald-100 text-sm mt-1">종합 이커머스 플랫폼</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">이커머스</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">전환 캠페인</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">다이나믹 카탈로그</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">KRW</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-kai-600 font-semibold">
+                  <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i> ROAS 최적화 중심 운영
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4menmarket -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="ecommerce">
+            <div class="bg-gradient-to-r from-violet-500 to-purple-600 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="shirt" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">운영 중</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">4menmarket</h3>
+              <p class="text-violet-100 text-sm mt-1">남성 패션 전문 쇼핑몰</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">패션/이커머스</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">카탈로그 + 전환</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">시즌별 타겟팅</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">KRW</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-purple-600 font-semibold">
+                  <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i> 패션 카테고리 특화 운영
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 씨앤씨에어코리아 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="interior">
+            <div class="bg-gradient-to-r from-blue-500 to-cyan-600 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="fan" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">운영 중</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">씨앤씨에어코리아</h3>
+              <p class="text-blue-100 text-sm mt-1">에어컨/실링팬 전문 브랜드</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">가전/인테리어</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">인지 + 전환</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">시즌별 소구 전략</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">KRW</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-blue-600 font-semibold">
+                  <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i> 시즌 캠페인 중심 운영
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 씨앤씨코리아 호주지사 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="global">
+            <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="globe-2" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">글로벌</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">씨앤씨코리아 호주지사</h3>
+              <p class="text-amber-100 text-sm mt-1">Lockedair Australia</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">가전 (해외)</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">글로벌 전환 캠페인</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">호주 시장 타겟팅</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">AUD</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-orange-600 font-semibold">
+                  <i data-lucide="globe" class="w-4 h-4 mr-1"></i> 해외 시장 진출 마케팅
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 리바스인테리어 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="global interior">
+            <div class="bg-gradient-to-r from-rose-500 to-pink-600 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="home" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">글로벌</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">리바스인테리어</h3>
+              <p class="text-rose-100 text-sm mt-1">프리미엄 인테리어 브랜드</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">인테리어</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">인지 + 리드 생성</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">프리미엄 포지셔닝</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">USD</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-rose-600 font-semibold">
+                  <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i> USD 글로벌 캠페인 운영
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 에어로웨이실링팬 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="interior global">
+            <div class="bg-gradient-to-r from-sky-500 to-blue-600 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="wind" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">글로벌</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">에어로웨이실링팬</h3>
+              <p class="text-sky-100 text-sm mt-1">스마트 실링팬 전문 브랜드</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">가전/인테리어</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">인지 + 전환</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">시즌별 소구 전략</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">USD</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-sky-600 font-semibold">
+                  <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i> 계절별 수요 공략
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 미친특가 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="ecommerce">
+            <div class="bg-gradient-to-r from-red-500 to-rose-600 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="flame" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">이커머스</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">미친특가광고</h3>
+              <p class="text-red-100 text-sm mt-1">초특가 딜 전문 플랫폼</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">이커머스/딜</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">전환 + 트래픽</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">긴급성/희소성 소구</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">KRW</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-red-600 font-semibold">
+                  <i data-lucide="zap" class="w-4 h-4 mr-1"></i> 타임딜 기반 전환 최적화
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 청담마켓 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="ecommerce">
+            <div class="bg-gradient-to-r from-slate-700 to-slate-900 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="gem" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">이커머스</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">청담마켓</h3>
+              <p class="text-slate-300 text-sm mt-1">프리미엄 라이프스타일</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">라이프스타일</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">브랜딩 + 전환</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">프리미엄 타겟팅</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">KRW</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-slate-600 font-semibold">
+                  <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i> 프리미엄 브랜딩 전략
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 하모아한돈삼겹살 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="food">
+            <div class="bg-gradient-to-r from-yellow-500 to-amber-600 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="utensils" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">운영 중</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">하모아</h3>
+              <p class="text-yellow-100 text-sm mt-1">한돈 삼겹살 프리미엄 브랜드</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">식품</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">전환 캠페인</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">식품 특화 소구</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">KRW</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-amber-600 font-semibold">
+                  <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i> 식품 전환 최적화
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 밥상대장 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="food">
+            <div class="bg-gradient-to-r from-lime-500 to-green-600 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="chef-hat" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">식품</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">밥상대장</h3>
+              <p class="text-lime-100 text-sm mt-1">간편식/밀키트 전문 브랜드</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">식품/간편식</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">전환 + 카탈로그</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">가격/희소성 소구</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">KRW</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-green-600 font-semibold">
+                  <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i> 간편식 카테고리 전문
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 기순도 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="food">
+            <div class="bg-gradient-to-r from-stone-500 to-stone-700 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="flask-conical" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">식품</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">기순도</h3>
+              <p class="text-stone-200 text-sm mt-1">전통장 프리미엄 브랜드</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">식품/전통장</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">브랜딩 + 전환</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">전통/프리미엄 소구</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">KRW</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-stone-600 font-semibold">
+                  <i data-lucide="award" class="w-4 h-4 mr-1"></i> 프리미엄 전통 식품 마케팅
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 레드카페의 선물 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="food ecommerce">
+            <div class="bg-gradient-to-r from-red-600 to-red-800 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="gift" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">식품</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">레드카페의 선물</h3>
+              <p class="text-red-200 text-sm mt-1">선물/기프트 전문 브랜드</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">선물/기프트</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">시즌 캠페인</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">기념일 타겟팅</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">KRW</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-red-600 font-semibold">
+                  <i data-lucide="calendar" class="w-4 h-4 mr-1"></i> 시즌/기념일 캠페인
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 네놈마켓 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="ecommerce">
+            <div class="bg-gradient-to-r from-indigo-500 to-indigo-700 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="store" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">이커머스</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">네놈마켓</h3>
+              <p class="text-indigo-200 text-sm mt-1">종합 온라인 마켓</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">이커머스</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">전환 캠페인</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">카탈로그 광고</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">KRW</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-indigo-600 font-semibold">
+                  <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i> 이커머스 전환 최적화
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- corea_ksdo -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="global">
+            <div class="bg-gradient-to-r from-teal-500 to-emerald-600 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="globe" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">글로벌</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">corea_ksdo</h3>
+              <p class="text-teal-100 text-sm mt-1">한국 문화 글로벌 브랜드</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">문화/글로벌</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">인지 캠페인</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">글로벌 인지도 확대</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">KRW</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-teal-600 font-semibold">
+                  <i data-lucide="globe" class="w-4 h-4 mr-1"></i> 한류 콘텐츠 마케팅
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 리바스-카이 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="interior">
+            <div class="bg-gradient-to-r from-fuchsia-500 to-pink-600 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="lamp" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">인테리어</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">리바스-카이</h3>
+              <p class="text-fuchsia-100 text-sm mt-1">kitt 인테리어 브랜드</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">업종</span><span class="font-semibold">인테리어</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">광고 유형</span><span class="font-semibold">리드 생성</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">주요 전략</span><span class="font-semibold">인테리어 관심 타겟</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">통화</span><span class="font-semibold">KRW</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-fuchsia-600 font-semibold">
+                  <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i> 인테리어 리드 최적화
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 네놈마켓 B2B 유통 플랫폼 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="dev">
+            <div class="bg-gradient-to-r from-indigo-600 to-violet-700 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="store" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">B2B SaaS</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">네놈마켓 B2B 플랫폼</h3>
+              <p class="text-indigo-200 text-sm mt-1">농수축산물 B2B 도매·유통 관리 SaaS</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">프로젝트</span><span class="font-semibold">웹 플랫폼 풀스택 개발</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">기술 스택</span><span class="font-semibold">Next.js · PostgreSQL · Prisma</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">핵심 기능</span><span class="font-semibold">발주·정산·재고 자동화</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">규모</span><span class="font-semibold">관리자 14 + 셀러 7 화면</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-indigo-600 font-semibold">
+                  <i data-lucide="code-2" class="w-4 h-4 mr-1"></i> 주문처리 80% 시간 단축 달성
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 중소기업 재무 분석 서비스 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="dev">
+            <div class="bg-gradient-to-r from-slate-800 to-slate-950 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="bar-chart-2" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">FinTech</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">기업 재무 분석 서비스</h3>
+              <p class="text-slate-300 text-sm mt-1">AI 기반 기업 재무 자동 분석 웹 서비스</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">프로젝트</span><span class="font-semibold">FinTech 웹 서비스 개발</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">기술 스택</span><span class="font-semibold">Next.js · Python · FastAPI</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">핵심 기능</span><span class="font-semibold">재무제표 자동 분석·시각화</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">데이터</span><span class="font-semibold">80만+ 기업 · DART API 연동</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-slate-600 font-semibold">
+                  <i data-lucide="code-2" class="w-4 h-4 mr-1"></i> 5초 내 AI 분석 리포트 생성
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 정동병원 AI 챗봇 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="dev">
+            <div class="bg-gradient-to-r from-teal-600 to-emerald-700 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="heart-pulse" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">AI 챗봇</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">정동병원 AI 챗봇</h3>
+              <p class="text-teal-200 text-sm mt-1">병원 재고관리 + AI 음성봇 통합 서비스</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">프로젝트</span><span class="font-semibold">AI 챗봇 · 재고관리 플랫폼</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">기술 스택</span><span class="font-semibold">Next.js · Claude API · KakaoTalk</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">핵심 기능</span><span class="font-semibold">환자 자동응대 · 재고 예측</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">연동</span><span class="font-semibold">국세청 세금계산서 자동발행</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-teal-600 font-semibold">
+                  <i data-lucide="code-2" class="w-4 h-4 mr-1"></i> 연간 3,000만원 비용 절감
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GW영어학원 LMS -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="dev">
+            <div class="bg-gradient-to-r from-amber-500 to-yellow-600 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="graduation-cap" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">EduTech</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">GW영어학원 LMS</h3>
+              <p class="text-amber-100 text-sm mt-1">학원 LMS + 학생/학부모 관리 플랫폼</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">프로젝트</span><span class="font-semibold">학생관리 시스템 풀스택 개발</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">기술 스택</span><span class="font-semibold">PHP · Laravel · MySQL</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">핵심 기능</span><span class="font-semibold">4영역 평가 · 도서 관리</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">운영 규모</span><span class="font-semibold">150+ 학생 관리</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-amber-600 font-semibold">
+                  <i data-lucide="code-2" class="w-4 h-4 mr-1"></i> Essay·Reading·Grammar·Discussion
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 쇼핑몰 구축 (카페24/플렉스게이트) -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="dev ecommerce">
+            <div class="bg-gradient-to-r from-rose-500 to-red-600 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="shopping-cart" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">쇼핑몰 구축</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">쇼핑몰 구축 서비스</h3>
+              <p class="text-rose-200 text-sm mt-1">기획 · 디자인 · 개발 원스톱 구축</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">프로젝트</span><span class="font-semibold">쇼핑몰 기획·구축·런칭</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">플랫폼</span><span class="font-semibold">카페24 · 플렉스게이트</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">구축 실적</span><span class="font-semibold">청담마켓 · 기순도 외 6건</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">범위</span><span class="font-semibold">UI/UX · 결제 · 물류 연동</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-rose-600 font-semibold">
+                  <i data-lucide="code-2" class="w-4 h-4 mr-1"></i> 기획부터 런칭까지 평균 4주
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI 자동화 솔루션 -->
+          <div class="client-card bg-white rounded-2xl border border-slate-200 overflow-hidden" data-category="dev">
+            <div class="bg-gradient-to-r from-cyan-600 to-blue-700 p-6">
+              <div class="flex items-center justify-between">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="cpu" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">AI 자동화</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mt-4">AI 업무 자동화 솔루션</h3>
+              <p class="text-cyan-200 text-sm mt-1">광고 리포팅 · 소재 생성 · 데이터 분석</p>
+            </div>
+            <div class="p-6">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between"><span class="text-slate-400">프로젝트</span><span class="font-semibold">자체 AI 자동화 시스템 개발</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">기술 스택</span><span class="font-semibold">Python · Claude API · Node.js</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">핵심 기능</span><span class="font-semibold">리포트 자동생성 · 성과 분석</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">적용 범위</span><span class="font-semibold">Meta·Google·Naver 광고 연동</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="flex items-center text-sm text-cyan-600 font-semibold">
+                  <i data-lucide="code-2" class="w-4 h-4 mr-1"></i> 일간/주간/월간 리포트 자동 생성
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Portfolio Summary with Philosophy -->
+        <div class="mt-16 bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-8 md:p-12 text-white">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 class="text-2xl font-black mb-4">데이터가 증명하는<br><span class="text-kai-400">확실한 성과</span></h3>
+              <p class="text-slate-300 mb-6">광고 기획부터 소재 제작, 플랫폼 개발까지. 다양한 업종에서 검증된 노하우로 비즈니스 성장을 설계합니다.</p>
+              <p class="text-slate-400 text-sm italic">"잘 되는 걸 더 잘 되게 만드는 게 전부라는 것."</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white/10 rounded-xl p-5 text-center backdrop-blur">
+                <div class="text-2xl font-black text-kai-400">30+</div>
+                <div class="text-sm text-slate-300 mt-1">운영 브랜드</div>
+              </div>
+              <div class="bg-white/10 rounded-xl p-5 text-center backdrop-blur">
+                <div class="text-2xl font-black text-emerald-400">500+</div>
+                <div class="text-sm text-slate-300 mt-1">제작 소재</div>
+              </div>
+              <div class="bg-white/10 rounded-xl p-5 text-center backdrop-blur">
+                <div class="text-2xl font-black text-amber-400">107+</div>
+                <div class="text-sm text-slate-300 mt-1">동시 운영 광고</div>
+              </div>
+              <div class="bg-white/10 rounded-xl p-5 text-center backdrop-blur">
+                <div class="text-2xl font-black text-rose-400">202건</div>
+                <div class="text-sm text-slate-300 mt-1">월 구매 전환</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ad Strategy Showcase -->
+    <section class="py-20 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-kai-50 text-kai-600 text-sm font-bold mb-4">
+            <i data-lucide="lightbulb" class="w-4 h-4 mr-2"></i> Ad Strategy
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">업종별 광고 전략 사례</h2>
+          <p class="text-slate-500 text-lg">각 업종의 특성에 맞는 차별화된 전략으로 성과를 극대화합니다.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Strategy 1 -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                <i data-lucide="shopping-cart" class="w-5 h-5 text-orange-600"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-lg">이커머스 전환 전략</h3>
+                <p class="text-sm text-slate-400">독점마켓, 4menmarket, 청담마켓</p>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-kai-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-xs font-bold text-kai-600">1</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm">다이나믹 카탈로그 광고</p>
+                  <p class="text-xs text-slate-400">사용자 행동 기반 자동 상품 노출</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-kai-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-xs font-bold text-kai-600">2</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm">리타겟팅 퍼널 설계</p>
+                  <p class="text-xs text-slate-400">장바구니 이탈자 재방문 유도</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-kai-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-xs font-bold text-kai-600">3</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm">전환 API 최적화</p>
+                  <p class="text-xs text-slate-400">서버사이드 이벤트로 정확한 전환 추적</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Strategy 2 -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                <i data-lucide="utensils" class="w-5 h-5 text-green-600"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-lg">식품 브랜드 전략</h3>
+                <p class="text-sm text-slate-400">하모아, 밥상대장, 기순도</p>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-xs font-bold text-green-600">1</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm">가격/희소성 소구</p>
+                  <p class="text-xs text-slate-400">"3,900원 삼계탕" 등 가격 임팩트 전략</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-xs font-bold text-green-600">2</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm">품절 긴급성 활용</p>
+                  <p class="text-xs text-slate-400">한정 수량/기간 한정 프로모션</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-xs font-bold text-green-600">3</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm">제철 콘텐츠 전략</p>
+                  <p class="text-xs text-slate-400">시즌별 식재료 트렌드 활용</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Strategy 3 -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                <i data-lucide="fan" class="w-5 h-5 text-blue-600"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-lg">인테리어/가전 전략</h3>
+                <p class="text-sm text-slate-400">씨앤씨에어코리아, 에어로웨이, 리바스</p>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-xs font-bold text-blue-600">1</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm">시즌별 소구 전략</p>
+                  <p class="text-xs text-slate-400">여름(실링팬/에어컨) → 겨울(난방) 순환</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-xs font-bold text-blue-600">2</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm">인테리어 관심 타겟</p>
+                  <p class="text-xs text-slate-400">신혼/이사 시즌 집중 타겟팅</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-xs font-bold text-blue-600">3</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm">프리미엄 포지셔닝</p>
+                  <p class="text-xs text-slate-400">고품질 영상/이미지로 브랜드 가치 전달</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Strategy 4 -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                <i data-lucide="globe" class="w-5 h-5 text-amber-600"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-lg">글로벌 마케팅 전략</h3>
+                <p class="text-sm text-slate-400">Lockedair AU, 리바스인테리어, 에어로웨이</p>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-xs font-bold text-amber-600">1</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm">현지화 크리에이티브</p>
+                  <p class="text-xs text-slate-400">현지 언어/문화 맞춤 소재 제작</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-xs font-bold text-amber-600">2</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm">아마존/라쿠텐 연동</p>
+                  <p class="text-xs text-slate-400">해외 마켓플레이스 트래픽 유도</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-xs font-bold text-amber-600">3</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm">멀티마켓 캠페인</p>
+                  <p class="text-xs text-slate-400">호주, 미국 등 동시 다국가 운영</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI System Section -->
+    <section id="system" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-kai-50 text-kai-600 text-sm font-bold mb-4">
+            <i data-lucide="cpu" class="w-4 h-4 mr-2"></i> AI-Powered System
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">AI 기반 광고 운영 시스템</h2>
+          <p class="text-slate-500 text-lg">자체 개발 AI 시스템으로 광고 성과를 실시간 분석하고 자동화된 리포팅을 제공합니다.</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-kai-900 rounded-3xl p-8 md:p-12 text-white">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-kai-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="bar-chart-2" class="w-6 h-6 text-kai-400"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg mb-1">일일 자동 리포트</h3>
+                  <p class="text-slate-400 text-sm">매일 아침 전일 광고 성과를 자동 수집, AI가 핵심 인사이트를 요약하여 노션/슬랙으로 발송합니다.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-kai-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="calendar-range" class="w-6 h-6 text-kai-400"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg mb-1">주간 성과 분석</h3>
+                  <p class="text-slate-400 text-sm">주간 단위 트렌드 분석, 캠페인별 성과 비교, 예산 최적화 제안을 자동으로 생성합니다.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-kai-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="file-text" class="w-6 h-6 text-kai-400"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg mb-1">월간 종합 리포트</h3>
+                  <p class="text-slate-400 text-sm">월간 성과 대시보드, ROI 분석, 다음 달 전략 제안이 포함된 종합 보고서를 자동 생성합니다.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-kai-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="bell-ring" class="w-6 h-6 text-kai-400"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg mb-1">이상 탐지 알림</h3>
+                  <p class="text-slate-400 text-sm">CPA 급등, 예산 소진 이상 등 비정상 패턴 감지 시 즉시 알림을 발송합니다.</p>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8">
+              <div class="text-center mb-6">
+                <div class="text-sm font-semibold text-kai-400 mb-2">KITT AI Report System</div>
+                <h4 class="text-xl font-bold">자동화 리포팅 플로우</h4>
+              </div>
+              <div class="space-y-4">
+                <div class="flex items-center gap-3 bg-white/5 rounded-xl p-4">
+                  <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-xs font-bold">1</div>
+                  <div>
+                    <p class="text-sm font-semibold">Meta API 데이터 수집</p>
+                    <p class="text-xs text-slate-400">광고 계정별 성과 데이터 자동 수집</p>
+                  </div>
+                </div>
+                <div class="flex justify-center"><i data-lucide="arrow-down" class="w-4 h-4 text-slate-500"></i></div>
+                <div class="flex items-center gap-3 bg-white/5 rounded-xl p-4">
+                  <div class="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center text-xs font-bold">2</div>
+                  <div>
+                    <p class="text-sm font-semibold">AI 분석 & 인사이트 도출</p>
+                    <p class="text-xs text-slate-400">성과 분석, 이상 탐지, 최적화 제안</p>
+                  </div>
+                </div>
+                <div class="flex justify-center"><i data-lucide="arrow-down" class="w-4 h-4 text-slate-500"></i></div>
+                <div class="flex items-center gap-3 bg-white/5 rounded-xl p-4">
+                  <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center text-xs font-bold">3</div>
+                  <div>
+                    <p class="text-sm font-semibold">리포트 자동 생성 & 발송</p>
+                    <p class="text-xs text-slate-400">노션 페이지 생성 + 슬랙/카카오톡 알림</p>
+                  </div>
+                </div>
+                <div class="flex justify-center"><i data-lucide="arrow-down" class="w-4 h-4 text-slate-500"></i></div>
+                <div class="flex items-center gap-3 bg-white/5 rounded-xl p-4">
+                  <div class="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center text-xs font-bold">4</div>
+                  <div>
+                    <p class="text-sm font-semibold">액션 플랜 실행</p>
+                    <p class="text-xs text-slate-400">인사이트 기반 캠페인 최적화 실행</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Automation Section -->
+    <section id="automation" class="py-20 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-violet-50 text-violet-600 text-sm font-bold mb-4">
+            <i data-lucide="zap" class="w-4 h-4 mr-2"></i> Business Automation
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">AI 업무자동화</h2>
+          <p class="text-slate-500 text-lg">반복 업무는 AI에게, 당신은 성장에만 집중하세요.<br>RPA & n8n 기반으로 수작업을 자동화합니다.</p>
+        </div>
+
+        <!-- 핵심 수치 -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+          <div class="bg-white rounded-2xl p-6 text-center shadow-sm border border-slate-100">
+            <div class="text-3xl font-black text-violet-600 mb-1">40%</div>
+            <div class="text-sm text-slate-500">업무 시간 단축</div>
+          </div>
+          <div class="bg-white rounded-2xl p-6 text-center shadow-sm border border-slate-100">
+            <div class="text-3xl font-black text-emerald-600 mb-1">0%</div>
+            <div class="text-sm text-slate-500">데이터 처리 오류</div>
+          </div>
+          <div class="bg-white rounded-2xl p-6 text-center shadow-sm border border-slate-100">
+            <div class="text-3xl font-black text-blue-600 mb-1">4배</div>
+            <div class="text-sm text-slate-500">프로젝트 생산성</div>
+          </div>
+          <div class="bg-white rounded-2xl p-6 text-center shadow-sm border border-slate-100">
+            <div class="text-3xl font-black text-amber-600 mb-1">35%</div>
+            <div class="text-sm text-slate-500">운영 비용 절감</div>
+          </div>
+        </div>
+
+        <!-- 4대 서비스 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center mb-4">
+              <i data-lucide="bot" class="w-6 h-6 text-white"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2">AI Development</h3>
+            <p class="text-sm text-slate-500 mb-3">비즈니스 맞춤 AI 솔루션 개발</p>
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-blue-500"></i> 챗봇 · 음성봇 구축</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-blue-500"></i> RAG 기반 문서 검색</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-blue-500"></i> GPT / Claude API 연동</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-blue-500"></i> 데이터 분석 자동화</div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
+              <i data-lucide="workflow" class="w-6 h-6 text-white"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2">Automation</h3>
+            <p class="text-sm text-slate-500 mb-3">반복 업무 완전 자동화</p>
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-violet-500"></i> n8n 워크플로우 설계</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-violet-500"></i> RPA 프로세스 구축</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-violet-500"></i> API 연동 · 데이터 동기화</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-violet-500"></i> 엑셀 · 이메일 자동 처리</div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center mb-4">
+              <i data-lucide="search" class="w-6 h-6 text-white"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2">Consulting</h3>
+            <p class="text-sm text-slate-500 mb-3">DX 전환 전략 컨설팅</p>
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-emerald-500"></i> DX 진단 · 업무 분석</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-emerald-500"></i> 프로세스 리디자인</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-emerald-500"></i> ROI 분석 · 비용 산출</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-emerald-500"></i> 도입 로드맵 설계</div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center mb-4">
+              <i data-lucide="graduation-cap" class="w-6 h-6 text-white"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2">Education</h3>
+            <p class="text-sm text-slate-500 mb-3">AI 활용 역량 내재화</p>
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-amber-500"></i> AI 실무 교육 프로그램</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-amber-500"></i> 부서별 맞춤 워크샵</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-amber-500"></i> 자동화 도구 실습</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-amber-500"></i> 내부 AI 챔피언 양성</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 자동화 도입 프로세스 -->
+        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-violet-900 rounded-3xl p-8 md:p-12 text-white mb-16">
+          <div class="text-center mb-10">
+            <h3 class="text-2xl font-black mb-2">도입은 이렇게 진행됩니다</h3>
+            <p class="text-slate-400">4단계 프로세스로 빠르고 확실한 자동화를 구현합니다</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="text-center">
+              <div class="w-16 h-16 bg-violet-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="message-circle" class="w-8 h-8 text-violet-400"></i>
+              </div>
+              <div class="text-xs font-bold text-violet-400 mb-1">STEP 1</div>
+              <h4 class="font-bold mb-1">무료 상담</h4>
+              <p class="text-xs text-slate-400">현재 업무 프로세스와 문제점을 파악합니다</p>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="scan-search" class="w-8 h-8 text-blue-400"></i>
+              </div>
+              <div class="text-xs font-bold text-blue-400 mb-1">STEP 2</div>
+              <h4 class="font-bold mb-1">업무 분석</h4>
+              <p class="text-xs text-slate-400">자동화 가능 영역과 기대 효과를 분석합니다</p>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-emerald-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="settings" class="w-8 h-8 text-emerald-400"></i>
+              </div>
+              <div class="text-xs font-bold text-emerald-400 mb-1">STEP 3</div>
+              <h4 class="font-bold mb-1">솔루션 구축</h4>
+              <p class="text-xs text-slate-400">맞춤형 자동화 시스템을 설계·개발합니다</p>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-amber-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="rocket" class="w-8 h-8 text-amber-400"></i>
+              </div>
+              <div class="text-xs font-bold text-amber-400 mb-1">STEP 4</div>
+              <h4 class="font-bold mb-1">운영 & 개선</h4>
+              <p class="text-xs text-slate-400">지속적인 모니터링과 성능 개선을 합니다</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 자동화 포트폴리오 -->
+        <div class="text-center mb-10">
+          <h3 class="text-2xl font-black mb-2">자동화 도입 성과</h3>
+          <p class="text-slate-500">실제 고객사의 업무자동화 도입 사례입니다</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- 물류/유통 -->
+          <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+            <div class="bg-gradient-to-r from-indigo-600 to-violet-700 p-6">
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="truck" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">물류 · 유통</span>
+              </div>
+              <h4 class="text-lg font-bold text-white">출고 데이터 자동화</h4>
+              <p class="text-indigo-200 text-sm mt-1">B2B 유통사 데이터 처리 자동화</p>
+            </div>
+            <div class="p-6">
+              <p class="text-sm text-slate-600 mb-4">매일 3시간씩 걸리던 출고 데이터 정리를 n8n 워크플로우로 자동화하여 15분으로 단축했습니다.</p>
+              <div class="space-y-2 mb-4">
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 flex-shrink-0"></i><span>엑셀 데이터 자동 수집 · 정리</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 flex-shrink-0"></i><span>ERP 시스템 자동 연동</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 flex-shrink-0"></i><span>이상 데이터 자동 알림</span></div>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-indigo-50 rounded-xl p-3 text-center">
+                  <div class="text-xl font-black text-indigo-700">월 54h</div>
+                  <div class="text-xs text-indigo-500">업무 시간 절감</div>
+                </div>
+                <div class="bg-indigo-50 rounded-xl p-3 text-center">
+                  <div class="text-xl font-black text-indigo-700">92%</div>
+                  <div class="text-xs text-indigo-500">처리 시간 단축</div>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-1.5 mt-4">
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">n8n</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Google Sheets API</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Webhook</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 병원/클리닉 -->
+          <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+            <div class="bg-gradient-to-r from-teal-600 to-emerald-700 p-6">
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="heart-pulse" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">병원 · 클리닉</span>
+              </div>
+              <h4 class="text-lg font-bold text-white">AI 예약 · 문의 자동 응대</h4>
+              <p class="text-teal-200 text-sm mt-1">전화 예약 AI 전환 + 접수 자동화</p>
+            </div>
+            <div class="p-6">
+              <p class="text-sm text-slate-600 mb-4">전화 예약과 문의 응대를 AI로 전환하여 접수 누락을 제거하고 재방문율을 35% 향상시켰습니다.</p>
+              <div class="space-y-2 mb-4">
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-teal-500 flex-shrink-0"></i><span>AI 음성봇 예약 접수</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-teal-500 flex-shrink-0"></i><span>카카오톡 자동 응대 챗봇</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-teal-500 flex-shrink-0"></i><span>예약 리마인더 자동 발송</span></div>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-teal-50 rounded-xl p-3 text-center">
+                  <div class="text-xl font-black text-teal-700">35%</div>
+                  <div class="text-xs text-teal-500">재방문율 향상</div>
+                </div>
+                <div class="bg-teal-50 rounded-xl p-3 text-center">
+                  <div class="text-xl font-black text-teal-700">0건</div>
+                  <div class="text-xs text-teal-500">접수 누락</div>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-1.5 mt-4">
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Claude API</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">KakaoTalk</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">n8n</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 교육/학원 -->
+          <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+            <div class="bg-gradient-to-r from-amber-500 to-orange-600 p-6">
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                  <i data-lucide="book-open" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">교육 · 학원</span>
+              </div>
+              <h4 class="text-lg font-bold text-white">학원 업무 통합 자동화</h4>
+              <p class="text-amber-100 text-sm mt-1">수강생 관리 · 문자 · 일정 자동화</p>
+            </div>
+            <div class="p-6">
+              <p class="text-sm text-slate-600 mb-4">수강생 관리, 문자 발송, 일정 조율을 자동화하여 행정 업무 효율을 3배 향상시켰습니다.</p>
+              <div class="space-y-2 mb-4">
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i><span>수강생 등록 · 관리 자동화</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i><span>수업 알림 문자 자동 발송</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i><span>출결 · 성적 리포트 자동 생성</span></div>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-amber-50 rounded-xl p-3 text-center">
+                  <div class="text-xl font-black text-amber-700">3배</div>
+                  <div class="text-xs text-amber-500">업무 효율 향상</div>
+                </div>
+                <div class="bg-amber-50 rounded-xl p-3 text-center">
+                  <div class="text-xl font-black text-amber-700">90%</div>
+                  <div class="text-xs text-amber-500">행정 업무 자동화</div>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-1.5 mt-4">
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">n8n</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Notion API</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">문자 API</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-20 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-kai-50 text-kai-600 text-sm font-bold mb-4">
+            <i data-lucide="git-branch" class="w-4 h-4 mr-2"></i> Process
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">협업 프로세스</h2>
+          <p class="text-slate-500 text-lg">체계적인 프로세스로 광고 성과를 극대화합니다.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="relative bg-white rounded-2xl p-8 shadow-sm border border-slate-100 text-center">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+              <div class="w-8 h-8 bg-kai-600 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
+            </div>
+            <div class="w-16 h-16 bg-kai-50 rounded-2xl flex items-center justify-center mx-auto mb-4 mt-2">
+              <i data-lucide="search" class="w-8 h-8 text-kai-600"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2">현황 분석</h3>
+            <p class="text-sm text-slate-500">비즈니스 현황, 경쟁사, 타겟 고객을 분석하고 광고 계정 진단을 수행합니다.</p>
+          </div>
+          <div class="relative bg-white rounded-2xl p-8 shadow-sm border border-slate-100 text-center">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+              <div class="w-8 h-8 bg-kai-600 rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
+            </div>
+            <div class="w-16 h-16 bg-kai-50 rounded-2xl flex items-center justify-center mx-auto mb-4 mt-2">
+              <i data-lucide="compass" class="w-8 h-8 text-kai-600"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2">전략 수립</h3>
+            <p class="text-sm text-slate-500">맞춤형 캠페인 전략, 타겟 설계, 크리에이티브 방향성을 수립합니다.</p>
+          </div>
+          <div class="relative bg-white rounded-2xl p-8 shadow-sm border border-slate-100 text-center">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+              <div class="w-8 h-8 bg-kai-600 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
+            </div>
+            <div class="w-16 h-16 bg-kai-50 rounded-2xl flex items-center justify-center mx-auto mb-4 mt-2">
+              <i data-lucide="rocket" class="w-8 h-8 text-kai-600"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2">실행 & 최적화</h3>
+            <p class="text-sm text-slate-500">캠페인 런칭 후 A/B 테스트와 데이터 기반 최적화를 지속합니다.</p>
+          </div>
+          <div class="relative bg-white rounded-2xl p-8 shadow-sm border border-slate-100 text-center">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+              <div class="w-8 h-8 bg-kai-600 rounded-full flex items-center justify-center text-white font-bold text-sm">4</div>
+            </div>
+            <div class="w-16 h-16 bg-kai-50 rounded-2xl flex items-center justify-center mx-auto mb-4 mt-2">
+              <i data-lucide="bar-chart-3" class="w-8 h-8 text-kai-600"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2">성과 리포팅</h3>
+            <p class="text-sm text-slate-500">AI 자동 리포트로 성과를 공유하고, 다음 액션 플랜을 제안합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-kai-50 text-kai-600 text-sm font-bold mb-4">
+            <i data-lucide="shield-check" class="w-4 h-4 mr-2"></i> Why Kai & Company
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">kitt를 선택하는 이유</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-white">
+            <div class="text-4xl font-black text-kai-400 mb-4">01</div>
+            <h3 class="text-xl font-bold mb-3">30개+ 브랜드 운영 경험</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">이커머스, 식품, 인테리어, 글로벌 등 다양한 업종에서 검증된 실전 경험을 보유하고 있습니다.</p>
+          </div>
+          <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-white">
+            <div class="text-4xl font-black text-kai-400 mb-4">02</div>
+            <h3 class="text-xl font-bold mb-3">AI 자동화 리포팅</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">자체 개발 AI 시스템으로 일간/주간/월간 리포트를 자동 생성. 데이터 기반 의사결정을 지원합니다.</p>
+          </div>
+          <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-white">
+            <div class="text-4xl font-black text-kai-400 mb-4">03</div>
+            <h3 class="text-xl font-bold mb-3">글로벌 캠페인 대응</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">호주, 미국 등 해외 시장 Meta 광고 운영 경험. KRW/USD/AUD 다중 통화 캠페인을 지원합니다.</p>
+          </div>
+          <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-white">
+            <div class="text-4xl font-black text-kai-400 mb-4">04</div>
+            <h3 class="text-xl font-bold mb-3">풀퍼널 마케팅</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">인지 → 관심 → 전환 → 재구매까지 전체 고객 여정을 설계하고 최적화합니다.</p>
+          </div>
+          <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-white">
+            <div class="text-4xl font-black text-kai-400 mb-4">05</div>
+            <h3 class="text-xl font-bold mb-3">쇼핑몰 구축 + 마케팅</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">UX/UI 기반 쇼핑몰 구축부터 마케팅까지 원스톱으로 제공하여 일관된 브랜드 경험을 만듭니다.</p>
+          </div>
+          <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-white">
+            <div class="text-4xl font-black text-kai-400 mb-4">06</div>
+            <h3 class="text-xl font-bold mb-3">투명한 성과 공유</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">실시간 대시보드와 자동 리포트로 광고 성과를 투명하게 공유합니다. 숨기는 것 없이 데이터로 소통합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-kai-600 to-kai-800 text-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-3xl mx-auto text-center">
+          <div class="inline-flex items-center px-4 py-1.5 bg-white/20 rounded-full text-sm font-bold mb-6">
+            <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Contact Us
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">문의하기</h2>
+          <p class="text-kai-100 text-lg mb-12">브랜드의 성장을 함께 설계합니다.</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/10">
+              <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="mail" class="w-6 h-6"></i>
+              </div>
+              <h3 class="font-bold mb-2">이메일</h3>
+              <p class="text-kai-200 text-sm">kitt.ai.ceo@gmail.com</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/10">
+              <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="map-pin" class="w-6 h-6"></i>
+              </div>
+              <h3 class="font-bold mb-2">주소</h3>
+              <p class="text-kai-200 text-sm">서울특별시 서초구 언남길 82, 효정빌딩 301호</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/10">
+              <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="globe" class="w-6 h-6"></i>
+              </div>
+              <h3 class="font-bold mb-2">웹사이트</h3>
+              <a href="https://kitt.ai.kr/" target="_blank" class="text-kai-200 text-sm hover:text-white underline">kitt.ai.kr</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div class="flex items-center space-x-3">
+            <img src="logo.png" alt="kitt" class="w-8 h-8 object-contain brightness-0 invert">
+            <div>
+              <span class="font-bold text-lg">kitt</span>
+              <p class="text-xs text-slate-400">AI 업무자동화 파트너</p>
+            </div>
+          </div>
+          <div class="text-sm text-slate-400 text-center md:text-right">
+            <p>&copy; 2026 kitt. All rights reserved.</p>
+            <p class="mt-1">서울특별시 서초구 언남길 82, 효정빌딩 301호 | kitt.ai.ceo@gmail.com</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // Active nav highlighting on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (window.pageYOffset >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('text-kai-600', 'font-semibold', 'border-b-2', 'border-kai-600');
+        link.classList.add('text-slate-500');
+        if (link.getAttribute('data-section') === current) {
+          link.classList.add('text-kai-600', 'font-semibold', 'border-b-2', 'border-kai-600');
+          link.classList.remove('text-slate-500');
+        }
+      });
+    });
+
+    // Mobile video thumbnail + touch play
+    document.querySelectorAll('video[muted]').forEach(video => {
+      const overlay = video.parentElement.querySelector('.play-overlay') || video.nextElementSibling;
+      const isOverlay = overlay && (overlay.classList.contains('play-overlay') || overlay.querySelector('[data-lucide="play"]'));
+
+      // Force first frame thumbnail on mobile
+      video.addEventListener('loadeddata', function() {
+        this.currentTime = 0.001;
+      });
+      video.load();
+
+      // Touch/click to play/pause
+      video.addEventListener('click', function() {
+        if (this.paused) {
+          this.play();
+          if (isOverlay) overlay.style.opacity = '0';
+        } else {
+          this.pause();
+          this.currentTime = 0.001;
+          if (isOverlay) overlay.style.opacity = '1';
+        }
+      });
+      if (isOverlay) overlay.style.pointerEvents = 'none';
+    });
+
+    // Portfolio filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const clientCards = document.querySelectorAll('.client-card');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-kai-600', 'text-white');
+          b.classList.add('bg-slate-100', 'text-slate-600');
+        });
+        btn.classList.remove('bg-slate-100', 'text-slate-600');
+        btn.classList.add('bg-kai-600', 'text-white');
+        const filter = btn.getAttribute('data-filter');
+        clientCards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category').includes(filter)) {
+            card.style.display = '';
+            card.style.opacity = '1';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
