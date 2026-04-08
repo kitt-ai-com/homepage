@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>kitt | 웹개발 & AI 솔루션 전문 에이전시</title>
+  <meta name="description" content="kitt - 웹 개발, 쇼핑몰 구축, AI 솔루션까지. 비즈니스에 필요한 기술을 설계하고 구현합니다." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            kai: { 50:'#eef7ff', 100:'#d9edff', 200:'#bce0ff', 300:'#8eccff', 400:'#59b0ff', 500:'#3391ff', 600:'#1a73f5', 700:'#135de1', 800:'#164bb6', 900:'#17408f', 950:'#132957' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap');
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+    html { scroll-behavior: smooth; }
+    @media print {
+      .no-print { display: none !important; }
+      nav { position: relative !important; }
+      section { break-inside: avoid; }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeInUp 0.6s ease-out forwards; }
+    .client-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+    .client-card { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+    .card-hover { transition: all 0.3s ease; }
+    .gradient-text {
+      background: linear-gradient(135deg, #3391ff, #1a73f5, #8eccff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col bg-[#f8fafc] text-slate-900">
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#hero" class="flex items-center space-x-2">
+        <div class="w-8 h-8 bg-kai-600 rounded-lg flex items-center justify-center">
+          <i data-lucide="code-2" class="w-5 h-5 text-white"></i>
+        </div>
+        <span class="font-bold text-lg tracking-tight">kitt</span>
+      </a>
+      <div class="hidden lg:flex items-center space-x-6 text-sm font-medium" id="desktopNav">
+        <a href="#hero" class="nav-link text-kai-600 font-semibold border-b-2 border-kai-600 pb-1 transition-colors" data-section="hero">회사 소개</a>
+        <a href="#services" class="nav-link text-slate-500 hover:text-kai-600 pb-1 transition-colors" data-section="services">서비스</a>
+        <a href="#portfolio" class="nav-link text-slate-500 hover:text-kai-600 pb-1 transition-colors" data-section="portfolio">포트폴리오</a>
+        <a href="#why" class="nav-link text-slate-500 hover:text-kai-600 pb-1 transition-colors" data-section="why">Why kitt</a>
+        <a href="#contact" class="nav-link text-slate-500 hover:text-kai-600 pb-1 transition-colors" data-section="contact">문의</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="window.print()" class="no-print bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-800 transition-all flex items-center gap-2">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">PDF 다운로드</span>
+        </button>
+        <button class="lg:hidden p-2 no-print" id="mobileMenuBtn">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+    <div class="lg:hidden bg-white border-t border-slate-100 px-6 py-4 space-y-2 hidden" id="mobileMenu">
+      <a href="#hero" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50">회사 소개</a>
+      <a href="#services" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50">서비스</a>
+      <a href="#portfolio" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50">포트폴리오</a>
+      <a href="#why" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50">Why kitt</a>
+      <a href="#contact" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50">문의</a>
+    </div>
+  </nav>
+
+  <div>
+    <!-- Hero Section -->
+    <section id="hero" class="bg-gradient-to-br from-slate-900 via-slate-800 to-kai-900 text-white">
+      <div class="max-w-7xl mx-auto px-6 py-20 md:py-28">
+        <div class="max-w-3xl space-y-6">
+          <div class="inline-flex items-center px-4 py-1.5 bg-kai-500/20 text-kai-300 rounded-full text-sm font-bold backdrop-blur-sm">
+            <i data-lucide="code-2" class="w-4 h-4 mr-2"></i> Web Development & AI Solutions
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight">
+            비즈니스를 코드로 설계하는<br />
+            <span class="gradient-text">풀스택 개발 에이전시</span>
+          </h1>
+          <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">
+            웹 플랫폼, 쇼핑몰, AI 솔루션까지.<br />
+            기획부터 개발, 운영까지 원스톱으로 비즈니스 성장을 기술로 구현합니다.
+          </p>
+          <div class="flex flex-wrap gap-4 pt-4 no-print">
+            <a href="#contact" class="bg-kai-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-kai-900/30 hover:bg-kai-500 transition-all flex items-center">
+              <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i> 프로젝트 문의
+            </a>
+            <a href="#portfolio" class="border border-slate-500 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all flex items-center">
+              포트폴리오 보기 <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
+            </a>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-16">
+          <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-white mb-2">200+</div>
+            <div class="text-sm font-semibold text-kai-300">개발 프로젝트</div>
+            <div class="text-xs text-slate-400 mt-1">SaaS, AI, 쇼핑몰 등</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-white mb-2">풀스택</div>
+            <div class="text-sm font-semibold text-kai-300">기획 ~ 운영</div>
+            <div class="text-xs text-slate-400 mt-1">프론트 + 백엔드 + 인프라</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-white mb-2">AI</div>
+            <div class="text-sm font-semibold text-kai-300">AI 솔루션 개발</div>
+            <div class="text-xs text-slate-400 mt-1">챗봇, 자동화, 데이터 분석</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+            <div class="text-3xl md:text-4xl font-black text-white mb-2">100+</div>
+            <div class="text-sm font-semibold text-kai-300">쇼핑몰 구축</div>
+            <div class="text-xs text-slate-400 mt-1">카페24, 플렉스게이트</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-kai-50 text-kai-600 text-sm font-bold mb-4">
+            <i data-lucide="building-2" class="w-4 h-4 mr-2"></i> About Us
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">코드를 넘어,<br />비즈니스의 성장을 설계합니다</h2>
+          <p class="text-slate-500 text-lg">단순 외주 개발이 아닌, 비즈니스 로직을 이해하고 최적의 기술로 구현합니다.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-gradient-to-br from-kai-50 to-white p-8 rounded-2xl border border-kai-100">
+            <div class="w-14 h-14 bg-kai-100 rounded-2xl flex items-center justify-center mb-6">
+              <i data-lucide="layers" class="w-7 h-7 text-kai-600"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">풀스택 개발력</h3>
+            <p class="text-slate-500 leading-relaxed">프론트엔드, 백엔드, DB 설계, 인프라 구축까지 하나의 팀에서 일관되게 개발합니다. 커뮤니케이션 비용을 최소화합니다.</p>
+          </div>
+          <div class="bg-gradient-to-br from-kai-50 to-white p-8 rounded-2xl border border-kai-100">
+            <div class="w-14 h-14 bg-kai-100 rounded-2xl flex items-center justify-center mb-6">
+              <i data-lucide="cpu" class="w-7 h-7 text-kai-600"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">AI 기술 적용</h3>
+            <p class="text-slate-500 leading-relaxed">Claude, GPT 등 최신 AI를 활용한 챗봇, 자동화 시스템, 데이터 분석 솔루션을 개발합니다. AI로 비즈니스를 혁신합니다.</p>
+          </div>
+          <div class="bg-gradient-to-br from-kai-50 to-white p-8 rounded-2xl border border-kai-100">
+            <div class="w-14 h-14 bg-kai-100 rounded-2xl flex items-center justify-center mb-6">
+              <i data-lucide="rocket" class="w-7 h-7 text-kai-600"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">빠른 실행력</h3>
+            <p class="text-slate-500 leading-relaxed">쇼핑몰 구축 평균 4주, 웹 플랫폼 MVP 6~8주. 빠르게 런칭하고 데이터를 보며 개선하는 애자일 방식으로 개발합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-kai-50 text-kai-600 text-sm font-bold mb-4">
+            <i data-lucide="layers" class="w-4 h-4 mr-2"></i> Services
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">개발 & IT 서비스</h2>
+          <p class="text-slate-500 text-lg">웹 개발부터 쇼핑몰 구축, AI 솔루션, 마케팅까지 비즈니스에 필요한 기술을 제공합니다.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Service 1: 웹 개발 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="code-2" class="w-6 h-6 text-blue-600"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2">웹 플랫폼 개발</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">비즈니스 요구에 맞는 웹 플랫폼을 기획부터 개발, 운영까지 풀스택으로 구축합니다.</p>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-blue-600 mr-2 flex-shrink-0"></i> SaaS 플랫폼 개발</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-blue-600 mr-2 flex-shrink-0"></i> 관리자 대시보드 구축</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-blue-600 mr-2 flex-shrink-0"></i> API 설계 & 연동</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-blue-600 mr-2 flex-shrink-0"></i> 반응형 UI/UX 개발</li>
+            </ul>
+          </div>
+          <!-- Service 2: 쇼핑몰 구축 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+            <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="shopping-cart" class="w-6 h-6 text-red-600"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2">쇼핑몰 구축 & 운영</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">UX/UI 기반 쇼핑몰 기획부터 구축, 결제/물류 연동까지 원스톱으로 제공합니다.</p>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2 flex-shrink-0"></i> 카페24 / 플렉스게이트 구축</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2 flex-shrink-0"></i> 상세페이지 디자인 & 제작</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2 flex-shrink-0"></i> 결제/물류 시스템 연동</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-red-600 mr-2 flex-shrink-0"></i> CRM & 운영 자동화</li>
+            </ul>
+          </div>
+          <!-- Service 3: AI 솔루션 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="cpu" class="w-6 h-6 text-purple-600"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2">AI 솔루션 개발</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">최신 AI 기술을 활용한 챗봇, 자동화, 데이터 분석 솔루션을 개발합니다.</p>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-purple-600 mr-2 flex-shrink-0"></i> AI 챗봇 (웹/카카오톡)</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-purple-600 mr-2 flex-shrink-0"></i> AI 음성봇 서비스</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-purple-600 mr-2 flex-shrink-0"></i> 업무 자동화 시스템</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-purple-600 mr-2 flex-shrink-0"></i> 데이터 분석 & 시각화</li>
+            </ul>
+          </div>
+          <!-- Service 4: 데이터 분석 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="line-chart" class="w-6 h-6 text-green-600"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2">데이터 분석 서비스</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">공공 데이터, 재무 데이터 등을 자동 수집/분석하여 의사결정을 돕습니다.</p>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-600 mr-2 flex-shrink-0"></i> 공공 API 연동 & 수집</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-600 mr-2 flex-shrink-0"></i> 재무제표 자동 분석</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-600 mr-2 flex-shrink-0"></i> 시각화 대시보드 구축</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-600 mr-2 flex-shrink-0"></i> PDF 리포트 자동 생성</li>
+            </ul>
+          </div>
+          <!-- Service 5: 마케팅 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+            <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="megaphone" class="w-6 h-6 text-orange-600"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2">디지털 마케팅</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">Meta(Facebook/Instagram) 광고 운영과 크리에이티브 제작을 병행합니다.</p>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-orange-600 mr-2 flex-shrink-0"></i> Meta 광고 운영</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-orange-600 mr-2 flex-shrink-0"></i> 광고 소재 기획 & 제작</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-orange-600 mr-2 flex-shrink-0"></i> AI 자동 리포팅</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-orange-600 mr-2 flex-shrink-0"></i> 네이버 검색광고</li>
+            </ul>
+          </div>
+          <!-- Service 6: 글로벌 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+            <div class="w-12 h-12 bg-cyan-100 rounded-xl flex items-center justify-center mb-5">
+              <i data-lucide="globe" class="w-6 h-6 text-cyan-600"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2">글로벌 서비스</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4">해외 시장 진출을 위한 글로벌 웹 개발과 마케팅을 지원합니다.</p>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-cyan-600 mr-2 flex-shrink-0"></i> 다국어 웹사이트 구축</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-cyan-600 mr-2 flex-shrink-0"></i> 해외 플랫폼 연동</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-cyan-600 mr-2 flex-shrink-0"></i> 호주/미국 Meta 광고</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-cyan-600 mr-2 flex-shrink-0"></i> 글로벌 결제 시스템 연동</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-kai-50 text-kai-600 text-sm font-bold mb-4">
+            <i data-lucide="briefcase" class="w-4 h-4 mr-2"></i> Portfolio
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">개발 프로젝트 포트폴리오</h2>
+          <p class="text-slate-500 text-lg">실제 운영 중인 서비스들. 기획부터 개발, 배포까지 직접 수행한 프로젝트입니다.</p>
+        </div>
+
+        <!-- === 개발 프로젝트 상세 === -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+          <!-- 네놈마켓 B2B 플랫폼 -->
+          <div class="card-hover bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+            <div class="bg-gradient-to-r from-indigo-600 to-violet-700 p-6">
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
+                  <i data-lucide="store" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">B2B SaaS</span>
+              </div>
+              <h4 class="text-xl font-bold text-white">네놈마켓 B2B 유통 플랫폼</h4>
+              <p class="text-indigo-200 text-sm mt-1">농수축산물 B2B 도매·유통 관리 SaaS</p>
+            </div>
+            <!-- 대시보드 미리보기 -->
+            <div class="p-4 bg-slate-50 border-b border-slate-200">
+              <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden text-[10px]">
+                <div class="flex">
+                  <div class="w-[90px] bg-white border-r border-slate-100 p-2 flex-shrink-0 hidden sm:block">
+                    <div class="font-black text-[9px] text-slate-800 mb-2">네놈마켓 <span class="text-slate-400 font-normal">관리자</span></div>
+                    <div class="space-y-1">
+                      <div class="bg-indigo-50 text-indigo-600 rounded px-1.5 py-0.5 font-bold text-[8px]">대시보드</div>
+                      <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">상품 관리</div>
+                      <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">가격 관리</div>
+                      <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">주문 관리</div>
+                      <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">발주 관리</div>
+                      <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">공급사 관리</div>
+                      <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">셀러 관리</div>
+                      <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">정산 관리</div>
+                      <div class="text-slate-400 px-1.5 py-0.5 text-[8px]">통계</div>
+                    </div>
+                  </div>
+                  <div class="flex-1 p-3">
+                    <div class="font-bold text-[10px] text-slate-800 mb-2">관리자 대시보드</div>
+                    <div class="grid grid-cols-4 gap-1.5 mb-2">
+                      <div class="border border-slate-100 rounded-lg p-1.5"><div class="text-[8px] text-slate-400">오늘 주문</div><div class="text-sm font-black text-slate-800">312<span class="text-[8px] font-normal text-slate-400 ml-0.5">건</span></div></div>
+                      <div class="border border-slate-100 rounded-lg p-1.5"><div class="text-[8px] text-slate-400">이번달 매출</div><div class="text-sm font-black text-slate-800">4,280<span class="text-[8px] font-normal text-slate-400 ml-0.5">만</span></div></div>
+                      <div class="border border-slate-100 rounded-lg p-1.5"><div class="text-[8px] text-slate-400">총 상품</div><div class="text-sm font-black text-slate-800">1,847<span class="text-[8px] font-normal text-slate-400 ml-0.5">활성</span></div></div>
+                      <div class="border border-slate-100 rounded-lg p-1.5"><div class="text-[8px] text-slate-400">활성 셀러</div><div class="text-sm font-black text-slate-800">56<span class="text-[8px] font-normal text-slate-400 ml-0.5">명</span></div></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-1.5">
+                      <div class="border border-slate-100 rounded-lg p-1.5">
+                        <div class="text-[8px] text-slate-500 font-semibold mb-1">최근 주문</div>
+                        <div class="grid grid-cols-4 gap-1 text-[7px] text-slate-400"><span>주문번호</span><span>셀러</span><span>상태</span><span>금액</span></div>
+                      </div>
+                      <div class="border border-slate-100 rounded-lg p-1.5">
+                        <div class="text-[8px] text-slate-500 font-semibold mb-1">대기중 클레임</div>
+                        <div class="grid grid-cols-4 gap-1 text-[7px] text-slate-400"><span>주문번호</span><span>유형</span><span>셀러</span><span>요청일</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <p class="text-sm text-slate-600 mb-4">발주부터 정산까지, B2B 유통의 모든 과정을 하나의 플랫폼에서 관리하는 웹 기반 SaaS 시스템 구축</p>
+              <div class="space-y-2 mb-5">
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 flex-shrink-0"></i><span>주문 자동화 (엑셀 업로드 → 일괄 등록)</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 flex-shrink-0"></i><span>공급사별 발주서 자동 생성</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 flex-shrink-0"></i><span>송장 자동 매칭 (업로드 → 즉시 반영)</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 flex-shrink-0"></i><span>등급별 차등 가격 + 정산 자동화</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 flex-shrink-0"></i><span>관리자 대시보드 14개 + 셀러 대시보드 7개 화면</span></div>
+              </div>
+              <div class="grid grid-cols-2 gap-3 mb-5">
+                <div class="bg-indigo-50 rounded-xl p-3 text-center"><div class="text-lg font-black text-indigo-700">80%</div><div class="text-xs text-indigo-500">주문처리 시간 단축</div></div>
+                <div class="bg-indigo-50 rounded-xl p-3 text-center"><div class="text-lg font-black text-indigo-700">0.5%</div><div class="text-xs text-indigo-500">발주 오류율 (5%→0.5%)</div></div>
+                <div class="bg-indigo-50 rounded-xl p-3 text-center"><div class="text-lg font-black text-indigo-700">70%</div><div class="text-xs text-indigo-500">품절 손실 감소</div></div>
+                <div class="bg-indigo-50 rounded-xl p-3 text-center"><div class="text-lg font-black text-indigo-700">3,800만</div><div class="text-xs text-indigo-500">연간 비용 절감</div></div>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Next.js 15</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">TypeScript</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">PostgreSQL</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Prisma</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Supabase</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Tailwind CSS</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 중소기업 재무 분석 서비스 -->
+          <div class="card-hover bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+            <div class="bg-gradient-to-r from-slate-800 to-slate-950 p-6">
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
+                  <i data-lucide="bar-chart-2" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">FinTech</span>
+              </div>
+              <h4 class="text-xl font-bold text-white">중소기업 재무 분석 서비스</h4>
+              <p class="text-slate-300 text-sm mt-1">기업 재무 데이터 자동 분석 웹 서비스</p>
+            </div>
+            <!-- 재무 분석 결과 미리보기 -->
+            <div class="p-4 bg-slate-50 border-b border-slate-200">
+              <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden text-[10px]">
+                <div class="p-3 border-b border-slate-100">
+                  <div class="font-black text-[11px] text-slate-800 mb-1">(주)왔구나</div>
+                  <div class="grid grid-cols-2 gap-x-4 gap-y-0.5 text-[8px] text-slate-500">
+                    <div>기업형태: 법인 또는 기타사업자</div>
+                    <div>업종: 신선, 냉동 및 기타 수산물 도매업</div>
+                    <div>설립일: 2025-04-09</div>
+                    <div>주소: 강원 동해시 구호동</div>
+                  </div>
+                </div>
+                <div class="mx-3 mt-2 px-2 py-1 bg-green-50 border border-green-200 rounded text-[9px] text-green-700 font-medium">특이 리스크가 감지되지 않았습니다.</div>
+                <div class="p-3">
+                  <div class="text-[9px] font-bold text-slate-700 mb-1.5">재무제표 (단위: 원)</div>
+                  <table class="w-full text-[8px]">
+                    <thead><tr class="border-b border-slate-200 text-slate-500">
+                      <th class="text-left py-1">결산년도</th><th class="text-right py-1">자산총계</th><th class="text-right py-1">매출액</th><th class="text-right py-1">영업이익</th><th class="text-right py-1">당기순이익</th>
+                    </tr></thead>
+                    <tbody><tr class="text-slate-700">
+                      <td class="py-1">2025</td><td class="text-right">380,185,000</td><td class="text-right font-bold">2,998,979,000</td><td class="text-right text-green-600">90,682,000</td><td class="text-right text-green-600">90,859,000</td>
+                    </tr></tbody>
+                  </table>
+                </div>
+                <div class="px-3 pb-3">
+                  <div class="text-[9px] font-bold text-slate-700 mb-1.5">재무 추이</div>
+                  <div class="flex items-end gap-1 h-12">
+                    <div class="flex-1 flex flex-col items-center gap-0.5">
+                      <div class="w-full bg-blue-500 rounded-t" style="height: 40px"></div>
+                      <div class="w-full bg-green-500 rounded-t" style="height: 2px"></div>
+                      <div class="w-full bg-orange-400 rounded-t" style="height: 2px"></div>
+                    </div>
+                  </div>
+                  <div class="flex justify-center gap-3 mt-1.5 text-[7px] text-slate-500">
+                    <span class="flex items-center gap-0.5"><span class="w-1.5 h-1.5 bg-blue-500 rounded-sm"></span> 매출액</span>
+                    <span class="flex items-center gap-0.5"><span class="w-1.5 h-1.5 bg-green-500 rounded-sm"></span> 영업이익</span>
+                    <span class="flex items-center gap-0.5"><span class="w-1.5 h-1.5 bg-orange-400 rounded-sm"></span> 당기순이익</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <p class="text-sm text-slate-600 mb-4">회사명 검색만으로 중소기업의 재무 상태를 자동 분석하여 시각화된 리포트를 제공하는 FinTech 웹 서비스</p>
+              <div class="space-y-2 mb-5">
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-slate-500 flex-shrink-0"></i><span>회사명 검색 → 재무 데이터 자동 수집</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-slate-500 flex-shrink-0"></i><span>재무제표 자동 분석 (수익성/안정성/성장성)</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-slate-500 flex-shrink-0"></i><span>동종 업계 비교 분석 및 벤치마킹</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-slate-500 flex-shrink-0"></i><span>시각화 대시보드 (차트/그래프 리포트)</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-slate-500 flex-shrink-0"></i><span>AI 기반 재무 건전성 진단 및 리스크 분석</span></div>
+              </div>
+              <div class="grid grid-cols-2 gap-3 mb-5">
+                <div class="bg-slate-100 rounded-xl p-3 text-center"><div class="text-lg font-black text-slate-700">80만+</div><div class="text-xs text-slate-500">분석 가능 기업수</div></div>
+                <div class="bg-slate-100 rounded-xl p-3 text-center"><div class="text-lg font-black text-slate-700">실시간</div><div class="text-xs text-slate-500">공공 데이터 연동</div></div>
+                <div class="bg-slate-100 rounded-xl p-3 text-center"><div class="text-lg font-black text-slate-700">5초</div><div class="text-xs text-slate-500">분석 리포트 생성</div></div>
+                <div class="bg-slate-100 rounded-xl p-3 text-center"><div class="text-lg font-black text-slate-700">PDF</div><div class="text-xs text-slate-500">리포트 다운로드</div></div>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Next.js</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Python</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">FastAPI</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">PostgreSQL</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">DART API</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Chart.js</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 정동병원 AI 챗봇 + GW영어학원 LMS -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+
+          <!-- 정동병원 AI 챗봇 -->
+          <div class="card-hover bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+            <div class="bg-gradient-to-r from-teal-600 to-emerald-700 p-6">
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
+                  <i data-lucide="heart-pulse" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">AI 챗봇</span>
+              </div>
+              <h4 class="text-xl font-bold text-white">정동병원 AI 챗봇 서비스</h4>
+              <p class="text-teal-200 text-sm mt-1">병원 재고관리 + AI 음성봇 통합 서비스</p>
+            </div>
+            <!-- AI 음성봇 미리보기 -->
+            <div class="p-5 bg-gradient-to-b from-sky-100 to-sky-50 border-b border-slate-200">
+              <div class="bg-gradient-to-b from-sky-200/60 to-white rounded-2xl p-5 text-center shadow-md border border-sky-200/50 max-w-[220px] mx-auto">
+                <div class="text-[11px] font-black text-sky-700 mb-0.5">든든한 서울 내과</div>
+                <div class="text-[10px] font-bold text-sky-600 mb-0.5">AI 상담 간호사 '건강이'</div>
+                <div class="text-[9px] text-sky-500 mb-3">진료 예약, 병원 이용, 건강 관련 질문을 도와드립니다</div>
+                <div class="w-14 h-14 bg-gradient-to-br from-sky-400 to-cyan-500 rounded-full mx-auto flex items-center justify-center mb-3 shadow-lg shadow-sky-300/50">
+                  <i data-lucide="mic" class="w-7 h-7 text-white"></i>
+                </div>
+                <div class="text-[10px] text-slate-400 flex items-center justify-center gap-1 mb-3">
+                  <span class="w-2 h-2 bg-slate-300 rounded-full"></span> 대기 중
+                </div>
+                <div class="bg-gradient-to-r from-sky-400 to-cyan-500 rounded-lg py-1.5 text-[10px] font-bold text-white mb-1.5">도입 문의</div>
+                <div class="text-[9px] text-sky-400">AI Voice Assistant</div>
+              </div>
+            </div>
+            <div class="p-6">
+              <p class="text-sm text-slate-600 mb-4">정동병원 맞춤 AI 챗봇 및 재고관리 자동화 플랫폼. 환자 문의 자동 응대부터 의료 재고 예측까지 원스톱 솔루션</p>
+              <div class="space-y-2 mb-5">
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-teal-500 flex-shrink-0"></i><span>환자 문의 AI 자동 응대 (카카오톡 + 웹)</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-teal-500 flex-shrink-0"></i><span>실시간 의료 재고관리 (바코드/QR 스캔)</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-teal-500 flex-shrink-0"></i><span>세금계산서 자동 발행 (국세청 연동)</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-teal-500 flex-shrink-0"></i><span>AI 수요 예측 + 재고 최적화 시뮬레이션</span></div>
+              </div>
+              <div class="grid grid-cols-2 gap-3 mb-5">
+                <div class="bg-teal-50 rounded-xl p-3 text-center"><div class="text-lg font-black text-teal-700">91%</div><div class="text-xs text-teal-500">1년차 ROI</div></div>
+                <div class="bg-teal-50 rounded-xl p-3 text-center"><div class="text-lg font-black text-teal-700">3,000만</div><div class="text-xs text-teal-500">연간 절감 효과</div></div>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Next.js</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Claude API</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">KakaoTalk</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">PostgreSQL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- GW영어학원 LMS -->
+          <div class="card-hover bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+            <div class="bg-gradient-to-r from-amber-500 to-yellow-600 p-6">
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
+                  <i data-lucide="graduation-cap" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">EduTech</span>
+              </div>
+              <h4 class="text-xl font-bold text-white">GW영어학원 학생관리 시스템</h4>
+              <p class="text-amber-100 text-sm mt-1">학원 LMS + 학생/학부모 관리 플랫폼</p>
+            </div>
+            <!-- 대시보드 미리보기 -->
+            <div class="p-4 bg-slate-50 border-b border-slate-200">
+              <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden text-[10px]">
+                <div class="flex">
+                  <div class="w-[80px] bg-slate-800 p-2 flex-shrink-0 hidden sm:block">
+                    <div class="text-[8px] text-white font-bold mb-2">TestAdmin</div>
+                    <div class="space-y-0.5">
+                      <div class="text-amber-400 text-[7px]">HOME</div>
+                      <div class="text-slate-400 text-[7px]">Evaluation</div>
+                      <div class="text-white bg-slate-700 rounded px-1 py-0.5 text-[7px]">Students</div>
+                      <div class="text-slate-400 text-[7px]">Book</div>
+                      <div class="text-slate-400 text-[7px]">Audio Book</div>
+                      <div class="text-slate-400 text-[7px]">Ranks</div>
+                      <div class="text-slate-400 text-[7px]">Content</div>
+                    </div>
+                  </div>
+                  <div class="flex-1 p-2">
+                    <div class="flex justify-between items-center mb-1.5">
+                      <div class="font-bold text-slate-800">Student</div>
+                      <div class="text-[8px] text-slate-400">On-going: 31 | Waiting: 1</div>
+                    </div>
+                    <div class="grid grid-cols-4 gap-1 text-[7px] bg-amber-50 rounded p-1 mb-1">
+                      <span class="font-semibold text-slate-600">Username</span>
+                      <span class="font-semibold text-slate-600">Name</span>
+                      <span class="font-semibold text-slate-600">Grade</span>
+                      <span class="font-semibold text-slate-600">Status</span>
+                    </div>
+                    <div class="space-y-0.5 text-[7px] text-slate-500">
+                      <div class="grid grid-cols-4 gap-1"><span>구자성5</span><span>구자성5</span><span>Grade 5</span><span class="text-green-600">On-going</span></div>
+                      <div class="grid grid-cols-4 gap-1"><span>권도윤5</span><span>권도윤5</span><span>Grade 5</span><span class="text-green-600">On-going</span></div>
+                      <div class="grid grid-cols-4 gap-1"><span>김나봄5</span><span>김나봄5</span><span>Grade 5</span><span class="text-green-600">On-going</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <p class="text-sm text-slate-600 mb-4">영어학원 학생/학부모/교사 통합 관리 시스템. 수업 평가, 도서 관리, 리딩 레벨 추적까지 원스톱 LMS</p>
+              <div class="space-y-2 mb-5">
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i><span>학생 관리 (등급/반/학부모 연동)</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i><span>평가 시스템 (Essay/Reading/Grammar)</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i><span>도서/오디오북 관리 + 랭킹 시스템</span></div>
+                <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i><span>엑셀 업로드/다운로드 일괄 관리</span></div>
+              </div>
+              <div class="grid grid-cols-2 gap-3 mb-5">
+                <div class="bg-amber-50 rounded-xl p-3 text-center"><div class="text-lg font-black text-amber-700">150+</div><div class="text-xs text-amber-500">학생 관리</div></div>
+                <div class="bg-amber-50 rounded-xl p-3 text-center"><div class="text-lg font-black text-amber-700">E·D·R·G</div><div class="text-xs text-amber-500">4영역 평가</div></div>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">PHP</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Laravel</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">MySQL</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">Bootstrap</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">jQuery</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- === 쇼핑몰 구축 포트폴리오 === -->
+        <div class="mt-16">
+          <div class="text-center mb-8">
+            <div class="inline-flex items-center px-3 py-1 rounded-full bg-red-50 text-red-600 text-sm font-bold mb-4">
+              <i data-lucide="shopping-cart" class="w-4 h-4 mr-2"></i> Shopping Mall
+            </div>
+            <h3 class="text-2xl md:text-3xl font-black mb-2">쇼핑몰 구축 포트폴리오</h3>
+            <p class="text-slate-500">쇼핑몰 기획, 디자인, 구축까지 원스톱 서비스</p>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <a href="https://www.chungdam-market.com/" target="_blank" class="card-hover block bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+              <div class="h-36 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center p-3">
+                <img src="https://spdy-flexg-ha.flexgate.co.kr/data/main_logo/chungdam/앱링크공유그래픽스이미지1024×500.jpg" alt="청담마켓" class="w-full h-full object-cover rounded-lg shadow-md">
+              </div>
+              <div class="p-4">
+                <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">식품</span>
+                <h4 class="font-bold text-sm mt-2">청담마켓 쇼핑몰</h4>
+                <p class="text-[10px] text-slate-400 mt-0.5">농수축산물 프리미엄 쇼핑몰</p>
+              </div>
+            </a>
+            <a href="https://www.chansmall.com/" target="_blank" class="card-hover block bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+              <div class="h-36 bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center p-3">
+                <img src="https://spdy-flexg-ha.flexgate.co.kr/data/main_logo/bsdj8484/1024×500.png" alt="찬스몰" class="w-full h-full object-cover rounded-lg shadow-md">
+              </div>
+              <div class="p-4">
+                <span class="text-[10px] bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full font-bold">식품</span>
+                <h4 class="font-bold text-sm mt-2">찬스몰 쇼핑몰</h4>
+                <p class="text-[10px] text-slate-400 mt-0.5">밥상대장 간편식 전문</p>
+              </div>
+            </a>
+            <a href="https://www.ksdo.co.kr/" target="_blank" class="card-hover block bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+              <div class="h-36 bg-gradient-to-br from-emerald-100 to-teal-200 flex items-center justify-center p-3">
+                <img src="https://spdy-flexg-ha.flexgate.co.kr/data/main_logo/kisoondo/오픈그래프_20240826105807345_1.jpg" alt="기순도전통장" class="w-full h-full object-cover rounded-lg shadow-md">
+              </div>
+              <div class="p-4">
+                <span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">식품</span>
+                <h4 class="font-bold text-sm mt-2">기순도전통장 쇼핑몰</h4>
+                <p class="text-[10px] text-slate-400 mt-0.5">대한민국 식품명인 제35호</p>
+              </div>
+            </a>
+            <a href="https://samjunginst.flexg.shop/" target="_blank" class="card-hover block bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+              <div class="h-36 bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center p-3">
+                <img src="https://spdy-flexg-ha.flexgate.co.kr/data/main_logo/samjunginst/오픈그래프.png" alt="볼트문" class="w-full h-full object-cover rounded-lg shadow-md">
+              </div>
+              <div class="p-4">
+                <span class="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-bold">기타</span>
+                <h4 class="font-bold text-sm mt-2">볼트문 쇼핑몰</h4>
+                <p class="text-[10px] text-slate-400 mt-0.5">LED 인테리어 조명</p>
+              </div>
+            </a>
+            <a href="https://www.dokjeom.com/" target="_blank" class="card-hover block bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+              <div class="h-36 bg-gradient-to-br from-red-100 to-rose-200 flex items-center justify-center p-3">
+                <img src="https://spdy-flexg-ha.flexgate.co.kr/data/main_logo/wguna2025/Frame37.png" alt="네놈마켓" class="h-full object-contain">
+              </div>
+              <div class="p-4">
+                <span class="text-[10px] bg-red-100 text-red-700 px-2 py-0.5 rounded-full font-bold">식품</span>
+                <h4 class="font-bold text-sm mt-2">네놈마켓 쇼핑몰</h4>
+                <p class="text-[10px] text-slate-400 mt-0.5">식품 종합 쇼핑몰</p>
+              </div>
+            </a>
+            <a href="https://matgwadang.co.kr/" target="_blank" class="card-hover block bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+              <div class="h-36 bg-gradient-to-br from-yellow-100 to-amber-200 flex items-center justify-center p-3">
+                <img src="https://spdy-flexg-ha.flexgate.co.kr/data/main_logo/matgwadang/Frame95.jpg" alt="맛과당" class="w-full h-full object-cover rounded-lg shadow-md">
+              </div>
+              <div class="p-4">
+                <span class="text-[10px] bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full font-bold">식품</span>
+                <h4 class="font-bold text-sm mt-2">맛과당 쇼핑몰</h4>
+                <p class="text-[10px] text-slate-400 mt-0.5">프리미엄 농수산물</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- === 마케팅 운영 클라이언트 (축소) === -->
+        <div class="mt-16">
+          <div class="text-center mb-8">
+            <div class="inline-flex items-center px-3 py-1 rounded-full bg-orange-50 text-orange-600 text-sm font-bold mb-4">
+              <i data-lucide="megaphone" class="w-4 h-4 mr-2"></i> Marketing Clients
+            </div>
+            <h3 class="text-2xl md:text-3xl font-black mb-2">마케팅 운영 클라이언트</h3>
+            <p class="text-slate-500">30개 이상의 브랜드 Meta 광고 운영 경험</p>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="bg-white rounded-xl border border-slate-200 p-5 text-center hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center mx-auto mb-3"><i data-lucide="shopping-bag" class="w-5 h-5 text-white"></i></div>
+              <h4 class="font-bold text-sm">독점마켓</h4>
+              <p class="text-xs text-slate-400 mt-1">종합 이커머스</p>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5 text-center hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 bg-gradient-to-br from-red-500 to-rose-600 rounded-xl flex items-center justify-center mx-auto mb-3"><i data-lucide="flame" class="w-5 h-5 text-white"></i></div>
+              <h4 class="font-bold text-sm">미친특가</h4>
+              <p class="text-xs text-slate-400 mt-1">CTR 16.2% 달성</p>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5 text-center hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-3"><i data-lucide="home" class="w-5 h-5 text-white"></i></div>
+              <h4 class="font-bold text-sm">리바스인테리어</h4>
+              <p class="text-xs text-slate-400 mt-1">ROAS 25.44배</p>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5 text-center hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 bg-gradient-to-br from-stone-500 to-stone-700 rounded-xl flex items-center justify-center mx-auto mb-3"><i data-lucide="flask-conical" class="w-5 h-5 text-white"></i></div>
+              <h4 class="font-bold text-sm">기순도</h4>
+              <p class="text-xs text-slate-400 mt-1">ROAS 2,544%</p>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5 text-center hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-3"><i data-lucide="shirt" class="w-5 h-5 text-white"></i></div>
+              <h4 class="font-bold text-sm">4menmarket</h4>
+              <p class="text-xs text-slate-400 mt-1">남성 패션</p>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5 text-center hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-xl flex items-center justify-center mx-auto mb-3"><i data-lucide="utensils" class="w-5 h-5 text-white"></i></div>
+              <h4 class="font-bold text-sm">하모아</h4>
+              <p class="text-xs text-slate-400 mt-1">한돈 삼겹살</p>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5 text-center hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center mx-auto mb-3"><i data-lucide="fan" class="w-5 h-5 text-white"></i></div>
+              <h4 class="font-bold text-sm">씨앤씨에어코리아</h4>
+              <p class="text-xs text-slate-400 mt-1">에어컨/실링팬</p>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5 text-center hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-3"><i data-lucide="globe-2" class="w-5 h-5 text-white"></i></div>
+              <h4 class="font-bold text-sm">Lockedair AU</h4>
+              <p class="text-xs text-slate-400 mt-1">호주 글로벌</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Why Choose Kitt -->
+    <section id="why" class="py-20 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-6">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-kai-50 text-kai-600 text-sm font-bold mb-4">
+            <i data-lucide="shield-check" class="w-4 h-4 mr-2"></i> Why kitt
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">일반 개발사와는 다릅니다</h2>
+          <p class="text-slate-500 text-lg">개발만 하고 끝나는 곳이 아닙니다.<br />만들고, 알리고, 운영까지 — <strong class="text-slate-800">올인원</strong>으로 비즈니스 성장을 함께합니다.</p>
+        </div>
+
+        <!-- 올인원 비교 -->
+        <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-8 md:p-10 text-white mb-10">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+              <div class="text-sm font-bold text-kai-400 mb-2">ALL-IN-ONE</div>
+              <h3 class="text-2xl font-black mb-4">개발 · 마케팅 · 운영<br />하나의 팀에서</h3>
+              <p class="text-slate-400 text-sm leading-relaxed mb-6">일반 개발사는 코드만 납품합니다. kitt는 서비스가 실제로 돈을 벌 수 있도록 마케팅과 운영까지 책임집니다. 개발팀과 마케팅팀이 따로 놀지 않습니다.</p>
+              <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 bg-kai-500/20 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="code-2" class="w-4 h-4 text-kai-400"></i></div>
+                  <span class="text-sm"><strong class="text-white">개발</strong> <span class="text-slate-400">— 웹/앱/SaaS/AI 풀스택 구현</span></span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 bg-orange-500/20 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="megaphone" class="w-4 h-4 text-orange-400"></i></div>
+                  <span class="text-sm"><strong class="text-white">마케팅</strong> <span class="text-slate-400">— Meta 광고 운영, 소재 제작, AI 리포팅</span></span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="settings" class="w-4 h-4 text-emerald-400"></i></div>
+                  <span class="text-sm"><strong class="text-white">운영</strong> <span class="text-slate-400">— 유지보수, 모니터링, 기능 개선</span></span>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-3">
+              <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-bold text-slate-400">일반 개발사</span>
+                  <span class="text-xs bg-slate-700 text-slate-300 px-2 py-0.5 rounded">개발만</span>
+                </div>
+                <div class="flex gap-2">
+                  <span class="px-2 py-1 bg-kai-500/20 text-kai-300 rounded text-xs font-medium">개발</span>
+                  <span class="px-2 py-1 bg-white/5 text-slate-500 rounded text-xs line-through">마케팅</span>
+                  <span class="px-2 py-1 bg-white/5 text-slate-500 rounded text-xs line-through">운영</span>
+                </div>
+              </div>
+              <div class="bg-kai-500/10 rounded-xl p-4 border border-kai-500/30">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-bold text-kai-300">kitt</span>
+                  <span class="text-xs bg-kai-500 text-white px-2 py-0.5 rounded font-bold">올인원</span>
+                </div>
+                <div class="flex gap-2">
+                  <span class="px-2 py-1 bg-kai-500/30 text-kai-300 rounded text-xs font-bold">개발</span>
+                  <span class="px-2 py-1 bg-orange-500/30 text-orange-300 rounded text-xs font-bold">마케팅</span>
+                  <span class="px-2 py-1 bg-emerald-500/30 text-emerald-300 rounded text-xs font-bold">운영</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+            <div class="text-4xl font-black text-kai-600 mb-4">01</div>
+            <h3 class="text-xl font-bold mb-3">만들고 끝이 아닌, 같이 성장</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">쇼핑몰을 만들면 바로 광고를 돌리고, 플랫폼을 만들면 고객 유입까지 설계합니다. 개발과 마케팅 사이에 공백이 없습니다.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+            <div class="text-4xl font-black text-kai-600 mb-4">02</div>
+            <h3 class="text-xl font-bold mb-3">AI 기술 내재화</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Claude, GPT 등 최신 AI를 활용한 챗봇, 업무 자동화, 데이터 분석 솔루션을 직접 기획하고 개발합니다.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+            <div class="text-4xl font-black text-kai-600 mb-4">03</div>
+            <h3 class="text-xl font-bold mb-3">30+ 브랜드 마케팅 경험</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">단순 개발사가 아닙니다. Meta 광고 운영, 소재 제작, AI 리포팅까지 30개 이상의 브랜드에서 검증된 마케팅 역량을 보유하고 있습니다.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+            <div class="text-4xl font-black text-kai-600 mb-4">04</div>
+            <h3 class="text-xl font-bold mb-3">풀스택 원팀</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">기획, 디자인, 프론트엔드, 백엔드, 인프라까지 하나의 팀에서 일관되게 개발합니다. 소통 비용을 최소화합니다.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+            <div class="text-4xl font-black text-kai-600 mb-4">05</div>
+            <h3 class="text-xl font-bold mb-3">검증된 다양한 도메인</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">B2B SaaS, FinTech, EduTech, HealthTech, 이커머스 등 다양한 업종에서 실제 운영 중인 서비스를 만들어왔습니다.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+            <div class="text-4xl font-black text-kai-600 mb-4">06</div>
+            <h3 class="text-xl font-bold mb-3">런칭 이후에도 함께</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">서비스 런칭 후 안정화 모니터링, 버그 수정, 기능 개선, 마케팅 운영까지 지속적으로 함께합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-kai-600 to-kai-800 text-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-3xl mx-auto text-center">
+          <div class="inline-flex items-center px-4 py-1.5 bg-white/20 rounded-full text-sm font-bold mb-6">
+            <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Contact Us
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black mb-4">프로젝트 문의</h2>
+          <p class="text-kai-100 text-lg mb-12">아이디어를 현실로 만들어 드립니다. 부담 없이 문의하세요.</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/10">
+              <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="mail" class="w-6 h-6"></i>
+              </div>
+              <h3 class="font-bold mb-2">이메일</h3>
+              <p class="text-kai-200 text-sm">kaiceo@naver.com</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/10">
+              <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="map-pin" class="w-6 h-6"></i>
+              </div>
+              <h3 class="font-bold mb-2">주소</h3>
+              <p class="text-kai-200 text-sm">서울시 서초구 양재동 280, 301호</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/10">
+              <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="globe" class="w-6 h-6"></i>
+              </div>
+              <h3 class="font-bold mb-2">웹사이트</h3>
+              <a href="http://www.kitt-ai.com/" target="_blank" class="text-kai-200 text-sm hover:text-white underline">kitt-ai.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-kai-600 rounded-lg flex items-center justify-center">
+              <i data-lucide="code-2" class="w-5 h-5 text-white"></i>
+            </div>
+            <div>
+              <span class="font-bold text-lg">kitt</span>
+              <p class="text-xs text-slate-400">Web Development & AI Solutions</p>
+            </div>
+          </div>
+          <div class="text-sm text-slate-400 text-center md:text-right">
+            <p>&copy; 2026 kitt. All rights reserved.</p>
+            <p class="mt-1">서울시 서초구 양재동 280, 301호 | kaiceo@naver.com</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // Active nav highlighting on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (window.pageYOffset >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('text-kai-600', 'font-semibold', 'border-b-2', 'border-kai-600');
+        link.classList.add('text-slate-500');
+        if (link.getAttribute('data-section') === current) {
+          link.classList.add('text-kai-600', 'font-semibold', 'border-b-2', 'border-kai-600');
+          link.classList.remove('text-slate-500');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
