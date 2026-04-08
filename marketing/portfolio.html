@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>카이앤컴퍼니 | 성과 포트폴리오</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            kai: { 50:'#eef7ff', 100:'#d9edff', 200:'#bce0ff', 300:'#8eccff', 400:'#59b0ff', 500:'#3391ff', 600:'#1a73f5', 700:'#135de1', 800:'#164bb6', 900:'#17408f', 950:'#132957' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap');
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+    html { scroll-behavior: smooth; }
+    .gradient-text {
+      background: linear-gradient(135deg, #3391ff, #1a73f5, #8eccff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+    .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .stat-card { backdrop-filter: blur(10px); }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .fade-in { animation: fadeInUp 0.7s ease-out forwards; }
+    .fade-in-delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .fade-in-delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .fade-in-delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .pulse-dot { animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .kpi-ring {
+      background: conic-gradient(from 0deg, #3391ff var(--percent), #e2e8f0 var(--percent));
+    }
+    .quote-mark {
+      font-size: 120px;
+      line-height: 1;
+      opacity: 0.08;
+      position: absolute;
+      top: -20px;
+      left: 10px;
+      font-family: Georgia, serif;
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen bg-[#f8fafc] text-slate-900">
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-2">
+        <img src="logo.png" alt="카이앤컴퍼니" class="w-8 h-8 object-contain">
+        <span class="font-bold text-lg tracking-tight">카이앤컴퍼니</span>
+        <span class="text-xs text-slate-400 ml-2">Performance Portfolio</span>
+      </a>
+      <div class="hidden md:flex items-center space-x-6 text-sm font-medium">
+        <a href="#overview" class="text-kai-600 font-semibold">성과 요약</a>
+        <a href="#michinteukga" class="text-slate-500 hover:text-kai-600 transition-colors">미친특가</a>
+        <a href="#ribas" class="text-slate-500 hover:text-kai-600 transition-colors">리바스인테리어</a>
+        <a href="#gisundo" class="text-slate-500 hover:text-kai-600 transition-colors">기순도</a>
+        <a href="#philosophy" class="text-slate-500 hover:text-kai-600 transition-colors">운영 철학</a>
+      </div>
+      <a href="index.html" class="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-800 transition-all flex items-center gap-2">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> 제안서 보기
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-kai-950 text-white">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-20 left-20 w-72 h-72 bg-kai-500 rounded-full blur-[120px]"></div>
+      <div class="absolute bottom-20 right-20 w-96 h-96 bg-purple-500 rounded-full blur-[150px]"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <div class="text-center max-w-4xl mx-auto">
+        <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 text-sm font-semibold mb-8 backdrop-blur">
+          <span class="w-2 h-2 bg-green-400 rounded-full mr-2 pulse-dot"></span>
+          실제 데이터 기반 성과 포트폴리오
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">
+          광고는 <span class="gradient-text">'소재'</span> 싸움이다
+        </h1>
+        <p class="text-xl text-slate-300 mb-12 leading-relaxed">
+          수천 개의 캠페인을 동시에 운영하면서 배운 건<br>
+          "잘 되는 걸 더 잘 되게" 만드는 게 전부라는 것.
+        </p>
+
+        <!-- Hero Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          <div class="stat-card bg-white/5 border border-white/10 rounded-2xl p-6">
+            <div class="text-3xl md:text-4xl font-black text-kai-400">500+</div>
+            <div class="text-sm text-slate-400 mt-1">광고 소재 제작</div>
+          </div>
+          <div class="stat-card bg-white/5 border border-white/10 rounded-2xl p-6">
+            <div class="text-3xl md:text-4xl font-black text-emerald-400">16.2%</div>
+            <div class="text-sm text-slate-400 mt-1">최고 CTR 달성</div>
+          </div>
+          <div class="stat-card bg-white/5 border border-white/10 rounded-2xl p-6">
+            <div class="text-3xl md:text-4xl font-black text-amber-400">25.44x</div>
+            <div class="text-sm text-slate-400 mt-1">최고 ROAS</div>
+          </div>
+          <div class="stat-card bg-white/5 border border-white/10 rounded-2xl p-6">
+            <div class="text-3xl md:text-4xl font-black text-rose-400">38원</div>
+            <div class="text-sm text-slate-400 mt-1">최저 CPC 달성</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview Section -->
+  <section id="overview" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center px-3 py-1 rounded-full bg-kai-50 text-kai-600 text-sm font-bold mb-4">
+          <i data-lucide="bar-chart-3" class="w-4 h-4 mr-2"></i> Performance Overview
+        </div>
+        <h2 class="text-3xl md:text-4xl font-black mb-4">검증된 실제 성과</h2>
+        <p class="text-slate-500 text-lg">Threads @wooojooo05에서 공유된 실제 광고 관리자 데이터 기반</p>
+      </div>
+
+      <!-- 3 Client Summary Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- 미친특가 -->
+        <a href="#michinteukga" class="card-hover block bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-100 rounded-3xl p-8">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center">
+              <i data-lucide="flame" class="w-6 h-6 text-white"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-lg">미친특가</h3>
+              <p class="text-sm text-slate-500">종합 이커머스</p>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <div class="text-sm text-slate-500 mb-1">CTR (클릭률)</div>
+              <div class="text-3xl font-black text-orange-600">16.2%</div>
+              <div class="text-xs text-slate-400">업계 평균 대비 10배</div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-white/80 rounded-xl p-3">
+                <div class="text-xs text-slate-500">CPC</div>
+                <div class="font-bold text-orange-700">38원</div>
+              </div>
+              <div class="bg-white/80 rounded-xl p-3">
+                <div class="text-xs text-slate-500">총 클릭</div>
+                <div class="font-bold text-orange-700">14,000+</div>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- 리바스인테리어 -->
+        <a href="#ribas" class="card-hover block bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-100 rounded-3xl p-8">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center">
+              <i data-lucide="home" class="w-6 h-6 text-white"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-lg">리바스인테리어</h3>
+              <p class="text-sm text-slate-500">프리미엄 인테리어</p>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <div class="text-sm text-slate-500 mb-1">ROAS</div>
+              <div class="text-3xl font-black text-blue-600">25.44배</div>
+              <div class="text-xs text-slate-400">광고비 대비 매출 25배</div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-white/80 rounded-xl p-3">
+                <div class="text-xs text-slate-500">매출</div>
+                <div class="font-bold text-blue-700">2,342만</div>
+              </div>
+              <div class="bg-white/80 rounded-xl p-3">
+                <div class="text-xs text-slate-500">순이익률</div>
+                <div class="font-bold text-blue-700">89%</div>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- 기순도 -->
+        <a href="#gisundo" class="card-hover block bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-emerald-100 rounded-3xl p-8">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center">
+              <i data-lucide="utensils" class="w-6 h-6 text-white"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-lg">기순도</h3>
+              <p class="text-sm text-slate-500">프리미엄 식품</p>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <div class="text-sm text-slate-500 mb-1">ROAS</div>
+              <div class="text-3xl font-black text-emerald-600">2,544%</div>
+              <div class="text-xs text-slate-400">목표 300% 대비 초과 달성</div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-white/80 rounded-xl p-3">
+                <div class="text-xs text-slate-500">매출</div>
+                <div class="font-bold text-emerald-700">2,342만</div>
+              </div>
+              <div class="bg-white/80 rounded-xl p-3">
+                <div class="text-xs text-slate-500">CVR</div>
+                <div class="font-bold text-emerald-700">3.56%</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 미친특가 Section ========== -->
+  <section id="michinteukga" class="py-20 bg-gradient-to-br from-slate-50 to-orange-50/30">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center gap-4 mb-12">
+        <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center shadow-lg shadow-orange-200">
+          <i data-lucide="flame" class="w-7 h-7 text-white"></i>
+        </div>
+        <div>
+          <h2 class="text-3xl md:text-4xl font-black">미친특가</h2>
+          <p class="text-slate-500">종합 이커머스 | CTR 16.2% 달성 사례</p>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2 text-sm text-slate-500 mb-2">
+            <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> CTR (클릭률)
+          </div>
+          <div class="text-3xl font-black text-orange-600">16.2%</div>
+          <div class="flex items-center mt-2 text-xs">
+            <span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">+1,520%</span>
+            <span class="text-slate-400 ml-2">vs 업계 평균 1%</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2 text-sm text-slate-500 mb-2">
+            <i data-lucide="coins" class="w-4 h-4"></i> CPC (클릭 단가)
+          </div>
+          <div class="text-3xl font-black text-orange-600">38원</div>
+          <div class="flex items-center mt-2 text-xs">
+            <span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">최저가</span>
+            <span class="text-slate-400 ml-2">업계 평균 500원+</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2 text-sm text-slate-500 mb-2">
+            <i data-lucide="file-text" class="w-4 h-4"></i> 랜딩 조회 비용
+          </div>
+          <div class="text-3xl font-black text-orange-600">43원</div>
+          <div class="flex items-center mt-2 text-xs">
+            <span class="text-slate-400">랜딩 페이지 조회당 비용</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2 text-sm text-slate-500 mb-2">
+            <i data-lucide="mouse-pointer" class="w-4 h-4"></i> 총 클릭수
+          </div>
+          <div class="text-3xl font-black text-orange-600">14,000+</div>
+          <div class="flex items-center mt-2 text-xs">
+            <span class="text-slate-400">단일 캠페인 기준</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detail Table -->
+      <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm mb-12">
+        <div class="px-6 py-4 bg-slate-50 border-b border-slate-200">
+          <h3 class="font-bold text-lg flex items-center gap-2">
+            <i data-lucide="table" class="w-5 h-5 text-orange-500"></i>
+            광고 세트별 성과 상세 (메타 광고 관리자 실데이터)
+          </h3>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-slate-50">
+              <tr>
+                <th class="text-left px-6 py-3 font-semibold text-slate-600">소재 타입</th>
+                <th class="text-right px-6 py-3 font-semibold text-slate-600">CPC</th>
+                <th class="text-right px-6 py-3 font-semibold text-slate-600">CTR(링크)</th>
+                <th class="text-right px-6 py-3 font-semibold text-slate-600">클릭(전체)</th>
+                <th class="text-right px-6 py-3 font-semibold text-slate-600">CTR(전체)</th>
+                <th class="text-right px-6 py-3 font-semibold text-slate-600">랜딩 조회</th>
+                <th class="text-right px-6 py-3 font-semibold text-slate-600">랜딩 비용</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr class="hover:bg-orange-50/50">
+                <td class="px-6 py-4 font-medium">보정상</td>
+                <td class="text-right px-6 py-4 font-bold text-orange-600">₩45</td>
+                <td class="text-right px-6 py-4"><span class="bg-green-100 text-green-700 px-2 py-1 rounded-lg font-bold">15.87%</span></td>
+                <td class="text-right px-6 py-4">2,489</td>
+                <td class="text-right px-6 py-4">16.86%</td>
+                <td class="text-right px-6 py-4">2,091</td>
+                <td class="text-right px-6 py-4">₩50</td>
+              </tr>
+              <tr class="hover:bg-orange-50/50">
+                <td class="px-6 py-4 font-medium">보정상 B</td>
+                <td class="text-right px-6 py-4 font-bold text-orange-600">₩42</td>
+                <td class="text-right px-6 py-4"><span class="bg-green-100 text-green-700 px-2 py-1 rounded-lg font-bold">16.15%</span></td>
+                <td class="text-right px-6 py-4">2,489</td>
+                <td class="text-right px-6 py-4">17.31%</td>
+                <td class="text-right px-6 py-4">2,060</td>
+                <td class="text-right px-6 py-4">₩47</td>
+              </tr>
+              <tr class="hover:bg-orange-50/50">
+                <td class="px-6 py-4 font-medium">보 생활</td>
+                <td class="text-right px-6 py-4">₩42</td>
+                <td class="text-right px-6 py-4"><span class="bg-green-100 text-green-700 px-2 py-1 rounded-lg font-bold">15.94%</span></td>
+                <td class="text-right px-6 py-4">594</td>
+                <td class="text-right px-6 py-4">16.56%</td>
+                <td class="text-right px-6 py-4">509</td>
+                <td class="text-right px-6 py-4">₩47</td>
+              </tr>
+              <tr class="hover:bg-orange-50/50">
+                <td class="px-6 py-4 font-medium">V 세트</td>
+                <td class="text-right px-6 py-4">₩58</td>
+                <td class="text-right px-6 py-4">16.20%</td>
+                <td class="text-right px-6 py-4">3,576</td>
+                <td class="text-right px-6 py-4">16.55%</td>
+                <td class="text-right px-6 py-4">3,069</td>
+                <td class="text-right px-6 py-4">₩43</td>
+              </tr>
+              <tr class="hover:bg-orange-50/50">
+                <td class="px-6 py-4 font-medium">V 영상</td>
+                <td class="text-right px-6 py-4">₩45</td>
+                <td class="text-right px-6 py-4">13.99%</td>
+                <td class="text-right px-6 py-4">5,136</td>
+                <td class="text-right px-6 py-4">16.16%</td>
+                <td class="text-right px-6 py-4">3,937</td>
+                <td class="text-right px-6 py-4">₩51</td>
+              </tr>
+              <tr class="hover:bg-orange-50/50 bg-slate-50">
+                <td class="px-6 py-4 font-medium">영상 A</td>
+                <td class="text-right px-6 py-4">₩69</td>
+                <td class="text-right px-6 py-4">8.94%</td>
+                <td class="text-right px-6 py-4">46</td>
+                <td class="text-right px-6 py-4">8.57%</td>
+                <td class="text-right px-6 py-4">42</td>
+                <td class="text-right px-6 py-4">₩78</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Channel Revenue -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
+        <h3 class="font-bold text-lg mb-6 flex items-center gap-2">
+          <i data-lucide="pie-chart" class="w-5 h-5 text-orange-500"></i>
+          채널별 실제 매출 상세
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-5">
+            <div class="text-xs text-purple-600 font-semibold mb-1">인스타그램</div>
+            <div class="text-xl font-black text-purple-700">₩7,892,220</div>
+            <div class="text-xs text-purple-500 mt-1">34.2% | 전체 매출 58%</div>
+          </div>
+          <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-5">
+            <div class="text-xs text-blue-600 font-semibold mb-1">페이스북</div>
+            <div class="text-xl font-black text-blue-700">₩2,216,100</div>
+            <div class="text-xs text-blue-500 mt-1">16.9%</div>
+          </div>
+          <div class="bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl p-5">
+            <div class="text-xs text-amber-600 font-semibold mb-1">카카오톡</div>
+            <div class="text-xl font-black text-amber-700">₩997,500</div>
+            <div class="text-xs text-amber-500 mt-1">1,420건</div>
+          </div>
+          <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-5">
+            <div class="text-xs text-green-600 font-semibold mb-1">APP</div>
+            <div class="text-xl font-black text-green-700">₩1,088,260</div>
+            <div class="text-xs text-green-500 mt-1">앱 전환</div>
+          </div>
+        </div>
+        <div class="bg-orange-50 border border-orange-200 rounded-xl p-4 flex items-start gap-3">
+          <i data-lucide="info" class="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0"></i>
+          <p class="text-sm text-orange-800">
+            <strong>구매건수 202건</strong>, 전환율 가장 높음. 인스타그램 한 채널에서 전체 매출의 58%가 발생. 메타광고는 감이 아니라 데이터로 해야 합니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 리바스인테리어 Section ========== -->
+  <section id="ribas" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center gap-4 mb-12">
+        <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-200">
+          <i data-lucide="home" class="w-7 h-7 text-white"></i>
+        </div>
+        <div>
+          <h2 class="text-3xl md:text-4xl font-black">리바스인테리어</h2>
+          <p class="text-slate-500">프리미엄 인테리어 | ROAS 25.44배 달성 사례</p>
+        </div>
+      </div>
+
+      <!-- Two Column Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <!-- Left: ROAS Summary -->
+        <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 text-white">
+          <div class="flex items-center gap-2 mb-6">
+            <i data-lucide="trophy" class="w-6 h-6 text-amber-300"></i>
+            <h3 class="font-bold text-lg">핵심 수치</h3>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white/10 rounded-2xl p-5 backdrop-blur">
+              <div class="text-sm text-blue-200">총 광고비</div>
+              <div class="text-2xl font-black mt-1">$1,541.79</div>
+              <div class="text-xs text-blue-300 mt-1">약 208만원</div>
+            </div>
+            <div class="bg-white/10 rounded-2xl p-5 backdrop-blur">
+              <div class="text-sm text-blue-200">총 매출</div>
+              <div class="text-2xl font-black mt-1">$13,725.95</div>
+              <div class="text-xs text-blue-300 mt-1">약 1,853만원</div>
+            </div>
+            <div class="bg-white/10 rounded-2xl p-5 backdrop-blur">
+              <div class="text-sm text-blue-200">전체 ROAS</div>
+              <div class="text-2xl font-black mt-1 text-amber-300">8.90배</div>
+              <div class="text-xs text-blue-300 mt-1">투자 대비 수익</div>
+            </div>
+            <div class="bg-white/10 rounded-2xl p-5 backdrop-blur">
+              <div class="text-sm text-blue-200">순이익률</div>
+              <div class="text-2xl font-black mt-1 text-emerald-300">약 89%</div>
+              <div class="text-xs text-blue-300 mt-1">광고비 대비</div>
+            </div>
+          </div>
+          <div class="mt-6 pt-6 border-t border-white/20">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <div class="text-sm text-blue-200">총 구매</div>
+                <div class="text-xl font-bold">44건</div>
+              </div>
+              <div>
+                <div class="text-sm text-blue-200">평균 객단가</div>
+                <div class="text-xl font-bold">$311.95 <span class="text-sm text-blue-300">(약 42만원)</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Meta Ads Manager Data -->
+        <div class="bg-white rounded-3xl border-2 border-blue-100 p-8">
+          <div class="flex items-center gap-2 mb-6">
+            <i data-lucide="monitor" class="w-5 h-5 text-blue-500"></i>
+            <h3 class="font-bold text-lg">메타 광고 관리자 실데이터</h3>
+          </div>
+          <div class="bg-slate-50 rounded-xl p-4 mb-6">
+            <div class="text-xs text-slate-500 mb-2">측정 기간: 2026.1.26 ~ 2026.2.11</div>
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between items-baseline mb-1">
+                  <span class="text-sm text-slate-600">웹사이트 구매 ROAS</span>
+                  <span class="text-3xl font-black text-blue-600">25.44배</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-3">
+                  <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full" style="width: 95%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between items-baseline mb-1">
+                  <span class="text-sm text-slate-600">구매 전환값</span>
+                  <span class="text-2xl font-black text-slate-900">₩23,422,320</span>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between items-baseline">
+                  <span class="text-sm text-slate-600">구매당 비용</span>
+                  <span class="text-xl font-bold text-slate-700">₩24,228</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start gap-3">
+            <i data-lucide="lightbulb" class="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0"></i>
+            <p class="text-sm text-blue-800">
+              광고 소재 <strong>500개 이상</strong> 제작. "결국 사람 마음 흔드는 건 화려한 그래픽이 아니라 <strong>'한 줄의 공감'</strong>이더라."
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 기순도 Section ========== -->
+  <section id="gisundo" class="py-20 bg-gradient-to-br from-slate-50 to-emerald-50/30">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center gap-4 mb-12">
+        <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-200">
+          <i data-lucide="utensils" class="w-7 h-7 text-white"></i>
+        </div>
+        <div>
+          <h2 class="text-3xl md:text-4xl font-black">기순도</h2>
+          <p class="text-slate-500">프리미엄 식품 | ROAS 2,544% 달성 사례</p>
+        </div>
+      </div>
+
+      <!-- Performance Summary -->
+      <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm mb-12">
+        <div class="bg-gradient-to-r from-emerald-600 to-teal-600 p-8 text-white">
+          <div class="flex items-center gap-2 mb-2">
+            <i data-lucide="rocket" class="w-5 h-5"></i>
+            <span class="font-bold">핵심 성과 요약</span>
+          </div>
+          <p class="text-emerald-100 text-sm">
+            이번 캠페인은 <strong class="text-white">ROAS 2,544%</strong>라는 경이로운 수치를 기록하며 목표를 초과 달성했습니다.
+            특히 <strong class="text-white">61만 원대의 높은 객단가</strong>를 유지하면서도 <strong class="text-white">3.56%의 우수한 전환율(CVR)</strong>을 확보한 것이 주요 승인입니다.
+          </p>
+        </div>
+
+        <div class="p-8">
+          <!-- 재무 성과 -->
+          <h4 class="font-bold text-lg mb-4 flex items-center gap-2">
+            <i data-lucide="wallet" class="w-5 h-5 text-emerald-500"></i>
+            재무 성과 지표 (Profitability)
+          </h4>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-emerald-50 rounded-2xl p-5 text-center">
+              <div class="text-sm text-emerald-600 font-semibold mb-1">ROAS</div>
+              <div class="text-3xl font-black text-emerald-700">2,544%</div>
+              <div class="text-xs text-emerald-500 mt-1">목표 300% 초과 달성</div>
+            </div>
+            <div class="bg-emerald-50 rounded-2xl p-5 text-center">
+              <div class="text-sm text-emerald-600 font-semibold mb-1">매출액</div>
+              <div class="text-3xl font-black text-emerald-700">2,342만</div>
+              <div class="text-xs text-emerald-500 mt-1">전환값 기준</div>
+            </div>
+            <div class="bg-emerald-50 rounded-2xl p-5 text-center">
+              <div class="text-sm text-emerald-600 font-semibold mb-1">총 광고비</div>
+              <div class="text-3xl font-black text-slate-700">92만</div>
+              <div class="text-xs text-slate-500 mt-1">일 예산 7만원 운영</div>
+            </div>
+            <div class="bg-emerald-50 rounded-2xl p-5 text-center">
+              <div class="text-sm text-emerald-600 font-semibold mb-1">CPA</div>
+              <div class="text-3xl font-black text-slate-700">24,231원</div>
+              <div class="text-xs text-slate-500 mt-1">매출 대비 매우 효율적</div>
+            </div>
+          </div>
+
+          <!-- 효율 지표 -->
+          <h4 class="font-bold text-lg mb-4 flex items-center gap-2">
+            <i data-lucide="gauge" class="w-5 h-5 text-emerald-500"></i>
+            유입 및 효율 지표 (Efficiency)
+          </h4>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-slate-50">
+                <tr>
+                  <th class="text-left px-6 py-3 font-semibold text-slate-600">지표</th>
+                  <th class="text-center px-6 py-3 font-semibold text-slate-600">수치</th>
+                  <th class="text-left px-6 py-3 font-semibold text-slate-600">전문가 평가</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr>
+                  <td class="px-6 py-4 font-medium">CTR (클릭률)</td>
+                  <td class="text-center px-6 py-4"><span class="bg-green-100 text-green-700 px-3 py-1 rounded-lg font-bold">1.60%</span></td>
+                  <td class="px-6 py-4 text-slate-600">양호 (1.5% 이상 유지 중)</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-medium">CPC (클릭 단가)</td>
+                  <td class="text-center px-6 py-4"><span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-lg font-bold">862원</span></td>
+                  <td class="px-6 py-4 text-slate-600">주의 (목표 800원 대비 다소 높음)</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-medium">CVR (전환율)</td>
+                  <td class="text-center px-6 py-4"><span class="bg-green-100 text-green-700 px-3 py-1 rounded-lg font-bold">3.56%</span></td>
+                  <td class="px-6 py-4 text-slate-600">우수 (구매 의도 높은 타겟 도달)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Philosophy Section ========== -->
+  <section id="philosophy" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center px-3 py-1 rounded-full bg-kai-50 text-kai-600 text-sm font-bold mb-4">
+          <i data-lucide="sparkles" class="w-4 h-4 mr-2"></i> Our Philosophy
+        </div>
+        <h2 class="text-3xl md:text-4xl font-black mb-4">운영 철학</h2>
+        <p class="text-slate-500 text-lg">수천 개의 캠페인을 동시에 운영하면서 증명된 원칙</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Quote 1 -->
+        <div class="relative bg-gradient-to-br from-slate-50 to-slate-100 rounded-3xl p-8 border border-slate-200">
+          <div class="quote-mark">"</div>
+          <div class="relative">
+            <p class="text-lg font-bold leading-relaxed mb-4">
+              반면 '일단 돌려보자'고 넣은 채널들?<br>
+              메타광고는 감이 아니라 <span class="text-kai-600">데이터</span>로 해야 합니다.
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-kai-100 rounded-full flex items-center justify-center">
+                <i data-lucide="database" class="w-5 h-5 text-kai-600"></i>
+              </div>
+              <div>
+                <div class="font-bold text-sm">데이터 기반 운영</div>
+                <div class="text-xs text-slate-500">감이 아닌 수치로 증명</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quote 2 -->
+        <div class="relative bg-gradient-to-br from-orange-50 to-amber-50 rounded-3xl p-8 border border-orange-200">
+          <div class="quote-mark">"</div>
+          <div class="relative">
+            <p class="text-lg font-bold leading-relaxed mb-4">
+              결국 광고는 '타겟팅'보다 <span class="text-orange-600">'소재' 싸움</span>이라는 걸 다시 한번 체감합니다.<br>
+              소재부터 다시 파보길 잘했네요.
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                <i data-lucide="image" class="w-5 h-5 text-orange-600"></i>
+              </div>
+              <div>
+                <div class="font-bold text-sm">소재 중심 전략</div>
+                <div class="text-xs text-slate-500">107개+ 소재 동시 운영</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quote 3 -->
+        <div class="relative bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 border border-blue-200">
+          <div class="quote-mark">"</div>
+          <div class="relative">
+            <p class="text-lg font-bold leading-relaxed mb-4">
+              광고 소재 500개 이상 만들어보고 깨달은 점.<br>
+              결국 사람 마음 흔드는 건<br>
+              <span class="text-blue-600">'한 줄의 공감'</span>이더라.
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                <i data-lucide="heart" class="w-5 h-5 text-blue-600"></i>
+              </div>
+              <div>
+                <div class="font-bold text-sm">공감 기반 크리에이티브</div>
+                <div class="text-xs text-slate-500">500개+ 소재 제작 경험</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Differentiator -->
+      <div class="mt-12 bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl p-8 md:p-12 text-white">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h3 class="text-2xl md:text-3xl font-black mb-4">
+              남들 1명 데려올 돈으로<br>
+              <span class="text-kai-400">30명</span> 데려옵니다.
+            </h3>
+            <p class="text-slate-300 leading-relaxed">
+              마케팅은 열심히 하는 게 아니라 똑똑하게 하는 겁니다.
+              울산부터 광주까지, 건전지부터 식품까지 카테고리 가리지 않고 효율 터뜨리는 중입니다.
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white/10 rounded-2xl p-5 text-center backdrop-blur">
+              <div class="text-3xl font-black text-kai-400">15+</div>
+              <div class="text-sm text-slate-300 mt-1">운영 브랜드</div>
+            </div>
+            <div class="bg-white/10 rounded-2xl p-5 text-center backdrop-blur">
+              <div class="text-3xl font-black text-emerald-400">500+</div>
+              <div class="text-sm text-slate-300 mt-1">제작 소재</div>
+            </div>
+            <div class="bg-white/10 rounded-2xl p-5 text-center backdrop-blur">
+              <div class="text-3xl font-black text-amber-400">107+</div>
+              <div class="text-sm text-slate-300 mt-1">동시 운영 광고</div>
+            </div>
+            <div class="bg-white/10 rounded-2xl p-5 text-center backdrop-blur">
+              <div class="text-3xl font-black text-rose-400">202건</div>
+              <div class="text-sm text-slate-300 mt-1">월 구매 전환</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-br from-kai-600 to-kai-800 text-white">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-black mb-4">
+        다음 성공 사례는<br>당신의 브랜드입니다
+      </h2>
+      <p class="text-kai-100 text-lg mb-8">
+        데이터 기반 Meta 광고 운영으로 검증된 성과를 만들어드립니다.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="index.html" class="bg-white text-kai-700 px-8 py-4 rounded-xl font-bold hover:bg-kai-50 transition-all flex items-center justify-center gap-2">
+          <i data-lucide="file-text" class="w-5 h-5"></i> 제안서 보기
+        </a>
+        <a href="index.html#contact" class="border-2 border-white/50 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+          <i data-lucide="phone" class="w-5 h-5"></i> 문의하기
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-8">
+    <div class="max-w-7xl mx-auto px-6 text-center text-sm">
+      <p>&copy; 2026 카이앤컴퍼니. All rights reserved.</p>
+      <p class="mt-1 text-slate-500">본 포트폴리오의 모든 데이터는 실제 메타 광고 관리자 데이터를 기반으로 합니다.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Intersection Observer for fade-in animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+
+</body>
+</html>
