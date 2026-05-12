@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo 07 · 사내 지식 RAG 검색 — 다믈파워반도체</title>
+<link rel="stylesheet" href="_shell.css">
+<style>
+  :root { --demo-color: #ec4899; --demo-glow: rgba(236, 72, 153, 0.25); }
+
+  .search-shell {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 18px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .search-shell::before {
+    content: "";
+    position: absolute;
+    top: 0; right: 0;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .search-shell > * { position: relative; z-index: 1; }
+  .search-input-wrap {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 4px 6px 4px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.25s;
+  }
+  .search-input-wrap:focus-within {
+    border-color: var(--demo-color);
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.15);
+  }
+  .search-input-wrap input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 1rem;
+    font-family: inherit;
+    padding: 14px 0;
+  }
+  .search-input-wrap input::placeholder { color: rgba(255,255,255,0.4); }
+  .search-btn {
+    background: var(--demo-color);
+    color: #fff;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .search-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px var(--demo-glow); filter: brightness(1.1); }
+
+  .search-shell .subline {
+    margin-top: 12px;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.55);
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .src-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+  }
+  .src-tag .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+  }
+  .src-tag .dot.in { background: #22d3ee; box-shadow: 0 0 6px #22d3ee; }
+  .src-tag .dot.ex { background: #ec4899; box-shadow: 0 0 6px #ec4899; }
+
+  .example-queries {
+    margin-top: 18px;
+  }
+  .example-queries .lbl {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 8px;
+    letter-spacing: 0.1em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .example-queries .qs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .q-chip {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 100px;
+    padding: 8px 16px;
+    color: rgba(255,255,255,0.85);
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .q-chip:hover {
+    background: var(--demo-color);
+    border-color: var(--demo-color);
+    color: #fff;
+  }
+
+  /* Result layout */
+  .results-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 18px;
+  }
+
+  .answer-box {
+    background: #fff;
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 24px 28px;
+    display: none;
+  }
+  .answer-box.active { display: block; animation: slideUp 0.4s; }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .answer-box .ai-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #fdf2f8 0%, #fbcfe8 100%);
+    color: #be185d;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 14px;
+  }
+  .answer-box h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .answer-box p {
+    margin-bottom: 14px;
+    line-height: 1.8;
+    color: var(--text-light);
+  }
+  .answer-box .cite {
+    color: var(--demo-color);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    background: #fdf2f8;
+    padding: 1px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    border-bottom: 1px dashed var(--demo-color);
+  }
+  .answer-box .cite:hover { background: #fbcfe8; }
+  .answer-box .meta-bar {
+    display: flex;
+    gap: 16px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-card);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .meta-bar .item { display: flex; align-items: center; gap: 5px; }
+  .meta-bar .item strong { color: var(--text); }
+
+  /* Sources panel */
+  .sources-panel {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 20px;
+    height: fit-content;
+    position: sticky;
+    top: 80px;
+  }
+  .sources-panel h4 {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .source-item {
+    background: #fff;
+    border: 1px solid var(--border-card);
+    border-left: 3px solid var(--demo-color);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .source-item:hover {
+    transform: translateX(2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .source-item .src-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--demo-color);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .source-item .src-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .source-item .src-snip {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .source-item .src-meta {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+  }
+  .source-item.external { border-left-color: #f59e0b; }
+  .source-item.external .src-num { color: #f59e0b; }
+
+  /* Empty state */
+  .empty-state-search {
+    text-align: center;
+    padding: 80px 40px;
+    color: var(--text-muted);
+    background: #fff;
+    border: 1px dashed var(--border-card);
+    border-radius: 12px;
+  }
+  .empty-state-search .ico { font-size: 3rem; opacity: 0.3; margin-bottom: 14px; }
+  .empty-state-search h3 { font-size: 1.1rem; color: var(--text); font-weight: 700; margin-bottom: 8px; }
+
+  /* Thinking indicator */
+  .thinking {
+    background: #fff;
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    display: none;
+  }
+  .thinking.active { display: block; }
+  .think-steps {
+    text-align: left;
+    max-width: 460px;
+    margin: 16px auto 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+  }
+  .think-step {
+    padding: 6px 0;
+    color: var(--text-muted);
+    transition: color 0.3s;
+  }
+  .think-step.done { color: var(--text); }
+  .think-step.done::before { content: "✓ "; color: var(--success); font-weight: 700; }
+  .think-step.active::before { content: "▸ "; color: var(--demo-color); font-weight: 700; }
+  .think-step.pending::before { content: "○ "; opacity: 0.5; }
+
+  @media (max-width: 900px) {
+    .results-grid { grid-template-columns: 1fr; }
+    .sources-panel { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-left">
+    <a href="index.html" class="tb-back">← 데모 허브</a>
+    <div class="tb-crumb">
+      <span class="tb-num">PATTERN · 07</span>
+      <span class="sep">/</span>
+      <span class="current">사내 지식 RAG 검색</span>
+    </div>
+  </div>
+  <div class="tb-right">
+    <span class="tb-live">LIVE DEMO</span>
+  </div>
+</div>
+
+<div class="demo-hero">
+  <div class="demo-hero-inner">
+    <div class="eyebrow">RAG · ENTERPRISE KNOWLEDGE SEARCH</div>
+    <h1>"Vds 80V에서 발생한 사례 알려줘" — 답변과 출처를 함께</h1>
+    <p class="lead">
+      사내 N년치 불량보고서·데이터시트·고객 응대를 <strong>자연어로 검색</strong>합니다.
+      벡터 DB 기반의 사내 지식과 Perplexity 외부 리서치를 하나의 답변창에서 통합,
+      답변에는 항상 <strong>원본 파일·페이지 인용</strong>이 함께 표시됩니다.
+    </p>
+    <div class="chips">
+      <span class="h-chip accent">신사업 · FAE · SCM · QE</span>
+      <span class="h-chip">월 ~20h 절감</span>
+      <span class="h-chip">Chroma DB</span>
+      <span class="h-chip">Perplexity</span>
+      <span class="h-chip">Embeddings</span>
+    </div>
+  </div>
+</div>
+
+<div class="demo-container">
+
+  <div class="search-shell">
+    <div class="search-input-wrap">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="사내 지식에 자연어로 질문해보세요..." value="">
+      <button class="search-btn" id="searchBtn">
+        검색
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <div class="subline">
+      <div class="src-tag"><span class="dot in"></span> 사내 문서 <strong style="color:#fff;">12,486건 인덱싱</strong></div>
+      <div class="src-tag"><span class="dot ex"></span> Perplexity 외부 보강 활성</div>
+      <div class="src-tag" style="margin-left:auto; color:rgba(255,255,255,0.5);">마지막 인덱싱: 2026-05-12 02:00 (증분 87건)</div>
+    </div>
+
+    <div class="example-queries">
+      <div class="lbl">EXAMPLE QUERIES · 클릭으로 즉시 검색</div>
+      <div class="qs">
+        <div class="q-chip" data-q="q1">Vds 80V에서 발생한 과거 불량 사례는?</div>
+        <div class="q-chip" data-q="q2">TP-1200N 경쟁사 대비 강점</div>
+        <div class="q-chip" data-q="q3">SiC vs GaN 시장 동향 2026</div>
+        <div class="q-chip" data-q="q4">불량 보고서 PPAP 양식 검색</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="emptyState" class="empty-state-search">
+    <div class="ico">🔍</div>
+    <h3>위 예시 질문을 클릭하거나 자유롭게 검색해보세요</h3>
+    <p style="color:var(--text-muted); margin-top: 4px; font-size:0.9rem;">
+      사내 12,486건의 문서 + Perplexity 실시간 검색이 결합됩니다.
+    </p>
+  </div>
+
+  <div class="thinking" id="thinking">
+    <div style="font-size:0.92rem; font-weight:700; color:var(--text);">🤔 AI 검색 처리 중...</div>
+    <div class="think-steps" id="thinkSteps">
+      <div class="think-step pending" data-i="0">질의 임베딩 생성 (text-embedding-3-large)</div>
+      <div class="think-step pending" data-i="1">Chroma DB 하이브리드 검색 (벡터 + 키워드)</div>
+      <div class="think-step pending" data-i="2">Cohere Rerank 상위 5건 재정렬</div>
+      <div class="think-step pending" data-i="3">Perplexity 외부 검색 (필요 시)</div>
+      <div class="think-step pending" data-i="4">Claude로 근거 기반 답변 생성</div>
+    </div>
+  </div>
+
+  <div class="results-grid" id="resultsGrid" style="display:none;">
+    <div class="answer-box active" id="answerBox">
+      <span class="ai-tag">⚡ AI ANSWER · CITED</span>
+      <div id="answerContent"></div>
+      <div class="meta-bar">
+        <div class="item">⏱️ <strong id="metaTime">2.4s</strong> 응답</div>
+        <div class="item">📚 <strong id="metaSrc">5</strong> 개 출처</div>
+        <div class="item">🎯 신뢰도 <strong id="metaConf">94%</strong></div>
+        <div class="item">🧠 <strong>Claude Sonnet 4.6</strong></div>
+        <div class="item" style="margin-left:auto;">👍 도움 됨 · 👎 부정확</div>
+      </div>
+    </div>
+
+    <div class="sources-panel">
+      <h4>📚 인용된 출처</h4>
+      <div id="sourcesContainer"></div>
+    </div>
+  </div>
+
+  <!-- TECH SECTION -->
+  <div class="tech-section">
+    <h3>HOW IT WORKS</h3>
+    <h2>사내 RAG + 외부 리서치 하이브리드 아키텍처</h2>
+
+    <div class="tech-cols">
+      <div class="tech-col">
+        <h4>VECTOR DB & EMBEDDINGS</h4>
+        <ul>
+          <li>Chroma DB (사내 셀프 호스팅)</li>
+          <li>Qdrant / Weaviate (대안)</li>
+          <li>OpenAI text-embedding-3-large</li>
+          <li>Cohere Embed v3</li>
+          <li>Cohere Rerank v3</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>SEARCH & RAG</h4>
+        <ul>
+          <li>LlamaIndex / LangChain</li>
+          <li>Hybrid Search (BM25+Vector)</li>
+          <li>Perplexity Sonar API</li>
+          <li>Claude Sonnet 4.6 (생성)</li>
+          <li>FastAPI 백엔드</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>INDEXING PIPELINE</h4>
+        <ul>
+          <li>야간 증분 인덱싱</li>
+          <li>NAS·SharePoint·메일</li>
+          <li>PyMuPDF · python-docx</li>
+          <li>한국어 형태소 분석</li>
+          <li>SSO + 권한 기반 노출 제어</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-block" style="margin-top: 24px;"><span class="com"># 실 구현: 사내 RAG 검색 + 답변 생성</span>
+<span class="kw">from</span> chromadb <span class="kw">import</span> Client
+<span class="kw">from</span> cohere <span class="kw">import</span> Client <span class="kw">as</span> Co
+<span class="kw">from</span> anthropic <span class="kw">import</span> Anthropic
+
+<span class="kw">def</span> <span class="fn">rag_search</span>(query: str):
+    <span class="com"># 1) 사내 벡터 DB 검색</span>
+    docs = chroma.<span class="fn">query</span>(query_texts=[query], n_results=<span class="num">20</span>)
+    <span class="com"># 2) Cohere Rerank로 상위 5건 선별</span>
+    reranked = co.<span class="fn">rerank</span>(query=query, documents=docs, top_n=<span class="num">5</span>)
+    <span class="com"># 3) 외부 보강이 필요한 경우 Perplexity 호출</span>
+    <span class="kw">if</span> <span class="fn">needs_external</span>(query): reranked += <span class="fn">perplexity_search</span>(query)
+    <span class="com"># 4) Claude로 근거 기반 답변 생성 (인용 포함)</span>
+    <span class="kw">return</span> anthropic.messages.<span class="fn">create</span>(
+        model=<span class="str">"claude-sonnet-4-6"</span>,
+        system=<span class="str">"각 문장 끝에 [출처번호] 표기 필수"</span>,
+        messages=[{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="fn">format_with_sources</span>(query, reranked)}]
+    )</div>
+  </div>
+
+  <div class="demo-nav">
+    <a href="06-translate.html" class="nav-link">
+      <div class="direction">← PREV</div>
+      <div class="name">06 · 다국어 자동 번역</div>
+    </a>
+    <a href="08-tracking.html" class="nav-link next">
+      <div class="direction">NEXT →</div>
+      <div class="name">08 · 이슈 트래킹 칸반</div>
+    </a>
+  </div>
+</div>
+
+<script>
+  const QUERIES = {
+    q1: {
+      query: 'Vds 80V에서 발생한 과거 불량 사례는?',
+      answer: `<h3>총 <span style="color:#ec4899;">7건</span>의 관련 사례를 발견했습니다</h3>
+        <p>지난 3년간 <strong>Vds 80V 대역</strong>에서 보고된 불량 사례는 총 7건이며, 그 중 5건이 <strong>스위칭 시 오버슛 손상</strong>으로 분류됩니다 <span class="cite">[1]</span> <span class="cite">[2]</span>. 특히 <strong>고객 A사 (DC-DC 컨버터 응용)</strong>의 2024년 케이스가 가장 유사합니다 <span class="cite">[3]</span>.</p>
+        <p>당시 원인은 <strong>게이트 드라이브 회로의 부적절한 dV/dt 제어</strong>로 진단되었으며, <strong>스너버 회로 추가 + 게이트 저항 22Ω → 33Ω 변경</strong>으로 해결되었습니다 <span class="cite">[3]</span>. 동일 응용을 검토하는 경우 본 권고 사항을 우선 검토하시기 바랍니다.</p>
+        <p>외부 리서치 결과, 업계에서 동일 현상은 <strong>"고속 스위칭 시 누설전류"</strong>로도 알려져 있으며, IEEE 2025 논문에서 회로 토폴로지 개선 방안이 제시되었습니다 <span class="cite">[5]</span>.</p>`,
+      sources: [
+        {n: 'S1', type: 'in', title: '불량보고서 · L2024-031 · Wafer-07', snip: '...Vds 80V 구간에서 스위칭 손상 발생. 게이트 드라이브 dV/dt 검토 필요...', meta: 'QE팀 · 김상훈 · 2024-08-15'},
+        {n: 'S2', type: 'in', title: '불량보고서 · L2024-127 · Wafer-03', snip: '...80V 인가 시 오버슛 패턴 발생. 동일 게이트 저항 사용 중...', meta: 'QE팀 · 전병욱 · 2024-11-02'},
+        {n: 'S3', type: 'in', title: '고객 응대 · A사 DC-DC 컨버터 케이스', snip: '...스너버 회로 추가 및 게이트 저항 33Ω로 변경하여 해결...', meta: 'FAE팀 · 류진솔 · 2024-12-10'},
+        {n: 'S4', type: 'in', title: '데이터시트 · TP-1200N v2.1', snip: '...권장 게이트 저항 33Ω, Vds < 200V 응용에 적합...', meta: 'TP-SEMI · 2025-03'},
+        {n: 'S5', type: 'ex', title: 'IEEE 2025 · Power MOSFET Switching Loss', snip: '...High-speed switching loss mitigation in 80-200V range...', meta: 'Perplexity · 외부 보강'},
+      ],
+      time: '2.4s', conf: '94%'
+    },
+    q2: {
+      query: 'TP-1200N 경쟁사 대비 강점',
+      answer: `<h3>스위칭 속도·열저항·가격에서 우위</h3>
+        <p>TP-1200N은 경쟁사 대비 <strong>Qg 67nC (vs Infineon 104nC, 35% 우위)</strong>로 스위칭 속도에서 명확한 강점을 가집니다 <span class="cite">[1]</span>. 열저항 또한 <strong>0.45°C/W로 onsemi 0.52°C/W 대비 13% 우위</strong>로, 고출력 응용에서 발열 마진 확보가 유리합니다 <span class="cite">[2]</span>.</p>
+        <p>단가 측면에서 <strong>$2.45 (1K MOQ 기준)</strong>으로 경쟁사 평균 대비 22% 저렴하며, <strong>Lead Time 8주</strong>로 Infineon (14주) 대비 명확한 납기 우위를 보유합니다 <span class="cite">[3]</span>.</p>
+        <p>제약 사항은 <strong>Ron 4.7mΩ</strong>으로 onsemi (4.1mΩ) 대비 14% 높아, <strong>대전류 응용에서는 케이스별 검토</strong>가 필요합니다 <span class="cite">[1]</span>.</p>`,
+      sources: [
+        {n: 'S1', type: 'in', title: 'FAE 비교 보고서 · 2026-Q1', snip: 'TP-1200N vs Infineon vs onsemi 스펙 비교표...', meta: 'FAE · 류진솔 · 2026-03-22'},
+        {n: 'S2', type: 'in', title: '데이터시트 · TP-1200N', snip: 'Rth(j-c) = 0.45°C/W typical...', meta: 'TP-SEMI · 2025-03'},
+        {n: 'S3', type: 'in', title: '영업 보고 · 글로벌 고객 Q4', snip: 'Lead time 8주 우위로 신규 수주 3건 확보...', meta: '영업 · 우동섭 · 2025-12'},
+      ],
+      time: '1.9s', conf: '97%'
+    },
+    q3: {
+      query: 'SiC vs GaN 시장 동향 2026',
+      answer: `<h3>SiC가 EV·산업 분야 주도, GaN은 통신·소형 전원에서 확장</h3>
+        <p><strong>SiC(Silicon Carbide)</strong>는 2026년 EV·산업용 인버터 시장에서 연 25% 성장 예상, 글로벌 시장 규모 약 <strong>$45억</strong>으로 추정됩니다 <span class="cite">[1]</span> <span class="cite">[2]</span>. 주요 플레이어는 Wolfspeed, Infineon, ROHM이며, 한국 업체들도 본격 진입 중입니다.</p>
+        <p><strong>GaN(Gallium Nitride)</strong>은 통신·노트북 충전기·DC-DC 시장에서 두각, 2026년 시장 규모 <strong>$22억 (전년比 +35%)</strong>으로 빠르게 확장되고 있습니다 <span class="cite">[3]</span>. Navitas, GaN Systems(인피니언 인수), EPC가 주요 경쟁자입니다.</p>
+        <p>당사의 Si 기반 제품은 <strong>가격 경쟁력</strong>이 핵심 강점이나, <strong>중장기적으로 GaN 라인업 검토</strong>가 필요할 시점입니다 <span class="cite">[4]</span>.</p>`,
+      sources: [
+        {n: 'S1', type: 'ex', title: 'Yole 2026 Q1 · WBG Power Report', snip: 'SiC market to reach $4.5B in 2026, CAGR 25%...', meta: 'Perplexity · Yole 2026-04'},
+        {n: 'S2', type: 'ex', title: 'McKinsey · EV Power Electronics', snip: '...SiC adoption in EV inverters accelerating...', meta: 'Perplexity · McKinsey 2026-03'},
+        {n: 'S3', type: 'ex', title: 'Omdia GaN Quarterly', snip: 'GaN power devices to reach $2.2B...', meta: 'Perplexity · Omdia 2026-02'},
+        {n: 'S4', type: 'in', title: '신사업팀 · WBG 전환 검토', snip: '2027 GaN 라인업 도입 타당성 검토 시작...', meta: '신사업 · 장성훈 · 2026-04'},
+      ],
+      time: '3.1s', conf: '88%'
+    },
+    q4: {
+      query: '불량 보고서 PPAP 양식 검색',
+      answer: `<h3>사내 PPAP 양식 v3.2가 가장 최신입니다</h3>
+        <p>현재 사용 중인 PPAP 양식은 <strong>v3.2 (2026-01 업데이트)</strong>이며, NAS의 <code>/templates/quality/PPAP_v3.2.pptx</code>에서 다운로드 가능합니다 <span class="cite">[1]</span>. 본 양식은 <strong>US Letter 사이즈 기본</strong>이며, 해외 고객 대응 시 그대로 사용할 수 있습니다.</p>
+        <p>A4 변환이 필요한 경우 <strong>Pattern 03 (문서 자동 생성)</strong>의 "PDF 사이즈 변환" 기능을 사용하시면 됩니다 <span class="cite">[2]</span>. 또한 8D 양식(불량 보고서)은 <code>/templates/quality/8D_v2.1.pptx</code>에 별도로 보관되어 있습니다 <span class="cite">[3]</span>.</p>`,
+      sources: [
+        {n: 'S1', type: 'in', title: 'PPAP_v3.2.pptx', snip: '...최신 PPAP 양식 · 16 페이지 구성...', meta: 'NAS · /templates/quality/ · 2026-01-15'},
+        {n: 'S2', type: 'in', title: 'QE 미팅 노트', snip: '...PDF 레터 → A4 변환 작업 자동화 요청...', meta: 'QE · 2026-01-20'},
+        {n: 'S3', type: 'in', title: '8D_v2.1.pptx', snip: '...8D 불량 보고서 표준 양식...', meta: 'NAS · /templates/quality/ · 2025-09-03'},
+      ],
+      time: '1.2s', conf: '99%'
+    }
+  };
+
+  function showThinking() {
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('resultsGrid').style.display = 'none';
+    document.getElementById('thinking').classList.add('active');
+    const steps = document.querySelectorAll('.think-step');
+    steps.forEach(s => s.className = 'think-step pending');
+
+    let i = 0;
+    const intv = setInterval(() => {
+      if (i > 0) steps[i - 1].className = 'think-step done';
+      if (i < steps.length) {
+        steps[i].className = 'think-step active';
+        i++;
+      } else {
+        clearInterval(intv);
+        steps[steps.length - 1].className = 'think-step done';
+      }
+    }, 400);
+  }
+
+  function showResult(qKey) {
+    const data = QUERIES[qKey];
+    document.getElementById('thinking').classList.remove('active');
+    document.getElementById('resultsGrid').style.display = 'grid';
+
+    document.getElementById('answerContent').innerHTML = data.answer;
+    document.getElementById('metaTime').textContent = data.time;
+    document.getElementById('metaSrc').textContent = data.sources.length;
+    document.getElementById('metaConf').textContent = data.conf;
+
+    const container = document.getElementById('sourcesContainer');
+    container.innerHTML = data.sources.map((s, i) => `
+      <div class="source-item ${s.type === 'ex' ? 'external' : ''}">
+        <div class="src-num">[${i + 1}] ${s.type === 'ex' ? '🌐 외부' : '📂 사내'}</div>
+        <div class="src-title">${s.title}</div>
+        <div class="src-snip">${s.snip}</div>
+        <div class="src-meta">${s.meta}</div>
+      </div>
+    `).join('');
+
+    document.getElementById('searchInput').value = data.query;
+  }
+
+  document.querySelectorAll('.q-chip').forEach(c => {
+    c.addEventListener('click', () => {
+      showThinking();
+      setTimeout(() => showResult(c.dataset.q), 2200);
+    });
+  });
+
+  document.getElementById('searchBtn').addEventListener('click', () => {
+    const v = document.getElementById('searchInput').value.trim();
+    if (!v) return;
+    // Match to closest example or default to q1
+    const k = Object.keys(QUERIES).find(k => QUERIES[k].query.includes(v.split(' ')[0])) || 'q1';
+    showThinking();
+    setTimeout(() => showResult(k), 2200);
+  });
+
+  document.getElementById('searchInput').addEventListener('keypress', e => {
+    if (e.key === 'Enter') document.getElementById('searchBtn').click();
+  });
+</script>
+
+</body>
+</html>

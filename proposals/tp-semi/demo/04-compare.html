@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo 04 · LED Controller 데이터시트 비교 — 다믈파워반도체</title>
+<link rel="stylesheet" href="_shell.css">
+<style>
+  :root { --demo-color: #06b6d4; --demo-glow: rgba(6, 182, 212, 0.25); }
+
+  .pdf-zone {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .pdf-card {
+    background: #fff;
+    border: 2px dashed var(--border-card);
+    border-radius: 10px;
+    padding: 16px 12px;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .pdf-card:hover { border-color: var(--demo-color); transform: translateY(-2px); }
+  .pdf-card.loaded {
+    border: 2px solid var(--demo-color);
+    background: #ecfeff;
+    border-style: solid;
+  }
+  .pdf-icon {
+    background: #dc2626;
+    color: #fff;
+    width: 36px; height: 44px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 800;
+    margin: 0 auto 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    position: relative;
+  }
+  .pdf-icon::after {
+    content: "";
+    position: absolute;
+    top: 0; right: 0;
+    border-style: solid;
+    border-width: 0 7px 7px 0;
+    border-color: transparent #b91c1c transparent transparent;
+  }
+  .pdf-card .name {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+    margin-bottom: 4px;
+    word-break: break-all;
+  }
+  .pdf-card .meta {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .pdf-card .vendor {
+    position: absolute;
+    top: 6px; left: 6px;
+    font-size: 0.62rem;
+    background: var(--demo-color);
+    color: #fff;
+    padding: 1px 6px;
+    border-radius: 100px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .pdf-card.loaded .vendor { background: var(--demo-color); }
+  .pdf-card.empty .pdf-icon { background: #cbd5e1; box-shadow: none; }
+  .pdf-card.empty .pdf-icon::after { border-color: transparent #94a3b8 transparent transparent; }
+
+  .focus-options {
+    margin-top: 14px;
+    background: var(--bg-card-alt);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .focus-options label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .focus-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .f-chip {
+    padding: 5px 11px;
+    background: #fff;
+    border: 1px solid var(--border-card);
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .f-chip:hover { border-color: var(--demo-color); }
+  .f-chip.active {
+    background: var(--demo-color);
+    color: #fff;
+    border-color: var(--demo-color);
+  }
+
+  .progress { margin: 16px 0; background: var(--bg-card-alt); border-radius: 10px; padding: 12px 16px; display: none; }
+  .progress.active { display: block; }
+  .progress-bar { height: 6px; background: var(--border-card); border-radius: 100px; overflow: hidden; margin-top: 8px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #06b6d4 0%, #0891b2 100%); width: 0%; transition: width 0.3s; }
+
+  .verdict-bar {
+    background: linear-gradient(135deg, #164e63 0%, #0e7490 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+  }
+  .verdict-bar .h {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #67e8f9;
+    letter-spacing: 0.2em;
+    margin-bottom: 6px;
+  }
+  .verdict-bar .v {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.55;
+  }
+  .verdict-bar .v strong { color: #67e8f9; }
+
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+  .comp-table thead th {
+    background: var(--bg-2);
+    color: #fff;
+    padding: 10px 12px;
+    font-weight: 700;
+    text-align: left;
+    font-size: 0.78rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .comp-table thead th.us { background: #06b6d4; }
+  .comp-table tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-card);
+    text-align: left;
+  }
+  .comp-table tbody td:first-child {
+    font-weight: 700;
+    background: var(--bg-card-alt);
+    color: var(--text);
+    width: 28%;
+  }
+  .comp-table tbody td.us { background: #ecfeff; color: var(--text); font-weight: 600; }
+  .comp-table tbody td.us.win { background: #dcfce7; }
+  .comp-table tbody td.win-comp { background: #fef3c7; }
+  .winner-pill {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    margin-left: 5px;
+  }
+  .winner-pill.us { background: #06b6d4; color: #fff; }
+  .winner-pill.comp { background: #f59e0b; color: #fff; }
+
+  .comp-table tr.hidden { display: none; }
+  .cat-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+  .empty-rows-msg {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    background: var(--bg-card-alt);
+    border-radius: 8px;
+    margin-top: 14px;
+    display: none;
+  }
+  .empty-rows-msg.show { display: block; }
+
+  .insight {
+    background: #fef9c3;
+    border-left: 4px solid #f59e0b;
+    padding: 14px 18px;
+    border-radius: 0 10px 10px 0;
+    margin-top: 16px;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .insight strong { color: #92400e; }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-left">
+    <a href="index.html" class="tb-back">← 데모 허브</a>
+    <div class="tb-crumb">
+      <span class="tb-num">PATTERN · 04</span>
+      <span class="sep">/</span>
+      <span class="current">경쟁사 데이터시트 비교</span>
+    </div>
+  </div>
+  <div class="tb-right">
+    <span class="tb-live">LIVE DEMO</span>
+  </div>
+</div>
+
+<div class="demo-hero">
+  <div class="demo-hero-inner">
+    <div class="eyebrow">LONG-CONTEXT LLM · MULTI-DOC COMPARE</div>
+    <h1>TMP1700 vs TI TPS92692-Q1 vs ADI MAX25611A 동시 비교</h1>
+    <p class="lead">
+      FAE팀의 LED Driver 데이터시트 비교 작업을 <strong>월 16시간 절감</strong>합니다.
+      자동차용 LED 컨트롤러 직접 경쟁군 (Buck-Boost · AEC-Q100 · Wide Vin · 20-TSSOP-EP)을 동시 분석,
+      <strong>"MAX25611A와 풋프린트 동일 → 직접 대체"</strong>처럼 영업 활용 가능한 전략 인사이트를 자동 도출합니다.
+    </p>
+    <div class="chips">
+      <span class="h-chip accent">FAE · 영업 · 신사업</span>
+      <span class="h-chip">월 ~36h 절감</span>
+      <span class="h-chip">Claude Sonnet 4.6 (1M)</span>
+      <span class="h-chip">Gemini 1.5 Pro (2M)</span>
+      <span class="h-chip">LlamaIndex</span>
+    </div>
+  </div>
+</div>
+
+<div class="demo-container">
+  <div class="workspace">
+
+    <!-- LEFT: INPUT -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title"><span class="num">INPUT</span> 비교할 데이터시트</div>
+        <span class="panel-tag">PDF × 3</span>
+      </div>
+
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">
+        실 환경에서는 PDF 파일을 드래그&드롭으로 업로드합니다. 데모용 샘플 3종이 준비되어 있습니다.
+      </p>
+
+      <div class="pdf-zone">
+        <div class="pdf-card loaded">
+          <div class="vendor">자사</div>
+          <div class="pdf-icon">PDF</div>
+          <div class="name">TMP1700<br>High Accuracy<br>LED Controller</div>
+          <div class="meta">16 pages · 2.8MB</div>
+        </div>
+        <div class="pdf-card loaded">
+          <div class="vendor" style="background:#f59e0b;">COMP-A</div>
+          <div class="pdf-icon">PDF</div>
+          <div class="name">TPS92692-Q1<br>(Texas Instr.)</div>
+          <div class="meta">48 pages · 3.9MB</div>
+        </div>
+        <div class="pdf-card loaded">
+          <div class="vendor" style="background:#a855f7;">COMP-B</div>
+          <div class="pdf-icon">PDF</div>
+          <div class="name">MAX25611A<br>(ADI / Maxim)</div>
+          <div class="meta">44 pages · 4.3MB</div>
+        </div>
+      </div>
+
+      <div class="focus-options">
+        <label>비교 포인트 (다중 선택 · 클릭 즉시 표 갱신)</label>
+        <div class="focus-chips" id="focusChips">
+          <span class="f-chip active" data-cat="electrical">전기적 특성</span>
+          <span class="f-chip active" data-cat="switching">스위칭 특성</span>
+          <span class="f-chip active" data-cat="thermal">열 특성</span>
+          <span class="f-chip" data-cat="package">패키지·핀맵</span>
+          <span class="f-chip active" data-cat="price">가격·납기</span>
+          <span class="f-chip" data-cat="reliability">신뢰성 시험</span>
+        </div>
+      </div>
+
+      <div class="focus-options">
+        <label>분석 모델 선택</label>
+        <div class="focus-chips">
+          <span class="f-chip active">Claude Sonnet 4.6 (1M)</span>
+          <span class="f-chip">Gemini 1.5 Pro (2M)</span>
+          <span class="f-chip">GPT-4 Turbo</span>
+        </div>
+      </div>
+
+      <button class="btn" id="runBtn" style="width:100%; justify-content:center; margin-top: 16px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        비교 분석 실행
+      </button>
+
+      <div class="progress" id="progress">
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem;">
+          <span style="font-weight:700;" id="progLabel">분석 중...</span>
+          <span id="progPct" style="font-family:'JetBrains Mono',monospace; font-weight:700;">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: OUTPUT -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title"><span class="num">OUTPUT</span> 비교 분석 결과</div>
+        <span class="panel-tag" id="resTag">대기 중</span>
+      </div>
+
+      <div id="emptyState" class="empty-state">
+        <div style="font-size:2.5rem; opacity:0.3; margin-bottom:10px;">▦</div>
+        분석 실행 후 비교표가 표시됩니다
+      </div>
+
+      <div id="resultArea" style="display:none;">
+        <div class="verdict-bar">
+          <div class="h">🏆 AI 종합 평가 · <span id="activeCats" style="font-family:'JetBrains Mono',monospace; font-size:0.7rem;">4개 카테고리</span></div>
+          <div class="v" id="verdictText">
+            <!-- dynamically generated based on active categories -->
+          </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="comp-table" id="compTable">
+            <thead>
+              <tr>
+                <th>스펙 항목</th>
+                <th class="us">자사 TMP1700</th>
+                <th>TI TPS92692-Q1</th>
+                <th>ADI MAX25611A</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- ── 전기적 특성 ── -->
+              <tr data-cat="electrical">
+                <td>Vin Range (입력 전압) <span class="cat-tag">전기</span> <span class="winner-pill comp">TI / ADI</span></td>
+                <td class="us">4.5 V ~ 55 V</td>
+                <td class="win-comp">4.5 V ~ 65 V</td>
+                <td class="win-comp">5.0 V ~ 65 V</td>
+              </tr>
+              <tr data-cat="electrical">
+                <td>토폴로지 지원 <span class="cat-tag">전기</span></td>
+                <td class="us">Boost / Buck-Boost</td>
+                <td>Boost / SEPIC / Boost-to-Battery</td>
+                <td>Synchronous Buck-Boost</td>
+              </tr>
+              <tr data-cat="electrical">
+                <td>Current Sense 정확도 (Vref) <span class="cat-tag">전기</span> <span class="winner-pill us">자사</span></td>
+                <td class="us win">200 mV ±3%</td>
+                <td>200 mV ±5%</td>
+                <td>100 mV ±4%</td>
+              </tr>
+              <tr data-cat="electrical">
+                <td>최대 LED 전류 <span class="cat-tag">전기</span> <span class="winner-pill comp">TI</span></td>
+                <td class="us">2.0 A</td>
+                <td class="win-comp">2.5 A</td>
+                <td>2.2 A</td>
+              </tr>
+              <tr data-cat="electrical">
+                <td>Built-in Protection <span class="cat-tag">전기</span> <span class="winner-pill us">자사</span></td>
+                <td class="us win">UVP · OVP · TSD · OCP · Open/Short</td>
+                <td>UVP · OVP · TSD · OCP</td>
+                <td>UVP · OVP · TSD</td>
+              </tr>
+
+              <!-- ── 스위칭 특성 ── -->
+              <tr data-cat="switching">
+                <td>Switching Frequency 범위 <span class="cat-tag">스위칭</span> <span class="winner-pill comp">ADI</span></td>
+                <td class="us">100 kHz ~ 1 MHz</td>
+                <td>100 kHz ~ 700 kHz</td>
+                <td class="win-comp">200 kHz ~ 2.2 MHz</td>
+              </tr>
+              <tr data-cat="switching">
+                <td>Spread Spectrum FM (EMI 저감) <span class="cat-tag">스위칭</span> <span class="winner-pill us">자사</span></td>
+                <td class="us win">✓ Built-in + Dithering 결합</td>
+                <td>✓ Built-in (단일)</td>
+                <td>✓ Built-in (단일)</td>
+              </tr>
+              <tr data-cat="switching">
+                <td>Min On-Time <span class="cat-tag">스위칭</span> <span class="winner-pill us">자사</span></td>
+                <td class="us win">75 ns</td>
+                <td>95 ns</td>
+                <td>80 ns</td>
+              </tr>
+              <tr data-cat="switching">
+                <td>Internal PWM Dimming Generator <span class="cat-tag">스위칭</span> <span class="winner-pill us">자사</span></td>
+                <td class="us win">✓ Analog→PWM 내장 (Stand-alone)</td>
+                <td>DIM 핀 (외부 MCU 필요)</td>
+                <td>DIM 핀 (외부 MCU 필요)</td>
+              </tr>
+              <tr data-cat="switching">
+                <td>Synchronous Rectification <span class="cat-tag">스위칭</span> <span class="winner-pill comp">ADI</span></td>
+                <td class="us">✗ (Asynchronous)</td>
+                <td>✗ (Asynchronous)</td>
+                <td class="win-comp">✓ (≥95% 효율)</td>
+              </tr>
+
+              <!-- ── 열 특성 ── -->
+              <tr data-cat="thermal">
+                <td>Operating Temperature <span class="cat-tag">열</span></td>
+                <td class="us">-40 ~ 125 °C</td>
+                <td>-40 ~ 125 °C</td>
+                <td>-40 ~ 125 °C</td>
+              </tr>
+              <tr data-cat="thermal">
+                <td>Tj (max) <span class="cat-tag">열</span></td>
+                <td class="us">150 °C</td>
+                <td>150 °C</td>
+                <td>150 °C</td>
+              </tr>
+              <tr data-cat="thermal">
+                <td>TSD Threshold <span class="cat-tag">열</span></td>
+                <td class="us">165 °C</td>
+                <td>170 °C</td>
+                <td>165 °C</td>
+              </tr>
+              <tr data-cat="thermal">
+                <td>Rθ(J-A) Thermal Resistance <span class="cat-tag">열</span> <span class="winner-pill us">자사 / ADI</span></td>
+                <td class="us win">80 °C/W (EP)</td>
+                <td>90 °C/W</td>
+                <td class="us win">78 °C/W (EP)</td>
+              </tr>
+
+              <!-- ── 패키지·핀맵 ── -->
+              <tr data-cat="package">
+                <td>Package Type <span class="cat-tag">패키지</span></td>
+                <td class="us">20-TSSOP-EP</td>
+                <td>16-HTSSOP</td>
+                <td>20-TSSOP-EP <strong>(동일)</strong></td>
+              </tr>
+              <tr data-cat="package">
+                <td>Pin Count <span class="cat-tag">패키지</span> <span class="winner-pill comp">TI</span></td>
+                <td class="us">20</td>
+                <td class="win-comp">16 (가장 컴팩트)</td>
+                <td>20</td>
+              </tr>
+              <tr data-cat="package">
+                <td>Exposed Pad (방열 패드) <span class="cat-tag">패키지</span></td>
+                <td class="us">✓ EP 포함</td>
+                <td>✓ EP 포함</td>
+                <td>✓ EP 포함</td>
+              </tr>
+              <tr data-cat="package">
+                <td>풋프린트 호환성 <span class="cat-tag">패키지</span> <span class="winner-pill us">자사 ↔ ADI</span></td>
+                <td class="us win">MAX25611A 직접 대체 가능</td>
+                <td>핀배열 상이 (재설계 필요)</td>
+                <td class="us win">TMP1700 직접 대체 가능</td>
+              </tr>
+              <tr data-cat="package">
+                <td>RoHS / Halogen-free <span class="cat-tag">패키지</span></td>
+                <td class="us">✓ / ✓</td>
+                <td>✓ / ✓</td>
+                <td>✓ / ✓</td>
+              </tr>
+
+              <!-- ── 가격·납기 ── -->
+              <tr data-cat="price">
+                <td>Unit Price (1Kpc 기준) <span class="cat-tag">가격</span> <span class="winner-pill us">자사</span></td>
+                <td class="us win">$1.85</td>
+                <td>$2.65</td>
+                <td>$2.95</td>
+              </tr>
+              <tr data-cat="price">
+                <td>MOQ <span class="cat-tag">가격</span> <span class="winner-pill us">자사</span></td>
+                <td class="us win">1,000 ea</td>
+                <td>2,500 ea</td>
+                <td>2,500 ea</td>
+              </tr>
+              <tr data-cat="price">
+                <td>Lead Time <span class="cat-tag">가격</span> <span class="winner-pill us">자사</span></td>
+                <td class="us win">8 weeks</td>
+                <td>14 weeks</td>
+                <td>18 weeks</td>
+              </tr>
+              <tr data-cat="price">
+                <td>Free Sample 지원 <span class="cat-tag">가격</span></td>
+                <td class="us">✓ (FAE 직접 지원)</td>
+                <td>✓ (TI Store)</td>
+                <td>✓ (ADI Sample Center)</td>
+              </tr>
+
+              <!-- ── 신뢰성 시험 ── -->
+              <tr data-cat="reliability">
+                <td>AEC-Q100 Grade <span class="cat-tag">신뢰성</span></td>
+                <td class="us">Grade 1 ✓</td>
+                <td>Grade 1 ✓</td>
+                <td>Grade 1 ✓</td>
+              </tr>
+              <tr data-cat="reliability">
+                <td>HBM ESD <span class="cat-tag">신뢰성</span> <span class="winner-pill us">자사</span></td>
+                <td class="us win">±4 kV</td>
+                <td>±2 kV</td>
+                <td>±2 kV</td>
+              </tr>
+              <tr data-cat="reliability">
+                <td>CDM ESD <span class="cat-tag">신뢰성</span> <span class="winner-pill us">자사</span></td>
+                <td class="us win">±1.5 kV</td>
+                <td>±750 V</td>
+                <td>±1 kV</td>
+              </tr>
+              <tr data-cat="reliability">
+                <td>HTOL (1000h @ Tj=150°C) <span class="cat-tag">신뢰성</span></td>
+                <td class="us">✓ Pass</td>
+                <td>✓ Pass</td>
+                <td>✓ Pass</td>
+              </tr>
+              <tr data-cat="reliability">
+                <td>자동차 양산 트랙 레코드 <span class="cat-tag">신뢰성</span> <span class="winner-pill comp">TI / ADI</span></td>
+                <td class="us">2M units/yr (국내 OEM 3개사)</td>
+                <td class="win-comp">5M+ units/yr (글로벌)</td>
+                <td class="win-comp">4M+ units/yr (글로벌 헤드램프)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="empty-rows-msg" id="emptyMsg">
+          ⚠️ 비교 포인트가 모두 해제되었습니다. 좌측에서 1개 이상 선택해주세요.
+        </div>
+
+        <div class="insight" id="insightBox">
+          <!-- dynamically generated -->
+        </div>
+
+        <div style="margin-top: 14px; display: flex; gap: 8px;">
+          <button class="btn" style="font-size:0.82rem; padding:10px 16px;">📊 비교표 Excel</button>
+          <button class="btn outline" style="font-size:0.82rem; padding:10px 16px;">📑 영업용 PPT</button>
+          <button class="btn dark" style="font-size:0.82rem; padding:10px 16px;">🔗 근거 페이지 인용</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TECH SECTION -->
+  <div class="tech-section">
+    <h3>HOW IT WORKS</h3>
+    <h2>장문 컨텍스트 LLM이 여러 PDF를 동시에 이해</h2>
+
+    <div class="tech-cols">
+      <div class="tech-col">
+        <h4>LONG-CONTEXT MODELS</h4>
+        <ul>
+          <li>Claude Sonnet 4.6 (1M tok)</li>
+          <li>Gemini 1.5 Pro (2M tok)</li>
+          <li>GPT-4 Turbo (128K tok)</li>
+          <li>Cohere Command-R+ (128K)</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>PDF PROCESSING</h4>
+        <ul>
+          <li>PyMuPDF (텍스트+이미지)</li>
+          <li>pdfplumber (표 추출)</li>
+          <li>Document AI OCR</li>
+          <li>LlamaIndex / LangChain</li>
+          <li>Streamlit (PoC UI)</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>OUTPUT</h4>
+        <ul>
+          <li>비교표 → openpyxl</li>
+          <li>영업용 → python-pptx</li>
+          <li>근거 → 페이지 인용 표기</li>
+          <li>사내 FAE 포털 연동</li>
+          <li>Next.js + FastAPI (정착)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-block" style="margin-top: 24px;"><span class="com"># 실 구현: 여러 PDF를 1M 컨텍스트로 동시 비교</span>
+<span class="kw">import</span> base64, fitz  <span class="com"># PyMuPDF</span>
+<span class="kw">from</span> anthropic <span class="kw">import</span> Anthropic
+
+pdfs = [<span class="str">"ours.pdf"</span>, <span class="str">"comp_a.pdf"</span>, <span class="str">"comp_b.pdf"</span>]
+docs = []
+<span class="kw">for</span> p <span class="kw">in</span> pdfs:
+    text = <span class="str">"\n"</span>.<span class="fn">join</span>(page.<span class="fn">get_text</span>() <span class="kw">for</span> page <span class="kw">in</span> fitz.<span class="fn">open</span>(p))
+    docs.<span class="fn">append</span>({<span class="str">"name"</span>: p, <span class="str">"text"</span>: text})
+
+result = client.messages.<span class="fn">create</span>(
+    model=<span class="str">"claude-sonnet-4-6"</span>,
+    max_tokens=<span class="num">4096</span>,
+    system=<span class="str">"반도체 데이터시트 3건을 비교. JSON 표 + 영업 인사이트 3건 출력."</span>,
+    messages=[{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: json.<span class="fn">dumps</span>(docs)}]
+)</div>
+  </div>
+
+  <div class="demo-nav">
+    <a href="03-docgen.html" class="nav-link">
+      <div class="direction">← PREV</div>
+      <div class="name">03 · 불량 보고서 자동 생성</div>
+    </a>
+    <a href="05-monitor.html" class="nav-link next">
+      <div class="direction">NEXT →</div>
+      <div class="name">05 · 실시간 모니터링 대시보드</div>
+    </a>
+  </div>
+</div>
+
+<script>
+  const CAT_LABEL = {
+    electrical: '전기적 특성',
+    switching: '스위칭 특성',
+    thermal: '열 특성',
+    package: '패키지·핀맵',
+    price: '가격·납기',
+    reliability: '신뢰성 시험'
+  };
+
+  // 카테고리별 강점·약점·전략 스니펫 (활성화된 카테고리만 평가에 반영됨)
+  const VERDICT_PARTS = {
+    electrical: {
+      win: '<strong>Current Sense 200mV ±3%</strong>로 TI(±5%)/ADI(±4%) 대비 가장 정확한 LED 전류 제어, <strong>5중 보호 회로 내장</strong> (UVP·OVP·TSD·OCP·Open/Short)으로 필드 신뢰성 강화',
+      loss: '<strong>Vin 최대 55V</strong>는 TI/ADI (65V) 대비 낮음 → 24V 트럭·버스 시스템 등 고전압 응용은 케이스별 검토 필요. 최대 LED 전류 <strong>2.0A</strong>는 TI 2.5A 대비 약간 부족',
+      insight: '<strong>차량용 후미등·DRL·인테리어 LED 모듈</strong>: ±3% 정밀 전류로 모듈 간 LED 밝기 편차 최소화 + 5중 보호로 필드 클레임 리스크 감소'
+    },
+    switching: {
+      win: '<strong>Spread Spectrum FM + Switching Dithering 결합 (단일이 아닌 듀얼)</strong>으로 EMI 저감 효과 극대화 (TI/ADI 모두 단일), <strong>Internal Analog→PWM Dimming Generator 내장</strong>으로 외부 MCU 없이 Stand-alone 디밍 (TI/ADI 모두 외부 MCU 필요), <strong>Min On-Time 75ns</strong>로 모든 경쟁사 대비 우위',
+      loss: '<strong>ADI MAX25611A는 Synchronous Rectification</strong>으로 95% 이상 효율 달성 → 전력 손실 최소화가 핵심인 헤드램프·고휘도 응용에서 효율 격차 발생. 스위칭 주파수 상한도 ADI(2.2MHz) 대비 1MHz로 제한적',
+      insight: '<strong>EMC 인증 민감 응용 (헤드램프·디지털 사이니지·산업용)</strong>: Spread+Dithering 결합으로 EMI 인증 통과 마진 확보 + 디밍 회로 BOM 단순화. <strong>저효율 허용 응용 우선</strong>: 효율 95% 미만이어도 무방한 후미등·인테리어·실내등 영역에서 강점 발휘'
+    },
+    thermal: {
+      win: '<strong>Rθ(J-A) 80°C/W (EP 적용)</strong>로 TI(90°C/W) 대비 11% 낮음, ADI(78°C/W)와 동등 수준 → 동일 전력에서 Tj 안정',
+      loss: null,
+      insight: '<strong>고온 환경 (엔진룸 인접, 옥외 사이니지)</strong>: 낮은 Rθ로 방열판·구리 면적 절감 → BOM 비용 동시 감소'
+    },
+    package: {
+      win: '<strong>20-TSSOP-EP로 ADI MAX25611A와 풋프린트 동일</strong> → MAX25611A 사용 고객사의 <strong>보드 재설계 없이 직접 대체 영업</strong> 가능 (강력한 도입 장벽 제거), Exposed Pad 통한 방열 우위',
+      loss: '<strong>20핀 패키지</strong>는 TI TPS92692-Q1 (16핀) 대비 보드 면적 더 크게 차지 → 초소형 모듈·웨어러블 응용은 TI에 양보',
+      insight: '<strong>핵심 영업 포인트</strong>: <strong>"Maxim/ADI MAX25611A를 쓰던 고객사 — 풋프린트 동일하니 단가만 비교하세요"</strong>로 즉시 대체 전환 가능. <strong>초소형 응용</strong>은 자사 라인업 16핀 변형 개발 타당성 검토 권고'
+    },
+    price: {
+      win: '<strong>$1.85 (1Kpc)</strong>로 TI($2.65) 대비 30%, ADI($2.95) 대비 37% 저렴, <strong>MOQ 1,000ea</strong>로 시제품·소량 수주 대응 (TI/ADI는 2,500ea), <strong>Lead Time 8주</strong>로 ADI 18주 대비 절반 미만',
+      loss: null,
+      insight: '<strong>국내 Tier-1·Tier-2 양산 수주</strong>: 가격·MOQ·납기 3중 우위 + Free Sample FAE 직접 지원으로 평가 단계부터 차별화. <strong>BOM 비용 책임자 결정 가속화</strong> 가능'
+    },
+    reliability: {
+      win: '<strong>HBM ESD ±4kV / CDM ±1.5kV</strong>로 모든 경쟁사 대비 약 2배 높은 정전기 내성 → 양산 라인 핸들링·필드 클레임 리스크 감소, <strong>AEC-Q100 Grade 1</strong> 인증',
+      loss: '<strong>자동차 양산 트랙 레코드 2M units/yr</strong>은 TI (5M+), ADI (4M+ 글로벌 헤드램프) 대비 글로벌 인지도 격차 → 글로벌 OEM 신규 진입 시 레퍼런스 보강 필요',
+      insight: '<strong>국내 OEM·티어 양산</strong>: ESD 내성 + AEC-Q100 Grade 1 조합으로 품질 어필. <strong>글로벌 진입</strong>: 양산 실적 누적 + 핵심 레퍼런스 1~2건 확보 후 단계적 확장 전략'
+    }
+  };
+
+  function applyFilter() {
+    const activeChips = document.querySelectorAll('.f-chip.active');
+    const activeCats = Array.from(activeChips).map(c => c.dataset.cat);
+
+    // Filter rows
+    let visibleCount = 0;
+    document.querySelectorAll('#compTable tbody tr').forEach(tr => {
+      if (activeCats.includes(tr.dataset.cat)) {
+        tr.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        tr.classList.add('hidden');
+      }
+    });
+
+    // Update header tags
+    const tag = document.getElementById('resTag');
+    if (tag) tag.textContent = visibleCount === 0
+      ? '⚠️ 카테고리 미선택'
+      : `✓ ${visibleCount}개 항목 비교 완료`;
+
+    const catCount = document.getElementById('activeCats');
+    if (catCount) catCount.textContent = activeCats.length + '개 카테고리 · ' + visibleCount + '개 항목';
+
+    // Empty state
+    const empty = document.getElementById('emptyMsg');
+    if (empty) empty.classList.toggle('show', visibleCount === 0);
+
+    // Rebuild verdict & insight
+    buildVerdict(activeCats);
+  }
+
+  function buildVerdict(activeCats) {
+    const verdictEl = document.getElementById('verdictText');
+    const insightEl = document.getElementById('insightBox');
+    if (!verdictEl) return;
+
+    if (activeCats.length === 0) {
+      verdictEl.innerHTML = '비교 포인트를 선택하면 AI가 활성 카테고리 기준으로 영업 평가를 생성합니다.';
+      if (insightEl) insightEl.innerHTML = '<strong>💡 카테고리를 선택해주세요</strong>';
+      return;
+    }
+
+    const wins = activeCats.map(c => VERDICT_PARTS[c]?.win).filter(Boolean);
+    const losses = activeCats.map(c => VERDICT_PARTS[c]?.loss).filter(Boolean);
+    const insights = activeCats.map(c => VERDICT_PARTS[c]?.insight).filter(Boolean);
+
+    let v = '자사 <strong>TP-1200N</strong>은 ';
+    if (wins.length === 0) {
+      v += '선택된 카테고리에서 결정적 우위 항목이 없습니다. 다른 비교 포인트를 추가하여 종합 평가를 확장해보세요.';
+    } else {
+      v += '선택 카테고리에서 다음과 같은 우위를 보입니다: <br>· ' + wins.join('<br>· ');
+      if (losses.length > 0) {
+        v += '<br><br><span style="color:#fde68a;">⚠ 약점:</span> ' + losses.join(' / ');
+      }
+    }
+    verdictEl.innerHTML = v;
+
+    if (insightEl) {
+      if (insights.length === 0) {
+        insightEl.innerHTML = '<strong>💡 활성 카테고리에서 도출되는 영업 인사이트가 없습니다.</strong>';
+      } else {
+        insightEl.innerHTML = '<strong>💡 FAE 영업 인사이트 (AI 자동 도출 · 활성 카테고리 기반):</strong><br>' +
+          insights.map((s, i) => `${['①','②','③','④','⑤','⑥'][i] || '·'} ${s}`).join('<br>');
+      }
+    }
+  }
+
+  // Chip toggles → immediate filter
+  document.querySelectorAll('.f-chip').forEach(c => {
+    c.addEventListener('click', () => {
+      c.classList.toggle('active');
+      // If result area already shown, live-update
+      if (document.getElementById('resultArea').style.display === 'block') {
+        applyFilter();
+      }
+    });
+  });
+
+  document.getElementById('runBtn').addEventListener('click', () => {
+    const btn = document.getElementById('runBtn');
+    btn.disabled = true;
+    document.getElementById('progress').classList.add('active');
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('resTag').textContent = '분석 중...';
+
+    const fill = document.getElementById('progFill');
+    const pct = document.getElementById('progPct');
+    const label = document.getElementById('progLabel');
+    const phases = [
+      [15, 'PDF 텍스트·표 추출...'],
+      [40, 'Claude 1M 컨텍스트 로드...'],
+      [70, '스펙 매트릭스 정렬...'],
+      [90, '영업 인사이트 도출...'],
+      [100, '✓ 분석 완료']
+    ];
+    let p = 0, phaseIdx = 0;
+    const interval = setInterval(() => {
+      p += 1.5;
+      fill.style.width = Math.min(p, 100) + '%';
+      pct.textContent = Math.floor(Math.min(p, 100)) + '%';
+      if (phaseIdx < phases.length && p >= phases[phaseIdx][0]) {
+        label.textContent = phases[phaseIdx][1];
+        phaseIdx++;
+      }
+      if (p >= 100) {
+        clearInterval(interval);
+        setTimeout(() => {
+          document.getElementById('resultArea').style.display = 'block';
+          applyFilter();
+          btn.disabled = false;
+        }, 300);
+      }
+    }, 50);
+  });
+</script>
+
+</body>
+</html>

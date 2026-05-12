@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo 08 · 이슈 트래킹 칸반 — 다믈파워반도체</title>
+<link rel="stylesheet" href="_shell.css">
+<style>
+  :root { --demo-color: #6366f1; --demo-glow: rgba(99, 102, 241, 0.25); }
+
+  body { background: #f1f5f9; }
+
+  .filter-bar {
+    background: #fff;
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .filter-bar .group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .filter-bar .lbl {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .filter-chip {
+    padding: 5px 12px;
+    background: #f1f5f9;
+    border: 1px solid var(--border-card);
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .filter-chip:hover { border-color: var(--demo-color); }
+  .filter-chip.active {
+    background: var(--demo-color);
+    color: #fff;
+    border-color: var(--demo-color);
+  }
+  .filter-search {
+    margin-left: auto;
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-card);
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 0.85rem;
+    width: 220px;
+  }
+
+  /* KPI */
+  .kanban-kpi {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .kkpi {
+    background: #fff;
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .kkpi .icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+  .kkpi.todo .icon { background: #e0e7ff; color: #4338ca; }
+  .kkpi.progress .icon { background: #fef3c7; color: #b45309; }
+  .kkpi.review .icon { background: #ddd6fe; color: #6d28d9; }
+  .kkpi.done .icon { background: #d1fae5; color: #047857; }
+  .kkpi .val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+  }
+  .kkpi .lbl {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  /* Kanban */
+  .kanban {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .col {
+    background: var(--bg-card-alt);
+    border-radius: 12px;
+    padding: 14px;
+    min-height: 600px;
+  }
+  .col-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-card);
+  }
+  .col-name {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .col-name .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+  .col-cnt {
+    background: #fff;
+    border: 1px solid var(--border-card);
+    border-radius: 100px;
+    padding: 1px 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+  .col-todo .col-name .dot { background: #6366f1; }
+  .col-prog .col-name .dot { background: #f59e0b; }
+  .col-rev .col-name .dot { background: #a855f7; }
+  .col-done .col-name .dot { background: #10b981; }
+
+  .ticket {
+    background: #fff;
+    border: 1px solid var(--border-card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    cursor: grab;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .ticket:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    border-color: var(--demo-color);
+  }
+  .ticket:active { cursor: grabbing; }
+  .ticket.dragging { opacity: 0.4; transform: rotate(-1deg); }
+  .ticket-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .ticket-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+  .ticket-pri {
+    font-size: 0.62rem;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .ticket-pri.high { background: #fee2e2; color: #991b1b; }
+  .ticket-pri.med { background: #fef3c7; color: #92400e; }
+  .ticket-pri.low { background: #e0e7ff; color: #3730a3; }
+  .ticket-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .ticket-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .ticket-tag {
+    display: inline-block;
+    padding: 1px 6px;
+    background: #f1f5f9;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    color: var(--text-light);
+    font-weight: 600;
+  }
+  .ticket-tag.qe { background: #fef3c7; color: #92400e; }
+  .ticket-tag.qa { background: #d1fae5; color: #065f46; }
+  .ticket-tag.test { background: #dbeafe; color: #1e40af; }
+  .ticket-tag.scm { background: #ede9fe; color: #5b21b6; }
+  .ticket-tag.fae { background: #ffe4e6; color: #9f1239; }
+  .ticket-tag.ops { background: #f3e8ff; color: #6b21a8; }
+  .avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #818cf8, #6366f1);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+
+  /* Right side panel for AI assist (mock) */
+  .ai-panel {
+    margin-top: 24px;
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+    color: #fff;
+    border-radius: 16px;
+    padding: 24px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ai-panel::before {
+    content: "";
+    position: absolute;
+    top: -50%; right: -10%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.18) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .ai-panel > * { position: relative; }
+  .ai-panel .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #c4b5fd;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .ai-panel h3 {
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .ai-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .ai-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .ai-card .ico {
+    font-size: 1.4rem;
+    margin-bottom: 6px;
+  }
+  .ai-card .ttl {
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #fff;
+  }
+  .ai-card .desc {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 1100px) {
+    .kanban { grid-template-columns: repeat(2, 1fr); }
+    .kanban-kpi { grid-template-columns: repeat(2, 1fr); }
+    .ai-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .kanban { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-left">
+    <a href="index.html" class="tb-back">← 데모 허브</a>
+    <div class="tb-crumb">
+      <span class="tb-num">PATTERN · 08</span>
+      <span class="sep">/</span>
+      <span class="current">이슈 트래킹 칸반 (PM 요청)</span>
+    </div>
+  </div>
+  <div class="tb-right">
+    <span class="tb-live">LIVE DEMO</span>
+  </div>
+</div>
+
+<div class="demo-hero">
+  <div class="demo-hero-inner">
+    <div class="eyebrow">ISSUE TRACKING · KANBAN BOARD</div>
+    <h1>메일에 흩어진 업무 이력, 티켓 단위로 모입니다</h1>
+    <p class="lead">
+      PM팀의 요청 사항 — <strong>"한 명이 이탈해도 업무 공백이 없는 구조"</strong>를 칸반 보드로 구현합니다.
+      티켓 드래그&드롭으로 상태 변경, 부서·우선순위 필터, 그리고 AI 보조 기능(이슈 요약·중복 감지·후속 작업 추천)이 결합됩니다.
+    </p>
+    <div class="chips">
+      <span class="h-chip accent">PM · 전사 협업</span>
+      <span class="h-chip">이력 보존 + 이탈 리스크 제거</span>
+      <span class="h-chip">Linear-style</span>
+      <span class="h-chip">Notion</span>
+      <span class="h-chip">SSO 통합</span>
+    </div>
+  </div>
+</div>
+
+<div class="demo-container">
+
+  <div class="filter-bar">
+    <div class="group">
+      <span class="lbl">부서:</span>
+      <span class="filter-chip active">전체</span>
+      <span class="filter-chip">QE</span>
+      <span class="filter-chip">QA</span>
+      <span class="filter-chip">TEST</span>
+      <span class="filter-chip">SCM</span>
+      <span class="filter-chip">FAE</span>
+    </div>
+    <div class="group">
+      <span class="lbl">우선순위:</span>
+      <span class="filter-chip active">전체</span>
+      <span class="filter-chip">High</span>
+      <span class="filter-chip">Med</span>
+      <span class="filter-chip">Low</span>
+    </div>
+    <input type="text" class="filter-search" placeholder="🔍 티켓 검색...">
+  </div>
+
+  <div class="kanban-kpi">
+    <div class="kkpi todo">
+      <div class="icon">📋</div>
+      <div>
+        <div class="val">8</div>
+        <div class="lbl">TO-DO</div>
+      </div>
+    </div>
+    <div class="kkpi progress">
+      <div class="icon">⚙️</div>
+      <div>
+        <div class="val">5</div>
+        <div class="lbl">IN PROGRESS</div>
+      </div>
+    </div>
+    <div class="kkpi review">
+      <div class="icon">👁️</div>
+      <div>
+        <div class="val">3</div>
+        <div class="lbl">REVIEW</div>
+      </div>
+    </div>
+    <div class="kkpi done">
+      <div class="icon">✓</div>
+      <div>
+        <div class="val">12</div>
+        <div class="lbl">DONE · 이번 주</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kanban" id="kanban">
+    <div class="col col-todo" data-col="todo">
+      <div class="col-head">
+        <div class="col-name"><span class="dot"></span> 📋 To-Do</div>
+        <div class="col-cnt">4</div>
+      </div>
+      <div class="ticket" draggable="true">
+        <div class="ticket-top">
+          <span class="ticket-id">TS-241</span>
+          <span class="ticket-pri high">HIGH</span>
+        </div>
+        <div class="ticket-title">L2026B047 W-05 불량 원인 분석</div>
+        <div class="ticket-meta">
+          <span class="ticket-tag qe">QE</span>
+          <div class="avatar">김상</div>
+        </div>
+      </div>
+      <div class="ticket" draggable="true">
+        <div class="ticket-top">
+          <span class="ticket-id">TS-242</span>
+          <span class="ticket-pri med">MED</span>
+        </div>
+        <div class="ticket-title">신규 거래처 A사 PPAP 양식 검토</div>
+        <div class="ticket-meta">
+          <span class="ticket-tag qe">QE</span>
+          <div class="avatar">전병</div>
+        </div>
+      </div>
+      <div class="ticket" draggable="true">
+        <div class="ticket-top">
+          <span class="ticket-id">TS-243</span>
+          <span class="ticket-pri med">MED</span>
+        </div>
+        <div class="ticket-title">TP-1200N 데이터시트 v2.2 업데이트</div>
+        <div class="ticket-meta">
+          <span class="ticket-tag fae">FAE</span>
+          <div class="avatar">류진</div>
+        </div>
+      </div>
+      <div class="ticket" draggable="true">
+        <div class="ticket-top">
+          <span class="ticket-id">TS-244</span>
+          <span class="ticket-pri low">LOW</span>
+        </div>
+        <div class="ticket-title">Q1 글로벌 고객 응대 보고서 번역</div>
+        <div class="ticket-meta">
+          <span class="ticket-tag fae">FAE</span>
+          <div class="avatar">이노</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-prog" data-col="progress">
+      <div class="col-head">
+        <div class="col-name"><span class="dot"></span> ⚙️ In Progress</div>
+        <div class="col-cnt">3</div>
+      </div>
+      <div class="ticket" draggable="true">
+        <div class="ticket-top">
+          <span class="ticket-id">TS-238</span>
+          <span class="ticket-pri high">HIGH</span>
+        </div>
+        <div class="ticket-title">MAP-Summary 정합성 검증 스크립트 도입</div>
+        <div class="ticket-meta">
+          <span class="ticket-tag scm">SCM</span>
+          <div class="avatar">이유</div>
+        </div>
+      </div>
+      <div class="ticket" draggable="true">
+        <div class="ticket-top">
+          <span class="ticket-id">TS-239</span>
+          <span class="ticket-pri med">MED</span>
+        </div>
+        <div class="ticket-title">PT/FT summary 자동 정리 PoC</div>
+        <div class="ticket-meta">
+          <span class="ticket-tag qa">QA</span>
+          <div class="avatar">류진</div>
+        </div>
+      </div>
+      <div class="ticket" draggable="true">
+        <div class="ticket-top">
+          <span class="ticket-id">TS-240</span>
+          <span class="ticket-pri high">HIGH</span>
+        </div>
+        <div class="ticket-title">GTK 자동 검수·메일 알림 워크플로 개발</div>
+        <div class="ticket-meta">
+          <span class="ticket-tag test">TEST</span>
+          <div class="avatar">최아</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-rev" data-col="review">
+      <div class="col-head">
+        <div class="col-name"><span class="dot"></span> 👁️ Review</div>
+        <div class="col-cnt">2</div>
+      </div>
+      <div class="ticket" draggable="true">
+        <div class="ticket-top">
+          <span class="ticket-id">TS-233</span>
+          <span class="ticket-pri med">MED</span>
+        </div>
+        <div class="ticket-title">불량 보고서 PPT 자동 생성 v1.0 검수</div>
+        <div class="ticket-meta">
+          <span class="ticket-tag qe">QE</span>
+          <div class="avatar">김상</div>
+        </div>
+      </div>
+      <div class="ticket" draggable="true">
+        <div class="ticket-top">
+          <span class="ticket-id">TS-234</span>
+          <span class="ticket-pri low">LOW</span>
+        </div>
+        <div class="ticket-title">Excel 다국어 번역 가이드 검토</div>
+        <div class="ticket-meta">
+          <span class="ticket-tag ops">전략MK</span>
+          <div class="avatar">임성</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-done" data-col="done">
+      <div class="col-head">
+        <div class="col-name"><span class="dot"></span> ✓ Done</div>
+        <div class="col-cnt">3</div>
+      </div>
+      <div class="ticket" draggable="true">
+        <div class="ticket-top">
+          <span class="ticket-id">TS-228</span>
+          <span class="ticket-pri high">HIGH</span>
+        </div>
+        <div class="ticket-title">Claude / Gemini / Perplexity 라이선스 통합</div>
+        <div class="ticket-meta">
+          <span class="ticket-tag ops">IT/보안</span>
+          <div class="avatar">박재</div>
+        </div>
+      </div>
+      <div class="ticket" draggable="true">
+        <div class="ticket-top">
+          <span class="ticket-id">TS-229</span>
+          <span class="ticket-pri med">MED</span>
+        </div>
+        <div class="ticket-title">사내 GPTs 표준 4종 배포 (영업·FAE·QE·SCM)</div>
+        <div class="ticket-meta">
+          <span class="ticket-tag ops">IT/보안</span>
+          <div class="avatar">김재</div>
+        </div>
+      </div>
+      <div class="ticket" draggable="true">
+        <div class="ticket-top">
+          <span class="ticket-id">TS-230</span>
+          <span class="ticket-pri low">LOW</span>
+        </div>
+        <div class="ticket-title">전략마케팅 GPT 사용법 1차 교육 완료</div>
+        <div class="ticket-meta">
+          <span class="ticket-tag ops">전략MK</span>
+          <div class="avatar">임성</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ai-panel">
+    <div class="tag">⚡ AI ASSIST · BUILT-IN</div>
+    <h3>이슈트래킹 + AI Copilot이 결합되면 강력합니다</h3>
+
+    <div class="ai-grid">
+      <div class="ai-card">
+        <div class="ico">🔁</div>
+        <div class="ttl">중복 티켓 자동 감지</div>
+        <div class="desc">TS-238과 TS-240은 SCM-TEST 공통 불량 패턴 → 묶음 처리 권고. AI가 유사 이슈를 사전 차단합니다.</div>
+      </div>
+      <div class="ai-card">
+        <div class="ico">📝</div>
+        <div class="ttl">이슈 요약·번역</div>
+        <div class="desc">긴 메일 스레드를 티켓 본문으로 자동 요약, 글로벌 고객 응대 시 영어/중국어로 즉시 번역.</div>
+      </div>
+      <div class="ai-card">
+        <div class="ico">🎯</div>
+        <div class="ttl">후속 작업 자동 추천</div>
+        <div class="desc">"L2026B047 분석" 티켓 완료 시 → "동일 Lot 다른 Wafer 점검" 후속 티켓을 AI가 자동 생성.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TECH SECTION -->
+  <div class="tech-section">
+    <h3>HOW IT WORKS</h3>
+    <h2>SaaS 도입 + AI Copilot 결합 권고</h2>
+
+    <div class="tech-cols">
+      <div class="tech-col">
+        <h4>CANDIDATE SAAS</h4>
+        <ul>
+          <li>Linear (개발·기술팀 강점)</li>
+          <li>Notion (문서+DB 통합)</li>
+          <li>Atlassian Jira</li>
+          <li>ClickUp / Asana</li>
+          <li>DingTalk (요청 시 검토)</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>AI INTEGRATION</h4>
+        <ul>
+          <li>Notion AI (내장)</li>
+          <li>Jira AI (Atlassian)</li>
+          <li>Linear AI</li>
+          <li>사내 GPTs 연동 가능</li>
+          <li>Slack/Teams Bot</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>ENTERPRISE OPS</h4>
+        <ul>
+          <li>SSO (SAML / OIDC)</li>
+          <li>SCIM 사용자 동기화</li>
+          <li>감사 로그·접근 통제</li>
+          <li>API 기반 워크플로</li>
+          <li>SLA·관리자 가이드</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="color: rgba(255,255,255,0.7); margin-top: 24px; font-size: 0.92rem; line-height: 1.75;">
+      ✦ <strong style="color:#a78bfa;">권고 사항</strong> — 본 영역은 자체 개발보다 <strong>검증된 SaaS 도입이 빠르고 안전</strong>합니다.
+      ① 부서별 요구 1차 정리 → ② 후보 3종 무료 트라이얼 → ③ SSO 통합 검증 → ④ 1개 부서 파일럿 → ⑤ 전사 확산. 도입 후
+      Pattern 01~07의 AI 자동화 결과를 티켓으로 자연스럽게 연결할 수 있습니다.
+    </p>
+  </div>
+
+  <div class="demo-nav">
+    <a href="07-search.html" class="nav-link">
+      <div class="direction">← PREV</div>
+      <div class="name">07 · 사내 지식 RAG 검색</div>
+    </a>
+    <a href="index.html" class="nav-link next">
+      <div class="direction">🏠 BACK</div>
+      <div class="name">데모 허브로 돌아가기</div>
+    </a>
+  </div>
+</div>
+
+<script>
+  // Filter chips
+  document.querySelectorAll('.filter-bar .group').forEach(group => {
+    group.querySelectorAll('.filter-chip').forEach(c => {
+      c.addEventListener('click', () => {
+        group.querySelectorAll('.filter-chip').forEach(x => x.classList.remove('active'));
+        c.classList.add('active');
+      });
+    });
+  });
+
+  // Drag & drop
+  let dragged = null;
+  document.querySelectorAll('.ticket').forEach(t => {
+    t.addEventListener('dragstart', e => {
+      dragged = t;
+      t.classList.add('dragging');
+    });
+    t.addEventListener('dragend', e => {
+      t.classList.remove('dragging');
+    });
+  });
+
+  document.querySelectorAll('.col').forEach(col => {
+    col.addEventListener('dragover', e => {
+      e.preventDefault();
+      col.style.background = '#e0e7ff';
+    });
+    col.addEventListener('dragleave', e => {
+      col.style.background = '';
+    });
+    col.addEventListener('drop', e => {
+      e.preventDefault();
+      col.style.background = '';
+      if (dragged) {
+        col.appendChild(dragged);
+        // Update counts
+        document.querySelectorAll('.col').forEach(c => {
+          const cnt = c.querySelectorAll('.ticket').length;
+          c.querySelector('.col-cnt').textContent = cnt;
+        });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

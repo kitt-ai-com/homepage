@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo 05 · 실시간 불량률 모니터링 — 다믈파워반도체</title>
+<link rel="stylesheet" href="_shell.css">
+<style>
+  :root { --demo-color: #ef4444; --demo-glow: rgba(239, 68, 68, 0.25); }
+
+  body { background: #0a0e1a; color: var(--text-on-dark); }
+  .demo-container { padding: 24px 32px 60px; }
+
+  .control-bar {
+    background: var(--bg-2);
+    border-radius: 12px;
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    border: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .control-bar .left { display: flex; align-items: center; gap: 16px; }
+  .control-bar .indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-on-dark);
+  }
+  .pulse-red {
+    width: 10px; height: 10px;
+    background: #ef4444;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #ef4444;
+    animation: pulse 1.4s infinite;
+  }
+  .pulse-green {
+    width: 10px; height: 10px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #22c55e;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(1.3);} }
+
+  .clock {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    color: #22d3ee;
+    font-weight: 600;
+  }
+  .control-btn {
+    padding: 7px 14px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    color: var(--text-on-dark);
+    font-family: inherit;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .control-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--demo-color); }
+  .control-btn.active { background: var(--demo-color); border-color: var(--demo-color); }
+
+  /* KPI cards */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .k-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .k-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--card-c, #22d3ee);
+  }
+  .k-card .lbl {
+    font-size: 0.7rem;
+    color: var(--text-on-dark-muted);
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .k-card .val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+  }
+  .k-card .sub {
+    font-size: 0.74rem;
+    color: var(--text-on-dark-muted);
+    margin-top: 5px;
+  }
+  .k-card.alert { --card-c: #ef4444; border-color: rgba(239, 68, 68, 0.4); }
+  .k-card.alert .val { color: #fca5a5; }
+  .k-card.warn { --card-c: #f59e0b; }
+  .k-card.warn .val { color: #fcd34d; }
+  .k-card.ok { --card-c: #22c55e; }
+  .k-card.ok .val { color: #86efac; }
+  .k-card.cyan { --card-c: #22d3ee; }
+  .k-card.cyan .val { color: #67e8f9; }
+
+  /* Main grid */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+
+  .panel-dark {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+  .panel-dark h3 {
+    font-size: 0.88rem;
+    color: #fff;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .panel-dark h3 .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-on-dark-muted);
+    letter-spacing: 0.15em;
+    font-weight: 500;
+  }
+
+  /* Line table */
+  .lines-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .lines-table th {
+    text-align: left;
+    padding: 8px 10px;
+    color: var(--text-on-dark-muted);
+    font-size: 0.72rem;
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .lines-table td {
+    padding: 11px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-on-dark);
+  }
+  .lines-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .lines-table .line-name { font-weight: 700; }
+  .lines-table .rate {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+  }
+  .lines-table .rate.ok { color: #86efac; }
+  .lines-table .rate.warn { color: #fcd34d; }
+  .lines-table .rate.alert { color: #fca5a5; animation: blinkAlert 1s infinite; }
+  @keyframes blinkAlert { 0%,100%{opacity:1;} 50%{opacity:0.55;} }
+  .bar-graph {
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .bar-graph .fill {
+    height: 100%;
+    border-radius: 100px;
+    transition: width 0.6s;
+  }
+  .bar-graph .fill.ok { background: linear-gradient(90deg, #22c55e, #4ade80); }
+  .bar-graph .fill.warn { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+  .bar-graph .fill.alert { background: linear-gradient(90deg, #ef4444, #f87171); }
+  .badge-status {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .badge-status.ok { background: rgba(34, 197, 94, 0.15); color: #86efac; }
+  .badge-status.warn { background: rgba(245, 158, 11, 0.15); color: #fcd34d; }
+  .badge-status.alert { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+
+  /* Chart */
+  .chart-container {
+    height: 200px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    padding: 14px;
+    position: relative;
+  }
+  .chart-grid {
+    position: absolute;
+    top: 14px; left: 14px; right: 14px; bottom: 30px;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 50px 25px;
+  }
+  .threshold-line {
+    position: absolute;
+    left: 14px; right: 14px;
+    border-top: 1px dashed #ef4444;
+    z-index: 2;
+  }
+  .threshold-line::after {
+    content: "임계값 0.1%";
+    position: absolute;
+    right: 4px;
+    top: -16px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 1px 8px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Activity stream */
+  .activity-stream {
+    max-height: 380px;
+    overflow-y: auto;
+  }
+  .act-item {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 12px;
+    font-size: 0.82rem;
+  }
+  .act-item:last-child { border-bottom: none; }
+  .act-time {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-on-dark-muted);
+    font-size: 0.7rem;
+    min-width: 50px;
+    padding-top: 1px;
+  }
+  .act-icon {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+  }
+  .act-icon.alert { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+  .act-icon.info { background: rgba(34, 211, 238, 0.15); color: #67e8f9; }
+  .act-icon.ok { background: rgba(34, 197, 94, 0.15); color: #86efac; }
+  .act-text { color: var(--text-on-dark); line-height: 1.55; flex: 1; }
+  .act-text strong { color: #fff; }
+  .act-text .chip {
+    display: inline-block;
+    padding: 1px 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #67e8f9;
+    margin-left: 4px;
+  }
+
+  /* Notification preview */
+  .notif-preview {
+    margin-top: 12px;
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .notif-preview .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .notif-preview .head .ch {
+    font-weight: 700;
+    color: #fff;
+    font-size: 0.88rem;
+  }
+  .notif-preview .head .time {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-on-dark-muted);
+    font-size: 0.72rem;
+  }
+  .notif-preview .body {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--text-on-dark);
+  }
+  .notif-preview .body strong { color: #fca5a5; }
+
+  @media (max-width: 1100px) {
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .main-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-left">
+    <a href="index.html" class="tb-back">← 데모 허브</a>
+    <div class="tb-crumb">
+      <span class="tb-num">PATTERN · 05</span>
+      <span class="sep">/</span>
+      <span class="current">실시간 불량률 모니터링 대시보드</span>
+    </div>
+  </div>
+  <div class="tb-right">
+    <span class="tb-live">REAL-TIME LIVE</span>
+  </div>
+</div>
+
+<div class="demo-hero">
+  <div class="demo-hero-inner">
+    <div class="eyebrow">REAL-TIME MONITOR · AUTO-ALERT</div>
+    <h1>임계값을 넘는 순간, 자동 메일·메신저 발송</h1>
+    <p class="lead">
+      TEST·SCM·QA에서 요청된 모니터링 업무를 24시간 무중단 자동화합니다.
+      GTK summary를 실시간 감시하여 <strong>불량률 0.1% 초과 시 자동 메일·Teams DM·KakaoWork 알림</strong>을 발송합니다.
+      라인별 추세·이상 패턴도 한 화면에서 추적할 수 있습니다.
+    </p>
+    <div class="chips">
+      <span class="h-chip accent">TEST · SCM · QA · IT/보안</span>
+      <span class="h-chip">월 ~15h + 사고 예방</span>
+      <span class="h-chip">n8n</span>
+      <span class="h-chip">Airflow</span>
+      <span class="h-chip">Webhook</span>
+    </div>
+  </div>
+</div>
+
+<div class="demo-container">
+
+  <div class="control-bar">
+    <div class="left">
+      <div class="indicator">
+        <span class="pulse-red"></span>
+        <strong style="color:#fff;">LIVE</strong>
+        <span style="color: var(--text-on-dark-muted); font-size:0.78rem;">자동 갱신 3초</span>
+      </div>
+      <div class="indicator">
+        <span class="pulse-green"></span>
+        <span style="font-size:0.82rem;">n8n Workflow · ACTIVE</span>
+      </div>
+    </div>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <span class="clock" id="clock">2026-05-12 14:24:05</span>
+      <button class="control-btn active">실시간</button>
+      <button class="control-btn">1시간</button>
+      <button class="control-btn">24시간</button>
+      <button class="control-btn">7일</button>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="k-card cyan">
+      <div class="lbl">TOTAL LINES</div>
+      <div class="val" id="kTotal">6</div>
+      <div class="sub">현재 모니터링 중</div>
+    </div>
+    <div class="k-card ok">
+      <div class="lbl">NORMAL</div>
+      <div class="val" id="kOk">4</div>
+      <div class="sub">정상 운영</div>
+    </div>
+    <div class="k-card warn">
+      <div class="lbl">WARNING</div>
+      <div class="val" id="kWarn">1</div>
+      <div class="sub">주의 모니터링</div>
+    </div>
+    <div class="k-card alert">
+      <div class="lbl">ALERTS</div>
+      <div class="val" id="kAlert">1</div>
+      <div class="sub">임계값 초과</div>
+    </div>
+    <div class="k-card cyan">
+      <div class="lbl">AVG YIELD</div>
+      <div class="val" id="kYield">98.2%</div>
+      <div class="sub">전 라인 평균</div>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <div class="panel-dark">
+      <h3>
+        <span>📡 생산 라인 실시간 상태</span>
+        <span class="tag">REAL-TIME GTK STREAM</span>
+      </h3>
+      <table class="lines-table">
+        <thead>
+          <tr><th>라인</th><th>Lot</th><th>처리량</th><th>불량률</th><th>상태</th></tr>
+        </thead>
+        <tbody id="linesBody">
+          <tr>
+            <td class="line-name">Line-01 · Wafer Test</td>
+            <td style="font-family:'JetBrains Mono',monospace;">L2026-047</td>
+            <td>12,480 / 시</td>
+            <td>
+              <div class="rate ok" data-base="0.04">0.04%</div>
+              <div class="bar-graph"><div class="fill ok" style="width:4%"></div></div>
+            </td>
+            <td><span class="badge-status ok">정상</span></td>
+          </tr>
+          <tr>
+            <td class="line-name">Line-02 · Final Test</td>
+            <td style="font-family:'JetBrains Mono',monospace;">L2026-048</td>
+            <td>9,820 / 시</td>
+            <td>
+              <div class="rate ok" data-base="0.06">0.06%</div>
+              <div class="bar-graph"><div class="fill ok" style="width:6%"></div></div>
+            </td>
+            <td><span class="badge-status ok">정상</span></td>
+          </tr>
+          <tr>
+            <td class="line-name">Line-03 · Burn-in</td>
+            <td style="font-family:'JetBrains Mono',monospace;">L2026-049</td>
+            <td>6,540 / 시</td>
+            <td>
+              <div class="rate warn" data-base="0.08">0.08%</div>
+              <div class="bar-graph"><div class="fill warn" style="width:8%"></div></div>
+            </td>
+            <td><span class="badge-status warn">주의</span></td>
+          </tr>
+          <tr id="alertRow">
+            <td class="line-name">Line-04 · Probe Test ⚠️</td>
+            <td style="font-family:'JetBrains Mono',monospace;">L2026-050</td>
+            <td>11,200 / 시</td>
+            <td>
+              <div class="rate alert" data-base="0.14">0.14%</div>
+              <div class="bar-graph"><div class="fill alert" style="width:14%"></div></div>
+            </td>
+            <td><span class="badge-status alert">임계 초과</span></td>
+          </tr>
+          <tr>
+            <td class="line-name">Line-05 · Package Test</td>
+            <td style="font-family:'JetBrains Mono',monospace;">L2026-051</td>
+            <td>8,750 / 시</td>
+            <td>
+              <div class="rate ok" data-base="0.05">0.05%</div>
+              <div class="bar-graph"><div class="fill ok" style="width:5%"></div></div>
+            </td>
+            <td><span class="badge-status ok">정상</span></td>
+          </tr>
+          <tr>
+            <td class="line-name">Line-06 · Reliability</td>
+            <td style="font-family:'JetBrains Mono',monospace;">L2026-052</td>
+            <td>4,320 / 시</td>
+            <td>
+              <div class="rate ok" data-base="0.03">0.03%</div>
+              <div class="bar-graph"><div class="fill ok" style="width:3%"></div></div>
+            </td>
+            <td><span class="badge-status ok">정상</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top: 18px;">
+        <h3 style="margin-bottom: 8px;"><span>📈 Line-04 최근 1시간 추세</span></h3>
+        <div class="chart-container">
+          <div class="chart-grid"></div>
+          <div class="threshold-line" style="top: 60%;"></div>
+          <svg viewBox="0 0 600 170" style="width:100%; height:100%; position:relative; z-index:1;">
+            <defs>
+              <linearGradient id="lineFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#ef4444" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M 0 130 L 50 120 L 100 125 L 150 115 L 200 100 L 250 95 L 300 90 L 350 80 L 400 75 L 450 60 L 500 50 L 550 40 L 600 35 L 600 170 L 0 170 Z" fill="url(#lineFill)"/>
+            <path d="M 0 130 L 50 120 L 100 125 L 150 115 L 200 100 L 250 95 L 300 90 L 350 80 L 400 75 L 450 60 L 500 50 L 550 40 L 600 35" stroke="#ef4444" stroke-width="2" fill="none"/>
+            <circle cx="600" cy="35" r="5" fill="#ef4444">
+              <animate attributeName="r" values="5;8;5" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+          <div style="position:absolute; bottom:6px; left:14px; right:14px; display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:var(--text-on-dark-muted);">
+            <span>13:24</span><span>13:39</span><span>13:54</span><span>14:09</span><span style="color:#ef4444;">14:24</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-dark">
+      <h3>
+        <span>🔔 실시간 알림 스트림</span>
+        <span class="tag">LIVE FEED</span>
+      </h3>
+      <div class="activity-stream" id="activity">
+        <div class="act-item">
+          <div class="act-time">14:24</div>
+          <div class="act-icon alert">!</div>
+          <div class="act-text">
+            <strong>Line-04 임계값 초과</strong> · 불량률 <span class="chip">0.14%</span><br>
+            <span style="color:var(--text-on-dark-muted); font-size:0.78rem;">자동 알림 발송 → 책임자 3명</span>
+          </div>
+        </div>
+        <div class="act-item">
+          <div class="act-time">14:23</div>
+          <div class="act-icon info">📧</div>
+          <div class="act-text">
+            <strong>메일 발송 완료</strong> · 최아람 책임 + QA팀 3명<br>
+            <span style="color:var(--text-on-dark-muted); font-size:0.78rem;">제목: [긴급] Line-04 GTK summary 임계 초과</span>
+          </div>
+        </div>
+        <div class="act-item">
+          <div class="act-time">14:23</div>
+          <div class="act-icon info">💬</div>
+          <div class="act-text">
+            <strong>Teams DM 전송</strong> · #quality-line04 채널<br>
+            <span style="color:var(--text-on-dark-muted); font-size:0.78rem;">자동 첨부: diff_report_2026-05-12.xlsx</span>
+          </div>
+        </div>
+        <div class="act-item">
+          <div class="act-time">14:23</div>
+          <div class="act-icon info">📱</div>
+          <div class="act-text">
+            <strong>KakaoWork 알림</strong> · 라인 책임자 그룹챗<br>
+            <span style="color:var(--text-on-dark-muted); font-size:0.78rem;">확인 응답: 1/3</span>
+          </div>
+        </div>
+        <div class="act-item">
+          <div class="act-time">14:18</div>
+          <div class="act-icon ok">✓</div>
+          <div class="act-text">
+            <strong>Line-03 정상화</strong> · 0.12% → 0.08%<br>
+            <span style="color:var(--text-on-dark-muted); font-size:0.78rem;">자동 모니터링 재개</span>
+          </div>
+        </div>
+        <div class="act-item">
+          <div class="act-time">14:15</div>
+          <div class="act-icon info">⚙️</div>
+          <div class="act-text">
+            <strong>n8n 룰 업데이트</strong> · IT팀 김재훈 수석<br>
+            <span style="color:var(--text-on-dark-muted); font-size:0.78rem;">Line-03 임계값 0.10 → 0.08 조정</span>
+          </div>
+        </div>
+        <div class="act-item">
+          <div class="act-time">14:08</div>
+          <div class="act-icon ok">✓</div>
+          <div class="act-text">
+            <strong>일일 다이제스트 발송</strong> · 경영진 5명<br>
+            <span style="color:var(--text-on-dark-muted); font-size:0.78rem;">전 라인 어제 평균 yield: 98.4%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="notif-preview">
+        <div class="head">
+          <span class="ch">📧 메일 알림 미리보기</span>
+          <span class="time">14:23:48</span>
+        </div>
+        <div class="body">
+          <strong>[긴급] Line-04 불량률 임계값 초과</strong><br>
+          현재 불량률: <strong>0.14%</strong> (임계값 0.1%)<br>
+          Lot: L2026-050 · 처리량: 11,200/h<br>
+          첨부: diff_report_2026-05-12.xlsx<br>
+          <a href="#" style="color:#67e8f9; text-decoration:none;">→ 대시보드에서 상세 보기</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TECH SECTION -->
+  <div class="tech-section">
+    <h3>HOW IT WORKS</h3>
+    <h2>n8n 노코드 워크플로 + 멀티채널 알림</h2>
+
+    <div class="tech-cols">
+      <div class="tech-col">
+        <h4>MONITORING ENGINE</h4>
+        <ul>
+          <li>n8n self-hosted</li>
+          <li>Apache Airflow</li>
+          <li>cron / systemd</li>
+          <li>watchdog (파일 감시)</li>
+          <li>YAML 룰 엔진</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>NOTIFICATION CHANNELS</h4>
+        <ul>
+          <li>SMTP · Microsoft Graph</li>
+          <li>Slack Webhook</li>
+          <li>Teams Webhook</li>
+          <li>KakaoWork Bot API</li>
+          <li>SMS · Telegram (선택)</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>DASHBOARD</h4>
+        <ul>
+          <li>Grafana (실시간 차트)</li>
+          <li>Streamlit (PoC)</li>
+          <li>Next.js + WebSocket (정착)</li>
+          <li>InfluxDB / TimescaleDB</li>
+          <li>SSO 통합</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-block" style="margin-top: 24px;"><span class="com"># n8n 워크플로 정의 예시 (YAML)</span>
+trigger: <span class="str">file_watch</span>
+path: <span class="str">"/nas/GTK_summary/*.csv"</span>
+condition:
+  defect_rate: <span class="str">">"</span> <span class="num">0.001</span>  <span class="com"># 0.1%</span>
+
+actions:
+  - <span class="str">type</span>: email
+    to: [<span class="str">"최아람책임"</span>, <span class="str">"QA팀"</span>]
+    template: <span class="str">"templates/alert.html"</span>
+  - <span class="str">type</span>: teams_webhook
+    channel: <span class="str">"#quality-line04"</span>
+  - <span class="str">type</span>: kakaowork
+    group: <span class="str">"라인책임자"</span>
+  - <span class="str">type</span>: dashboard_log
+    db: <span class="str">"influxdb://alerts"</span></div>
+  </div>
+
+  <div class="demo-nav">
+    <a href="04-compare.html" class="nav-link">
+      <div class="direction">← PREV</div>
+      <div class="name">04 · 데이터시트 비교</div>
+    </a>
+    <a href="06-translate.html" class="nav-link next">
+      <div class="direction">NEXT →</div>
+      <div class="name">06 · 다국어 자동 번역</div>
+    </a>
+  </div>
+</div>
+
+<script>
+  // Live clock
+  function updateClock() {
+    const now = new Date();
+    const fmt = (n) => String(n).padStart(2, '0');
+    const s = `2026-05-12 ${fmt(now.getHours())}:${fmt(now.getMinutes())}:${fmt(now.getSeconds())}`;
+    document.getElementById('clock').textContent = s;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Live rate simulation (small jitters)
+  setInterval(() => {
+    document.querySelectorAll('.rate').forEach(el => {
+      const base = parseFloat(el.dataset.base);
+      const jitter = (Math.random() - 0.5) * 0.005;
+      const next = Math.max(0, base + jitter);
+      el.textContent = next.toFixed(2) + '%';
+      const bar = el.nextElementSibling.querySelector('.fill');
+      bar.style.width = Math.min(100, next * 100) + '%';
+    });
+  }, 2500);
+
+  // Periodically prepend new activity
+  let actCounter = 0;
+  const sampleActivities = [
+    {time: 'NOW', type: 'info', icon: '📡', text: '<strong>Line-04 재측정 시도</strong> · GTK auto-rescan<br><span style="color:var(--text-on-dark-muted); font-size:0.78rem;">간격 30s → 15s 단축</span>'},
+    {time: 'NOW', type: 'ok', icon: '✓', text: '<strong>Line-05 정기 점검 완료</strong> · 이상 없음<br><span style="color:var(--text-on-dark-muted); font-size:0.78rem;">다음 점검 14:39</span>'},
+    {time: 'NOW', type: 'info', icon: '🔄', text: '<strong>일일 백업 완료</strong> · 12.4GB · sync to NAS<br><span style="color:var(--text-on-dark-muted); font-size:0.78rem;">14일 보관 정책 적용</span>'}
+  ];
+  setInterval(() => {
+    const fmt = (n) => String(n).padStart(2, '0');
+    const now = new Date();
+    const time = `${fmt(now.getHours())}:${fmt(now.getMinutes())}`;
+    const item = sampleActivities[actCounter % sampleActivities.length];
+    actCounter++;
+
+    const div = document.createElement('div');
+    div.className = 'act-item';
+    div.style.opacity = '0';
+    div.style.transform = 'translateY(-8px)';
+    div.innerHTML = `<div class="act-time">${time}</div><div class="act-icon ${item.type}">${item.icon}</div><div class="act-text">${item.text}</div>`;
+    const stream = document.getElementById('activity');
+    stream.insertBefore(div, stream.firstChild);
+    setTimeout(() => {
+      div.style.transition = 'all 0.5s';
+      div.style.opacity = '1';
+      div.style.transform = 'translateY(0)';
+    }, 50);
+    // Cap items
+    while (stream.children.length > 8) stream.removeChild(stream.lastChild);
+  }, 6000);
+</script>
+
+</body>
+</html>

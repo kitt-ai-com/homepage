@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo 06 · 엑셀 시트 다국어 자동 번역 — 다믈파워반도체</title>
+<link rel="stylesheet" href="_shell.css">
+<style>
+  :root { --demo-color: #3b82f6; --demo-glow: rgba(59, 130, 246, 0.25); }
+
+  .sheet-tabs {
+    display: flex;
+    gap: 4px;
+    border-bottom: 2px solid var(--demo-color);
+    margin-bottom: 0;
+  }
+  .sheet-tab {
+    padding: 8px 16px;
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-card);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .sheet-tab:hover { color: var(--text); }
+  .sheet-tab.active {
+    background: var(--demo-color);
+    color: #fff;
+    border-color: var(--demo-color);
+  }
+  .sheet-tab .flag { font-size: 0.95rem; }
+
+  .sheet-area {
+    background: #fff;
+    border: 1px solid var(--border-card);
+    border-radius: 0 10px 10px 10px;
+    overflow: hidden;
+  }
+  .sheet-toolbar {
+    background: var(--bg-card-alt);
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border-card);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .excel-grid {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+  .excel-grid th {
+    background: #e0e7ef;
+    color: var(--text);
+    padding: 6px 10px;
+    text-align: left;
+    border-right: 1px solid #cbd5e1;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 0.72rem;
+  }
+  .excel-grid th:first-child {
+    width: 36px; text-align: center; background: #cbd5e1;
+  }
+  .excel-grid td {
+    padding: 6px 10px;
+    border-right: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    background: #fff;
+    transition: background 0.4s;
+  }
+  .excel-grid td.row-num {
+    background: #cbd5e1;
+    text-align: center;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    width: 36px;
+  }
+  .excel-grid tr:hover td { background: #f1f5f9; }
+  .excel-grid tr:hover td.row-num { background: #94a3b8; color: #fff; }
+  .excel-grid td.translated {
+    background: #dbeafe !important;
+    animation: glow 0.6s;
+  }
+  @keyframes glow { 0%{background:#fff;} 50%{background:#bfdbfe;} 100%{background:#dbeafe;} }
+  .excel-grid td.glossary-hit {
+    border-bottom: 2px dotted var(--demo-color);
+    cursor: help;
+  }
+
+  .lang-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .lang-card {
+    background: #fff;
+    border: 2px solid var(--border-card);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .lang-card:hover { border-color: var(--demo-color); transform: translateY(-2px); }
+  .lang-card.active {
+    background: #dbeafe;
+    border-color: var(--demo-color);
+  }
+  .lang-card .flag {
+    font-size: 2.4rem;
+    margin-bottom: 6px;
+  }
+  .lang-card .name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .lang-card .code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+  }
+
+  .glossary {
+    background: #eff6ff;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 16px;
+    border: 1px solid #bfdbfe;
+  }
+  .glossary h4 {
+    font-size: 0.78rem;
+    color: #1e40af;
+    margin-bottom: 8px;
+    letter-spacing: 0.1em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .glossary-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .gloss-item {
+    background: #fff;
+    border: 1px solid #bfdbfe;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .gloss-item .ko { color: var(--text); font-weight: 600; }
+  .gloss-item .arrow { color: #3b82f6; margin: 0 4px; }
+  .gloss-item .target { color: #1e40af; }
+
+  .progress { margin: 16px 0; background: var(--bg-card-alt); border-radius: 10px; padding: 12px 16px; display: none; }
+  .progress.active { display: block; }
+  .progress-bar { height: 6px; background: var(--border-card); border-radius: 100px; overflow: hidden; margin-top: 8px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%); width: 0%; transition: width 0.3s; }
+
+  .quality-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #ecfdf5;
+    border-radius: 10px;
+    margin-top: 12px;
+    border: 1px solid #86efac;
+    font-size: 0.85rem;
+  }
+  .quality-bar strong { color: #065f46; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-left">
+    <a href="index.html" class="tb-back">← 데모 허브</a>
+    <div class="tb-crumb">
+      <span class="tb-num">PATTERN · 06</span>
+      <span class="sep">/</span>
+      <span class="current">엑셀 시트 다국어 자동 번역</span>
+    </div>
+  </div>
+  <div class="tb-right">
+    <span class="tb-live">LIVE DEMO</span>
+  </div>
+</div>
+
+<div class="demo-hero">
+  <div class="demo-hero-inner">
+    <div class="eyebrow">LOCALIZATION · GLOSSARY-AWARE</div>
+    <h1>한국어 시트 → 영·중·일 시트, 클릭 한 번</h1>
+    <p class="lead">
+      전략마케팅·FAE의 다국어 번역 업무를 <strong>월 12시간 절감</strong>합니다.
+      반도체 용어 사전(Glossary)을 자동 적용하여 <strong>"Vds 항복전압"</strong>처럼 정확한 기술 표현을 보장,
+      셀 단위로 일관된 번역 결과를 제공합니다.
+    </p>
+    <div class="chips">
+      <span class="h-chip accent">전략마케팅 · FAE · 영업 · QE</span>
+      <span class="h-chip">월 ~12h 절감</span>
+      <span class="h-chip">DeepL API</span>
+      <span class="h-chip">Gemini 1.5</span>
+      <span class="h-chip">Apps Script</span>
+    </div>
+  </div>
+</div>
+
+<div class="demo-container">
+  <div class="workspace" style="grid-template-columns: 1fr 1.5fr;">
+
+    <!-- LEFT: CONTROLS -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title"><span class="num">INPUT</span> 번역 옵션</div>
+        <span class="panel-tag">CONFIG</span>
+      </div>
+
+      <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 0.05em;">대상 언어 선택</p>
+      <div class="lang-grid">
+        <div class="lang-card active" data-lang="en">
+          <div class="flag">🇺🇸</div>
+          <div class="name">English</div>
+          <div class="code">en-US</div>
+        </div>
+        <div class="lang-card" data-lang="zh">
+          <div class="flag">🇨🇳</div>
+          <div class="name">中文 (简体)</div>
+          <div class="code">zh-CN</div>
+        </div>
+        <div class="lang-card" data-lang="ja">
+          <div class="flag">🇯🇵</div>
+          <div class="name">日本語</div>
+          <div class="code">ja-JP</div>
+        </div>
+        <div class="lang-card" data-lang="de">
+          <div class="flag">🇩🇪</div>
+          <div class="name">Deutsch</div>
+          <div class="code">de-DE</div>
+        </div>
+      </div>
+
+      <p style="font-size: 0.78rem; color: var(--text-muted); margin: 18px 0 8px; letter-spacing: 0.05em;">번역 엔진</p>
+      <select style="width:100%; padding:10px 12px; border:1px solid var(--border-card); border-radius:8px; font-family:inherit; font-size:0.85rem;">
+        <option>DeepL API (Glossary 지원 · 권장)</option>
+        <option>Gemini 1.5 Pro (문맥 강점)</option>
+        <option>Claude Sonnet 4.6 (자연스러움)</option>
+        <option>Google Translation API</option>
+      </select>
+
+      <div class="glossary">
+        <h4>📚 적용 GLOSSARY · 반도체 v2.1</h4>
+        <div class="glossary-items">
+          <div class="gloss-item"><span class="ko">항복전압</span><span class="arrow">→</span><span class="target" id="g1">Breakdown Voltage</span></div>
+          <div class="gloss-item"><span class="ko">웨이퍼</span><span class="arrow">→</span><span class="target" id="g2">Wafer</span></div>
+          <div class="gloss-item"><span class="ko">불량률</span><span class="arrow">→</span><span class="target" id="g3">Defect Rate</span></div>
+          <div class="gloss-item"><span class="ko">납기</span><span class="arrow">→</span><span class="target" id="g4">Lead Time</span></div>
+          <div class="gloss-item"><span class="ko">파워반도체</span><span class="arrow">→</span><span class="target" id="g5">Power Semiconductor</span></div>
+        </div>
+        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 8px;">
+          ✦ 사내 용어 사전 152건 자동 적용 · IT팀이 편집 가능
+        </p>
+      </div>
+
+      <button class="btn" id="runBtn" style="width:100%; justify-content:center; margin-top: 18px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l6 6M4 14l6-6 2-3M2 5h12"/></svg>
+        시트 전체 일괄 번역
+      </button>
+
+      <div class="progress" id="progress">
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem;">
+          <span style="font-weight:700;" id="progLabel">번역 중...</span>
+          <span id="progPct" style="font-family:'JetBrains Mono',monospace; font-weight:700;">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+        <div style="font-family:'JetBrains Mono', monospace; font-size:0.72rem; color: var(--text-muted); margin-top:6px;" id="progCells">처리한 셀: 0 / 24</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: SHEETS -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title"><span class="num">SHEET</span> 시트 미리보기 (탭 전환)</div>
+        <span class="panel-tag" id="resTag">원본만 존재</span>
+      </div>
+
+      <div class="sheet-tabs" id="tabs">
+        <div class="sheet-tab active" data-sheet="ko">
+          <span class="flag">🇰🇷</span> 원본 (한국어)
+        </div>
+        <div class="sheet-tab" data-sheet="en" style="display:none;">
+          <span class="flag">🇺🇸</span> English
+        </div>
+        <div class="sheet-tab" data-sheet="zh" style="display:none;">
+          <span class="flag">🇨🇳</span> 中文
+        </div>
+        <div class="sheet-tab" data-sheet="ja" style="display:none;">
+          <span class="flag">🇯🇵</span> 日本語
+        </div>
+        <div class="sheet-tab" data-sheet="de" style="display:none;">
+          <span class="flag">🇩🇪</span> Deutsch
+        </div>
+      </div>
+
+      <div class="sheet-area">
+        <div class="sheet-toolbar">
+          <span id="filename">📊 Q1_2026_제품_소개_KR.xlsx</span>
+          <span id="metaInfo">24 cells · Sheet1</span>
+        </div>
+        <table class="excel-grid" id="grid">
+          <!-- Filled by JS -->
+        </table>
+      </div>
+
+      <div class="quality-bar" id="quality" style="display:none;">
+        <span style="font-size:1.2rem;">✓</span>
+        <div>
+          <strong>품질 점수 96/100</strong> · Glossary 일치율 100% · 자연어 적합도 94% ·
+          <strong style="color: #ca8a04;">5건 사람 검수 권장</strong> (긴 문장 기준)
+        </div>
+      </div>
+
+      <div style="margin-top: 12px; display: flex; gap: 8px;" id="actionBtns">
+        <button class="btn" style="font-size:0.82rem; padding:10px 16px;">📥 다국어 XLSX 다운로드</button>
+        <button class="btn outline" style="font-size:0.82rem; padding:10px 16px;">📋 Glossary 편집</button>
+        <button class="btn dark" style="font-size:0.82rem; padding:10px 16px;">📧 다국어 메일 발송</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TECH SECTION -->
+  <div class="tech-section">
+    <h3>HOW IT WORKS</h3>
+    <h2>Glossary 우선 → 문맥 LLM → 사후 검수 3단계 파이프라인</h2>
+
+    <div class="tech-cols">
+      <div class="tech-col">
+        <h4>TRANSLATION ENGINES</h4>
+        <ul>
+          <li>DeepL API (Glossary)</li>
+          <li>Gemini 1.5 Pro</li>
+          <li>Claude Sonnet 4.6</li>
+          <li>Google Translation</li>
+          <li>Excel TRANSLATE() (M365)</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>SPREADSHEET INTEGRATION</h4>
+        <ul>
+          <li>Google Apps Script</li>
+          <li>openpyxl</li>
+          <li>xlwings (Excel 매크로)</li>
+          <li>Office Add-in (사이드패널)</li>
+          <li>SharePoint 자동 업로드</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>GLOSSARY MGMT</h4>
+        <ul>
+          <li>사내 용어 사전 v2.1</li>
+          <li>152건 등록 · 확장 가능</li>
+          <li>IT팀 편집 권한</li>
+          <li>버전 관리 (Git/Notion)</li>
+          <li>분기별 정합성 점검</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-block" style="margin-top: 24px;"><span class="com"># 실 구현: Google Sheets에서 1줄 셀로 즉시 번역</span>
+=<span class="fn">GOOGLETRANSLATE</span>(A2, <span class="str">"ko"</span>, <span class="str">"en"</span>)
+
+<span class="com"># 또는 Apps Script + DeepL Glossary로 시트 일괄 번역</span>
+<span class="kw">function</span> <span class="fn">translateSheetWithGlossary</span>() {
+  <span class="kw">const</span> sheet = SpreadsheetApp.<span class="fn">getActiveSheet</span>();
+  <span class="kw">const</span> data = sheet.<span class="fn">getDataRange</span>().<span class="fn">getValues</span>();
+  <span class="kw">const</span> resp = UrlFetchApp.<span class="fn">fetch</span>(<span class="str">"https://api.deepl.com/v2/translate"</span>, {
+    method: <span class="str">"post"</span>,
+    payload: {
+      text: data.<span class="fn">flat</span>(),
+      target_lang: <span class="str">"EN"</span>,
+      glossary_id: <span class="str">"tp-semi-v2-1"</span>  <span class="com"># 사내 용어 사전</span>
+    }
+  });
+  sheet.<span class="fn">getRange</span>(<span class="num">1</span>, data[<span class="num">0</span>].length + <span class="num">1</span>, ...).<span class="fn">setValues</span>(<span class="fn">parseDeepLResp</span>(resp));
+}</div>
+  </div>
+
+  <div class="demo-nav">
+    <a href="05-monitor.html" class="nav-link">
+      <div class="direction">← PREV</div>
+      <div class="name">05 · 실시간 모니터링</div>
+    </a>
+    <a href="07-search.html" class="nav-link next">
+      <div class="direction">NEXT →</div>
+      <div class="name">07 · 사내 지식 RAG 검색</div>
+    </a>
+  </div>
+</div>
+
+<script>
+  const SHEET_DATA = {
+    ko: [
+      ['제품명', '카테고리', '주요 특징', '항복전압', '납기'],
+      ['TP-1200N', '파워 MOSFET', '저저항·고속 스위칭', '200V', '8주'],
+      ['TP-650S', '드라이버 IC', '게이트 드라이버 전용', '600V', '6주'],
+      ['TP-1500X', '고전압 다이오드', '저누설 전류 보장', '1500V', '10주'],
+      ['TP-100B', 'BJT', '저잡음·고이득', '100V', '4주'],
+      ['TP-300A', 'IGBT 모듈', '산업용 인버터용', '1200V', '12주']
+    ],
+    en: [
+      ['Product Name', 'Category', 'Key Features', 'Breakdown Voltage', 'Lead Time'],
+      ['TP-1200N', 'Power MOSFET', 'Low Resistance · Fast Switching', '200V', '8 weeks'],
+      ['TP-650S', 'Driver IC', 'Dedicated Gate Driver', '600V', '6 weeks'],
+      ['TP-1500X', 'High-Voltage Diode', 'Low Leakage Current Guaranteed', '1500V', '10 weeks'],
+      ['TP-100B', 'BJT', 'Low Noise · High Gain', '100V', '4 weeks'],
+      ['TP-300A', 'IGBT Module', 'For Industrial Inverter', '1200V', '12 weeks']
+    ],
+    zh: [
+      ['产品名称', '类别', '主要特征', '击穿电压', '交货期'],
+      ['TP-1200N', '功率MOSFET', '低电阻·高速开关', '200V', '8周'],
+      ['TP-650S', '驱动IC', '专用栅极驱动器', '600V', '6周'],
+      ['TP-1500X', '高压二极管', '保证低漏电流', '1500V', '10周'],
+      ['TP-100B', 'BJT', '低噪声·高增益', '100V', '4周'],
+      ['TP-300A', 'IGBT模块', '工业逆变器用', '1200V', '12周']
+    ],
+    ja: [
+      ['製品名', 'カテゴリ', '主な特徴', '降伏電圧', '納期'],
+      ['TP-1200N', 'パワーMOSFET', '低抵抗・高速スイッチング', '200V', '8週間'],
+      ['TP-650S', 'ドライバIC', 'ゲートドライバ専用', '600V', '6週間'],
+      ['TP-1500X', '高電圧ダイオード', '低リーク電流保証', '1500V', '10週間'],
+      ['TP-100B', 'BJT', '低ノイズ・高利得', '100V', '4週間'],
+      ['TP-300A', 'IGBTモジュール', '産業用インバータ向け', '1200V', '12週間']
+    ],
+    de: [
+      ['Produktname', 'Kategorie', 'Hauptmerkmale', 'Durchbruchspannung', 'Lieferzeit'],
+      ['TP-1200N', 'Leistungs-MOSFET', 'Niedriger Widerstand · Schnelles Schalten', '200V', '8 Wochen'],
+      ['TP-650S', 'Treiber-IC', 'Dedizierter Gate-Treiber', '600V', '6 Wochen'],
+      ['TP-1500X', 'Hochspannungsdiode', 'Niedriger Leckstrom garantiert', '1500V', '10 Wochen'],
+      ['TP-100B', 'BJT', 'Niedriges Rauschen · Hohe Verstärkung', '100V', '4 Wochen'],
+      ['TP-300A', 'IGBT-Modul', 'Für Industriewechselrichter', '1200V', '12 Wochen']
+    ]
+  };
+
+  let currentTarget = 'en';
+  let translated = false;
+
+  function renderSheet(lang) {
+    const data = SHEET_DATA[lang];
+    let html = '';
+    html += '<thead><tr><th></th>';
+    ['A','B','C','D','E'].forEach(c => html += `<th>${c}</th>`);
+    html += '</tr></thead><tbody>';
+    data.forEach((row, i) => {
+      html += `<tr><td class="row-num">${i+1}</td>`;
+      row.forEach(cell => html += `<td>${cell}</td>`);
+      html += '</tr>';
+    });
+    html += '</tbody>';
+    document.getElementById('grid').innerHTML = html;
+
+    const fnameMap = {
+      ko: 'Q1_2026_제품_소개_KR.xlsx',
+      en: 'Q1_2026_Product_Intro_EN.xlsx',
+      zh: 'Q1_2026_产品介绍_ZH.xlsx',
+      ja: 'Q1_2026_製品紹介_JA.xlsx',
+      de: 'Q1_2026_Produktvorstellung_DE.xlsx'
+    };
+    document.getElementById('filename').textContent = '📊 ' + fnameMap[lang];
+  }
+
+  document.querySelectorAll('.lang-card').forEach(c => {
+    c.addEventListener('click', () => {
+      document.querySelectorAll('.lang-card').forEach(x => x.classList.remove('active'));
+      c.classList.add('active');
+      currentTarget = c.dataset.lang;
+    });
+  });
+
+  document.querySelectorAll('.sheet-tab').forEach(t => {
+    t.addEventListener('click', () => {
+      if (t.style.display === 'none') return;
+      document.querySelectorAll('.sheet-tab').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      renderSheet(t.dataset.sheet);
+    });
+  });
+
+  document.getElementById('runBtn').addEventListener('click', () => {
+    const btn = document.getElementById('runBtn');
+    btn.disabled = true;
+    document.getElementById('progress').classList.add('active');
+
+    const fill = document.getElementById('progFill');
+    const pct = document.getElementById('progPct');
+    const label = document.getElementById('progLabel');
+    const cells = document.getElementById('progCells');
+    const total = 24;
+
+    let p = 0;
+    const interval = setInterval(() => {
+      p += 2;
+      const done = Math.floor((p / 100) * total);
+      fill.style.width = Math.min(p, 100) + '%';
+      pct.textContent = Math.min(p, 100) + '%';
+      cells.textContent = `처리한 셀: ${done} / ${total}`;
+
+      if (p === 20) label.textContent = 'Glossary 매칭 검색...';
+      else if (p === 50) label.textContent = 'DeepL API 호출...';
+      else if (p === 75) label.textContent = '문맥 보정 (Gemini)...';
+      else if (p === 95) label.textContent = '시트 작성...';
+
+      if (p >= 100) {
+        clearInterval(interval);
+        label.textContent = '✓ 번역 완료';
+        // Show target tab
+        const tab = document.querySelector(`.sheet-tab[data-sheet="${currentTarget}"]`);
+        tab.style.display = 'flex';
+        document.querySelectorAll('.sheet-tab').forEach(x => x.classList.remove('active'));
+        tab.classList.add('active');
+        renderSheet(currentTarget);
+        // Highlight translated cells briefly
+        setTimeout(() => {
+          document.querySelectorAll('.excel-grid td:not(.row-num)').forEach((c, i) => {
+            setTimeout(() => c.classList.add('translated'), i * 30);
+          });
+        }, 100);
+        document.getElementById('resTag').textContent = `✓ ${currentTarget.toUpperCase()} 시트 추가됨`;
+        document.getElementById('quality').style.display = 'flex';
+        btn.disabled = false;
+      }
+    }, 60);
+  });
+
+  renderSheet('ko');
+</script>
+
+</body>
+</html>

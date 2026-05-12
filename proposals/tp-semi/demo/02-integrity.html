@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo 02 · MAP–Summary 정합성 검증 — 다믈파워반도체</title>
+<link rel="stylesheet" href="_shell.css">
+<style>
+  :root { --demo-color: #f59e0b; --demo-glow: rgba(245, 158, 11, 0.25); }
+
+  .file-card {
+    background: var(--bg-card-alt);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border-card);
+    margin-bottom: 10px;
+  }
+  .file-card-head {
+    padding: 10px 14px;
+    background: linear-gradient(90deg, var(--bg-3) 0%, var(--bg-2) 100%);
+    color: #fff;
+    font-size: 0.82rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .file-card-head .filename {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+  }
+  .file-card-head .rows {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .data-grid {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .data-grid th {
+    background: #f1f5f9;
+    color: var(--text);
+    padding: 7px 10px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-card);
+  }
+  .data-grid td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border-card);
+  }
+  .data-grid tr.diff td { background: #fef2f2 !important; }
+  .data-grid tr.diff td:last-child { color: #dc2626; font-weight: 700; }
+  .data-grid tr.match td:last-child { color: #16a34a; font-weight: 600; }
+
+  .progress {
+    margin: 16px 0;
+    background: var(--bg-card-alt);
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: none;
+  }
+  .progress.active { display: block; }
+  .progress-head { display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 8px; }
+  .progress-bar { height: 6px; background: var(--border-card); border-radius: 100px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%); width: 0%; transition: width 0.3s; }
+
+  .result-banner {
+    background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .result-banner .stat .v { font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: 800; line-height: 1; }
+  .result-banner .stat .l { font-size: 0.75rem; opacity: 0.85; margin-top: 4px; letter-spacing: 0.1em; }
+  .result-banner .divider { width: 1px; background: rgba(255,255,255,0.2); height: 50px; margin: 0 24px; }
+  .result-banner.ok { background: linear-gradient(135deg, #14532d 0%, #15803d 100%); }
+
+  .alert-card {
+    background: #fff;
+    border: 1px solid var(--border-card);
+    border-left: 4px solid #f59e0b;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 12px;
+  }
+  .alert-card .h { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em; }
+  .alert-card .msg { color: var(--text); font-size: 0.9rem; line-height: 1.65; }
+  .alert-card .msg strong { color: #b45309; }
+
+  .channel-list { display: flex; gap: 8px; margin-top: 10px; }
+  .channel {
+    flex: 1;
+    background: var(--bg-card-alt);
+    border-radius: 8px;
+    padding: 10px 12px;
+    border: 1px solid var(--border-card);
+    text-align: center;
+  }
+  .channel.sent { background: #dcfce7; border-color: #86efac; }
+  .channel .icon { font-size: 1.2rem; margin-bottom: 4px; }
+  .channel .name { font-size: 0.78rem; font-weight: 700; color: var(--text); }
+  .channel .status { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
+  .channel.sent .status { color: #16a34a; font-weight: 600; }
+
+  .selector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .case-btn {
+    padding: 8px 14px;
+    background: #fff;
+    border: 1px solid var(--border-card);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text);
+  }
+  .case-btn:hover { border-color: var(--demo-color); }
+  .case-btn.active {
+    background: var(--demo-color);
+    color: #fff;
+    border-color: var(--demo-color);
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-left">
+    <a href="index.html" class="tb-back">← 데모 허브</a>
+    <div class="tb-crumb">
+      <span class="tb-num">PATTERN · 02</span>
+      <span class="sep">/</span>
+      <span class="current">MAP–Summary 정합성 검증</span>
+    </div>
+  </div>
+  <div class="tb-right">
+    <span class="tb-live">LIVE DEMO</span>
+  </div>
+</div>
+
+<div class="demo-hero">
+  <div class="demo-hero-inner">
+    <div class="eyebrow">DATA INTEGRITY · AUTO-CHECK</div>
+    <h1>두 파일의 숫자가 일치하는지, AI가 확인합니다</h1>
+    <p class="lead">
+      SCM·QA·TEST에서 매월 수시로 진행되는 <strong>MAP–Summary 파일 비교 업무를 자동화</strong>합니다.
+      Lot/Wafer ID 기준으로 두 파일을 매칭, 불일치 행을 자동으로 하이라이트하고 책임자에게 즉시 알림을 발송합니다.
+    </p>
+    <div class="chips">
+      <span class="h-chip accent">SCM · QA · TEST</span>
+      <span class="h-chip">월 ~57h 절감</span>
+      <span class="h-chip">pandas</span>
+      <span class="h-chip">watchdog</span>
+      <span class="h-chip">Slack Webhook</span>
+    </div>
+  </div>
+</div>
+
+<div class="demo-container">
+
+  <div class="selector">
+    <button class="case-btn active" data-case="A">CASE A · 불일치 다수 (실 운영 예시)</button>
+    <button class="case-btn" data-case="B">CASE B · 1건 경미한 불일치</button>
+    <button class="case-btn" data-case="C">CASE C · 완전 일치</button>
+  </div>
+
+  <div class="workspace">
+
+    <!-- LEFT: INPUT -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title"><span class="num">INPUT</span> 비교할 두 파일</div>
+        <span class="panel-tag">XLSX · 2 FILES</span>
+      </div>
+
+      <div class="file-card">
+        <div class="file-card-head">
+          <span class="filename">📊 MAP_Lot-2026B047.xlsx</span>
+          <span class="rows" id="rowsA">12 rows</span>
+        </div>
+        <div style="overflow-x:auto; max-height: 280px; overflow-y: auto;">
+          <table class="data-grid" id="tableA">
+            <thead><tr><th>Lot_ID</th><th>Wafer</th><th>PTY</th><th>BIN</th><th>Yield(%)</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="file-card">
+        <div class="file-card-head">
+          <span class="filename">📊 Summary_Lot-2026B047.xlsx</span>
+          <span class="rows" id="rowsB">12 rows</span>
+        </div>
+        <div style="overflow-x:auto; max-height: 280px; overflow-y: auto;">
+          <table class="data-grid" id="tableB">
+            <thead><tr><th>Lot_ID</th><th>Wafer</th><th>PTY</th><th>BIN</th><th>Yield(%)</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="margin-top: 18px; display: flex; gap: 10px;">
+        <button class="btn" id="runBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          정합성 검증 실행
+        </button>
+      </div>
+
+      <div class="progress" id="progress">
+        <div class="progress-head">
+          <span style="font-weight:700;" id="progLabel">검증 중...</span>
+          <span id="progPct" style="font-family:'JetBrains Mono',monospace; font-weight:700;">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: OUTPUT -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title"><span class="num">OUTPUT</span> 검증 결과</div>
+        <span class="panel-tag" id="resTag">대기 중</span>
+      </div>
+
+      <div id="emptyState" style="text-align:center; padding: 60px 20px; color: var(--text-muted);">
+        <div style="font-size: 2.5rem; opacity: 0.3; margin-bottom: 10px;">⊕</div>
+        검증 실행 후 결과가 표시됩니다
+      </div>
+
+      <div id="resultArea" style="display:none;">
+
+        <div class="result-banner" id="banner">
+          <div class="stat">
+            <div class="v" id="diffCnt">3</div>
+            <div class="l">불일치 발견</div>
+          </div>
+          <div class="divider"></div>
+          <div class="stat">
+            <div class="v" id="matchCnt">9</div>
+            <div class="l">정상 행</div>
+          </div>
+          <div class="divider"></div>
+          <div class="stat" style="flex:1;">
+            <div style="font-size:0.78rem; opacity:0.85; margin-bottom:4px; letter-spacing:0.05em;">CHECK COMPLETED</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.88rem;">2026-05-12 14:24:33</div>
+          </div>
+        </div>
+
+        <div class="file-card">
+          <div class="file-card-head" style="background: linear-gradient(90deg, #7c2d12 0%, #9a3412 100%);">
+            <span class="filename">🔍 diff_report.xlsx (자동 생성)</span>
+            <span class="rows" id="diffRows">3 mismatches</span>
+          </div>
+          <div style="overflow-x:auto; max-height: 250px; overflow-y: auto;">
+            <table class="data-grid" id="diffTable">
+              <thead><tr><th>Lot_ID</th><th>Wafer</th><th>필드</th><th>MAP 값</th><th>Summary 값</th><th>상태</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="alert-card" id="alertCard">
+          <div class="h">🔔 AUTO ALERT · 책임자 자동 통보</div>
+          <div class="msg" id="alertMsg">
+            <!-- dynamically generated -->
+          </div>
+          <div class="channel-list">
+            <div class="channel sent">
+              <div class="icon">📧</div>
+              <div class="name">Email</div>
+              <div class="status">✓ 발송 완료</div>
+            </div>
+            <div class="channel sent">
+              <div class="icon">💬</div>
+              <div class="name">Teams</div>
+              <div class="status">✓ DM 전송</div>
+            </div>
+            <div class="channel sent">
+              <div class="icon">📱</div>
+              <div class="name">KakaoWork</div>
+              <div class="status">✓ 알림 발송</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 14px; display: flex; gap: 8px;">
+          <button class="btn" style="font-size:0.82rem; padding:10px 16px;">📥 diff_report.xlsx 다운로드</button>
+          <button class="btn outline" style="font-size:0.82rem; padding:10px 16px;">🔁 재검증</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TECH SECTION -->
+  <div class="tech-section">
+    <h3>HOW IT WORKS</h3>
+    <h2>디렉토리 감시 → 자동 검증 → 알림 발송 자동화 파이프라인</h2>
+
+    <div class="tech-cols">
+      <div class="tech-col">
+        <h4>WATCHER / RULES</h4>
+        <ul>
+          <li>watchdog (디렉토리 감시)</li>
+          <li>APScheduler (정기 실행)</li>
+          <li>Great Expectations</li>
+          <li>YAML 룰 정의</li>
+          <li>임계값·필드 매핑</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>DIFF ENGINE</h4>
+        <ul>
+          <li>Python pandas / polars</li>
+          <li>openpyxl 읽기/쓰기</li>
+          <li>multi-key merge</li>
+          <li>fuzzy match (선택)</li>
+          <li>diff 리포트 생성기</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>NOTIFICATION</h4>
+        <ul>
+          <li>SMTP / Microsoft Graph</li>
+          <li>Slack / Teams Webhook</li>
+          <li>KakaoWork Bot API</li>
+          <li>SMS / Telegram (선택)</li>
+          <li>대시보드 기록</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-block" style="margin-top: 24px;"><span class="com"># 실 구현 예시: MAP-Summary 정합성 자동 검증</span>
+<span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">from</span> watchdog.observers <span class="kw">import</span> Observer
+
+<span class="kw">def</span> <span class="fn">check_consistency</span>(map_path, sum_path):
+    m = pd.<span class="fn">read_excel</span>(map_path)
+    s = pd.<span class="fn">read_excel</span>(sum_path)
+    merged = m.<span class="fn">merge</span>(s, on=[<span class="str">"Lot_ID"</span>, <span class="str">"Wafer"</span>], suffixes=(<span class="str">"_map"</span>, <span class="str">"_sum"</span>))
+
+    diffs = []
+    <span class="kw">for</span> field <span class="kw">in</span> [<span class="str">"PTY"</span>, <span class="str">"BIN"</span>, <span class="str">"Yield"</span>]:
+        mismatch = merged[merged[<span class="str">f"{field}_map"</span>] != merged[<span class="str">f"{field}_sum"</span>]]
+        diffs.<span class="fn">extend</span>(mismatch.<span class="fn">to_dict</span>(<span class="str">"records"</span>))
+
+    <span class="kw">if</span> diffs:
+        <span class="fn">send_alert</span>(diffs, channels=[<span class="str">"email"</span>, <span class="str">"teams"</span>, <span class="str">"kakaowork"</span>])
+        <span class="fn">save_diff_report</span>(diffs, <span class="str">"diff_report.xlsx"</span>)
+    <span class="kw">return</span> diffs</div>
+  </div>
+
+  <div class="demo-nav">
+    <a href="01-vision.html" class="nav-link">
+      <div class="direction">← PREV</div>
+      <div class="name">01 · 불량 이미지 → 데이터</div>
+    </a>
+    <a href="03-docgen.html" class="nav-link next">
+      <div class="direction">NEXT →</div>
+      <div class="name">03 · 불량 보고서 자동 생성</div>
+    </a>
+  </div>
+</div>
+
+<script>
+  const CASES = {
+    A: {
+      rowsA: [
+        ['L047','W-01','142','B3','98.2'],['L047','W-02','138','B3','97.8'],
+        ['L047','W-03','144','B3','98.5'],['L047','W-04','141','B3','98.1'],
+        ['L047','W-05','147','B3','98.7'],['L047','W-06','140','B3','98.0'],
+        ['L047','W-07','139','B3','97.9'],['L047','W-08','143','B3','98.3'],
+        ['L047','W-09','145','B3','98.4'],['L047','W-10','142','B3','98.2'],
+        ['L047','W-11','141','B3','98.1'],['L047','W-12','144','B3','98.5']
+      ],
+      rowsB: [
+        ['L047','W-01','142','B3','98.2'],['L047','W-02','138','B3','97.8'],
+        ['L047','W-03','144','B3','98.5'],['L047','W-04','141','B3','98.1'],
+        ['L047','W-05','152','B3','98.7'],['L047','W-06','140','B3','98.0'],
+        ['L047','W-07','139','B4','97.9'],['L047','W-08','143','B3','98.3'],
+        ['L047','W-09','145','B3','98.4'],['L047','W-10','142','B3','97.6'],
+        ['L047','W-11','141','B3','98.1'],['L047','W-12','144','B3','98.5']
+      ],
+      diffs: [
+        ['L047','W-05','PTY','147','152','불일치'],
+        ['L047','W-07','BIN','B3','B4','불일치'],
+        ['L047','W-10','Yield(%)','98.2','97.6','불일치']
+      ],
+      diffCnt: 3, matchCnt: 9, severe: true
+    },
+    B: {
+      rowsA: [
+        ['L048','W-01','138','B2','97.5'],['L048','W-02','140','B2','97.8'],
+        ['L048','W-03','142','B2','98.0'],['L048','W-04','139','B2','97.6'],
+        ['L048','W-05','141','B2','97.9'],['L048','W-06','143','B2','98.1'],
+        ['L048','W-07','140','B2','97.7'],['L048','W-08','142','B2','98.0']
+      ],
+      rowsB: [
+        ['L048','W-01','138','B2','97.5'],['L048','W-02','140','B2','97.8'],
+        ['L048','W-03','142','B2','98.0'],['L048','W-04','139','B2','97.6'],
+        ['L048','W-05','141','B2','97.9'],['L048','W-06','143','B2','98.1'],
+        ['L048','W-07','141','B2','97.7'],['L048','W-08','142','B2','98.0']
+      ],
+      diffs: [['L048','W-07','PTY','140','141','불일치']],
+      diffCnt: 1, matchCnt: 7, severe: false
+    },
+    C: {
+      rowsA: [
+        ['L049','W-01','145','B1','98.5'],['L049','W-02','143','B1','98.3'],
+        ['L049','W-03','146','B1','98.6'],['L049','W-04','144','B1','98.4'],
+        ['L049','W-05','145','B1','98.5'],['L049','W-06','143','B1','98.3']
+      ],
+      rowsB: [
+        ['L049','W-01','145','B1','98.5'],['L049','W-02','143','B1','98.3'],
+        ['L049','W-03','146','B1','98.6'],['L049','W-04','144','B1','98.4'],
+        ['L049','W-05','145','B1','98.5'],['L049','W-06','143','B1','98.3']
+      ],
+      diffs: [],
+      diffCnt: 0, matchCnt: 6, severe: false
+    }
+  };
+
+  let currentCase = 'A';
+
+  function renderTables() {
+    const c = CASES[currentCase];
+    const tbA = document.querySelector('#tableA tbody');
+    const tbB = document.querySelector('#tableB tbody');
+    document.getElementById('rowsA').textContent = c.rowsA.length + ' rows';
+    document.getElementById('rowsB').textContent = c.rowsB.length + ' rows';
+
+    tbA.innerHTML = c.rowsA.map(r => `<tr><td>${r.join('</td><td>')}</td></tr>`).join('');
+    tbB.innerHTML = c.rowsB.map((r, i) => {
+      const diffRow = c.rowsA[i] && JSON.stringify(c.rowsA[i]) !== JSON.stringify(r);
+      return `<tr class="${diffRow ? 'diff' : ''}"><td>${r.join('</td><td>')}</td></tr>`;
+    }).join('');
+  }
+
+  document.querySelectorAll('.case-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.case-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCase = btn.dataset.case;
+      renderTables();
+      // Reset result
+      document.getElementById('resultArea').style.display = 'none';
+      document.getElementById('emptyState').style.display = 'block';
+      document.getElementById('resTag').textContent = '대기 중';
+      document.getElementById('progress').classList.remove('active');
+    });
+  });
+
+  function runCheck() {
+    const btn = document.getElementById('runBtn');
+    btn.disabled = true;
+    const progress = document.getElementById('progress');
+    progress.classList.add('active');
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('resTag').textContent = '검증 중...';
+
+    const fill = document.getElementById('progFill');
+    const pct = document.getElementById('progPct');
+    const label = document.getElementById('progLabel');
+
+    const phases = [
+      [25, '파일 파싱 중...'],
+      [50, '스키마 매칭 중...'],
+      [75, '필드별 비교 실행...'],
+      [100, '결과 집계 완료']
+    ];
+    let p = 0, phaseIdx = 0;
+
+    const interval = setInterval(() => {
+      p += 3;
+      fill.style.width = Math.min(p, 100) + '%';
+      pct.textContent = Math.min(p, 100) + '%';
+      if (phaseIdx < phases.length && p >= phases[phaseIdx][0]) {
+        label.textContent = phases[phaseIdx][1];
+        phaseIdx++;
+      }
+      if (p >= 100) {
+        clearInterval(interval);
+        setTimeout(showResult, 300);
+        btn.disabled = false;
+      }
+    }, 50);
+  }
+
+  function buildAlertMsg(c) {
+    if (c.diffs.length === 0) return '';
+    // pick the diff with the largest absolute numeric delta (if numeric), else the first
+    let biggest = c.diffs[0];
+    let biggestDelta = 0;
+    c.diffs.forEach(d => {
+      const a = parseFloat(d[3]);
+      const b = parseFloat(d[4]);
+      if (!isNaN(a) && !isNaN(b)) {
+        const delta = Math.abs(b - a);
+        if (delta > biggestDelta) {
+          biggest = d;
+          biggestDelta = delta;
+        }
+      }
+    });
+
+    const lotId = c.diffs[0][0];
+    const deltaText = !isNaN(parseFloat(biggest[3])) && !isNaN(parseFloat(biggest[4]))
+      ? `, 차이 ${(parseFloat(biggest[4]) - parseFloat(biggest[3])).toFixed(biggest[2] === 'Yield(%)' ? 1 : 0)}`
+      : '';
+    const noteCnt = c.diffs.length === 1
+      ? `<strong>1건 불일치</strong>`
+      : `<strong>${c.diffs.length}건 불일치</strong>`;
+    const biggestLine = c.diffs.length === 1
+      ? `해당 행: <strong>Wafer-${biggest[1].replace('W-','')}</strong> ${biggest[2]} 값 (MAP: <code>${biggest[3]}</code> vs Summary: <code>${biggest[4]}</code>${deltaText})`
+      : `가장 큰 차이: <strong>Wafer-${biggest[1].replace('W-','')}</strong> ${biggest[2]} 값 (MAP: <code>${biggest[3]}</code> vs Summary: <code>${biggest[4]}</code>${deltaText})`;
+
+    return `<strong>[다믈파워반도체 정합성 모니터]</strong> Lot-${lotId} 비교 결과 ${noteCnt} 발견.<br>
+            ${biggestLine}.<br>
+            첨부된 diff_report.xlsx를 검토 후 회신 부탁드립니다.`;
+  }
+
+  function showResult() {
+    const c = CASES[currentCase];
+    document.getElementById('resultArea').style.display = 'block';
+    document.getElementById('diffCnt').textContent = c.diffCnt;
+    document.getElementById('matchCnt').textContent = c.matchCnt;
+    document.getElementById('diffRows').textContent = c.diffCnt + ' mismatches';
+
+    const banner = document.getElementById('banner');
+    const alertCard = document.getElementById('alertCard');
+    if (c.diffCnt === 0) {
+      banner.classList.add('ok');
+      document.getElementById('resTag').textContent = '✓ 완전 일치';
+      alertCard.style.display = 'none';
+    } else {
+      banner.classList.remove('ok');
+      document.getElementById('resTag').textContent = '⚠️ ' + c.diffCnt + '건 불일치';
+      alertCard.style.display = 'block';
+      document.getElementById('alertMsg').innerHTML = buildAlertMsg(c);
+    }
+
+    const diffBody = document.querySelector('#diffTable tbody');
+    if (c.diffs.length === 0) {
+      diffBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px; color: #16a34a; font-weight:600;">✓ 모든 행이 일치합니다</td></tr>`;
+    } else {
+      diffBody.innerHTML = c.diffs.map(d => `<tr class="diff"><td>${d[0]}</td><td>${d[1]}</td><td><strong>${d[2]}</strong></td><td>${d[3]}</td><td>${d[4]}</td><td>${d[5]}</td></tr>`).join('');
+    }
+  }
+
+  document.getElementById('runBtn').addEventListener('click', runCheck);
+  renderTables();
+</script>
+
+</body>
+</html>

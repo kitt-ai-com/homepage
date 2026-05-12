@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>다믈파워반도체 AI 자동화 8패턴 — Live Demo Suite</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  :root {
+    --brand: #0c4a6e;
+    --brand-dark: #082f49;
+    --brand-light: #e0f2fe;
+    --cyan: #0891b2;
+    --cyan-light: #cffafe;
+    --text: #0f172a;
+    --text-light: #334155;
+    --text-muted: #64748b;
+    --bg: #0a0e1a;
+    --bg-card: #0f172a;
+    --bg-card-2: #1e293b;
+    --border: #1e293b;
+    --border-light: #334155;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    background: var(--bg);
+    color: #e2e8f0;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(8, 145, 178, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(14, 116, 144, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Top bar ── */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10, 14, 26, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 800;
+    font-size: 1rem;
+    color: #fff;
+  }
+  .logo-dot {
+    width: 10px; height: 10px;
+    background: #22d3ee;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #22d3ee;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.3); }
+  }
+  .topbar-meta {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+  .badge-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 100px;
+    color: #4ade80;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+  }
+  .badge-live::before {
+    content: "";
+    width: 6px; height: 6px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: pulse 1.6s infinite;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    padding: 80px 32px 56px;
+    text-align: center;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .hero .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: #22d3ee;
+    letter-spacing: 0.3em;
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+  .hero h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.2;
+    color: #fff;
+    letter-spacing: -0.03em;
+    margin-bottom: 18px;
+  }
+  .hero h1 .gradient {
+    background: linear-gradient(135deg, #67e8f9 0%, #22d3ee 50%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    font-size: 1.1rem;
+    color: rgba(226, 232, 240, 0.7);
+    max-width: 720px;
+    margin: 0 auto 32px;
+    line-height: 1.75;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .hero-stat .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #67e8f9;
+    line-height: 1;
+  }
+  .hero-stat .lbl {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* ── Demo grid ── */
+  .demos {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+  .demos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .demos-header h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .demos-header p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .demos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  .demo-card {
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.6) 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    min-height: 320px;
+  }
+  .demo-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 0%, var(--card-color, #22d3ee) 200%);
+    opacity: 0;
+    transition: opacity 0.35s;
+    z-index: 0;
+    border-radius: 16px;
+  }
+  .demo-card::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--card-color, #22d3ee);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .demo-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--card-color, #22d3ee);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 30px var(--card-glow, rgba(34, 211, 238, 0.15));
+  }
+  .demo-card:hover::before { opacity: 0.08; }
+  .demo-card:hover::after { transform: scaleX(1); }
+  .demo-card > * { position: relative; z-index: 1; }
+
+  .demo-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--card-color, #22d3ee);
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .demo-icon-box {
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--card-color, #22d3ee), var(--card-dark, #06b6d4));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    transition: transform 0.35s;
+    box-shadow: 0 8px 20px var(--card-glow, rgba(34, 211, 238, 0.25));
+  }
+  .demo-card:hover .demo-icon-box { transform: scale(1.08) rotate(-4deg); }
+  .demo-icon-box svg { width: 28px; height: 28px; color: #fff; }
+
+  .demo-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  .demo-desc {
+    font-size: 0.85rem;
+    color: rgba(226, 232, 240, 0.65);
+    line-height: 1.65;
+    margin-bottom: 16px;
+    flex-grow: 1;
+  }
+
+  .demo-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 16px;
+  }
+  .demo-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    padding: 3px 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    color: rgba(226, 232, 240, 0.7);
+    font-weight: 500;
+  }
+
+  .demo-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .demo-cta .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--card-color, #22d3ee);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .demo-cta .arrow {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+  }
+  .demo-card:hover .demo-cta .arrow {
+    background: var(--card-color, #22d3ee);
+    border-color: var(--card-color, #22d3ee);
+    transform: translateX(6px);
+  }
+  .demo-cta .arrow svg { width: 14px; height: 14px; color: #fff; }
+
+  /* Color presets */
+  .demo-card.c1 { --card-color: #a78bfa; --card-dark: #7c3aed; --card-glow: rgba(167, 139, 250, 0.22); }
+  .demo-card.c2 { --card-color: #fbbf24; --card-dark: #d97706; --card-glow: rgba(251, 191, 36, 0.22); }
+  .demo-card.c3 { --card-color: #34d399; --card-dark: #059669; --card-glow: rgba(52, 211, 153, 0.22); }
+  .demo-card.c4 { --card-color: #22d3ee; --card-dark: #0891b2; --card-glow: rgba(34, 211, 238, 0.22); }
+  .demo-card.c5 { --card-color: #f87171; --card-dark: #dc2626; --card-glow: rgba(248, 113, 113, 0.22); }
+  .demo-card.c6 { --card-color: #60a5fa; --card-dark: #2563eb; --card-glow: rgba(96, 165, 250, 0.22); }
+  .demo-card.c7 { --card-color: #f472b6; --card-dark: #db2777; --card-glow: rgba(244, 114, 182, 0.22); }
+  .demo-card.c8 { --card-color: #818cf8; --card-dark: #4f46e5; --card-glow: rgba(129, 140, 248, 0.22); }
+
+  /* ── Footer ── */
+  .footer-info {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 32px 60px;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 32px;
+  }
+  .footer-info h4 {
+    font-size: 0.78rem;
+    color: #22d3ee;
+    letter-spacing: 0.2em;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .footer-info p, .footer-info li {
+    font-size: 0.85rem;
+    color: rgba(226, 232, 240, 0.65);
+    line-height: 1.75;
+  }
+  .footer-info ul { list-style: none; }
+  .footer-info ul li { padding: 3px 0; }
+
+  @media (max-width: 1100px) {
+    .demos-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero h1 { font-size: 2.2rem; }
+    .footer-info { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .demos-grid { grid-template-columns: 1fr; }
+    .hero { padding: 60px 24px 40px; }
+    .hero h1 { font-size: 1.8rem; }
+    .demos { padding: 32px 24px 60px; }
+    .topbar { padding: 12px 20px; flex-direction: column; gap: 8px; align-items: flex-start; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">
+    <span class="logo-dot"></span>
+    <span>kitt AI · 다믈파워반도체 데모 스위트</span>
+  </div>
+  <div class="topbar-meta">
+    <span class="badge-live">LIVE INTERACTIVE</span>
+    <span>v1.0 · 2026.05.12</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="eyebrow">8 PATTERN INTERACTIVE DEMO</div>
+  <h1>
+    미팅에서 식별한 8가지 패턴,<br>
+    <span class="gradient">실제로 동작합니다.</span>
+  </h1>
+  <p>
+    다믈파워반도체 10개 팀 인터뷰에서 도출된 자동화 패턴 8가지를
+    실제 UI/UX로 구현한 인터랙티브 데모입니다.
+    각 데모를 클릭하면 입력 → AI 처리 → 출력의 전 과정을 직접 체험할 수 있습니다.
+  </p>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="num">8</div>
+      <div class="lbl">PATTERN DEMOS</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">149h</div>
+      <div class="lbl">MONTHLY SAVINGS</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">10</div>
+      <div class="lbl">TEAMS COVERED</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">~₩48M</div>
+      <div class="lbl">ANNUAL ROI (1ST PHASE)</div>
+    </div>
+  </div>
+</section>
+
+<section class="demos">
+  <div class="demos-header">
+    <div>
+      <h2>Live Demo Catalog</h2>
+      <p>각 카드를 클릭하면 해당 패턴의 실제 동작 데모로 이동합니다</p>
+    </div>
+  </div>
+
+  <div class="demos-grid">
+
+    <a class="demo-card c1" href="01-vision.html">
+      <div class="demo-num">PATTERN · 01</div>
+      <div class="demo-icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 19V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><polyline points="21 15 16 10 5 21"/></svg>
+      </div>
+      <div class="demo-title">불량 이미지 → 데이터 변환</div>
+      <div class="demo-desc">반도체 불량 사진을 멀티모달 AI가 분석해 위치·유형·면적을 JSON·엑셀로 자동 추출</div>
+      <div class="demo-chips">
+        <span class="demo-chip">GPT-4o Vision</span>
+        <span class="demo-chip">Claude Vision</span>
+        <span class="demo-chip">OCR</span>
+      </div>
+      <div class="demo-cta">
+        <span class="label">OPEN DEMO →</span>
+        <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="demo-card c2" href="02-integrity.html">
+      <div class="demo-num">PATTERN · 02</div>
+      <div class="demo-icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <div class="demo-title">MAP–Summary 정합성 검증</div>
+      <div class="demo-desc">MAP 파일과 Summary 파일의 수치를 Lot 단위로 자동 비교, 불일치 행을 즉시 시각화</div>
+      <div class="demo-chips">
+        <span class="demo-chip">Python pandas</span>
+        <span class="demo-chip">watchdog</span>
+        <span class="demo-chip">diff engine</span>
+      </div>
+      <div class="demo-cta">
+        <span class="label">OPEN DEMO →</span>
+        <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="demo-card c3" href="03-docgen.html">
+      <div class="demo-num">PATTERN · 03</div>
+      <div class="demo-icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <div class="demo-title">불량 보고서·PPAP 자동 생성</div>
+      <div class="demo-desc">불량 데이터·이미지·계측값을 사내 템플릿에 자동 삽입하여 PPT·PDF 보고서 즉시 생성</div>
+      <div class="demo-chips">
+        <span class="demo-chip">python-pptx</span>
+        <span class="demo-chip">ReportLab</span>
+        <span class="demo-chip">GPTs</span>
+      </div>
+      <div class="demo-cta">
+        <span class="label">OPEN DEMO →</span>
+        <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="demo-card c4" href="04-compare.html">
+      <div class="demo-num">PATTERN · 04</div>
+      <div class="demo-icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      </div>
+      <div class="demo-title">LED Controller 데이터시트 비교</div>
+      <div class="demo-desc">TMP1700 vs TI TPS92692-Q1 vs ADI MAX25611A 자동차용 LED 컨트롤러 비교 — Vin·디밍·EMI·AEC-Q100 등급 스펙 자동 비교표</div>
+      <div class="demo-chips">
+        <span class="demo-chip">Claude 1M</span>
+        <span class="demo-chip">Gemini 2M</span>
+        <span class="demo-chip">LlamaIndex</span>
+      </div>
+      <div class="demo-cta">
+        <span class="label">OPEN DEMO →</span>
+        <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="demo-card c5" href="05-monitor.html">
+      <div class="demo-num">PATTERN · 05</div>
+      <div class="demo-icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div class="demo-title">실시간 불량률 모니터링 대시보드</div>
+      <div class="demo-desc">GTK summary를 실시간 감시, 0.1% 임계치 초과 시 자동 메일·Teams DM 알림 발송</div>
+      <div class="demo-chips">
+        <span class="demo-chip">n8n</span>
+        <span class="demo-chip">Airflow</span>
+        <span class="demo-chip">Webhook</span>
+      </div>
+      <div class="demo-cta">
+        <span class="label">OPEN DEMO →</span>
+        <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="demo-card c6" href="06-translate.html">
+      <div class="demo-num">PATTERN · 06</div>
+      <div class="demo-icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+      </div>
+      <div class="demo-title">엑셀 시트 다국어 자동 번역</div>
+      <div class="demo-desc">한국어 시트를 영어·중국어(간체)·일본어로 일괄 변환 + 반도체 용어 사전 일관성 유지</div>
+      <div class="demo-chips">
+        <span class="demo-chip">DeepL</span>
+        <span class="demo-chip">Gemini</span>
+        <span class="demo-chip">Glossary</span>
+      </div>
+      <div class="demo-cta">
+        <span class="label">OPEN DEMO →</span>
+        <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="demo-card c7" href="07-search.html">
+      <div class="demo-num">PATTERN · 07</div>
+      <div class="demo-icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <div class="demo-title">사내 지식 RAG 검색</div>
+      <div class="demo-desc">자연어로 과거 불량보고서·데이터시트·고객 응대를 검색, 원본 출처와 함께 답변 제공</div>
+      <div class="demo-chips">
+        <span class="demo-chip">Chroma DB</span>
+        <span class="demo-chip">Perplexity</span>
+        <span class="demo-chip">Embeddings</span>
+      </div>
+      <div class="demo-cta">
+        <span class="label">OPEN DEMO →</span>
+        <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="demo-card c8" href="08-tracking.html">
+      <div class="demo-num">PATTERN · 08</div>
+      <div class="demo-icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="18"/><rect x="14" y="3" width="7" height="11"/></svg>
+      </div>
+      <div class="demo-title">이슈 트래킹 칸반 (PM 요청)</div>
+      <div class="demo-desc">메일 위주 소통 → 티켓·칸반으로 전환. 한 명 이탈 시에도 업무 이력이 보존되는 구조</div>
+      <div class="demo-chips">
+        <span class="demo-chip">Linear-style</span>
+        <span class="demo-chip">Notion</span>
+        <span class="demo-chip">SSO</span>
+      </div>
+      <div class="demo-cta">
+        <span class="label">OPEN DEMO →</span>
+        <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<div class="footer-info">
+  <div>
+    <h4>ABOUT THIS DEMO</h4>
+    <p>
+      본 데모는 미팅 인터뷰에서 식별된 8가지 자동화 패턴의 동작 방식을
+      미팅·시연 자리에서 그대로 보여줄 수 있도록 만든 인터랙티브 목업입니다.
+      실제 API 호출 없이도 시뮬레이션 데이터로 입력 → 처리 → 출력의 전 흐름을 체험할 수 있습니다.
+      각 패턴은 데모 페이지 하단에 실 구현 시 사용할 기술 스택과 개발 환경을 함께 명시합니다.
+    </p>
+  </div>
+  <div>
+    <h4>TECH PRINCIPLES</h4>
+    <ul>
+      <li>· 과업별 최적 모델 사용</li>
+      <li>· 사내 데이터는 통제된 채널</li>
+      <li>· IT팀이 직접 운영 가능 구조</li>
+      <li>· 단계적 검증·확장</li>
+    </ul>
+  </div>
+  <div>
+    <h4>CONTACT</h4>
+    <ul>
+      <li>kitt.ai.ceo@gmail.com</li>
+      <li>주식회사 킷에이아이</li>
+      <li>www.kittai.kr</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>

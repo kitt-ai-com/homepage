@@ -1,0 +1,3611 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>다믈파워반도체 AI 도입 기획 제안서 — (주)kitt</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@500&display=swap');
+
+  :root {
+    --brand: #0c4a6e;
+    --brand-dark: #082f49;
+    --brand-light: #e0f2fe;
+    --brand-accent: #0891b2;
+    --accent: #f59e0b;
+    --accent-dark: #b45309;
+    --accent-light: #fef3c7;
+    --success: #15803d;
+    --success-light: #dcfce7;
+    --warning: #ca8a04;
+    --warning-light: #fef9c3;
+    --danger: #b91c1c;
+    --danger-light: #fee2e2;
+    --text: #0f172a;
+    --text-light: #334155;
+    --text-muted: #64748b;
+    --bg: #ffffff;
+    --bg-alt: #f8fafc;
+    --bg-card: #ffffff;
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  @media print {
+    @page { size: A4; margin: 16mm 12mm 18mm 12mm; }
+    body { font-size: 10pt; background: #fff !important; }
+    .page-break { page-break-before: always; }
+    .no-print { display: none !important; }
+    section { break-inside: avoid; }
+    h2 { page-break-before: always; }
+    h2:first-of-type { page-break-before: avoid; }
+    .toc { page-break-after: always; }
+    table { font-size: 9pt; }
+    .cover { min-height: auto; padding: 80px 40px; break-after: page; }
+  }
+
+  body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text);
+    background: #eef2f7;
+    -webkit-font-smoothing: antialiased;
+    /* 한글 단어 단위 줄바꿈 (음절 중간에서 끊지 않음) */
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .page {
+    max-width: 980px;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+  }
+
+  /* ── 표지 ── */
+  .cover {
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(8, 145, 178, 0.25) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 80%, rgba(14, 165, 233, 0.18) 0%, transparent 55%),
+      linear-gradient(135deg, #082f49 0%, #0c4a6e 45%, #155e75 100%);
+    color: #fff;
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .cover::before {
+    content: "TP-SEMI";
+    position: absolute;
+    top: 50%; right: -80px;
+    transform: translateY(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18rem;
+    font-weight: 500;
+    opacity: 0.04;
+    letter-spacing: -0.05em;
+    pointer-events: none;
+  }
+  .cover .corner-tag {
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 100px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    font-weight: 500;
+  }
+  .cover .corner-tag::before {
+    content: "";
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #22d3ee;
+    box-shadow: 0 0 8px #22d3ee;
+  }
+  .cover .eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.4em;
+    font-weight: 500;
+    color: #67e8f9;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .cover h1 {
+    font-size: 2.6rem;
+    font-weight: 900;
+    line-height: 1.25;
+    margin-bottom: 18px;
+    letter-spacing: -0.03em;
+    position: relative;
+  }
+  .cover h1 .accent {
+    background: linear-gradient(135deg, #67e8f9 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .cover .subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.82);
+    margin-bottom: 60px;
+    font-weight: 300;
+    position: relative;
+    max-width: 720px;
+    line-height: 1.7;
+  }
+  .cover .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 64px;
+    position: relative;
+  }
+  .cover .pillar {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    padding: 22px 20px;
+    backdrop-filter: blur(8px);
+  }
+  .cover .pillar .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: #67e8f9;
+    margin-bottom: 8px;
+  }
+  .cover .pillar .name {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .cover .pillar .desc {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.55;
+  }
+  .cover .meta {
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    padding-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .cover .meta .item .label {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .cover .meta .item .value {
+    font-size: 0.95rem;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* ── 컨테이너 ── */
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 50px;
+  }
+
+  /* ── 목차 ── */
+  .toc {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 40px;
+    margin: 56px auto;
+    max-width: 780px;
+  }
+  .toc h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--brand);
+    letter-spacing: 0.2em;
+    margin-bottom: 18px;
+  }
+  .toc ol {
+    list-style: none;
+    counter-reset: toc;
+    columns: 2;
+    column-gap: 40px;
+  }
+  .toc ol li {
+    counter-increment: toc;
+    padding: 7px 0;
+    font-size: 0.93rem;
+    color: var(--text-light);
+    break-inside: avoid;
+    position: relative;
+    padding-left: 36px;
+  }
+  .toc ol li::before {
+    content: counter(toc, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--brand-accent);
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  /* ── 섹션 ── */
+  section {
+    padding: 64px 0 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  section:last-of-type { border-bottom: none; }
+
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--brand-accent);
+    letter-spacing: 0.2em;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 14px;
+    color: var(--text);
+    letter-spacing: -0.025em;
+    line-height: 1.3;
+  }
+  .section-lead {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin: 6px 0 32px;
+    line-height: 1.75;
+    max-width: 720px;
+  }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 36px 0 14px;
+    color: var(--text);
+    letter-spacing: -0.015em;
+    padding-left: 14px;
+    border-left: 4px solid var(--brand);
+  }
+  h4 {
+    font-size: 1.02rem;
+    font-weight: 700;
+    margin: 20px 0 10px;
+    color: var(--brand-dark);
+  }
+  p { margin-bottom: 14px; color: var(--text-light); }
+  ul, ol { margin: 10px 0 18px 22px; }
+  li { margin-bottom: 8px; color: var(--text-light); }
+
+  /* ── KPI ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 24px 0 32px;
+  }
+  .kpi-grid.three { grid-template-columns: repeat(3, 1fr); }
+  .kpi {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 18px;
+    text-align: center;
+  }
+  .kpi.highlight {
+    border-color: var(--brand-accent);
+    background: linear-gradient(135deg, #ecfeff 0%, #f0f9ff 100%);
+  }
+  .kpi.dark {
+    background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 100%);
+    border-color: var(--brand-dark);
+    color: #fff;
+  }
+  .kpi .label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+  .kpi.dark .label { color: rgba(255,255,255,0.7); }
+  .kpi .value {
+    font-size: 1.55rem;
+    font-weight: 900;
+    color: var(--brand-dark);
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .kpi.dark .value { color: #67e8f9; }
+  .kpi .sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+  }
+  .kpi.dark .sub { color: rgba(255,255,255,0.6); }
+
+  /* ── Callout ── */
+  .callout {
+    background: var(--bg-alt);
+    border-left: 4px solid var(--brand);
+    padding: 18px 22px;
+    border-radius: 6px;
+    margin: 20px 0;
+  }
+  .callout.danger { border-color: var(--danger); background: var(--danger-light); }
+  .callout.warning { border-color: var(--warning); background: var(--warning-light); }
+  .callout.success { border-color: var(--success); background: var(--success-light); }
+  .callout.brand { border-color: var(--brand-accent); background: var(--brand-light); }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout strong { color: var(--text); }
+
+  /* ── 배지 ── */
+  .badge {
+    display: inline-block;
+    background: var(--brand-light);
+    color: var(--brand);
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+  .badge.accent { background: var(--accent-light); color: var(--accent-dark); }
+  .badge.success { background: var(--success-light); color: var(--success); }
+  .badge.danger { background: var(--danger-light); color: var(--danger); }
+  .badge.muted { background: #f1f5f9; color: var(--text-muted); }
+  /* 그룹 식별 배지 — 표 헤더와 동일한 네이비 계열 */
+  .badge.dark {
+    background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 100%);
+    color: #fff;
+    padding: 4px 12px;
+    font-size: 0.74rem;
+    letter-spacing: 0.01em;
+    box-shadow: 0 1px 2px rgba(8, 47, 73, 0.15);
+  }
+
+  /* ── 테이블 ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 28px;
+    font-size: 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    table-layout: auto;
+  }
+  th {
+    background: var(--brand-dark);
+    color: #fff;
+    font-weight: 600;
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 0.85rem;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  td {
+    padding: 12px 14px;
+    border-top: 1px solid var(--border);
+    color: var(--text-light);
+    vertical-align: top;
+  }
+  /* rowspan을 사용하는 카테고리 셀의 배지가 잘리지 않도록 최소 너비 확보 */
+  td .badge.dark {
+    display: inline-block;
+    min-width: 64px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  tr:nth-child(even) td { background: var(--bg-alt); }
+  .num { text-align: right; font-variant-numeric: tabular-nums; font-family: 'JetBrains Mono', monospace; }
+  .pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    white-space: nowrap;
+    border: 1px solid transparent;
+  }
+  .pill-good {
+    background: #dcfce7;
+    color: #166534;
+    border-color: rgba(22, 101, 52, 0.18);
+  }
+  .pill-warn {
+    background: #fef3c7;
+    color: #92400e;
+    border-color: rgba(146, 64, 14, 0.18);
+  }
+  .pill-bad {
+    background: #fee2e2;
+    color: #991b1b;
+    border-color: rgba(153, 27, 27, 0.18);
+  }
+  /* 브랜드 시안 톤 (헤더 네이비와 같은 계열) */
+  .pill-info {
+    background: #ecfeff;
+    color: #0e7490;
+    border-color: rgba(8, 145, 178, 0.25);
+  }
+
+  /* ── 그리드 ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 20px 0; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 20px 0; }
+
+  /* ── 카드 ── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: all 0.2s;
+  }
+  .card.hover:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(8, 47, 73, 0.1); border-color: var(--brand-accent); }
+  .card .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--brand-accent);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+  }
+  .card h4 { margin-top: 4px; margin-bottom: 10px; color: var(--text); font-size: 1.08rem; }
+  .card p:last-child { margin-bottom: 0; }
+  .card .stat {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--brand);
+    margin: 8px 0;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── 부서 카드 ── */
+  .dept-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--brand-accent);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin: 14px 0;
+  }
+  .dept-card .dept-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .dept-card .dept-name {
+    font-size: 1.08rem;
+    font-weight: 800;
+    color: var(--brand-dark);
+  }
+  .dept-card .dept-name .sub {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-left: 6px;
+  }
+  .dept-card .dept-saving {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--success);
+    font-weight: 700;
+    background: var(--success-light);
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .dept-card .req-list {
+    font-size: 0.88rem;
+    color: var(--text-light);
+    margin: 6px 0 12px 18px;
+  }
+  .dept-card .sol-row {
+    background: var(--bg-alt);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+  .dept-card .sol-row strong { color: var(--brand); }
+
+  /* ── 타임라인 (인터랙티브) ── */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin: 28px 0;
+  }
+  /* 배경 라인 (전체 회색 가이드) */
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 9px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: rgba(203, 213, 225, 0.5);
+    border-radius: 100px;
+  }
+  /* 진행 라인 (스크롤·hover에 따라 채워지는 그라데이션) */
+  .timeline::after {
+    content: "";
+    position: absolute;
+    left: 9px;
+    top: 8px;
+    width: 2px;
+    height: 0%;
+    background: linear-gradient(180deg, var(--brand) 0%, var(--brand-accent) 100%);
+    border-radius: 100px;
+    box-shadow: 0 0 8px rgba(8, 145, 178, 0.4);
+    transition: height 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .timeline.activated::after {
+    height: calc(100% - 16px);
+  }
+
+  .phase {
+    position: relative;
+    margin-bottom: 26px;
+    padding-bottom: 18px;
+    padding-left: 4px;
+    border-radius: 10px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s, padding-left 0.3s;
+    cursor: default;
+  }
+  .phase:hover {
+    background: linear-gradient(90deg, rgba(8, 145, 178, 0.06) 0%, transparent 80%);
+    padding-left: 14px;
+    transform: translateX(2px);
+  }
+  .phase::before {
+    content: "";
+    position: absolute;
+    left: -28px;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--brand);
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px var(--brand);
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.4), box-shadow 0.3s, background 0.3s;
+    z-index: 2;
+  }
+  .phase:hover::before {
+    transform: scale(1.35);
+    box-shadow: 0 0 0 2px var(--brand), 0 0 16px rgba(8, 145, 178, 0.6);
+  }
+  /* 점 등장 시 펄스 (한 번만) */
+  .phase.entered::before {
+    animation: phasePulse 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes phasePulse {
+    0% { transform: scale(0.4); opacity: 0; }
+    50% { transform: scale(1.5); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .phase.accent::before { background: var(--brand-accent); box-shadow: 0 0 0 2px var(--brand-accent); }
+  .phase.accent:hover::before {
+    box-shadow: 0 0 0 2px var(--brand-accent), 0 0 16px rgba(34, 211, 238, 0.6);
+  }
+
+  /* 단계별 페이드인 (스크롤 진입 시) */
+  .phase {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .phase.entered {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s, padding-left 0.3s;
+  }
+  .phase.entered:hover {
+    transform: translateX(2px);
+  }
+  .phase .phase-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--brand-accent);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .phase h4 { margin: 0 0 10px; font-size: 1.1rem; }
+  .phase ul { margin-left: 18px; }
+
+  /* ── 체크리스트 ── */
+  .check-list { list-style: none; margin-left: 0; }
+  .check-list li {
+    padding-left: 28px;
+    position: relative;
+    margin-bottom: 10px;
+    color: var(--text-light);
+  }
+  .check-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: -1px;
+    color: var(--success);
+    font-weight: 900;
+    font-size: 1rem;
+  }
+
+  /* ── 단계 카드 ── */
+  .step-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 24px 0;
+    position: relative;
+  }
+  .step-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 16px;
+    text-align: left;
+    position: relative;
+  }
+  .step-card .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--brand-accent);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 6px;
+  }
+  .step-card .step-title {
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .step-card .step-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* ── Highlight 박스 ── */
+  .highlight-box {
+    background: linear-gradient(135deg, #ecfeff 0%, #f0f9ff 100%);
+    border: 1px solid var(--brand-accent);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin: 24px 0;
+  }
+  .highlight-box .h-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--brand-accent);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    margin-bottom: 10px;
+  }
+  .highlight-box .h-value {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--brand-dark);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  .highlight-box .h-sub {
+    font-size: 0.92rem;
+    color: var(--text-light);
+  }
+
+  /* ── ROI 표 ── */
+  .roi-table th:first-child { width: 32%; }
+  .roi-table tfoot td {
+    background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 100%);
+    color: #fff;
+    font-weight: 700;
+  }
+  .roi-table tfoot td.num { color: #67e8f9; }
+
+  /* ── 풋터 ── */
+  footer {
+    background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 100%);
+    color: #fff;
+    padding: 56px 60px;
+    margin-top: 40px;
+  }
+  footer .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 40px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  footer h5 {
+    font-size: 0.82rem;
+    letter-spacing: 0.2em;
+    color: #67e8f9;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  footer .logo {
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  footer .tagline {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 18px;
+    line-height: 1.65;
+  }
+  footer p, footer li {
+    color: rgba(255,255,255,0.85);
+    font-size: 0.88rem;
+    margin: 3px 0;
+  }
+  footer ul { list-style: none; margin: 0; padding: 0; }
+  footer .bottom {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+  }
+
+  /* ── 패턴 카드 (확장형 · 인터랙티브) ── */
+  .pattern-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 24px 0;
+  }
+  .pattern-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    cursor: pointer;
+  }
+  .pattern-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--brand-accent) 0%, var(--brand) 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  .pattern-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(8, 47, 73, 0.12);
+    border-color: var(--brand-accent);
+  }
+  .pattern-card:hover::before { transform: scaleX(1); }
+
+  .pattern-head {
+    padding: 20px 24px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .pattern-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--brand-light) 0%, #f0f9ff 100%);
+    color: var(--brand);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.15rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+  .pattern-card:hover .pattern-icon {
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-accent) 100%);
+    color: #fff;
+    transform: scale(1.05) rotate(-3deg);
+  }
+  .pattern-head-text { flex: 1; }
+  .pattern-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--brand-accent);
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .pattern-title {
+    font-size: 1.08rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.015em;
+  }
+  .pattern-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  .pattern-body { padding: 16px 24px 20px; }
+
+  .pattern-row {
+    margin: 12px 0;
+  }
+  .pattern-row-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .pattern-row-label::before {
+    content: "";
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: var(--brand-accent);
+    border-radius: 50%;
+  }
+  .pattern-row-content {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+  .pattern-row-content strong { color: var(--text); font-weight: 600; }
+
+  .pattern-examples {
+    background: var(--bg-alt);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 6px;
+    font-size: 0.82rem;
+    color: var(--text-light);
+    border-left: 3px solid var(--brand-accent);
+  }
+  .pattern-examples .ex-item {
+    padding: 3px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .pattern-examples .ex-item::before {
+    content: "▸";
+    color: var(--brand-accent);
+    flex-shrink: 0;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 6px;
+  }
+  .tech-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 9px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-light);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+  .tech-chip:hover {
+    border-color: var(--brand-accent);
+    color: var(--brand);
+    background: var(--brand-light);
+    transform: translateY(-1px);
+  }
+  .tech-chip.api { border-color: #fbbf24; color: #b45309; background: #fffbeb; }
+  .tech-chip.api:hover { background: #fef3c7; }
+  .tech-chip.lang { border-color: #60a5fa; color: #1e40af; background: #eff6ff; }
+  .tech-chip.lang:hover { background: #dbeafe; }
+  .tech-chip.tool { border-color: #34d399; color: #065f46; background: #ecfdf5; }
+  .tech-chip.tool:hover { background: #d1fae5; }
+  .tech-chip.model { border-color: #c084fc; color: #6b21a8; background: #faf5ff; }
+  .tech-chip.model:hover { background: #f3e8ff; }
+
+  .flow-steps {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    padding: 5px 10px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.76rem;
+    color: var(--text);
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  .pattern-card:hover .flow-step {
+    border-color: var(--brand-accent);
+  }
+  .flow-arrow {
+    color: var(--brand-accent);
+    font-weight: 700;
+    font-size: 0.78rem;
+  }
+
+  .pattern-footer {
+    border-top: 1px solid var(--border);
+    padding: 12px 24px;
+    background: var(--bg-alt);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .dept-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .dept-tag {
+    padding: 3px 8px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.7rem;
+    color: var(--text-light);
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  .pattern-card:hover .dept-tag {
+    background: var(--brand-light);
+    border-color: var(--brand-accent);
+    color: var(--brand);
+  }
+  .pattern-saving {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--success);
+    font-weight: 700;
+  }
+
+  /* 코드 미리보기 (선택 카드용) */
+  .code-preview {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    line-height: 1.65;
+    overflow-x: auto;
+    border-left: 3px solid var(--brand-accent);
+    transition: all 0.3s ease;
+  }
+  .code-preview .kw { color: #c084fc; }
+  .code-preview .str { color: #86efac; }
+  .code-preview .com { color: #64748b; font-style: italic; }
+  .code-preview .fn { color: #67e8f9; }
+  .pattern-card:hover .code-preview {
+    box-shadow: 0 4px 16px rgba(8, 47, 73, 0.18);
+  }
+
+  /* 펄스 인디케이터 */
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.2); }
+  }
+  .live-dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--success);
+    border-radius: 50%;
+    animation: pulse-dot 2s infinite;
+    margin-right: 4px;
+  }
+
+  /* AI 도구 매트릭스 */
+  .tool-matrix {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(4, 1fr);
+    gap: 0;
+    margin: 20px 0;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .tool-matrix > div {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .tool-matrix > div:nth-child(5n) { border-right: none; }
+  .tool-matrix > div:nth-last-child(-n+5) { border-bottom: none; }
+  .tool-matrix .tm-head {
+    background: var(--brand-dark);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.82rem;
+    border-bottom-color: var(--brand-dark);
+  }
+  .tool-matrix .tm-row-label {
+    background: var(--bg-alt);
+    font-weight: 600;
+    color: var(--text);
+    justify-content: flex-start;
+    text-align: left;
+    font-size: 0.85rem;
+  }
+  .tool-matrix .tm-cell:hover {
+    background: var(--brand-light);
+    cursor: default;
+  }
+  .tool-matrix .star {
+    color: var(--accent);
+    letter-spacing: 1px;
+    font-size: 0.95rem;
+  }
+  .tool-matrix .na { color: var(--text-muted); }
+
+  /* ── Sticky Top Nav ── */
+  .top-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(10, 22, 40, 0.85);
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  .top-nav.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .top-nav-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.92rem;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .nav-logo-dot {
+    width: 9px; height: 9px;
+    background: linear-gradient(135deg, #67e8f9, #22d3ee);
+    border-radius: 50%;
+    box-shadow: 0 0 10px #22d3ee;
+    animation: navDot 2s infinite;
+  }
+  @keyframes navDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.4); }
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+    justify-content: center;
+  }
+  .nav-link {
+    position: relative;
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 7px;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+  }
+  .nav-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .nav-link.active {
+    color: #67e8f9;
+    background: rgba(103, 232, 249, 0.1);
+  }
+  .nav-link.active::before {
+    content: "";
+    position: absolute;
+    bottom: 4px; left: 50%;
+    transform: translateX(-50%);
+    width: 18px; height: 2px;
+    background: #67e8f9;
+    border-radius: 100px;
+  }
+  .nav-demo {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    transition: all 0.25s;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(8, 145, 178, 0.35);
+  }
+  .nav-demo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(8, 145, 178, 0.5);
+    filter: brightness(1.08);
+  }
+  .nav-demo .live-dot {
+    width: 6px; height: 6px;
+    background: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #4ade80;
+    animation: navDot 1.4s infinite;
+  }
+
+  /* ── Scroll progress bar ── */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #06b6d4 0%, #67e8f9 50%, #06b6d4 100%);
+    background-size: 200% 100%;
+    width: 0%;
+    z-index: 1001;
+    transition: width 0.1s ease-out;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.6);
+    animation: progressShimmer 3s linear infinite;
+  }
+  @keyframes progressShimmer {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+  }
+
+  /* ── Mouse spotlight (cover only) ── */
+  .cover {
+    --mx: 50%;
+    --my: 50%;
+  }
+  .cover::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle 600px at var(--mx) var(--my), rgba(103, 232, 249, 0.12) 0%, transparent 50%);
+    pointer-events: none;
+    transition: opacity 0.3s;
+    opacity: 0;
+    z-index: 1;
+  }
+  .cover:hover::after { opacity: 1; }
+  .cover > * { position: relative; z-index: 2; }
+
+  /* ── Reveal on scroll ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-stagger.visible > * { opacity: 1; transform: translateY(0); }
+  .reveal-stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
+  .reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.12s; }
+  .reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.19s; }
+  .reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.26s; }
+  .reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.33s; }
+  .reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.4s; }
+  .reveal-stagger.visible > *:nth-child(7) { transition-delay: 0.47s; }
+  .reveal-stagger.visible > *:nth-child(8) { transition-delay: 0.54s; }
+
+  /* ── Cursor accent dot (subtle follower) ── */
+  .cursor-dot {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.9), rgba(8, 145, 178, 0.4));
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s, height 0.25s, opacity 0.3s, background 0.25s;
+    box-shadow: 0 0 14px rgba(34, 211, 238, 0.5);
+    mix-blend-mode: screen;
+    opacity: 0;
+  }
+  .cursor-dot.visible { opacity: 1; }
+  .cursor-dot.hovering {
+    width: 36px; height: 36px;
+    background: radial-gradient(circle, rgba(103, 232, 249, 0.25), rgba(8, 145, 178, 0));
+    box-shadow: 0 0 24px rgba(103, 232, 249, 0.4);
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1.5px solid rgba(34, 211, 238, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s, width 0.25s, height 0.25s, border-color 0.25s;
+    opacity: 0;
+  }
+  .cursor-ring.visible { opacity: 0.8; }
+  .cursor-ring.hovering {
+    width: 60px; height: 60px;
+    border-color: rgba(103, 232, 249, 0.8);
+  }
+  /* ── 마우스 클릭 (눌린 상태) ── */
+  .cursor-ring.pressed {
+    width: 88px; height: 88px;
+    border-width: 2px;
+    border-color: rgba(103, 232, 249, 0.95);
+    box-shadow: 0 0 20px rgba(103, 232, 249, 0.45), inset 0 0 12px rgba(103, 232, 249, 0.2);
+    transition: transform 0.12s cubic-bezier(0.2, 0.9, 0.3, 1.4), width 0.15s cubic-bezier(0.2, 0.9, 0.3, 1.4), height 0.15s cubic-bezier(0.2, 0.9, 0.3, 1.4), border-color 0.15s, box-shadow 0.15s;
+  }
+  .cursor-dot.pressed {
+    width: 14px; height: 14px;
+    background: radial-gradient(circle, rgba(255,255,255,0.95), rgba(103, 232, 249, 0.7));
+    box-shadow: 0 0 22px rgba(103, 232, 249, 0.8);
+  }
+
+  /* ── 클릭 시점에서 퍼지는 리플 ── */
+  .click-ripple {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9997;
+    width: 30px; height: 30px;
+    border: 2px solid rgba(103, 232, 249, 0.7);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+    mix-blend-mode: screen;
+    animation: rippleExpand 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes rippleExpand {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0.9;
+      border-width: 2.5px;
+    }
+    60% {
+      opacity: 0.6;
+      border-width: 1.5px;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(4);
+      opacity: 0;
+      border-width: 1px;
+    }
+  }
+  /* 보조 리플 (살짝 지연되어 두 겹 퍼짐) */
+  .click-ripple.secondary {
+    border-color: rgba(34, 211, 238, 0.5);
+    animation: rippleExpandSlow 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.06s forwards;
+  }
+  @keyframes rippleExpandSlow {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0.7;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(6);
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .cursor-dot, .cursor-ring, .click-ripple { display: none; }
+  }
+  @media (hover: none) {
+    .cursor-dot, .cursor-ring, .click-ripple { display: none; }
+  }
+
+  /* ── Magnetic button base ── */
+  .magnetic {
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  /* ── Anchor scroll offset ── */
+  section { scroll-margin-top: 80px; }
+
+  /* ── Demo CTA Banner ── */
+  .demo-cta {
+    margin: 36px 0 24px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #082f49 100%);
+    color: #fff;
+    border-radius: 18px;
+    padding: 36px 40px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(34, 211, 238, 0.2);
+  }
+  .demo-cta::before {
+    content: "";
+    position: absolute;
+    top: -50%; right: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .demo-cta::after {
+    content: "LIVE DEMO";
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-8deg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.025);
+    letter-spacing: -0.03em;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .demo-cta-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 32px;
+  }
+  .demo-cta-content .live-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 14px;
+  }
+  .demo-cta-content .live-tag::before {
+    content: "";
+    width: 7px; height: 7px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: dotPulse 1.6s infinite;
+  }
+  @keyframes dotPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+  .demo-cta h3 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.025em;
+    margin: 0 0 10px;
+    padding: 0;
+    border: none;
+    line-height: 1.3;
+  }
+  .demo-cta h3 .accent {
+    background: linear-gradient(135deg, #67e8f9 0%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .demo-cta p {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.7;
+    max-width: 580px;
+    margin-bottom: 18px;
+  }
+  .demo-cta-stats {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .demo-cta-stat {
+    border-left: 2px solid rgba(34, 211, 238, 0.4);
+    padding-left: 12px;
+  }
+  .demo-cta-stat .v {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #67e8f9;
+    line-height: 1;
+  }
+  .demo-cta-stat .l {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 3px;
+    letter-spacing: 0.05em;
+  }
+  .demo-cta-button {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 22px 32px;
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 14px;
+    font-weight: 800;
+    box-shadow: 0 10px 30px rgba(8, 145, 178, 0.4);
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+  .demo-cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(8, 145, 178, 0.55);
+    filter: brightness(1.08);
+  }
+  .demo-cta-button .label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    opacity: 0.85;
+    font-weight: 600;
+  }
+  .demo-cta-button .text {
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+  }
+  .demo-cta-button .arrow {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+
+  /* Pattern card demo link */
+  .pattern-demo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--brand-accent);
+    text-decoration: none;
+    padding: 3px 9px;
+    background: var(--brand-light);
+    border-radius: 5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    margin-left: auto;
+  }
+  .pattern-demo-link:hover {
+    background: var(--brand-accent);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+  .pattern-head {
+    position: relative;
+  }
+  .pattern-head-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Cover demo badge */
+  .cover-demo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 12px 22px;
+    background: rgba(103, 232, 249, 0.12);
+    border: 1px solid rgba(103, 232, 249, 0.3);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 100px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+    transition: all 0.25s;
+    position: relative;
+    z-index: 2;
+  }
+  .cover-demo-link:hover {
+    background: rgba(103, 232, 249, 0.22);
+    border-color: rgba(103, 232, 249, 0.5);
+    transform: translateY(-1px);
+  }
+  .cover-demo-link .dot {
+    width: 7px; height: 7px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: dotPulse 1.6s infinite;
+    box-shadow: 0 0 8px #4ade80;
+  }
+  .cover-demo-link strong { color: #67e8f9; font-weight: 700; }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 24px; }
+    .kpi-grid, .kpi-grid.three { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .grid-3, .grid-4, .step-grid { grid-template-columns: 1fr; }
+    .pattern-grid { grid-template-columns: 1fr; }
+    .tool-matrix { grid-template-columns: 1fr; }
+    .tool-matrix > div { border-right: none; }
+    .toc ol { columns: 1; }
+    .cover { padding: 60px 30px; }
+    .cover h1 { font-size: 1.8rem; }
+    .cover .pillars { grid-template-columns: 1fr; }
+    .cover .meta { grid-template-columns: 1fr; gap: 16px; }
+    .demo-cta { padding: 28px 24px; }
+    .demo-cta-inner { grid-template-columns: 1fr; gap: 20px; }
+    .demo-cta::after { font-size: 5rem; }
+    .demo-cta h3 { font-size: 1.3rem; }
+    footer { padding: 40px 24px; }
+    footer .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════ Scroll Progress Bar ═══════ -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══════ Sticky Top Nav ═══════ -->
+<nav class="top-nav" id="topNav">
+  <div class="top-nav-inner">
+    <a href="#top" class="nav-logo magnetic">
+      <span class="nav-logo-dot"></span>
+      <span>다믈파워반도체 · AI 기획 제안서</span>
+    </a>
+    <div class="nav-links">
+      <a href="#sec-summary" class="nav-link" data-target="sec-summary">개요</a>
+      <a href="#sec-state" class="nav-link" data-target="sec-state">현황</a>
+      <a href="#sec-background" class="nav-link" data-target="sec-background">배경</a>
+      <a href="#sec-proposal1" class="nav-link" data-target="sec-proposal1">제안 ①</a>
+      <a href="#sec-proposal2" class="nav-link" data-target="sec-proposal2">제안 ②</a>
+      <a href="#sec-proposal3" class="nav-link" data-target="sec-proposal3">제안 ③</a>
+      <a href="#sec-roadmap" class="nav-link" data-target="sec-roadmap">로드맵</a>
+      <a href="#sec-impact" class="nav-link" data-target="sec-impact">효과</a>
+      <a href="#sec-security" class="nav-link" data-target="sec-security">보안</a>
+      <a href="#sec-about" class="nav-link" data-target="sec-about">회사</a>
+    </div>
+    <a href="demo/index.html" target="_blank" class="nav-demo magnetic">
+      <span class="live-dot"></span>
+      LIVE DEMO →
+    </a>
+  </div>
+</nav>
+
+<!-- ═══════ Cursor Tracker ═══════ -->
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<div class="page" id="top">
+
+<!-- ═══════ 표지 ═══════ -->
+<div class="cover">
+  <div class="corner-tag">PROPOSAL · CONFIDENTIAL</div>
+  <div class="eyebrow">AI ADOPTION PLANNING PROPOSAL</div>
+  <h1>
+    다믈파워반도체<br>
+    <span class="accent">AI 도입·자동화</span> 기획 제안서
+  </h1>
+  <p class="subtitle">
+    IT 인력 AI 역량 고도화 · 반도체 설계 환경 자동화 · 부서별 니즈 기반 솔루션 ─
+    설계 Revision 최소화와 전사 생산성 향상을 위한 단계적 AI 전환 로드맵
+  </p>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="num">PILLAR 01</div>
+      <div class="name">IT 인력 AI 역량 육성</div>
+      <div class="desc">사내 IT/보안 인력 2명을 AI 기반 내부 컨설턴트로 전환</div>
+    </div>
+    <div class="pillar">
+      <div class="num">PILLAR 02</div>
+      <div class="name">설계 환경 자동화</div>
+      <div class="desc">설계·검증·품질 데이터 통합으로 Revision 최소화</div>
+    </div>
+    <div class="pillar">
+      <div class="num">PILLAR 03</div>
+      <div class="name">부서별 맞춤 솔루션</div>
+      <div class="desc">각 부서 현장 인터뷰 기반 우선순위 자동화 적용</div>
+    </div>
+  </div>
+
+  <div class="meta">
+    <div class="item">
+      <div class="label">CLIENT</div>
+      <div class="value">다믈파워반도체 (TP-SEMI)</div>
+    </div>
+    <div class="item">
+      <div class="label">PREPARED BY</div>
+      <div class="value">킷에이아이 (Kitt AI Inc.)</div>
+    </div>
+    <div class="item">
+      <div class="label">DATE</div>
+      <div class="value">2026. 05. 12</div>
+    </div>
+  </div>
+
+  <a href="demo/index.html" target="_blank" class="cover-demo-link">
+    <span class="dot"></span>
+    <strong>LIVE DEMO</strong> · 8가지 패턴 인터랙티브 데모 바로 열기 →
+  </a>
+</div>
+
+<!-- ═══════ 목차 ═══════ -->
+<div class="container">
+  <div class="toc">
+    <h3>CONTENTS</h3>
+    <ol>
+      <li>Executive Summary — 한눈에 보는 제안</li>
+      <li>현황 진단 — 부서 인터뷰 종합 인사이트</li>
+      <li>제안 배경 및 추진 목적</li>
+      <li>제안 ① IT 인력 AI 역량 육성 프로그램</li>
+      <li>제안 ② AI 기반 설계 환경 자동화 구축</li>
+      <li>제안 ③ 부서별 맞춤 AI 솔루션</li>
+      <li>단계별 추진 로드맵</li>
+      <li>기대 효과 및 ROI</li>
+      <li>보안·거버넌스 체계</li>
+      <li>제안사 소개 — 킷에이아이</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ═══════ 1. Executive Summary ═══════ -->
+<section id="sec-summary">
+  <div class="container">
+    <div class="section-tag">01 · EXECUTIVE SUMMARY</div>
+    <h2>한눈에 보는 제안 — Revision 줄이고, 전사 생산성을 끌어올린다</h2>
+    <p class="section-lead">
+      2026년 1~2월 진행된 10개 팀 인터뷰 결과, 부서별 반복 업무·데이터 정합성 확인·문서 자동화 영역에서
+      <strong>월 149시간</strong> 규모의 명확한 자동화 기회가 식별되었습니다.
+      본 제안은 사내 IT 인력 2명을 <strong>AI 내부 컨설턴트</strong>로 육성하고,
+      반도체 설계의 핵심 데이터(설계·검증·품질)를 통합한 <strong>AI 자동화 개발 환경</strong>을 구축하여,
+      현장 부서가 즉시 체감할 수 있는 <strong>맞춤형 AI 솔루션</strong>을 단계적으로 확산하는 전략입니다.
+    </p>
+
+    <div class="kpi-grid">
+      <div class="kpi highlight">
+        <div class="label">식별된 자동화 시간</div>
+        <div class="value">149h<span style="font-size:0.8rem; font-weight:600;"> /월</span></div>
+        <div class="sub">10개 팀 인터뷰 기준</div>
+      </div>
+      <div class="kpi highlight">
+        <div class="label">연 환산 절감 (1차)</div>
+        <div class="value">약 4,800만원</div>
+        <div class="sub">시급환산 직접효과 기준</div>
+      </div>
+      <div class="kpi">
+        <div class="label">사내 AI 컨설턴트</div>
+        <div class="value">2명</div>
+        <div class="sub">IT·보안팀 10~15년 경력</div>
+      </div>
+      <div class="kpi">
+        <div class="label">즉시 적용 가능 솔루션</div>
+        <div class="value">9개</div>
+        <div class="sub">8주 내 1차 산출 가능</div>
+      </div>
+    </div>
+
+    <div class="callout brand">
+      <p>
+        <strong>핵심 메시지 ─</strong>
+        반도체 설계 회사의 본질은 <strong>"최소 Revision으로 IC 설계 완료"</strong>입니다.
+        이를 위해 단순 도구 도입(GPT/Gemini)을 넘어, <strong>설계·검증·품질 데이터를 한 곳으로 모으고</strong>,
+        <strong>과거 불량 이력으로 리스크를 사전 예측하며</strong>, <strong>반복 검증을 자동화</strong>하는
+        세 가지 데이터 파이프라인을 동시에 구축하는 것이 본 제안의 핵심입니다.
+      </p>
+    </div>
+
+    <h3>제안의 3대 축</h3>
+    <div class="grid-3">
+      <div class="card hover">
+        <div class="tag">PILLAR 01 · PEOPLE</div>
+        <h4>IT 인력 AI 역량 고도화</h4>
+        <p>10~15년 경력 IT/보안팀 인력 2명을 단순 운영자에서 <strong>전사 AI 컨설턴트</strong>로 전환. 부서별 워크플로 분석 → AI 활용 개선안 도출 → 사례 확산까지 자체 추진 가능한 역량 확보.</p>
+      </div>
+      <div class="card hover">
+        <div class="tag">PILLAR 02 · PROCESS</div>
+        <h4>설계 환경 자동화</h4>
+        <p>PT/FT·MAP·Wafer·불량·PPAP 데이터를 통합 관리하는 <strong>설계자 지원 AI</strong>를 구축. 과거 설계 이력 기반 리스크 사전 예측·반복 검증 자동화로 <strong>Revision 횟수와 개발 기간을 동시 단축</strong>.</p>
+      </div>
+      <div class="card hover">
+        <div class="tag">PILLAR 03 · PRODUCT</div>
+        <h4>부서별 맞춤 솔루션</h4>
+        <p>QE·QA·TEST·영업·FAE·신사업·SCM·전략마케팅·응용평가 9개 팀의 <strong>즉시 적용 가능 요청 사항</strong>을 6~8주 내 자동화. 도입 후 효과 검증 → 다음 단계 결정.</p>
+      </div>
+    </div>
+
+    <h3>4단계 도입 흐름</h3>
+    <div class="step-grid">
+      <div class="step-card">
+        <div class="step-num">STEP 01</div>
+        <div class="step-title">진단 & 우선순위</div>
+        <div class="step-desc">미팅 결과 정밀 분석, 부서별 ROI 기준 자동화 우선순위 확정</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">STEP 02</div>
+        <div class="step-title">Quick Win 자동화</div>
+        <div class="step-desc">스크립트/GPTs 기반 9개 부서 요청 사항 빠르게 산출</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">STEP 03</div>
+        <div class="step-title">설계 데이터 통합</div>
+        <div class="step-desc">설계·검증·품질 데이터 통합 DB와 설계자 지원 AI 구축</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">STEP 04</div>
+        <div class="step-title">사내 AI 컨설턴트화</div>
+        <div class="step-desc">IT팀 2명이 전사 AI 운영·확산·보안 거버넌스 주체로 자립</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 2. 현황 진단 ═══════ -->
+<section id="sec-state">
+  <div class="container">
+    <div class="section-tag">02 · CURRENT STATE</div>
+    <h2>부서 인터뷰 종합 인사이트</h2>
+    <p class="section-lead">
+      2026-01-20 ~ 2026-02-11 기간 동안 진행한 10개 팀 인터뷰에서 도출된
+      반복 업무·데이터 정합성·문서 자동화 영역의 핵심 패턴을 정리했습니다.
+      개별 요청 사항은 다양하지만, 본질은 <strong>"수기 작업으로 흩어진 설계·품질·영업 데이터를
+      AI가 정합성 있게 통합·검증·요약하는 것"</strong>으로 수렴됩니다.
+    </p>
+
+    <h3>2-1. 부서별 자동화 기회 종합</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>그룹</th>
+          <th>팀</th>
+          <th>핵심 자동화 니즈</th>
+          <th class="num">절감(h/월)</th>
+          <th class="num">연 환산 (₩)</th>
+          <th>유형</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="3"><span class="badge dark">품질그룹</span></td>
+          <td>QE</td>
+          <td>불량 이미지 레이어화·이력관리, 불량보고서·PPAP 자동화</td>
+          <td class="num">20</td>
+          <td class="num">7,655,502</td>
+          <td><span class="pill pill-info">이미지·문서</span></td>
+        </tr>
+        <tr>
+          <td>QA</td>
+          <td>PT/FT summary 자동 정리, Wafer 상태 텍스트·시각화</td>
+          <td class="num">10</td>
+          <td class="num">4,306,220</td>
+          <td><span class="pill pill-info">데이터 정제</span></td>
+        </tr>
+        <tr>
+          <td>TEST</td>
+          <td>GTK summary 자동 검수, 불량률 0.1%↑ 자동 메일</td>
+          <td class="num">15</td>
+          <td class="num">4,306,220</td>
+          <td><span class="pill pill-info">모니터링</span></td>
+        </tr>
+        <tr>
+          <td rowspan="2"><span class="badge dark">영업/FAE</span></td>
+          <td>영업팀</td>
+          <td>이미지→엑셀 변환, 가변 데이터 추출·정기 업데이트 자동화</td>
+          <td class="num">16</td>
+          <td class="num">6,889,952</td>
+          <td><span class="pill pill-info">데이터 추출</span></td>
+        </tr>
+        <tr>
+          <td>FAE팀</td>
+          <td>경쟁사 데이터시트 비교 GPT, Excel·PPT 결과물 자동 생성</td>
+          <td class="num">16</td>
+          <td class="num">6,889,952</td>
+          <td><span class="pill pill-info">문서 비교</span></td>
+        </tr>
+        <tr>
+          <td rowspan="5"><span class="badge dark">전략그룹</span></td>
+          <td>신사업팀</td>
+          <td>Perplexity 검색 도입, 이미지 변환 AI, 자료 다운 품질 개선</td>
+          <td class="num">12</td>
+          <td class="num">5,167,464</td>
+          <td><span class="pill pill-info">리서치</span></td>
+        </tr>
+        <tr>
+          <td>SCM</td>
+          <td>MAP-summary 정합성 자동 비교, PO 양식 자동 채움</td>
+          <td class="num">32</td>
+          <td class="num">7,655,502</td>
+          <td><span class="pill pill-good">고우선</span></td>
+        </tr>
+        <tr>
+          <td>PM</td>
+          <td>이슈트래킹 솔루션 (AI와 별개 / DingTalk 유사 기능)</td>
+          <td class="num">─</td>
+          <td class="num">─</td>
+          <td><span class="pill pill-warn">별도 검토</span></td>
+        </tr>
+        <tr>
+          <td>전략마케팅</td>
+          <td>엑셀 시트 다국어 자동 번역 (한↔중·영)</td>
+          <td class="num">12</td>
+          <td class="num">2,296,650</td>
+          <td><span class="pill pill-info">번역</span></td>
+        </tr>
+        <tr>
+          <td>응용평가1팀</td>
+          <td>파형/스코프 raw data 자동 그래프, 포맷 분석·대입</td>
+          <td class="num">16</td>
+          <td class="num">3,062,200</td>
+          <td><span class="pill pill-info">데이터 시각화</span></td>
+        </tr>
+        <tr>
+          <td><span class="badge dark">연구소</span></td>
+          <td>디자인1</td>
+          <td>특별 요청 없음 — GPT 사용법 교육으로 진행</td>
+          <td class="num">─</td>
+          <td class="num">─</td>
+          <td><span class="pill pill-warn">교육</span></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" style="background:var(--brand-light); font-weight:700; color:var(--brand-dark);">합계 (직접 식별 효과)</td>
+          <td class="num" style="background:var(--brand-light); font-weight:700; color:var(--brand-dark);">149h</td>
+          <td class="num" style="background:var(--brand-light); font-weight:700; color:var(--brand-dark);">48,229,662</td>
+          <td style="background:var(--brand-light);"></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="callout warning">
+      <p>
+        <strong>주의 ─</strong>
+        위 수치는 미팅에서 직접 언급된 <strong>1차 절감 효과</strong>만 합산한 보수적 값입니다.
+        설계 Revision 1회 감소가 가져오는 개발 기간·재시험 비용·기회 손실 절감,
+        그리고 사례 확산에 따른 연구소·응용평가2·통합솔루션팀 등 <strong>미인터뷰 부서 효과</strong>는 별도 산정 시 추가 수배 가능합니다.
+      </p>
+    </div>
+
+    <h3>2-2. 패턴 분석 — 8가지 공통 자동화 영역</h3>
+    <p style="margin-bottom:16px; font-size:0.92rem; color:var(--text-muted);">
+      <span class="live-dot"></span> 카드에 마우스를 올리면 기술 스택과 적용 흐름이 강조됩니다 ·
+      각 카드의 <span class="tech-chip lang" style="padding:1px 6px; font-size:0.68rem;">언어</span>
+      <span class="tech-chip model" style="padding:1px 6px; font-size:0.68rem;">모델</span>
+      <span class="tech-chip api" style="padding:1px 6px; font-size:0.68rem;">API</span>
+      <span class="tech-chip tool" style="padding:1px 6px; font-size:0.68rem;">도구</span>
+      칩으로 구성 요소를 시각화했습니다
+    </p>
+
+    <div class="pattern-grid">
+
+      <!-- ── Pattern 01 ── -->
+      <div class="pattern-card">
+        <div class="pattern-head">
+          <div class="pattern-icon">01</div>
+          <div class="pattern-head-text">
+            <div class="pattern-num">PATTERN · VISION</div>
+            <div class="pattern-title">이미지 ↔ 데이터 변환</div>
+            <div class="pattern-sub">불량 사진·파형·캡처를 텍스트·표·구조 데이터로 변환하는 멀티모달 파이프라인</div>
+          </div>
+          <a href="demo/01-vision.html" target="_blank" class="pattern-demo-link">▶ DEMO</a>
+        </div>
+        <div class="pattern-body">
+          <div class="pattern-row">
+            <div class="pattern-row-label">CONCRETE EXAMPLES</div>
+            <div class="pattern-examples">
+              <div class="ex-item"><div>QE — 불량 흔적 사진을 부위별 레이어로 분리하여 보고서 재사용 가능 구조로 변환</div></div>
+              <div class="ex-item"><div>영업팀 — 데이터시트 PDF 표 캡처(.png) → 엑셀 행/열로 자동 추출</div></div>
+              <div class="ex-item"><div>신사업 — 시장 자료 인포그래픽 이미지 → 텍스트·수치 데이터로 분해</div></div>
+              <div class="ex-item"><div>응용평가1 — 오실로스코프 스크린샷 → 시점/전압 raw data 추출 후 그래프 재생성</div></div>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">TECH STACK</div>
+            <div class="tech-stack">
+              <span class="tech-chip model">GPT-4o Vision</span>
+              <span class="tech-chip model">Claude 3.5 Sonnet</span>
+              <span class="tech-chip model">Gemini 1.5 Pro</span>
+              <span class="tech-chip api">Google Document AI</span>
+              <span class="tech-chip api">Azure Form Recognizer</span>
+              <span class="tech-chip lang">Python</span>
+              <span class="tech-chip tool">Pillow / OpenCV</span>
+              <span class="tech-chip tool">Tesseract OCR</span>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">WORKFLOW</div>
+            <div class="flow-steps">
+              <span class="flow-step">이미지 입력</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">전처리(크롭·해상도)</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">멀티모달 LLM 추출</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">JSON 정규화</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">Excel·DB 저장</span>
+            </div>
+          </div>
+        </div>
+        <div class="pattern-footer">
+          <div class="dept-tags">
+            <span class="dept-tag">QE</span>
+            <span class="dept-tag">영업</span>
+            <span class="dept-tag">신사업</span>
+            <span class="dept-tag">응용평가1</span>
+          </div>
+          <div class="pattern-saving">월 ~24h 절감 가능</div>
+        </div>
+      </div>
+
+      <!-- ── Pattern 02 ── -->
+      <div class="pattern-card">
+        <div class="pattern-head">
+          <div class="pattern-icon">02</div>
+          <div class="pattern-head-text">
+            <div class="pattern-num">PATTERN · INTEGRITY</div>
+            <div class="pattern-title">데이터 정합성 검증</div>
+            <div class="pattern-sub">파일 간 숫자·필드·인덱스 자동 매칭, 불일치 즉시 보고</div>
+          </div>
+          <a href="demo/02-integrity.html" target="_blank" class="pattern-demo-link">▶ DEMO</a>
+        </div>
+        <div class="pattern-body">
+          <div class="pattern-row">
+            <div class="pattern-row-label">CONCRETE EXAMPLES</div>
+            <div class="pattern-examples">
+              <div class="ex-item"><div>QA — PT/FT summary 파일에서 불필요 열 제거 + 두 파일 통합 & 차이 표시</div></div>
+              <div class="ex-item"><div>TEST — GTK summary 디렉토리 자동 감시 → 불량률 0.1% 초과 시 알림</div></div>
+              <div class="ex-item"><div>SCM — MAP 파일 수치 vs Summary 수치 일치 여부를 Lot/Wafer 단위로 검증</div></div>
+              <div class="ex-item"><div>전 부서 — 엑셀 시트 간 PTY·BIN 매칭, 누락·중복 감지</div></div>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">TECH STACK</div>
+            <div class="tech-stack">
+              <span class="tech-chip lang">Python 3.11</span>
+              <span class="tech-chip lang">pandas</span>
+              <span class="tech-chip lang">openpyxl</span>
+              <span class="tech-chip lang">polars</span>
+              <span class="tech-chip tool">watchdog (디렉토리 감시)</span>
+              <span class="tech-chip tool">APScheduler</span>
+              <span class="tech-chip tool">Great Expectations</span>
+              <span class="tech-chip api">SMTP / Slack Webhook</span>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">WORKFLOW</div>
+            <div class="flow-steps">
+              <span class="flow-step">파일 감지</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">스키마 파싱</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">룰·임계값 비교</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">diff 리포트</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">메일·메신저 알림</span>
+            </div>
+          </div>
+        </div>
+        <div class="pattern-footer">
+          <div class="dept-tags">
+            <span class="dept-tag">QA</span>
+            <span class="dept-tag">TEST</span>
+            <span class="dept-tag">SCM</span>
+          </div>
+          <div class="pattern-saving">월 ~57h 절감 가능</div>
+        </div>
+      </div>
+
+      <!-- ── Pattern 03 ── -->
+      <div class="pattern-card">
+        <div class="pattern-head">
+          <div class="pattern-icon">03</div>
+          <div class="pattern-head-text">
+            <div class="pattern-num">PATTERN · DOC-GEN</div>
+            <div class="pattern-title">문서 자동 생성</div>
+            <div class="pattern-sub">데이터·템플릿·AI 텍스트를 결합한 보고서/PPT/엑셀 자동 산출</div>
+          </div>
+          <a href="demo/03-docgen.html" target="_blank" class="pattern-demo-link">▶ DEMO</a>
+        </div>
+        <div class="pattern-body">
+          <div class="pattern-row">
+            <div class="pattern-row-label">CONCRETE EXAMPLES</div>
+            <div class="pattern-examples">
+              <div class="ex-item"><div>QE — 불량 보고서(PPT/PDF)에 이미지·계측값 자동 첨부 → 보고서 작성 시간 80%↓</div></div>
+              <div class="ex-item"><div>QE — PPAP 양식의 PDF 사이즈/포맷 일괄 변환 (US Letter ↔ A4)</div></div>
+              <div class="ex-item"><div>영업·FAE — 데이터시트 비교 결과를 사내 PPT 마스터에 자동 삽입</div></div>
+              <div class="ex-item"><div>전략마케팅 — 시장 분석을 PPT 16:9 와이드 페이지로 자동 변환</div></div>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">TECH STACK</div>
+            <div class="tech-stack">
+              <span class="tech-chip lang">python-docx</span>
+              <span class="tech-chip lang">python-pptx</span>
+              <span class="tech-chip lang">openpyxl + xlsxwriter</span>
+              <span class="tech-chip lang">ReportLab / WeasyPrint</span>
+              <span class="tech-chip api">ChatGPT GPTs (사내 표준)</span>
+              <span class="tech-chip api">Claude API</span>
+              <span class="tech-chip tool">Jinja2 템플릿</span>
+              <span class="tech-chip tool">Pandoc</span>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">WORKFLOW</div>
+            <div class="flow-steps">
+              <span class="flow-step">데이터 수집</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">템플릿 선택</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">AI 본문 생성</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">차트·이미지 삽입</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">사내 양식 PDF</span>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">DEV ENV</div>
+            <div class="pattern-row-content">
+              <strong>Python 3.11 + uv 패키지 관리자</strong> 기반의 단일 CLI(<code>tpsemi-docgen</code>)로 패키징. 사내 NAS의 <code>/templates/</code> 폴더에 PPT/Excel 마스터 보관, 부서별 GPTs는 ChatGPT Team 워크스페이스에 등록하여 사용자가 클릭 한 번으로 호출. 결과물은 <code>/output/&lt;팀&gt;/&lt;YYYY-MM-DD&gt;/</code> 자동 정리.
+            </div>
+          </div>
+        </div>
+        <div class="pattern-footer">
+          <div class="dept-tags">
+            <span class="dept-tag">QE</span>
+            <span class="dept-tag">영업</span>
+            <span class="dept-tag">FAE</span>
+            <span class="dept-tag">전략마케팅</span>
+          </div>
+          <div class="pattern-saving">월 ~30h 절감 가능</div>
+        </div>
+      </div>
+
+      <!-- ── Pattern 04 ── -->
+      <div class="pattern-card">
+        <div class="pattern-head">
+          <div class="pattern-icon">04</div>
+          <div class="pattern-head-text">
+            <div class="pattern-num">PATTERN · COMPARE</div>
+            <div class="pattern-title">비교·분석 AI (장문 컨텍스트)</div>
+            <div class="pattern-sub">여러 PDF·문서·이미지를 한꺼번에 읽고 표·근거와 함께 비교</div>
+          </div>
+          <a href="demo/04-compare.html" target="_blank" class="pattern-demo-link">▶ DEMO</a>
+        </div>
+        <div class="pattern-body">
+          <div class="pattern-row">
+            <div class="pattern-row-label">CONCRETE EXAMPLES</div>
+            <div class="pattern-examples">
+              <div class="ex-item"><div>FAE — 자사 vs 경쟁사 데이터시트 3~5개 동시 비교 → Vds·Ron·Vth 등 핵심 스펙 표 자동 생성</div></div>
+              <div class="ex-item"><div>SCM — MAP 이미지 4종 시각 비교 (사람 확인 보조용 하이라이트 표시)</div></div>
+              <div class="ex-item"><div>신사업 — 경쟁사 IR/뉴스/특허 자료 통합 비교 + 인용 출처 자동 표기</div></div>
+              <div class="ex-item"><div>QE — 과거 불량 보고서 N건 vs 현재 케이스 → 유사도 순위 매기기</div></div>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">TECH STACK</div>
+            <div class="tech-stack">
+              <span class="tech-chip model">Claude Sonnet 4.6 (1M ctx)</span>
+              <span class="tech-chip model">Gemini 1.5 Pro (2M ctx)</span>
+              <span class="tech-chip model">GPT-4 Turbo (128K)</span>
+              <span class="tech-chip tool">LangChain</span>
+              <span class="tech-chip tool">LlamaIndex</span>
+              <span class="tech-chip tool">PyMuPDF / pdfplumber</span>
+              <span class="tech-chip lang">Streamlit (UI 프로토)</span>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">WORKFLOW</div>
+            <div class="flow-steps">
+              <span class="flow-step">파일 다중 업로드</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">텍스트·이미지 추출</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">롱컨텍스트 LLM 비교</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">근거 인용 첨부</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">표·PPT 산출</span>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">DEV ENV</div>
+            <div class="pattern-row-content">
+              <strong>사내 Streamlit 앱</strong>으로 시작 (포트 8501) → 사용자가 PDF/이미지 드래그&드롭 → 백엔드에서 Claude 또는 Gemini API 호출 → 결과 표를 사내 PPT 템플릿으로 export. 정착 단계에서는 <strong>Next.js + FastAPI</strong>로 사내 포털에 통합.
+            </div>
+          </div>
+        </div>
+        <div class="pattern-footer">
+          <div class="dept-tags">
+            <span class="dept-tag">FAE</span>
+            <span class="dept-tag">SCM</span>
+            <span class="dept-tag">신사업</span>
+            <span class="dept-tag">QE</span>
+          </div>
+          <div class="pattern-saving">월 ~36h 절감 가능</div>
+        </div>
+      </div>
+
+      <!-- ── Pattern 05 ── -->
+      <div class="pattern-card">
+        <div class="pattern-head">
+          <div class="pattern-icon">05</div>
+          <div class="pattern-head-text">
+            <div class="pattern-num">PATTERN · MONITOR</div>
+            <div class="pattern-title">임계치 모니터링·자동 알림</div>
+            <div class="pattern-sub">트리거 룰 + 알림 채널 표준화로 사람 감시 부담 제거</div>
+          </div>
+          <a href="demo/05-monitor.html" target="_blank" class="pattern-demo-link">▶ DEMO</a>
+        </div>
+        <div class="pattern-body">
+          <div class="pattern-row">
+            <div class="pattern-row-label">CONCRETE EXAMPLES</div>
+            <div class="pattern-examples">
+              <div class="ex-item"><div>TEST — 불량률 0.1% 초과 시 책임자·라인담당 자동 메일 + Teams DM</div></div>
+              <div class="ex-item"><div>SCM — MAP vs Summary 정합성 오차 발견 시 슬랙 채널 + 메일 동시 통보</div></div>
+              <div class="ex-item"><div>QA — Wafer 상태 이상 카운트 임계값 초과 시 일일 다이제스트로 요약</div></div>
+              <div class="ex-item"><div>전사 — AI 보안 정책 위반(외부 모델 송신) 탐지 시 IT팀 즉시 알림</div></div>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">TECH STACK</div>
+            <div class="tech-stack">
+              <span class="tech-chip tool">n8n (사내 자동화 허브)</span>
+              <span class="tech-chip tool">Apache Airflow</span>
+              <span class="tech-chip tool">cron / systemd</span>
+              <span class="tech-chip api">SMTP·Microsoft Graph</span>
+              <span class="tech-chip api">Slack / Teams Webhook</span>
+              <span class="tech-chip api">Telegram Bot API</span>
+              <span class="tech-chip lang">Python rule engine</span>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">WORKFLOW</div>
+            <div class="flow-steps">
+              <span class="flow-step">트리거 룰 정의(YAML)</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">스케줄·이벤트 감시</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">조건 평가</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">알림·티켓 발행</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">대시보드 기록</span>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">DEV ENV</div>
+            <div class="pattern-row-content">
+              사내 Linux 서버 1대(또는 Synology NAS Docker)에 <strong>n8n self-hosted</strong> 설치. 노코드 UI로 IT팀이 직접 룰 추가/수정 → 코딩 부담 없이 모니터링 룰 무한 확장 가능. 메일·Teams·Slack·KakaoWork·SMS 등 다채널 어댑터 기본 제공.
+            </div>
+          </div>
+        </div>
+        <div class="pattern-footer">
+          <div class="dept-tags">
+            <span class="dept-tag">TEST</span>
+            <span class="dept-tag">SCM</span>
+            <span class="dept-tag">QA</span>
+            <span class="dept-tag">IT/보안</span>
+          </div>
+          <div class="pattern-saving">월 ~15h 절감 + 사고 예방</div>
+        </div>
+      </div>
+
+      <!-- ── Pattern 06 ── -->
+      <div class="pattern-card">
+        <div class="pattern-head">
+          <div class="pattern-icon">06</div>
+          <div class="pattern-head-text">
+            <div class="pattern-num">PATTERN · LOCALE</div>
+            <div class="pattern-title">다국어 자동 번역·로컬라이즈</div>
+            <div class="pattern-sub">반도체 용어 일관성 유지 + 시트 단위 일괄 번역</div>
+          </div>
+          <a href="demo/06-translate.html" target="_blank" class="pattern-demo-link">▶ DEMO</a>
+        </div>
+        <div class="pattern-body">
+          <div class="pattern-row">
+            <div class="pattern-row-label">CONCRETE EXAMPLES</div>
+            <div class="pattern-examples">
+              <div class="ex-item"><div>전략마케팅 — 시장 데이터 엑셀 시트를 한↔영↔중(간체) 일괄 번역</div></div>
+              <div class="ex-item"><div>FAE — 글로벌 고객 응대 메일을 사내 톤·기술 용어 사전 적용해 번역</div></div>
+              <div class="ex-item"><div>영업 — 견적·계약서 핵심 용어 일관성 유지 (Glossary 기반)</div></div>
+              <div class="ex-item"><div>QE — 고객사(해외) 클레임 메일을 자동 요약·번역 후 한국어로 정리</div></div>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">TECH STACK</div>
+            <div class="tech-stack">
+              <span class="tech-chip tool">Google Sheets GOOGLETRANSLATE</span>
+              <span class="tech-chip api">DeepL API (Glossary 지원)</span>
+              <span class="tech-chip api">Google Translation API</span>
+              <span class="tech-chip model">Claude / GPT (문맥 번역)</span>
+              <span class="tech-chip tool">Google Apps Script</span>
+              <span class="tech-chip lang">Excel TRANSLATE() (M365)</span>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">WORKFLOW</div>
+            <div class="flow-steps">
+              <span class="flow-step">시트·문서 입력</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">용어 사전 적용</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">LLM 번역</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">사후 검수(샘플링)</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">사내 양식 출력</span>
+            </div>
+          </div>
+        </div>
+        <div class="pattern-footer">
+          <div class="dept-tags">
+            <span class="dept-tag">전략마케팅</span>
+            <span class="dept-tag">FAE</span>
+            <span class="dept-tag">영업</span>
+            <span class="dept-tag">QE</span>
+          </div>
+          <div class="pattern-saving">월 ~12h 절감 + 품질 향상</div>
+        </div>
+      </div>
+
+      <!-- ── Pattern 07 ── -->
+      <div class="pattern-card">
+        <div class="pattern-head">
+          <div class="pattern-icon">07</div>
+          <div class="pattern-head-text">
+            <div class="pattern-num">PATTERN · RAG</div>
+            <div class="pattern-title">지식 검색 (사내 RAG + 외부 리서치)</div>
+            <div class="pattern-sub">사내 문서를 벡터화 + Perplexity 외부 검색을 하나의 질의창에서</div>
+          </div>
+          <a href="demo/07-search.html" target="_blank" class="pattern-demo-link">▶ DEMO</a>
+        </div>
+        <div class="pattern-body">
+          <div class="pattern-row">
+            <div class="pattern-row-label">CONCRETE EXAMPLES</div>
+            <div class="pattern-examples">
+              <div class="ex-item"><div>신사업 — Perplexity로 경쟁사 동향·시장 통계 즉시 검색 + 출처 인용</div></div>
+              <div class="ex-item"><div>FAE — 사내 데이터시트·과거 응대 사례를 벡터 DB에서 즉시 검색</div></div>
+              <div class="ex-item"><div>SCM — PO 양식·거래처 이력 자료를 GPTs로 질의응답</div></div>
+              <div class="ex-item"><div>QE — 과거 불량 보고서 N년치를 자연어로 검색("Vds 80V에서 발생한 사례")</div></div>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">TECH STACK</div>
+            <div class="tech-stack">
+              <span class="tech-chip api">Perplexity Sonar API</span>
+              <span class="tech-chip tool">LlamaIndex / LangChain</span>
+              <span class="tech-chip tool">Chroma DB (사내 벡터)</span>
+              <span class="tech-chip tool">Qdrant / Weaviate</span>
+              <span class="tech-chip model">OpenAI text-embedding-3-large</span>
+              <span class="tech-chip model">Cohere Rerank</span>
+              <span class="tech-chip lang">FastAPI 백엔드</span>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">WORKFLOW</div>
+            <div class="flow-steps">
+              <span class="flow-step">사내 문서 인덱싱</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">질의 입력</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">벡터+키워드 하이브리드 검색</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">외부 Perplexity 보강</span>
+              <span class="flow-arrow">▸</span>
+              <span class="flow-step">근거와 함께 답변</span>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">DEV ENV</div>
+            <div class="pattern-row-content">
+              <strong>사내 단일 서버 + Docker Compose</strong>로 시작 — Chroma DB 컨테이너 + FastAPI 검색 서버 + React 프런트. 인덱싱은 야간 배치로 사내 NAS 변경분만 증분 처리. 답변에는 항상 <strong>원본 파일 경로와 발췌문</strong>이 함께 표시되어 출처 검증 가능.
+            </div>
+          </div>
+        </div>
+        <div class="pattern-footer">
+          <div class="dept-tags">
+            <span class="dept-tag">신사업</span>
+            <span class="dept-tag">FAE</span>
+            <span class="dept-tag">SCM</span>
+            <span class="dept-tag">QE</span>
+          </div>
+          <div class="pattern-saving">월 ~20h 절감 + 노하우 자산화</div>
+        </div>
+      </div>
+
+      <!-- ── Pattern 08 ── -->
+      <div class="pattern-card">
+        <div class="pattern-head">
+          <div class="pattern-icon">08</div>
+          <div class="pattern-head-text">
+            <div class="pattern-num">PATTERN · TRACKING</div>
+            <div class="pattern-title">업무 이력·이슈트래킹</div>
+            <div class="pattern-sub">AI와 별개 트랙 — 협업 SaaS 도입 권고 (PM 요청 사항 반영)</div>
+          </div>
+          <a href="demo/08-tracking.html" target="_blank" class="pattern-demo-link">▶ DEMO</a>
+        </div>
+        <div class="pattern-body">
+          <div class="pattern-row">
+            <div class="pattern-row-label">CONCRETE EXAMPLES</div>
+            <div class="pattern-examples">
+              <div class="ex-item"><div>PM — 메일 위주 소통으로 한 명 이탈 시 업무 공백 발생 → 이력 보존 시스템 필요</div></div>
+              <div class="ex-item"><div>QE/QA — 불량 처리 이력을 티켓 단위로 추적, 재발 시 과거 처리 노하우 즉시 확인</div></div>
+              <div class="ex-item"><div>SCM — PO·발주·납품 이슈를 칸반으로 시각화</div></div>
+              <div class="ex-item"><div>전사 — 작업 지시·승인 흐름 표준화 (수기 → 디지털 워크플로)</div></div>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">CANDIDATE TOOLS</div>
+            <div class="tech-stack">
+              <span class="tech-chip tool">Linear (개발·기술팀 강점)</span>
+              <span class="tech-chip tool">Notion (문서+DB 통합)</span>
+              <span class="tech-chip tool">Atlassian Jira</span>
+              <span class="tech-chip tool">ClickUp</span>
+              <span class="tech-chip tool">DingTalk (요청 시 검토)</span>
+              <span class="tech-chip tool">KakaoWork + 칸반</span>
+            </div>
+          </div>
+          <div class="pattern-row">
+            <div class="pattern-row-label">권고 사항</div>
+            <div class="pattern-row-content">
+              본 영역은 <strong>AI 솔루션이 아니라 SaaS 협업 도구 도입</strong>이 핵심입니다. AI 도입 트랙과 병행하되,
+              ① 부서별 요구사항 1차 정리 → ② 후보 3종 무료 트라이얼 → ③ 보안·계정 통합(SSO) 가능 여부 검증 → ④ 1개 부서 파일럿 → 전사 확산 순으로 진행 권고. 도입 후에는 <strong>AI Copilot(Notion AI, Jira AI 등)</strong>과 자연스럽게 연결됩니다.
+            </div>
+          </div>
+        </div>
+        <div class="pattern-footer">
+          <div class="dept-tags">
+            <span class="dept-tag">PM</span>
+            <span class="dept-tag">전사 협업</span>
+          </div>
+          <div class="pattern-saving">정량 추정 불가 · 이탈 리스크 제거</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ═══════ LIVE DEMO CTA ═══════ -->
+    <div class="demo-cta">
+      <div class="demo-cta-inner">
+        <div class="demo-cta-content">
+          <span class="live-tag">LIVE · INTERACTIVE</span>
+          <h3>위 8가지 패턴, <span class="accent">실제로 동작하는 데모</span>로 확인하세요</h3>
+          <p>
+            제안서로만 설명드리지 않습니다. 미팅 인터뷰에서 식별된 <strong>8가지 자동화 패턴 모두를
+            인터랙티브 데모</strong>로 구현했습니다. 입력 → AI 처리 → 출력의 전 과정을 직접 클릭·체험하실 수 있습니다.
+            특히 <strong>Vision 데모(Pattern 01)</strong>는 3단계 파이프라인(OpenCV → YOLO/SAM/ViT → 보고 자동화)과
+            <strong>분석 이력 관리</strong>까지 포함됩니다.
+          </p>
+          <div class="demo-cta-stats">
+            <div class="demo-cta-stat">
+              <div class="v">8</div>
+              <div class="l">PATTERN DEMOS</div>
+            </div>
+            <div class="demo-cta-stat">
+              <div class="v">25+</div>
+              <div class="l">INTERACTIONS</div>
+            </div>
+            <div class="demo-cta-stat">
+              <div class="v">5</div>
+              <div class="l">IMAGE TYPES (Vision)</div>
+            </div>
+            <div class="demo-cta-stat">
+              <div class="v">3</div>
+              <div class="l">REAL-TIME WIDGETS</div>
+            </div>
+          </div>
+        </div>
+        <a href="demo/index.html" target="_blank" class="demo-cta-button">
+          <span class="label">▶ LAUNCH</span>
+          <span class="text">데모 허브 열기</span>
+          <span class="arrow">→ demo/index.html</span>
+        </a>
+      </div>
+    </div>
+
+    <h3>2-3. AI 도구 현황과 격차 — 모델·과업 매트릭스</h3>
+    <p>
+      현재 일부 팀(QA·신사업·전략마케팅 등)에서 ChatGPT를 자발적으로 활용 중이나,
+      <strong>① 결과물 품질·다운로드 제약</strong>, <strong>② 부서 표준 부재로 인한 중복 학습</strong>,
+      <strong>③ 보안·데이터 관리 가이드 부재</strong>, <strong>④ 반도체 설계 도메인 특화 부족</strong>이
+      공통 페인포인트로 확인됩니다. 본 제안은 <strong>도구 + 표준 GPTs + 보안 가이드 + 도메인 맞춤화</strong>를 함께 제공합니다.
+    </p>
+
+    <div class="tool-matrix">
+      <div class="tm-head">과업 유형</div>
+      <div class="tm-head">ChatGPT (GPT-4o)</div>
+      <div class="tm-head">Claude Sonnet 4.6</div>
+      <div class="tm-head">Gemini 1.5 Pro</div>
+      <div class="tm-head">Perplexity</div>
+
+      <div class="tm-row-label">코드·자동화 스크립트</div>
+      <div class="tm-cell"><span class="star">★★★★</span>☆</div>
+      <div class="tm-cell"><span class="star">★★★★★</span></div>
+      <div class="tm-cell"><span class="star">★★★★</span>☆</div>
+      <div class="tm-cell na">제한적</div>
+
+      <div class="tm-row-label">장문 문서 비교(데이터시트)</div>
+      <div class="tm-cell"><span class="star">★★★</span>☆☆</div>
+      <div class="tm-cell"><span class="star">★★★★★</span></div>
+      <div class="tm-cell"><span class="star">★★★★★</span></div>
+      <div class="tm-cell na">─</div>
+
+      <div class="tm-row-label">이미지·파형 분석</div>
+      <div class="tm-cell"><span class="star">★★★★★</span></div>
+      <div class="tm-cell"><span class="star">★★★★</span>☆</div>
+      <div class="tm-cell"><span class="star">★★★★</span>☆</div>
+      <div class="tm-cell na">─</div>
+
+      <div class="tm-row-label">엑셀·PPT 산출물</div>
+      <div class="tm-cell"><span class="star">★★★</span>☆☆</div>
+      <div class="tm-cell"><span class="star">★★★★</span>☆</div>
+      <div class="tm-cell"><span class="star">★★★★</span>☆</div>
+      <div class="tm-cell na">─</div>
+
+      <div class="tm-row-label">시장·경쟁사 리서치</div>
+      <div class="tm-cell"><span class="star">★★★</span>☆☆</div>
+      <div class="tm-cell"><span class="star">★★★</span>☆☆</div>
+      <div class="tm-cell"><span class="star">★★★★</span>☆</div>
+      <div class="tm-cell"><span class="star">★★★★★</span></div>
+
+      <div class="tm-row-label">다국어 번역(반도체 용어)</div>
+      <div class="tm-cell"><span class="star">★★★★</span>☆</div>
+      <div class="tm-cell"><span class="star">★★★★★</span></div>
+      <div class="tm-cell"><span class="star">★★★★</span>☆</div>
+      <div class="tm-cell na">─</div>
+    </div>
+
+    <div class="callout brand">
+      <p>
+        <strong>도구 운용 원칙 ─</strong>
+        벤더 단일화가 아닌 <strong>"과업별 최적 모델"</strong>을 채택합니다. 예: 코드·번역·장문 비교는 Claude, 이미지·범용은 ChatGPT, 검색·시장 리서치는 Perplexity, 글로벌 자료·구글 워크스페이스 연계는 Gemini. IT팀이 부서별 가이드를 표준화하고, 라이선스는 중복 없이 통합 관리합니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 3. 제안 배경 및 추진 목적 ═══════ -->
+<section id="sec-background">
+  <div class="container">
+    <div class="section-tag">03 · BACKGROUND & PURPOSE</div>
+    <h2>제안 배경 및 추진 목적</h2>
+    <p class="section-lead">
+      반도체 설계 회사의 경쟁력은 <strong>"얼마나 적은 Revision으로 IC 설계를 완료하느냐"</strong>에 달려 있습니다.
+      Revision 1회는 단순한 재작업이 아니라, 마스크 비용·재시험 일정·고객 일정 지연·신뢰도 손상으로 연결됩니다.
+      따라서 AI 도입의 목표 역시 "도구 보급"이 아닌 "Revision 최소화와 설계 품질 안정성 확보"여야 합니다.
+    </p>
+
+    <h3>3-1. 추진 배경</h3>
+    <div class="grid-3">
+      <div class="card">
+        <div class="tag">CONTEXT 01</div>
+        <h4>설계 데이터의 분산</h4>
+        <p>설계·검증·품질·불량 데이터가 팀별 파일·메일·로컬 디스크에 분산되어 있어, 과거 이력 기반 의사결정이 어려움</p>
+      </div>
+      <div class="card">
+        <div class="tag">CONTEXT 02</div>
+        <h4>반복 검증 부담</h4>
+        <p>PT/FT, MAP, Wafer 상태, 데이터시트 비교 등 반복 업무에 핵심 인력 시간이 소모되어 설계 본업 집중도 저하</p>
+      </div>
+      <div class="card">
+        <div class="tag">CONTEXT 03</div>
+        <h4>비표준 AI 활용</h4>
+        <p>개인별 ChatGPT 활용에 머물러 사례 공유·표준화·보안 거버넌스가 부재. 도입 효과가 개인 차원에 그침</p>
+      </div>
+    </div>
+
+    <h3>3-2. 추진 목적</h3>
+    <ul class="check-list">
+      <li><strong>설계 Revision 횟수 감소</strong> — 과거 설계·불량 이력 학습 AI가 신규 설계 단계에서 리스크를 사전 경고</li>
+      <li><strong>개발 기간 단축</strong> — 반복 검증·문서화·정합성 확인을 자동화하여 핵심 인력의 설계 집중도 향상</li>
+      <li><strong>품질 안정성 확보</strong> — 사람이 놓치기 쉬운 데이터 불일치·임계치 초과를 AI가 상시 감시</li>
+      <li><strong>전사 생산성 향상</strong> — 부서별 맞춤 AI 솔루션으로 단순·반복 업무 부담을 줄이고 본업에 집중</li>
+      <li><strong>사내 AI 운영 자립</strong> — 외부 컨설팅 의존 없이도 IT팀이 전사 AI 도입·운영·확산을 주도</li>
+      <li><strong>안전한 AI 활용 체계</strong> — 설계 정보·고객 자료가 외부로 유출되지 않는 보안 거버넌스 구축</li>
+    </ul>
+
+    <div class="callout brand">
+      <p>
+        <strong>접근 원칙 ─</strong>
+        ① <strong>Quick Win 우선</strong>: 8주 내 부서 체감 가능한 자동화 9건 산출 →
+        ② <strong>플랫폼 확장</strong>: 설계 데이터 통합과 설계자 지원 AI 구축 →
+        ③ <strong>자립 운영</strong>: IT팀 2명이 사내 AI 컨설턴트로 역할 확장.
+        세 단계가 순차가 아닌 <strong>병행 추진</strong>되어, 도입 초기부터 효과가 누적됩니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 4. 제안 ① IT 인력 AI 역량 육성 ═══════ -->
+<section id="sec-proposal1">
+  <div class="container">
+    <div class="section-tag">04 · PROPOSAL 01</div>
+    <h2>제안 ① IT 인력 AI 역량 육성 프로그램</h2>
+    <p class="section-lead">
+      현재 10~15년 경력의 IT/보안팀 인력 2명을 단순 운영·보안 담당에서
+      <strong>전사 생산성 향상을 지원하는 AI 기반 내부 컨설턴트</strong>로 전환합니다.
+      외부 컨설팅이 끝난 뒤에도 사내에서 AI 도입·확산·운영·거버넌스를 주도할 수 있도록,
+      "지식 + 실무 산출물 + 사내 코칭"을 결합한 6개월 프로그램으로 설계했습니다.
+    </p>
+
+    <h3>4-1. 역할 재정의</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="tag">AS-IS</div>
+        <h4>현재 IT/보안팀 역할</h4>
+        <ul>
+          <li>네트워크·계정·디바이스·라이선스 운영</li>
+          <li>보안 패치·이슈 대응</li>
+          <li>부서 IT 요청 처리</li>
+        </ul>
+      </div>
+      <div class="card" style="border-color: var(--brand-accent); background: var(--brand-light);">
+        <div class="tag" style="color: var(--brand-dark);">TO-BE</div>
+        <h4>AI 기반 내부 컨설턴트</h4>
+        <ul>
+          <li>부서 업무 프로세스 분석 → AI 활용 개선안 도출</li>
+          <li>사내 GPTs·자동화 스크립트 직접 개발·운영</li>
+          <li>AI 사용 가이드라인·보안 정책 수립·교육</li>
+          <li>전사 AI 사례 발굴·공유·확산</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>4-2. 6개월 육성 커리큘럼</h3>
+    <div class="timeline">
+      <div class="phase">
+        <div class="phase-meta">MONTH 01–02 · FOUNDATION</div>
+        <h4>AI 기술·도구 실무 학습</h4>
+        <ul>
+          <li>주요 AI 도구 비교 실습 (ChatGPT / Claude / Gemini / Perplexity / SIDER 등)</li>
+          <li>프롬프트 엔지니어링 기초·고급 패턴, GPTs/Projects 구축 실습</li>
+          <li>API 기반 자동화 — Python·Apps Script로 사내 자동화 스크립트 작성</li>
+          <li>실습 산출물: 부서 1곳 대상 자동화 PoC 1건</li>
+        </ul>
+      </div>
+      <div class="phase accent">
+        <div class="phase-meta">MONTH 03–04 · APPLICATION</div>
+        <h4>부서 워크플로 분석·개선안 도출</h4>
+        <ul>
+          <li>부서별 업무 프로세스 워크숍 (개발·품질·영업·경영 등 핵심 부서)</li>
+          <li>AI 적용 우선순위·기대효과·리스크 평가 매트릭스 작성</li>
+          <li>2개 부서 자동화 솔루션 직접 설계·구현 (멘토링 동행)</li>
+          <li>실습 산출물: 부서별 AI 적용 로드맵 + 2건 추가 자동화 산출물</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-meta">MONTH 05 · GOVERNANCE</div>
+        <h4>보안 기반 AI 활용 체계 수립</h4>
+        <ul>
+          <li>사내 AI 사용 정책 초안 작성 (외부 업로드 금지 데이터 분류, 모델별 가이드)</li>
+          <li>DLP·접근 통제·로그 모니터링과 연계한 AI 거버넌스 설계</li>
+          <li>전사 보안 교육 자료 + 사례형 점검 체크리스트 제작</li>
+        </ul>
+      </div>
+      <div class="phase accent">
+        <div class="phase-meta">MONTH 06 · SCALE</div>
+        <h4>사내 AI 컨설턴트 자립화</h4>
+        <ul>
+          <li>전사 AI 활용 사례 발표회 운영·자체 매뉴얼/위키 구축</li>
+          <li>월간 사내 AI 클리닉 운영 — 부서 요청 → IT팀 직접 해결 프로세스</li>
+          <li>KPI 정의·측정 — 부서별 AI 적용 건수·절감 시간·만족도</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>4-3. 기대 산출물</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>산출물</th>
+          <th>활용처</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>역량</td><td>2명 × AI 컨설턴트 역량 (도구·자동화·거버넌스)</td><td>사내 영구 자산</td></tr>
+        <tr><td>가이드</td><td>다믈파워반도체 AI 활용 가이드라인 v1.0</td><td>전사 표준</td></tr>
+        <tr><td>실무 산출</td><td>부서별 자동화 PoC 3건 + 로드맵 1식</td><td>각 부서 즉시 활용</td></tr>
+        <tr><td>운영체계</td><td>월간 AI 클리닉 · 사례 위키 · KPI 대시보드</td><td>지속 확산 엔진</td></tr>
+        <tr><td>보안</td><td>AI 보안 정책 + 점검 체크리스트 + 교육자료</td><td>정보보호 거버넌스</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════ 5. 제안 ② 설계 환경 자동화 ═══════ -->
+<section id="sec-proposal2">
+  <div class="container">
+    <div class="section-tag">05 · PROPOSAL 02</div>
+    <h2>제안 ② AI 기반 설계 환경 자동화 구축</h2>
+    <p class="section-lead">
+      반도체 설계의 핵심 목표인 <strong>"최소 Revision으로 IC 설계 완료"</strong>를 위해
+      설계·검증·품질 데이터를 통합하고, 과거 이력을 학습한 <strong>설계자 지원 AI</strong>를 구축합니다.
+      단발성 자동화 스크립트의 합이 아니라, 설계 라이프사이클 전반을 데이터로 잇는 <strong>플랫폼</strong> 관점의 접근입니다.
+    </p>
+
+    <h3>5-1. 핵심 구성요소</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="tag">CORE 01 · DATA LAKE</div>
+        <h4>설계·검증·품질 통합 데이터 허브</h4>
+        <p>PT/FT summary, MAP, Wafer 상태, 불량 이미지, PPAP, BOM, 데이터시트, 고객 피드백을 <strong>단일 스키마</strong>로 통합. 팀별 폴더·메일에 흩어진 데이터를 한 곳에서 검색·비교·시각화.</p>
+      </div>
+      <div class="card">
+        <div class="tag">CORE 02 · RISK AI</div>
+        <h4>설계 리스크 사전 예측 모델</h4>
+        <p>과거 설계 이력 + 불량 패턴 + 고객 클레임 데이터를 학습. 신규 설계 단계에서 <strong>유사 케이스·예상 리스크·검토 포인트</strong>를 설계자에게 자동 제시.</p>
+      </div>
+      <div class="card">
+        <div class="tag">CORE 03 · VERIFICATION</div>
+        <h4>반복 검증·분석 자동화</h4>
+        <p>QA·TEST·SCM 인터뷰에서 식별된 PT/FT 정리, GTK 검수, MAP–summary 비교 등 <strong>반복 검증 업무</strong>를 자동화 컴포넌트로 표준화. 신규 검증도 동일 패턴으로 확장.</p>
+      </div>
+      <div class="card">
+        <div class="tag">CORE 04 · COPILOT</div>
+        <h4>설계자 지원 AI Copilot</h4>
+        <p>설계자가 자연어로 "이 케이스와 유사한 과거 설계는?", "지금 BOM의 리스크 항목은?" 질의 → 통합 허브 기반으로 답변·근거 데이터를 함께 제공.</p>
+      </div>
+    </div>
+
+    <h3>5-2. 아키텍처 개요</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>레이어</th>
+          <th>역할</th>
+          <th>주요 기술 후보</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>수집·정제 레이어</strong></td>
+          <td>팀별 파일·DB·메일에서 자동 수집, 스키마 정규화·중복 제거</td>
+          <td>Python ETL, Apps Script, 사내 NAS 커넥터</td>
+        </tr>
+        <tr>
+          <td><strong>저장·검색 레이어</strong></td>
+          <td>구조화 데이터(DB) + 비정형(파일·이미지) 통합 인덱싱</td>
+          <td>PostgreSQL · 사내 벡터 DB · S3 호환 스토리지</td>
+        </tr>
+        <tr>
+          <td><strong>AI 추론 레이어</strong></td>
+          <td>리스크 예측·문서 비교·요약·이미지 분석</td>
+          <td>Claude / GPT / Gemini API, 사내 모델 옵션</td>
+        </tr>
+        <tr>
+          <td><strong>인터페이스 레이어</strong></td>
+          <td>설계자·QA·SCM 등 사용자별 UI / 자동 알림 / 보고서</td>
+          <td>웹 대시보드 + 사내 GPTs + 메일·메신저 알림</td>
+        </tr>
+        <tr>
+          <td><strong>보안 레이어</strong></td>
+          <td>접근 통제·감사 로그·DLP·외부 모델 송수신 제어</td>
+          <td>SSO 연동, 키 관리, 데이터 마스킹</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>5-3. 기대 효과</h3>
+    <div class="kpi-grid">
+      <div class="kpi dark">
+        <div class="label">설계 Revision</div>
+        <div class="value">−1회↓</div>
+        <div class="sub">사전 리스크 경고 효과</div>
+      </div>
+      <div class="kpi dark">
+        <div class="label">반복 검증 시간</div>
+        <div class="value">−60%</div>
+        <div class="sub">QA·TEST·SCM 합산</div>
+      </div>
+      <div class="kpi dark">
+        <div class="label">데이터 검색 시간</div>
+        <div class="value">−80%</div>
+        <div class="sub">통합 허브 효과</div>
+      </div>
+      <div class="kpi dark">
+        <div class="label">신규 설계 리드타임</div>
+        <div class="value">단축</div>
+        <div class="sub">개발 일정 안정성↑</div>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <p>
+        <strong>접근 방식 ─</strong> 처음부터 거대한 플랫폼을 만들지 않습니다.
+        <strong>"가장 자주 비교·검증되는 데이터"인 PT/FT summary + MAP + 불량 이미지를 우선 통합</strong>하여
+        설계자·QA가 즉시 체감할 수 있는 첫 산출물을 1단계에서 확보하고, 이후 데이터 범위를 점진적으로 확장합니다.
+        과도한 사전 투자 없이 단계적으로 가치를 검증하는 방식입니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 6. 제안 ③ 부서별 맞춤 솔루션 ═══════ -->
+<section id="sec-proposal3">
+  <div class="container">
+    <div class="section-tag">06 · PROPOSAL 03</div>
+    <h2>제안 ③ 부서별 맞춤 AI 솔루션</h2>
+    <p class="section-lead">
+      인터뷰에서 식별된 9개 팀의 자동화 요청 사항을 <strong>즉시 적용 가능 솔루션 카드</strong>로 구체화했습니다.
+      각 카드는 ① 구체 요청 → ② 적용 솔루션 → ③ 기대 절감 → ④ 적용 난이도로 정리되어 있어,
+      도입 우선순위 합의에 그대로 활용할 수 있습니다.
+    </p>
+
+    <h3>6-1. 품질그룹</h3>
+
+    <div class="dept-card">
+      <div class="dept-head">
+        <div class="dept-name">QE <span class="sub">· 김상훈 책임, 전병욱 수석</span></div>
+        <div class="dept-saving">월 20h · 연 ₩7,655,502</div>
+      </div>
+      <div><strong>현장 요청</strong></div>
+      <ul class="req-list">
+        <li>불량 흔적 이미지 구분화·레이어화 → 이미지 재사용 가능 구조</li>
+        <li>사용 이미지 이력 관리 (DB화 선결)</li>
+        <li>불량 보고서 작성 자동화</li>
+        <li>PPAP PDF 레터 사이즈 변환, 신규 PDF 프로그램 도입</li>
+      </ul>
+      <div class="sol-row">
+        <strong>적용 솔루션 ─</strong>
+        ① 이미지 편집·AI Inpainting 도구 + 사내 가이드 (16h)
+        ② 사용 이미지 DB화 + 이력관리 워크플로
+        ③ 불량 보고서 파일 어태치 자동화
+        ④ PPAP PDF 사이즈 변환 지원 (2h) + PDF 프로그램 설치·표준화 (2h)
+      </div>
+    </div>
+
+    <div class="dept-card">
+      <div class="dept-head">
+        <div class="dept-name">QA <span class="sub">· 류진규 위원</span></div>
+        <div class="dept-saving">월 10h · 연 ₩4,306,220</div>
+      </div>
+      <div><strong>현장 요청</strong></div>
+      <ul class="req-list">
+        <li>PT, FT summary 파일의 불필요 값 자동 정리·통합</li>
+        <li>PT/FT MAP 그림 기반 Lot 단위 Wafer 상태 파악</li>
+        <li>Wafer 상태 파일 텍스트 정리 (한 칸 = 한 문자 규격화)</li>
+        <li>Wafer 상태 파일 시트 겹치기 → 이상반응 카운팅</li>
+      </ul>
+      <div class="sol-row">
+        <strong>적용 솔루션 ─</strong>
+        ① PT/FT summary 자동 정리 스크립트 (8h)
+        ② Wafer 상태 텍스트 자동 정렬 스크립트 (8h)
+        ③ 시트 겹치기·카운팅 컴포넌트 (설계 환경 자동화 모듈로 확장)
+      </div>
+    </div>
+
+    <div class="dept-card">
+      <div class="dept-head">
+        <div class="dept-name">TEST <span class="sub">· 최아람 책임</span></div>
+        <div class="dept-saving">월 15h · 연 ₩4,306,220</div>
+      </div>
+      <div><strong>현장 요청</strong></div>
+      <ul class="req-list">
+        <li>GTK summary 자동 체크 → 불량률 0.1% 초과 시 자동 메일</li>
+        <li>제품별 PTY·BIN 매칭 자동 검수</li>
+      </ul>
+      <div class="sol-row">
+        <strong>적용 솔루션 ─</strong>
+        ① 특정 디렉토리 모니터링 + 자동 검수 스크립트
+        ② PTY·BIN 매칭 룰 엔진 + 이상 시 메일·메신저 자동 알림
+      </div>
+    </div>
+
+    <h3>6-2. 영업/FAE 그룹</h3>
+
+    <div class="dept-card">
+      <div class="dept-head">
+        <div class="dept-name">영업팀 <span class="sub">· 우동섭 상무, 이승구 팀장</span></div>
+        <div class="dept-saving">월 16h · 연 ₩6,889,952</div>
+      </div>
+      <div><strong>현장 요청</strong></div>
+      <ul class="req-list">
+        <li>이미지 → 엑셀 변환 기능</li>
+        <li>ChatGPT 결과물(엑셀·PPT) 품질 부족 → 다른 AI 검토</li>
+        <li>주기적 업데이트 자료 추출 엑셀 자동화</li>
+        <li>피벗·가변 데이터 추출</li>
+      </ul>
+      <div class="sol-row">
+        <strong>적용 솔루션 ─</strong>
+        ① 이미지→엑셀 OCR 워크플로 (테스트 후 적용)
+        ② Gemini / Claude 도입 + 영업 GPTs 표준화
+        ③ 주기 자료 추출 자동화 스크립트
+      </div>
+    </div>
+
+    <div class="dept-card">
+      <div class="dept-head">
+        <div class="dept-name">FAE팀 <span class="sub">· 류진솔 책임, 이노준 선임</span></div>
+        <div class="dept-saving">월 16h · 연 ₩6,889,952</div>
+      </div>
+      <div><strong>현장 요청</strong></div>
+      <ul class="req-list">
+        <li>경쟁사 데이터시트 비교 작업 자동화</li>
+        <li>비교 결과를 엑셀·PPT로 자동 산출</li>
+      </ul>
+      <div class="sol-row">
+        <strong>적용 솔루션 ─</strong>
+        ① 데이터시트 비교 전용 GPTs (ChatGPT) 구축
+        ② 성능 부족 시 Claude 활용 권고
+        ③ 결과물을 엑셀·PPT 템플릿으로 자동 변환
+      </div>
+    </div>
+
+    <h3>6-3. 전략그룹</h3>
+
+    <div class="dept-card">
+      <div class="dept-head">
+        <div class="dept-name">신사업팀 <span class="sub">· 장성훈 팀장</span></div>
+        <div class="dept-saving">월 12h · 연 ₩5,167,464</div>
+      </div>
+      <div><strong>현장 요청</strong></div>
+      <ul class="req-list">
+        <li>ChatGPT 파일 다운로드·품질 이슈 → 대체 AI 검토</li>
+        <li>자료 검색 특화 Perplexity 도입</li>
+        <li>이미지 변환 작업 AI 지원</li>
+        <li>SIDER 검토</li>
+        <li>경쟁사·신사업 자료 작성 (새 콘텐츠 생성 비중↑, 완전 자동화는 어려움)</li>
+      </ul>
+      <div class="sol-row">
+        <strong>적용 솔루션 ─</strong>
+        ① Gemini / Claude 도입 + 산출물 품질 비교 가이드
+        ② Perplexity 도입 + 검색·인용 워크플로 표준화
+        ③ 이미지 변환 멀티모달 AI 가이드
+        ④ SIDER·기타 도구 보안·라이선스 사전 검토
+      </div>
+    </div>
+
+    <div class="dept-card">
+      <div class="dept-head">
+        <div class="dept-name">SCM <span class="sub">· 이유정 책임 외 3명</span></div>
+        <div class="dept-saving">월 32h · 연 ₩7,655,502 <span style="font-size:0.7rem; margin-left:4px;">최대</span></div>
+      </div>
+      <div><strong>현장 요청</strong></div>
+      <ul class="req-list">
+        <li>MAP 파일 vs summary 파일 숫자 일치 자동 확인</li>
+        <li>그림 파일 비교 (자동화 불가 → 별도 검토)</li>
+        <li>PO 작성 시 양식 기반 자동 값 채움</li>
+        <li>GPT 사용법 SCM 맞춤 교육</li>
+      </ul>
+      <div class="sol-row">
+        <strong>적용 솔루션 ─</strong>
+        ① MAP-summary 정합성 자동 비교 엔진 (설계 환경 자동화 모듈로 확장)
+        ② PO 양식 자동 채움 스크립트 (DocAI / Apps Script)
+        ③ SCM 전용 GPTs 교육·운영
+      </div>
+    </div>
+
+    <div class="dept-card">
+      <div class="dept-head">
+        <div class="dept-name">PM 팀 <span class="sub">· 이슈트래킹 별도 솔루션</span></div>
+        <div class="dept-saving">AI와 별도 검토</div>
+      </div>
+      <div><strong>현장 요청</strong></div>
+      <ul class="req-list">
+        <li>메일 다듬기·질문 응답</li>
+        <li>업무 이력 관리·이슈트래킹 (DingTalk 유사 기능)</li>
+        <li>한 명 이탈 시 업무 공백 방지</li>
+      </ul>
+      <div class="sol-row">
+        <strong>적용 솔루션 ─</strong>
+        ① 메일/번역/요약은 사내 표준 GPTs로 즉시 적용
+        ② <strong>이슈트래킹은 AI와 별도 트랙</strong>으로 협업툴(노션/슬랙/Linear/지라 등) 도입 검토 권고
+      </div>
+    </div>
+
+    <div class="dept-card">
+      <div class="dept-head">
+        <div class="dept-name">전략마케팅 <span class="sub">· 임성진 선임</span></div>
+        <div class="dept-saving">월 12h · 연 ₩2,296,650</div>
+      </div>
+      <div><strong>현장 요청</strong></div>
+      <ul class="req-list">
+        <li>엑셀 시트 다국어 번역 자동화 (한↔중·영)</li>
+        <li>전략마케팅 업무 GPT 사용 예시 교육</li>
+      </ul>
+      <div class="sol-row">
+        <strong>적용 솔루션 ─</strong>
+        ① =TRANSLATE() 함수 + 글로벌 GPT 자동 번역 워크플로
+        ② 전략마케팅 전용 GPTs (시장 분석·자료 요약·번역)
+      </div>
+    </div>
+
+    <div class="dept-card">
+      <div class="dept-head">
+        <div class="dept-name">응용평가1팀 <span class="sub">· 김진기·김동훈 선임</span></div>
+        <div class="dept-saving">월 16h · 연 ₩3,062,200</div>
+      </div>
+      <div><strong>현장 요청</strong></div>
+      <ul class="req-list">
+        <li>파형·스코프 raw data → 그래프 자동 생성</li>
+        <li>특정 포맷 분석 → 다른 엑셀로 자동 대입</li>
+      </ul>
+      <div class="sol-row">
+        <strong>적용 솔루션 ─</strong>
+        ① 실 데이터 파일 1식 제공받아 PoC → 자동 그래프 스크립트 검증
+        ② 포맷 분석 후 표준 변환 컴포넌트 구축
+      </div>
+    </div>
+
+    <h3>6-4. 연구소</h3>
+
+    <div class="dept-card">
+      <div class="dept-head">
+        <div class="dept-name">디자인1팀 · 디자인2/3 · 레이아웃 · 디지털</div>
+        <div class="dept-saving">GPT 활용 교육 + 향후 니즈 발굴</div>
+      </div>
+      <div><strong>현장 요청</strong></div>
+      <ul class="req-list">
+        <li>디자인1팀: 별도 요청 없음 → GPT 사용법 교육으로 진행</li>
+        <li>디자인2/3·레이아웃·디지털: 인터뷰 미실시 → 2차 진단 권고</li>
+      </ul>
+      <div class="sol-row">
+        <strong>적용 솔루션 ─</strong>
+        ① 연구소 공통 GPTs 사용법 교육 (1회차)
+        ② 추가 부서 인터뷰 → 설계 환경 자동화 모듈로 직접 연계
+      </div>
+    </div>
+
+    <h3>6-5. 솔루션 우선순위</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>우선순위</th>
+          <th>부서 / 솔루션</th>
+          <th>난이도</th>
+          <th>예상 기간</th>
+          <th>도입 효과</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>P1</strong></td><td>SCM · MAP-summary 정합성 비교</td><td><span class="pill pill-warn">중</span></td><td>4~6주</td><td>월 32h · 연 765만원</td></tr>
+        <tr><td><strong>P1</strong></td><td>QE · 불량 이미지·PPAP 자동화</td><td><span class="pill pill-warn">중</span></td><td>4~6주</td><td>월 20h · 연 766만원</td></tr>
+        <tr><td><strong>P1</strong></td><td>영업·FAE · 데이터시트 비교·결과물 산출</td><td><span class="pill pill-good">하</span></td><td>3~4주</td><td>월 32h · 연 1,378만원</td></tr>
+        <tr><td><strong>P2</strong></td><td>TEST · GTK summary 자동 검수·알림</td><td><span class="pill pill-good">하</span></td><td>3주</td><td>월 15h · 연 431만원</td></tr>
+        <tr><td><strong>P2</strong></td><td>QA · PT/FT summary 자동 정리</td><td><span class="pill pill-good">하</span></td><td>3주</td><td>월 10h · 연 431만원</td></tr>
+        <tr><td><strong>P2</strong></td><td>응용평가1 · 파형 raw → 그래프</td><td><span class="pill pill-warn">중</span></td><td>4주</td><td>월 16h · 연 306만원</td></tr>
+        <tr><td><strong>P3</strong></td><td>신사업 · Perplexity·Gemini·이미지 변환</td><td><span class="pill pill-good">하</span></td><td>2주</td><td>월 12h · 연 517만원</td></tr>
+        <tr><td><strong>P3</strong></td><td>전략마케팅 · 엑셀 다국어 자동 번역</td><td><span class="pill pill-good">하</span></td><td>2주</td><td>월 12h · 연 230만원</td></tr>
+        <tr><td><strong>P3</strong></td><td>연구소 · GPT 활용 교육·심층 인터뷰</td><td><span class="pill pill-good">하</span></td><td>2주</td><td>추가 니즈 발굴</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════ 7. 추진 로드맵 ═══════ -->
+<section id="sec-roadmap">
+  <div class="container">
+    <div class="section-tag">07 · ROADMAP</div>
+    <h2>단계별 추진 로드맵</h2>
+    <p class="section-lead">
+      8주 내 부서 체감, 6개월 내 IT팀 자립, 1년 내 설계 환경 자동화 안착을 목표로 한
+      3 페이즈 로드맵입니다. 각 페이즈는 <strong>독립 검증·독립 의사결정</strong>이 가능하도록 설계되어,
+      효과를 확인한 뒤 다음 단계를 결정할 수 있습니다.
+    </p>
+
+    <div class="timeline">
+      <div class="phase">
+        <div class="phase-meta">PHASE 1 · WEEK 1–8 · QUICK WIN</div>
+        <h4>현장 체감형 부서별 자동화</h4>
+        <ul>
+          <li>P1 우선순위 4개 솔루션 (SCM · QE · 영업 · FAE) 우선 구축</li>
+          <li>P2/P3 솔루션 PoC 단계 진입 + 사내 GPTs 표준 4종 배포</li>
+          <li>IT팀 2명 Foundation 커리큘럼(Month 1–2) 병행 학습</li>
+          <li>전사 AI 도구 라이선스 정비 (ChatGPT / Claude / Gemini / Perplexity)</li>
+        </ul>
+      </div>
+      <div class="phase accent">
+        <div class="phase-meta">PHASE 2 · WEEK 9–24 · CAPABILITY & PLATFORM</div>
+        <h4>IT팀 컨설턴트화 + 설계 데이터 통합 1단계</h4>
+        <ul>
+          <li>IT팀 Application·Governance 커리큘럼 (Month 3–5) 수행</li>
+          <li>설계 데이터 허브 1단계 — PT/FT + MAP + 불량 이미지 통합</li>
+          <li>설계자 Copilot Alpha — QA·SCM 워크플로 자동화와 직접 연결</li>
+          <li>P2 솔루션 본격 적용·P3 솔루션 단계 적용</li>
+          <li>전사 AI 보안 정책 v1.0 시행 + 사내 클리닉 시범 운영</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-meta">PHASE 3 · WEEK 25–48 · SCALE & AUTONOMY</div>
+        <h4>설계 환경 자동화 본격화 + 사내 자립 운영</h4>
+        <ul>
+          <li>설계 데이터 허브 2단계 — 데이터시트·BOM·고객 클레임 확장</li>
+          <li>설계 리스크 사전 예측 모델 Beta → 핵심 신규 설계에 시범 적용</li>
+          <li>IT팀 2명 Scale 단계 — 사내 AI 클리닉·KPI 대시보드 자체 운영</li>
+          <li>연구소(디자인2/3·레이아웃·디지털) 2차 인터뷰 → 자동화 적용</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>주요 마일스톤</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>마일스톤</th>
+          <th>시점</th>
+          <th>산출물</th>
+          <th>의사결정 포인트</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>M1 — Quick Win 1차 산출</td><td>Week 4</td><td>P1 솔루션 2종 + 4종 사내 GPTs</td><td>Phase 1 확장 여부</td></tr>
+        <tr><td>M2 — Quick Win 완료</td><td>Week 8</td><td>P1 4종 + P2 PoC 2종</td><td>Phase 2 진입 승인</td></tr>
+        <tr><td>M3 — IT팀 부서 진단 완료</td><td>Week 16</td><td>전 부서 AI 적용 로드맵</td><td>설계 허브 1단계 착수</td></tr>
+        <tr><td>M4 — 설계 허브 Alpha</td><td>Week 24</td><td>PT/FT·MAP·불량 통합 + Copilot Alpha</td><td>Phase 3 진입 승인</td></tr>
+        <tr><td>M5 — IT팀 자립 운영</td><td>Week 36</td><td>월간 AI 클리닉·KPI 대시보드</td><td>외부 컨설팅 단계적 종료</td></tr>
+        <tr><td>M6 — 설계 리스크 예측 Beta</td><td>Week 48</td><td>신규 설계에 시범 적용</td><td>전사 표준화 의사결정</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════ 8. 기대 효과 ═══════ -->
+<section id="sec-impact">
+  <div class="container">
+    <div class="section-tag">08 · IMPACT</div>
+    <h2>기대 효과 및 ROI</h2>
+    <p class="section-lead">
+      미팅에서 식별된 1차 직접 효과만으로도 <strong>연 4,800만원 이상</strong>의 인건 시간 절감이 가능합니다.
+      여기에 설계 Revision 1회 감소 효과·사례 확산 효과·미인터뷰 부서 효과를 더하면 ROI는 수배로 확장됩니다.
+    </p>
+
+    <div class="highlight-box">
+      <div class="h-label">1차 직접 절감 효과 (인터뷰 기반 보수적 추정)</div>
+      <div class="h-value">연 ₩48,229,662 · 월 149h</div>
+      <div class="h-sub">9개 팀 시급 환산 기준 · 설계 Revision 감소·사례 확산 효과는 별도</div>
+    </div>
+
+    <h3>8-1. 부서별 ROI 요약</h3>
+    <table class="roi-table">
+      <thead>
+        <tr>
+          <th>그룹 / 팀</th>
+          <th class="num">월 절감 시간</th>
+          <th class="num">월 환산 (₩)</th>
+          <th class="num">연 환산 (₩)</th>
+          <th>핵심 효과</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>품질 · QE</td><td class="num">20</td><td class="num">637,959</td><td class="num">7,655,502</td><td>불량 보고·이미지 관리</td></tr>
+        <tr><td>품질 · QA</td><td class="num">10</td><td class="num">358,852</td><td class="num">4,306,220</td><td>summary 정제</td></tr>
+        <tr><td>품질 · TEST</td><td class="num">15</td><td class="num">358,852</td><td class="num">4,306,220</td><td>자동 검수·알림</td></tr>
+        <tr><td>영업 · 영업팀</td><td class="num">16</td><td class="num">574,163</td><td class="num">6,889,952</td><td>이미지·자료 추출</td></tr>
+        <tr><td>영업 · FAE팀</td><td class="num">16</td><td class="num">574,163</td><td class="num">6,889,952</td><td>데이터시트 비교</td></tr>
+        <tr><td>전략 · 신사업</td><td class="num">12</td><td class="num">430,622</td><td class="num">5,167,464</td><td>검색·이미지 변환</td></tr>
+        <tr><td>전략 · SCM</td><td class="num">32</td><td class="num">637,959</td><td class="num">7,655,502</td><td>정합성 검증·PO</td></tr>
+        <tr><td>전략 · 전략마케팅</td><td class="num">12</td><td class="num">191,388</td><td class="num">2,296,650</td><td>번역 자동화</td></tr>
+        <tr><td>전략 · 응용평가1</td><td class="num">16</td><td class="num">255,183</td><td class="num">3,062,200</td><td>파형·그래프 자동화</td></tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>1차 직접 효과 합계</td>
+          <td class="num">149h</td>
+          <td class="num">4,019,141</td>
+          <td class="num">48,229,662</td>
+          <td>9개 팀 시급 환산</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <h3>8-2. 직접 효과 외 부가 가치</h3>
+    <div class="grid-3">
+      <div class="card">
+        <div class="tag">VALUE 01</div>
+        <h4>설계 Revision 감소</h4>
+        <p>리스크 사전 경고로 Revision 1회만 줄여도 마스크 비용·재시험·고객 일정 영향까지 합산 시 <strong>수억 단위</strong> 효과. 본 제안의 핵심 가치입니다.</p>
+      </div>
+      <div class="card">
+        <div class="tag">VALUE 02</div>
+        <h4>핵심 인력 집중도</h4>
+        <p>설계자·QA가 반복 검증·문서화에서 해방되어 <strong>설계 본업</strong>에 집중. 인력 충원 대비 비용 없이 동일 효과.</p>
+      </div>
+      <div class="card">
+        <div class="tag">VALUE 03</div>
+        <h4>지식 자산화</h4>
+        <p>과거 설계 이력·불량 패턴이 <strong>검색 가능한 자산</strong>으로 축적. 인력 이탈 시에도 노하우가 회사에 남는 구조.</p>
+      </div>
+      <div class="card">
+        <div class="tag">VALUE 04</div>
+        <h4>전사 AI 표준화</h4>
+        <p>부서별 개인 ChatGPT 활용에서 <strong>표준 GPTs·표준 워크플로</strong>로 전환. 중복 학습·중복 시행착오 제거.</p>
+      </div>
+      <div class="card">
+        <div class="tag">VALUE 05</div>
+        <h4>사내 AI 자립</h4>
+        <p>IT팀 2명이 사내 AI 컨설턴트화 → <strong>외부 컨설팅 비용 영구 절감</strong>. 신규 부서 자동화도 사내에서 즉시 대응 가능.</p>
+      </div>
+      <div class="card">
+        <div class="tag">VALUE 06</div>
+        <h4>보안 거버넌스</h4>
+        <p>비공식적으로 외부 모델에 업로드되던 설계·고객 자료를 <strong>통제된 채널</strong>로 흡수. 정보보호 리스크 동시 감소.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 9. 보안·거버넌스 ═══════ -->
+<section id="sec-security">
+  <div class="container">
+    <div class="section-tag">09 · SECURITY & GOVERNANCE</div>
+    <h2>보안·거버넌스 체계</h2>
+    <p class="section-lead">
+      반도체 설계 회사의 데이터(설계·BOM·고객 사양·불량 이력)는 외부로 유출될 경우 회복 불가능한 손실로 이어집니다.
+      따라서 AI 도입과 정보보호는 <strong>분리된 트랙이 아니라 같은 트랙</strong>으로 설계되어야 합니다.
+      IT/보안팀 2명을 AI 컨설턴트로 육성하는 본 제안의 큰 이점이 여기에 있습니다 ─ AI 운영과 보안 통제가 동일 인력에 의해 일관되게 수행됩니다.
+    </p>
+
+    <h3>9-1. 보안 원칙</h3>
+    <ul class="check-list">
+      <li><strong>데이터 분류 의무화</strong> — 공개·내부·기밀·고객비밀 4단계. 등급별 사용 가능한 AI 도구 명시</li>
+      <li><strong>외부 모델 송수신 통제</strong> — 기밀 이상 데이터는 사내 또는 통제된 API 경로만 허용</li>
+      <li><strong>접근 권한 최소화</strong> — 설계 데이터 허브는 부서·역할 기반 접근, 감사 로그 상시 기록</li>
+      <li><strong>프롬프트·출력 로깅</strong> — 사내 표준 GPTs 사용 시 입력·출력 로그 수집 → 사고 시 추적</li>
+      <li><strong>모델·도구 화이트리스트</strong> — 사용 허용 모델·플러그인·확장 프로그램 정기 점검</li>
+      <li><strong>정기 교육</strong> — 전사 분기별 AI 보안 교육 + 사례형 점검</li>
+    </ul>
+
+    <h3>9-2. 거버넌스 운영 체계</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>운영 주체</th>
+          <th>핵심 업무</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>AI 운영 협의체</td><td>경영진 + IT/보안 + 부서 대표</td><td>분기 정책·우선순위 의사결정</td></tr>
+        <tr><td>AI 컨설턴트 (IT팀 2명)</td><td>사내 IT/보안팀</td><td>도입·확산·운영·보안 점검·교육</td></tr>
+        <tr><td>부서 AI 챔피언</td><td>각 부서 1명</td><td>현장 요구 수집·사례 공유</td></tr>
+        <tr><td>외부 파트너 (킷에이아이)</td><td>킷에이아이</td><td>1년 한정 멘토링·기술 자문·검증</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════ 10. 제안사 소개 ═══════ -->
+<section id="sec-about">
+  <div class="container">
+    <div class="section-tag">10 · ABOUT US</div>
+    <h2>제안사 소개 — 킷에이아이 (Kitt AI Inc.)</h2>
+    <p class="section-lead">
+      킷에이아이는 <strong>"실제 비즈니스 현장에 닿는 AI"</strong>를 만드는 회사입니다.
+      대기업·중견 제조사·전문 서비스 기업의 데이터·업무 프로세스를 분석하고,
+      ChatGPT·Claude·Gemini 등 최신 AI 모델을 실무 워크플로에 안전하게 결합하는 컨설팅과 자동화 솔루션을 제공합니다.
+    </p>
+
+    <h3>10-1. 핵심 역량 — 본 제안에서 이미 입증한 것들</h3>
+    <p style="margin-bottom:18px; font-size:0.92rem; color:var(--text-muted);">
+      일반 컨설팅 회사의 "역량 목록"이 아닙니다. 본 제안 단계에서 이미 다믈파워반도체와 함께 완료·구현한 작업들로 구성됩니다.
+    </p>
+    <div class="grid-3">
+      <div class="card hover">
+        <div class="tag">CAPABILITY 01 · DIAGNOSED</div>
+        <h4>각 부서 현장 인터뷰 진행</h4>
+        <p>2026-01-20 ~ 02-11 기간 동안 QE·QA·TEST·영업·FAE·SCM·신사업·전략마케팅·응용평가·연구소 인터뷰를 진행했습니다.
+        본 제안서의 부서별 솔루션·우선순위·ROI 수치는 모두 <strong>실제 발언 기반</strong>입니다.</p>
+      </div>
+      <div class="card hover">
+        <div class="tag">CAPABILITY 02 · WORKING DEMO</div>
+        <h4>8개 패턴 동작 데모 보유</h4>
+        <p>PPT 슬라이드 대신 <strong>클릭 가능한 인터랙티브 데모 8건</strong>을 본 제안에 첨부했습니다. Vision·정합성·문서생성·비교·모니터링·번역·RAG·트래킹 — 입력 → AI 처리 → 출력 전 흐름을 직접 체험 가능합니다.</p>
+      </div>
+      <div class="card hover">
+        <div class="tag">CAPABILITY 03 · DOMAIN</div>
+        <h4>반도체 데이터 워크플로 이해</h4>
+        <p>PT/FT summary, MAP 파일, Wafer 상태, 불량 보고서, PPAP, BOM, 데이터시트 등 <strong>반도체 설계·품질 데이터 구조</strong>에 대한 직접적인 이해를 본 제안서 내 솔루션 설계로 입증했습니다.</p>
+      </div>
+      <div class="card hover">
+        <div class="tag">CAPABILITY 04 · MULTI-MODEL</div>
+        <h4>과업별 모델 매트릭스 운영</h4>
+        <p>코드·번역·장문 비교는 Claude, 이미지·범용은 GPT-4o, 검색·시장 리서치는 Perplexity, 글로벌·시트는 Gemini ─
+        <strong>벤더 단일화가 아닌 과업별 최적 모델</strong>을 조합하는 운영 방식을 표준 가이드로 제공합니다.</p>
+      </div>
+      <div class="card hover">
+        <div class="tag">CAPABILITY 05 · 3-STAGE PIPELINE</div>
+        <h4>AI Vision 3단계 파이프라인</h4>
+        <p>Rule 기반 1차 검출(OpenCV) → AI Vision 정밀 분류(YOLO·SAM·U-Net·ViT) → 보고 자동화(JSON·Excel·8D) 통합 파이프라인을 데모 01에서 동작 가능 형태로 구현했습니다. 군집 분석·유사 사례·Lot 추세까지 포함.</p>
+      </div>
+      <div class="card hover">
+        <div class="tag">CAPABILITY 06 · AUTONOMY</div>
+        <h4>IT팀 자립화 6개월 프로그램</h4>
+        <p>제안 ①에서 명시한 Foundation → Application → Governance → Scale 4단계 커리큘럼으로 <strong>IT/보안팀 2명을 사내 AI 컨설턴트화</strong>합니다. 외부 의존 없이 사내에서 AI 도입·확산·운영·보안 거버넌스를 주도할 수 있도록 동행합니다.</p>
+      </div>
+    </div>
+
+    <div class="callout brand" style="margin-top:24px;">
+      <p>
+        <strong>다른 컨설팅 회사와의 차이 ─</strong>
+        본 제안서는 회사 카탈로그·일반론·해외 사례 짜깁기가 아니라, <strong>다믈파워반도체 임직원이 실제로 발언한 내용</strong>과
+        <strong>현재 시연 가능한 데모</strong>를 근거로 작성되었습니다. 모든 ROI 수치는 미팅 노트 시급 환산값이며,
+        부서별 솔루션은 "어떻게 만들지"가 아니라 "이미 어떻게 동작하는지"를 보여드릴 수 있습니다.
+      </p>
+    </div>
+
+    <h3>10-2. 본 프로젝트 수행 약속</h3>
+    <ul class="check-list">
+      <li><strong>단계적 의사결정</strong> — 페이즈별 산출물 검증 후 다음 단계 진행 여부 결정</li>
+      <li><strong>사내 자립화</strong> — IT팀 2명이 자체적으로 운영 가능한 상태까지 책임지고 동행</li>
+      <li><strong>보안 우선</strong> — 모든 솔루션 설계 시 데이터 분류·접근 통제·로깅을 기본 포함</li>
+      <li><strong>도메인 학습</strong> — 반도체 설계 데이터(PT/FT·MAP·Wafer·PPAP)에 대한 사전 학습과 NDA 기반 검증</li>
+      <li><strong>투명한 진행</strong> — 주간 진척 공유·이슈 상시 공개·산출물 사내 위키 공동 관리</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════ 풋터 ═══════ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="logo">kitt AI</div>
+      <div class="tagline">실제 비즈니스 현장에 닿는<br>AI 컨설팅 & 자동화 파트너</div>
+      <p>주식회사 킷에이아이</p>
+      <p>Kitt AI Inc.</p>
+    </div>
+    <div>
+      <h5>CONTACT</h5>
+      <ul>
+        <li>partner@kitt.ai.kr</li>
+        <li>www.kittai.kr</li>
+      </ul>
+    </div>
+    <div>
+      <h5>NEXT STEP</h5>
+      <ul>
+        <li>① 본 제안 리뷰</li>
+        <li>② 우선순위·범위 확정 워크숍</li>
+        <li>③ 상세 견적·계약</li>
+        <li>④ 킥오프 (Phase 1 착수)</li>
+      </ul>
+      <a href="demo/index.html" target="_blank" style="display:inline-flex; align-items:center; gap:8px; margin-top:14px; padding:10px 16px; background:rgba(103,232,249,0.12); border:1px solid rgba(103,232,249,0.3); color:#67e8f9; text-decoration:none; border-radius:8px; font-size:0.82rem; font-weight:600; transition:all 0.2s;">
+        <span style="width:7px; height:7px; background:#4ade80; border-radius:50%; box-shadow:0 0 6px #4ade80;"></span>
+        ▶ LIVE DEMO 8가지 패턴 →
+      </a>
+    </div>
+  </div>
+  <div class="bottom">
+    © 2026 Kitt AI Inc. — 본 제안서는 다믈파워반도체와 (주)kitt 간 협의 목적으로 작성되었으며, 외부 공개·전달 시 사전 협의가 필요합니다.
+  </div>
+</footer>
+
+</div>
+
+<script>
+  // ───────── 1. Scroll Progress Bar ─────────
+  const progressBar = document.getElementById('scrollProgress');
+  function updateProgress() {
+    const scrolled = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (scrolled / max) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // ───────── 2. Sticky Nav Visibility (after scrolling past cover) ─────────
+  const topNav = document.getElementById('topNav');
+  function updateNavVisibility() {
+    if (window.scrollY > 200) {
+      topNav.classList.add('visible');
+    } else {
+      topNav.classList.remove('visible');
+    }
+  }
+  window.addEventListener('scroll', updateNavVisibility, { passive: true });
+  updateNavVisibility();
+
+  // ───────── 3. Scroll-Spy (active nav link) ─────────
+  const sections = ['sec-summary','sec-state','sec-background','sec-proposal1','sec-proposal2','sec-proposal3','sec-roadmap','sec-impact','sec-security','sec-about']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const spyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-link[data-target="${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+  sections.forEach(s => spyObserver.observe(s));
+
+  // Smooth scroll on nav click
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('data-target');
+      const target = document.getElementById(targetId);
+      if (target) {
+        const offset = 70;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+  document.querySelector('.nav-logo')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ───────── 4. Mouse Spotlight on Cover ─────────
+  const cover = document.querySelector('.cover');
+  if (cover) {
+    cover.addEventListener('mousemove', (e) => {
+      const rect = cover.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(2);
+      const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(2);
+      cover.style.setProperty('--mx', x + '%');
+      cover.style.setProperty('--my', y + '%');
+    });
+  }
+
+  // ───────── 5. Custom Cursor Follower ─────────
+  const cursorDot = document.getElementById('cursorDot');
+  const cursorRing = document.getElementById('cursorRing');
+  let mouseX = -100, mouseY = -100;
+  let ringX = -100, ringY = -100;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorDot.classList.add('visible');
+    cursorRing.classList.add('visible');
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top = mouseY + 'px';
+  });
+
+  document.addEventListener('mouseleave', () => {
+    cursorDot.classList.remove('visible');
+    cursorRing.classList.remove('visible');
+  });
+
+  // Smooth ring follow (lerp)
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.18;
+    ringY += (mouseY - ringY) * 0.18;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Hover state for interactive elements
+  const hoverTargets = 'a, button, .card.hover, .pattern-card, .demo-card, .demo-cta-button, .nav-link, .nav-demo, .pattern-demo-link, .cover-demo-link, .pillar';
+  document.querySelectorAll(hoverTargets).forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursorDot.classList.add('hovering');
+      cursorRing.classList.add('hovering');
+    });
+    el.addEventListener('mouseleave', () => {
+      cursorDot.classList.remove('hovering');
+      cursorRing.classList.remove('hovering');
+    });
+  });
+
+  // ───────── 5-1. Click feedback (포커스 원 확장 + 리플) ─────────
+  document.addEventListener('mousedown', (e) => {
+    // 좌클릭만 반응
+    if (e.button !== 0) return;
+    cursorDot.classList.add('pressed');
+    cursorRing.classList.add('pressed');
+
+    // 클릭 위치에서 리플 2겹 생성
+    const x = e.clientX;
+    const y = e.clientY;
+
+    const ripple1 = document.createElement('div');
+    ripple1.className = 'click-ripple';
+    ripple1.style.left = x + 'px';
+    ripple1.style.top = y + 'px';
+    document.body.appendChild(ripple1);
+
+    const ripple2 = document.createElement('div');
+    ripple2.className = 'click-ripple secondary';
+    ripple2.style.left = x + 'px';
+    ripple2.style.top = y + 'px';
+    document.body.appendChild(ripple2);
+
+    // 애니메이션 종료 후 DOM에서 제거
+    ripple1.addEventListener('animationend', () => ripple1.remove());
+    ripple2.addEventListener('animationend', () => ripple2.remove());
+  });
+
+  document.addEventListener('mouseup', () => {
+    cursorDot.classList.remove('pressed');
+    cursorRing.classList.remove('pressed');
+  });
+
+  // 드래그 중 창 밖으로 나갔다가 떼는 경우 안전 처리
+  window.addEventListener('blur', () => {
+    cursorDot.classList.remove('pressed');
+    cursorRing.classList.remove('pressed');
+  });
+
+  // ───────── 6. Magnetic Buttons ─────────
+  document.querySelectorAll('.magnetic, .demo-cta-button, .nav-demo, .cover-demo-link').forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      const strength = 0.25;
+      el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'translate(0, 0)';
+    });
+  });
+
+  // ───────── 7. Reveal Animations on Scroll ─────────
+  const revealTargets = document.querySelectorAll('section h2, section h3, .kpi-grid, .grid-2, .grid-3, .grid-4, .pattern-grid, .step-grid, .callout, .timeline, .demo-cta, .highlight-box, table, .tool-matrix');
+  revealTargets.forEach(el => {
+    if (el.classList.contains('kpi-grid') || el.classList.contains('grid-2') || el.classList.contains('grid-3') ||
+        el.classList.contains('grid-4') || el.classList.contains('pattern-grid') || el.classList.contains('step-grid')) {
+      el.classList.add('reveal-stagger');
+    } else {
+      el.classList.add('reveal');
+    }
+  });
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+
+  revealTargets.forEach(el => revealObserver.observe(el));
+
+  // ───────── 7-1. Timeline Progressive Animation ─────────
+  // 타임라인 컨테이너가 화면에 들어오면 진행 라인을 그리고,
+  // 각 phase(단계)는 순차적으로 점이 펄스되며 등장합니다.
+  document.querySelectorAll('.timeline').forEach(timeline => {
+    const phases = timeline.querySelectorAll('.phase');
+    const timelineObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // 진행 라인 그리기 (전체)
+          timeline.classList.add('activated');
+          // 각 단계 순차 등장
+          phases.forEach((phase, i) => {
+            setTimeout(() => phase.classList.add('entered'), 250 + i * 220);
+          });
+          timelineObserver.unobserve(timeline);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+    timelineObserver.observe(timeline);
+  });
+
+  // ───────── 8. Pattern Card Tilt (3D-ish) ─────────
+  document.querySelectorAll('.pattern-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      const tiltX = (y - 0.5) * 4;
+      const tiltY = (x - 0.5) * -4;
+      card.style.transform = `translateY(-4px) perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  // ───────── 9. Pillar Tilt (cover only) ─────────
+  document.querySelectorAll('.cover .pillar').forEach(p => {
+    p.addEventListener('mousemove', (e) => {
+      const rect = p.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      const tiltX = (y - 0.5) * 6;
+      const tiltY = (x - 0.5) * -6;
+      p.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(8px)`;
+      p.style.transition = 'transform 0.15s';
+    });
+    p.addEventListener('mouseleave', () => {
+      p.style.transform = '';
+    });
+  });
+
+  // Hide cursor effects in print mode
+  window.addEventListener('beforeprint', () => {
+    cursorDot.style.display = 'none';
+    cursorRing.style.display = 'none';
+    topNav.style.display = 'none';
+    progressBar.style.display = 'none';
+  });
+  window.addEventListener('afterprint', () => {
+    cursorDot.style.display = '';
+    cursorRing.style.display = '';
+    topNav.style.display = '';
+    progressBar.style.display = '';
+  });
+</script>
+
+</body>
+</html>

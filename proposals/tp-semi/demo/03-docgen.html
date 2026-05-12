@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo 03 · 불량 보고서 자동 생성 — 다믈파워반도체</title>
+<link rel="stylesheet" href="_shell.css">
+<style>
+  :root { --demo-color: #10b981; --demo-glow: rgba(16, 185, 129, 0.25); }
+
+  .form-row { margin-bottom: 14px; }
+  .form-row label {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-card);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: #fff;
+    transition: border 0.2s;
+  }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+    outline: none;
+    border-color: var(--demo-color);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+  }
+  .form-row textarea { min-height: 80px; resize: vertical; font-family: inherit; }
+  .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .template-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .tpl-card {
+    border: 2px solid var(--border-card);
+    border-radius: 10px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    background: #fff;
+  }
+  .tpl-card:hover { transform: translateY(-2px); border-color: var(--demo-color); }
+  .tpl-card.active {
+    border-color: var(--demo-color);
+    background: #d1fae5;
+  }
+  .tpl-card .ico { font-size: 1.8rem; margin-bottom: 6px; }
+  .tpl-card .name { font-size: 0.82rem; font-weight: 700; color: var(--text); }
+  .tpl-card .desc { font-size: 0.7rem; color: var(--text-muted); margin-top: 3px; }
+
+  .progress { margin: 16px 0; background: var(--bg-card-alt); border-radius: 10px; padding: 12px 16px; display: none; }
+  .progress.active { display: block; }
+  .progress-bar { height: 6px; background: var(--border-card); border-radius: 100px; overflow: hidden; margin-top: 8px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #10b981 0%, #059669 100%); width: 0%; transition: width 0.3s; }
+
+  /* Document preview */
+  .doc-preview {
+    background: #f1f5f9;
+    border-radius: 12px;
+    padding: 20px;
+    aspect-ratio: 4/5.6;
+    overflow: auto;
+    position: relative;
+  }
+  .doc-page {
+    background: #fff;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    padding: 32px 28px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #1e293b;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    min-height: 100%;
+  }
+  .doc-header {
+    border-bottom: 3px solid #10b981;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+  }
+  .doc-header h2 {
+    color: #082f49;
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-bottom: 2px;
+  }
+  .doc-header .sub {
+    font-size: 0.7rem;
+    color: #64748b;
+  }
+  .doc-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    font-size: 0.72rem;
+    margin-bottom: 14px;
+  }
+  .doc-meta .row { display: flex; gap: 8px; }
+  .doc-meta .row b { color: #475569; min-width: 60px; }
+  .doc-section { margin-bottom: 14px; }
+  .doc-section h3 {
+    font-size: 0.85rem;
+    color: #082f49;
+    font-weight: 700;
+    border-left: 3px solid #10b981;
+    padding-left: 8px;
+    margin-bottom: 8px;
+  }
+  .doc-section p { font-size: 0.74rem; color: #334155; }
+  .doc-img-block {
+    background: #0f172a;
+    border-radius: 6px;
+    aspect-ratio: 4/3;
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .doc-img-block svg { width: 100%; height: 100%; }
+  .doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.7rem;
+  }
+  .doc-table th {
+    background: #082f49;
+    color: #fff;
+    padding: 5px 8px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .doc-table td {
+    padding: 5px 8px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .doc-table tr:nth-child(even) td { background: #f8fafc; }
+  .doc-stamp {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    border: 2px solid #dc2626;
+    color: #dc2626;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.75rem;
+    transform: rotate(-12deg);
+    opacity: 0.65;
+  }
+  .empty-doc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 30px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-left">
+    <a href="index.html" class="tb-back">← 데모 허브</a>
+    <div class="tb-crumb">
+      <span class="tb-num">PATTERN · 03</span>
+      <span class="sep">/</span>
+      <span class="current">불량 보고서 자동 생성</span>
+    </div>
+  </div>
+  <div class="tb-right">
+    <span class="tb-live">LIVE DEMO</span>
+  </div>
+</div>
+
+<div class="demo-hero">
+  <div class="demo-hero-inner">
+    <div class="eyebrow">DOCUMENT GENERATION · TEMPLATE + AI</div>
+    <h1>데이터 입력 → 사내 양식 보고서가 즉시 완성</h1>
+    <p class="lead">
+      QE팀의 불량 보고서·PPAP 작성을 <strong>입력 폼 한 번으로 완성</strong>합니다.
+      Pattern 01에서 추출한 불량 이미지·계측값을 사내 마스터 템플릿에 자동 삽입,
+      AI가 본문·분석·권고 사항을 생성하여 PPT·PDF로 즉시 출력합니다.
+    </p>
+    <div class="chips">
+      <span class="h-chip accent">QE · 영업 · FAE · 전략마케팅</span>
+      <span class="h-chip">월 ~30h 절감</span>
+      <span class="h-chip">python-pptx</span>
+      <span class="h-chip">ReportLab</span>
+      <span class="h-chip">사내 GPTs</span>
+    </div>
+  </div>
+</div>
+
+<div class="demo-container">
+  <div class="workspace">
+
+    <!-- LEFT: INPUT -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title"><span class="num">INPUT</span> 보고서 입력 정보</div>
+        <span class="panel-tag">FORM · 6 FIELDS</span>
+      </div>
+
+      <div class="form-row">
+        <label>1. 템플릿 선택</label>
+        <div class="template-selector">
+          <div class="tpl-card active" data-tpl="defect">
+            <div class="ico">📋</div>
+            <div class="name">불량 보고서</div>
+            <div class="desc">8D 양식</div>
+          </div>
+          <div class="tpl-card" data-tpl="ppap">
+            <div class="ico">📑</div>
+            <div class="name">PPAP</div>
+            <div class="desc">Letter 사이즈</div>
+          </div>
+          <div class="tpl-card" data-tpl="weekly">
+            <div class="ico">📊</div>
+            <div class="name">주간 리포트</div>
+            <div class="desc">경영진 양식</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="form-row">
+          <label>2. Lot / Wafer 번호</label>
+          <input type="text" id="lotNo" value="Lot-2026B047 / W-05">
+        </div>
+        <div class="form-row">
+          <label>3. 발생 일자</label>
+          <input type="date" id="dateField" value="2026-05-11">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label>4. 불량 유형</label>
+        <select id="defectType">
+          <option>스크래치 (Scratch)</option>
+          <option>파티클 (Particle)</option>
+          <option>Crack</option>
+          <option>Burn / 탄화</option>
+          <option>Cold Solder</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label>5. 측정값 (Pattern 01 연동 자동 입력)</label>
+        <textarea id="measure" readonly>{"defects": 3, "max_area_um2": 156, "severity": "H", "location": "(38, 42)", "yield_impact": "0.42%"}</textarea>
+      </div>
+
+      <div class="form-row">
+        <label>6. AI 분석·권고 톤</label>
+        <select id="tone">
+          <option>고객 보고용 (정중·기술적)</option>
+          <option>내부 회의용 (간결·핵심)</option>
+          <option>경영진 보고용 (요약·재무 영향)</option>
+        </select>
+      </div>
+
+      <button class="btn" id="genBtn" style="width:100%; justify-content:center;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        보고서 자동 생성
+      </button>
+
+      <div class="progress" id="progress">
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem;">
+          <span style="font-weight:700;" id="progLabel">처리 중...</span>
+          <span id="progPct" style="font-family:'JetBrains Mono',monospace; font-weight:700;">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: DOCUMENT PREVIEW -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title"><span class="num">OUTPUT</span> 생성된 보고서</div>
+        <span class="panel-tag" id="docTag">대기 중</span>
+      </div>
+
+      <div class="doc-preview">
+        <div id="emptyDoc" class="empty-doc">
+          <div>
+            <div style="font-size:2.5rem; opacity:0.3; margin-bottom:10px;">📄</div>
+            왼쪽 폼을 채우고 <strong>"보고서 자동 생성"</strong>을 눌러주세요.<br>
+            <span style="font-size:0.78rem;">시뮬레이션 처리 시간 ≈ 3초</span>
+          </div>
+        </div>
+
+        <div id="docPage" class="doc-page" style="display:none;">
+          <div class="doc-header">
+            <h2>🔍 불량 분석 보고서 (Defect Analysis Report)</h2>
+            <div class="sub">다믈파워반도체 품질그룹 (QE) · 사내 양식 v3.2</div>
+          </div>
+          <div class="doc-meta">
+            <div class="row"><b>보고일</b><span id="d-date">2026-05-12</span></div>
+            <div class="row"><b>Lot</b><span id="d-lot">Lot-2026B047</span></div>
+            <div class="row"><b>Wafer</b><span id="d-wafer">W-05</span></div>
+            <div class="row"><b>책임자</b><span>김상훈 책임</span></div>
+            <div class="row"><b>유형</b><span id="d-type">스크래치</span></div>
+            <div class="row"><b>심각도</b><span id="d-sev">H (즉시 격리)</span></div>
+          </div>
+
+          <div class="doc-section">
+            <h3>1. 불량 개요</h3>
+            <p id="d-overview">2026-05-11 측정된 Lot-2026B047의 Wafer-05에서 좌표 (38, 42) 인근에 방향성 스크래치가 검출되었습니다. 영향 다이 수는 3개로, 인접 셀까지 면적이 확장된 형태입니다.</p>
+          </div>
+
+          <div class="doc-section">
+            <h3>2. 분석 이미지 (Pattern 01 연동)</h3>
+            <div class="doc-img-block">
+              <svg viewBox="0 0 100 100">
+                <defs><radialGradient id="dg1" cx="50%" cy="50%"><stop offset="0%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#475569"/></radialGradient></defs>
+                <rect width="100" height="100" fill="#0f172a"/>
+                <circle cx="50" cy="50" r="42" fill="url(#dg1)"/>
+                <circle cx="38" cy="42" r="6" fill="none" stroke="#ef4444" stroke-width="2"/>
+                <text x="46" y="34" fill="#ef4444" font-family="monospace" font-size="6" font-weight="700">D-001</text>
+                <circle cx="62" cy="56" r="6" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                <text x="70" y="50" fill="#f59e0b" font-family="monospace" font-size="6" font-weight="700">D-002</text>
+                <circle cx="55" cy="32" r="6" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                <text x="63" y="26" fill="#f59e0b" font-family="monospace" font-size="6" font-weight="700">D-003</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="doc-section">
+            <h3>3. 측정 데이터</h3>
+            <table class="doc-table">
+              <thead><tr><th>ID</th><th>유형</th><th>위치</th><th>면적 (μm²)</th><th>심각도</th></tr></thead>
+              <tbody>
+                <tr><td>D-001</td><td>스크래치</td><td>(38, 42)</td><td>156</td><td>H</td></tr>
+                <tr><td>D-002</td><td>파티클</td><td>(62, 56)</td><td>89</td><td>M</td></tr>
+                <tr><td>D-003</td><td>파티클</td><td>(55, 32)</td><td>32</td><td>L</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="doc-section">
+            <h3>4. 원인 추정 (AI 생성)</h3>
+            <p id="d-cause">방향성 스크래치 패턴으로 미루어 후속 공정 중 핸들링 또는 진공 척 접촉 단계에서 발생했을 가능성이 높습니다. 동일 Lot 내 다른 Wafer의 이력 검토 권고.</p>
+          </div>
+
+          <div class="doc-section">
+            <h3>5. 권고 조치 (AI 생성)</h3>
+            <p id="d-action">① 해당 Wafer 즉시 격리 ② 핸들링 장비 점검 및 진공 척 패드 교체 검토 ③ 동일 Lot W-01 ~ W-12 동일 패턴 발생 여부 시각 검사 ④ Pattern 02 정합성 검증 결과와 교차 확인.</p>
+          </div>
+
+          <div class="doc-stamp">AI Generated</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 14px; display: flex; gap: 8px;">
+        <button class="btn" id="downloadBtn" style="font-size:0.82rem; padding:10px 16px;" disabled>📥 PPT 다운로드</button>
+        <button class="btn outline" style="font-size:0.82rem; padding:10px 16px;" disabled>📄 PDF 변환</button>
+        <button class="btn dark" style="font-size:0.82rem; padding:10px 16px;" disabled>📧 메일 발송</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TECH SECTION -->
+  <div class="tech-section">
+    <h3>HOW IT WORKS</h3>
+    <h2>템플릿 + AI 본문 + 차트·이미지 자동 결합</h2>
+
+    <div class="tech-cols">
+      <div class="tech-col">
+        <h4>TEMPLATE ENGINE</h4>
+        <ul>
+          <li>python-pptx</li>
+          <li>python-docx</li>
+          <li>openpyxl / xlsxwriter</li>
+          <li>ReportLab / WeasyPrint</li>
+          <li>Jinja2</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>AI CONTENT</h4>
+        <ul>
+          <li>Claude Sonnet 4.6</li>
+          <li>GPT-4o</li>
+          <li>사내 GPTs (QE 보고서 전용)</li>
+          <li>Function calling</li>
+          <li>JSON mode</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>INTEGRATION</h4>
+        <ul>
+          <li>사내 NAS / Google Drive</li>
+          <li>SharePoint 자동 업로드</li>
+          <li>SMTP 자동 발송</li>
+          <li>전자결재 시스템 연동</li>
+          <li>SSO + 권한 제어</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-block" style="margin-top: 24px;"><span class="com"># 실 구현: 사내 PPT 템플릿에 데이터·AI 본문 자동 삽입</span>
+<span class="kw">from</span> pptx <span class="kw">import</span> Presentation
+<span class="kw">from</span> anthropic <span class="kw">import</span> Anthropic
+
+prs = <span class="fn">Presentation</span>(<span class="str">"templates/defect_report_v3.pptx"</span>)
+slide = prs.slides[<span class="num">0</span>]
+
+<span class="com"># AI에게 본문 작성 위임</span>
+ai_text = client.messages.<span class="fn">create</span>(
+    model=<span class="str">"claude-sonnet-4-6"</span>,
+    system=<span class="str">"사내 QE 보고서 톤으로 5문장 작성. 고객 보고용."</span>,
+    messages=[{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: json.<span class="fn">dumps</span>(defect_data)}]
+).content[<span class="num">0</span>].text
+
+<span class="com"># 텍스트·이미지·표 삽입</span>
+slide.placeholders[<span class="num">1</span>].text = ai_text
+slide.shapes.<span class="fn">add_picture</span>(<span class="str">"defect.png"</span>, left, top, width, height)
+prs.<span class="fn">save</span>(<span class="str">f"reports/defect_{lot_no}.pptx"</span>)</div>
+  </div>
+
+  <div class="demo-nav">
+    <a href="02-integrity.html" class="nav-link">
+      <div class="direction">← PREV</div>
+      <div class="name">02 · MAP-Summary 정합성</div>
+    </a>
+    <a href="04-compare.html" class="nav-link next">
+      <div class="direction">NEXT →</div>
+      <div class="name">04 · 경쟁사 데이터시트 비교</div>
+    </a>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.tpl-card').forEach(c => {
+    c.addEventListener('click', () => {
+      document.querySelectorAll('.tpl-card').forEach(x => x.classList.remove('active'));
+      c.classList.add('active');
+    });
+  });
+
+  document.getElementById('genBtn').addEventListener('click', () => {
+    const btn = document.getElementById('genBtn');
+    btn.disabled = true;
+    const progress = document.getElementById('progress');
+    progress.classList.add('active');
+    document.getElementById('emptyDoc').style.display = 'none';
+    document.getElementById('docPage').style.display = 'none';
+    document.getElementById('docTag').textContent = '생성 중...';
+
+    const fill = document.getElementById('progFill');
+    const pct = document.getElementById('progPct');
+    const label = document.getElementById('progLabel');
+
+    const phases = [
+      [20, '템플릿 로드...'],
+      [40, 'Pattern 01 데이터 가져오기...'],
+      [65, 'AI 본문 생성 (Claude Sonnet 4.6)...'],
+      [85, '이미지·표 삽입...'],
+      [100, '✓ 완료']
+    ];
+    let p = 0, phaseIdx = 0;
+    const interval = setInterval(() => {
+      p += 2;
+      fill.style.width = Math.min(p, 100) + '%';
+      pct.textContent = Math.min(p, 100) + '%';
+      if (phaseIdx < phases.length && p >= phases[phaseIdx][0]) {
+        label.textContent = phases[phaseIdx][1];
+        phaseIdx++;
+      }
+      if (p >= 100) {
+        clearInterval(interval);
+        setTimeout(() => {
+          // Populate fields
+          document.getElementById('d-lot').textContent = document.getElementById('lotNo').value.split('/')[0].trim();
+          document.getElementById('d-wafer').textContent = (document.getElementById('lotNo').value.split('/')[1] || '').trim();
+          document.getElementById('d-date').textContent = document.getElementById('dateField').value;
+          document.getElementById('d-type').textContent = document.getElementById('defectType').value;
+          document.getElementById('docPage').style.display = 'block';
+          document.getElementById('docTag').textContent = '✓ 보고서 생성 완료';
+          document.querySelectorAll('.btn[disabled]').forEach(b => b.disabled = false);
+          btn.disabled = false;
+        }, 300);
+      }
+    }, 35);
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo 01 · 불량 이미지 → 데이터 변환 — 다믈파워반도체</title>
+<link rel="stylesheet" href="_shell.css">
+<style>
+  :root { --demo-color: #a78bfa; --demo-glow: rgba(167, 139, 250, 0.25); }
+
+  .image-picker {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .img-thumb .type-tag {
+    position: absolute;
+    top: 4px; right: 4px;
+    background: rgba(167, 139, 250, 0.9);
+    color: #fff;
+    font-size: 0.55rem;
+    padding: 1px 5px;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(4px);
+  }
+  .img-thumb {
+    aspect-ratio: 1/1;
+    border: 2px solid var(--border-card);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.25s;
+    background: #fafafa;
+  }
+  .img-thumb:hover { transform: translateY(-2px); border-color: var(--demo-color); }
+  .img-thumb.active {
+    border-color: var(--demo-color);
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+  }
+  .img-thumb svg { width: 100%; height: 100%; display: block; }
+  .img-thumb .lbl {
+    position: absolute;
+    bottom: 4px; left: 4px; right: 4px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 0.68rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-align: center;
+    backdrop-filter: blur(4px);
+  }
+
+  .image-stage {
+    position: relative;
+    background: #0f172a;
+    border-radius: 12px;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .image-stage svg { width: 100%; height: 100%; }
+  .stage-empty {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.88rem;
+    text-align: center;
+    padding: 30px;
+  }
+
+  .meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.85rem;
+  }
+  .meta-table th, .meta-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-card);
+  }
+  .meta-table th {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    width: 38%;
+  }
+  .meta-table td { color: var(--text); font-weight: 500; }
+
+  .progress {
+    margin: 16px 0;
+    background: var(--bg-card-alt);
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: none;
+  }
+  .progress.active { display: block; }
+  .progress-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    margin-bottom: 8px;
+  }
+  .progress-bar {
+    height: 6px;
+    background: var(--border-card);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #a78bfa 0%, #c084fc 100%);
+    width: 0%;
+    transition: width 0.3s;
+    border-radius: 100px;
+  }
+  .progress-steps {
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+  .progress-steps .step { padding: 2px 0; }
+  .progress-steps .step.done { color: var(--text); }
+  .progress-steps .step.done::before { content: "✓ "; color: #22c55e; font-weight: 700; }
+  .progress-steps .step.active { color: var(--demo-color); }
+  .progress-steps .step.active::before { content: "▸ "; font-weight: 700; }
+  .progress-steps .step.pending::before { content: "○ "; opacity: 0.5; }
+
+  .result-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-card);
+    margin-bottom: 14px;
+    gap: 4px;
+  }
+  .tab {
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--demo-color); border-bottom-color: var(--demo-color); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; animation: fadeIn 0.3s; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  .defect-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+  .defect-table th {
+    background: var(--bg-2);
+    color: #fff;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.74rem;
+    letter-spacing: 0.05em;
+  }
+  .defect-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-card);
+  }
+  .defect-table tbody tr:hover { background: var(--bg-card-alt); }
+  .sev-h { background: #fef2f2; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.72rem; }
+  .sev-m { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.72rem; }
+  .sev-l { background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.72rem; }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+  .empty-state .ico {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    opacity: 0.4;
+  }
+
+  /* ── 3-Stage Pipeline Visualization ── */
+  .pipeline {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    margin: 14px 0 12px;
+  }
+  .pipe-stage {
+    flex: 1;
+    background: #fff;
+    border: 1.5px solid var(--border-card);
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: all 0.4s;
+    position: relative;
+  }
+  .pipe-stage.active {
+    border-color: var(--demo-color);
+    background: linear-gradient(180deg, #faf5ff 0%, #f5f3ff 100%);
+    box-shadow: 0 4px 12px rgba(167, 139, 250, 0.2);
+  }
+  .pipe-stage.done {
+    border-color: #22c55e;
+    background: linear-gradient(180deg, #f0fdf4 0%, #dcfce7 100%);
+  }
+  .pipe-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 4px;
+  }
+  .pipe-stage.active .pipe-num { color: var(--demo-color); }
+  .pipe-stage.done .pipe-num { color: #16a34a; }
+  .pipe-name {
+    font-size: 0.84rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .pipe-tech {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .pipe-status {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    display: inline-block;
+    padding: 1px 7px;
+    background: #f1f5f9;
+    border-radius: 100px;
+  }
+  .pipe-stage.active .pipe-status {
+    background: var(--demo-color);
+    color: #fff;
+  }
+  .pipe-stage.done .pipe-status {
+    background: #22c55e;
+    color: #fff;
+  }
+  .pipe-arrow {
+    display: flex;
+    align-items: center;
+    color: var(--text-muted);
+    font-weight: 700;
+    padding: 0 2px;
+  }
+  .pipeline.activated .pipe-arrow { color: var(--demo-color); }
+
+  .anno-circle {
+    fill: none;
+    stroke: #f87171;
+    stroke-width: 2;
+    opacity: 0;
+    animation: annoFade 0.5s forwards;
+  }
+  .anno-label {
+    fill: #f87171;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    opacity: 0;
+    animation: annoFade 0.5s forwards;
+  }
+  @keyframes annoFade {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .sum-card {
+    background: var(--bg-card-alt);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+  .sum-card .v { font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 800; color: var(--text); }
+  .sum-card .l { font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; }
+  .sum-card.danger .v { color: #dc2626; }
+  .sum-card.warn .v { color: #ca8a04; }
+  .sum-card.ok .v { color: #16a34a; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-left">
+    <a href="index.html" class="tb-back">← 데모 허브</a>
+    <div class="tb-crumb">
+      <span class="tb-num">PATTERN · 01</span>
+      <span class="sep">/</span>
+      <span class="current">불량 이미지 → 데이터 변환</span>
+    </div>
+  </div>
+  <div class="tb-right">
+    <span class="tb-live">LIVE DEMO</span>
+  </div>
+</div>
+
+<div class="demo-hero">
+  <div class="demo-hero-inner">
+    <div class="eyebrow">VISION · 3-STAGE DEFECT ANALYSIS PIPELINE</div>
+    <h1>이미지 속 불량을 찾는 데서 끝내지 않습니다 — <span style="background: linear-gradient(135deg,#c4b5fd,#a78bfa); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">구조화 데이터까지</span></h1>
+    <p class="lead">
+      웨이퍼·다이·PCB·현미경·열화상 이미지를 입력하면 <strong>① Rule 기반 1차 검출 (OpenCV)</strong> →
+      <strong>② AI Vision 모델 (YOLO·SAM·U-Net·ViT)</strong> → <strong>③ 보고 자동화 (JSON·Excel·8D)</strong>
+      3단계로 처리합니다. 불량 좌표·면적·심각도·<strong>군집 패턴</strong>까지 추출하고, <strong>과거 유사 사례</strong>·<strong>Lot 추세</strong>로 원인 분석·재발 방지까지 연결합니다.
+    </p>
+    <div class="chips">
+      <span class="h-chip accent">QE · 적용 대상</span>
+      <span class="h-chip">월 ~16h 절감</span>
+      <span class="h-chip">OpenCV</span>
+      <span class="h-chip">YOLO v8</span>
+      <span class="h-chip">Segment Anything</span>
+      <span class="h-chip">U-Net</span>
+      <span class="h-chip">Vision Transformer</span>
+      <span class="h-chip">Claude / GPT-4o Vision</span>
+    </div>
+  </div>
+</div>
+
+<div class="demo-container">
+  <div class="workspace">
+
+    <!-- LEFT: INPUT -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title"><span class="num">INPUT</span> 불량 이미지 선택</div>
+        <span class="panel-tag">SAMPLE × 3</span>
+      </div>
+
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">
+        실제 환경에서는 NAS·메일·드래그&드롭으로 이미지가 입력됩니다. 데모용 샘플 3종을 준비했습니다.
+      </p>
+
+      <div class="image-picker" id="picker">
+        <div class="img-thumb active" data-id="A" data-name="Wafer-Lot-2026A.png">
+          <svg viewBox="0 0 100 100">
+            <defs>
+              <radialGradient id="w1" cx="50%" cy="50%"><stop offset="0%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#475569"/></radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="#0f172a"/>
+            <circle cx="50" cy="50" r="42" fill="url(#w1)" stroke="#1e293b" stroke-width="1"/>
+            <g opacity="0.4" stroke="#1e293b" stroke-width="0.4">
+              <line x1="8" y1="50" x2="92" y2="50"/><line x1="50" y1="8" x2="50" y2="92"/>
+              <line x1="20" y1="20" x2="80" y2="80"/><line x1="20" y1="80" x2="80" y2="20"/>
+              <line x1="8" y1="35" x2="92" y2="35"/><line x1="8" y1="65" x2="92" y2="65"/>
+              <line x1="35" y1="8" x2="35" y2="92"/><line x1="65" y1="8" x2="65" y2="92"/>
+            </g>
+            <circle cx="38" cy="42" r="3" fill="#ef4444"/>
+            <circle cx="62" cy="56" r="2.5" fill="#f59e0b"/>
+            <circle cx="55" cy="32" r="1.5" fill="#f59e0b"/>
+          </svg>
+          <div class="type-tag">WAFER</div>
+          <div class="lbl">Wafer-Lot-A</div>
+        </div>
+        <div class="img-thumb" data-id="B" data-name="Die-defect-section.png">
+          <svg viewBox="0 0 100 100">
+            <rect width="100" height="100" fill="#0f172a"/>
+            <rect x="15" y="15" width="70" height="70" fill="#1e3a8a" stroke="#1e293b"/>
+            <g stroke="#3b82f6" stroke-width="0.4" opacity="0.5">
+              <line x1="15" y1="30" x2="85" y2="30"/><line x1="15" y1="45" x2="85" y2="45"/>
+              <line x1="15" y1="60" x2="85" y2="60"/><line x1="15" y1="75" x2="85" y2="75"/>
+              <line x1="30" y1="15" x2="30" y2="85"/><line x1="45" y1="15" x2="45" y2="85"/>
+              <line x1="60" y1="15" x2="60" y2="85"/><line x1="75" y1="15" x2="75" y2="85"/>
+            </g>
+            <path d="M 25 55 Q 40 50 50 60 T 70 65" stroke="#ef4444" stroke-width="1.5" fill="none"/>
+            <circle cx="42" cy="56" r="2" fill="#fbbf24"/>
+          </svg>
+          <div class="type-tag" style="background:rgba(96,165,250,0.9);">DIE</div>
+          <div class="lbl">Die-Section</div>
+        </div>
+        <div class="img-thumb" data-id="C" data-name="PCB-component-burn.png">
+          <svg viewBox="0 0 100 100">
+            <rect width="100" height="100" fill="#0f172a"/>
+            <rect x="10" y="10" width="80" height="80" fill="#065f46" stroke="#1e293b"/>
+            <rect x="35" y="25" width="30" height="20" fill="#1f2937" stroke="#374151"/>
+            <rect x="25" y="55" width="50" height="14" fill="#1f2937" stroke="#374151"/>
+            <g fill="#fbbf24">
+              <rect x="20" y="30" width="3" height="3"/><rect x="20" y="36" width="3" height="3"/>
+              <rect x="77" y="30" width="3" height="3"/><rect x="77" y="36" width="3" height="3"/>
+              <rect x="20" y="58" width="3" height="3"/><rect x="20" y="64" width="3" height="3"/>
+            </g>
+            <circle cx="48" cy="62" r="4" fill="#7f1d1d" opacity="0.8"/>
+            <circle cx="48" cy="62" r="6" fill="none" stroke="#dc2626" stroke-width="0.8"/>
+          </svg>
+          <div class="type-tag" style="background:rgba(52,211,153,0.9);">PCB</div>
+          <div class="lbl">PCB-Burn</div>
+        </div>
+        <div class="img-thumb" data-id="D" data-name="Microscope-die-pixel.png">
+          <svg viewBox="0 0 100 100">
+            <rect width="100" height="100" fill="#0f172a"/>
+            <defs>
+              <pattern id="mGrid" width="6" height="6" patternUnits="userSpaceOnUse">
+                <rect width="6" height="6" fill="#1e293b"/>
+                <rect width="5.4" height="5.4" x="0.3" y="0.3" fill="#334155"/>
+              </pattern>
+            </defs>
+            <rect x="8" y="8" width="84" height="84" fill="url(#mGrid)"/>
+            <g>
+              <!-- Dead pixels (black) -->
+              <rect x="20.3" y="32.3" width="5.4" height="5.4" fill="#000"/>
+              <rect x="44.3" y="50.3" width="5.4" height="5.4" fill="#000"/>
+              <!-- Hot pixels (white) -->
+              <rect x="62.3" y="26.3" width="5.4" height="5.4" fill="#fff"/>
+              <rect x="56.3" y="68.3" width="5.4" height="5.4" fill="#fff"/>
+              <!-- Stain (purple smear) -->
+              <ellipse cx="76" cy="74" rx="8" ry="5" fill="#a855f7" opacity="0.5"/>
+            </g>
+          </svg>
+          <div class="type-tag" style="background:rgba(244,114,182,0.9);">SCOPE</div>
+          <div class="lbl">Microscope</div>
+        </div>
+        <div class="img-thumb" data-id="E" data-name="Thermal-hot-spot.png">
+          <svg viewBox="0 0 100 100">
+            <defs>
+              <radialGradient id="th1" cx="35%" cy="40%" r="25%"><stop offset="0%" stop-color="#fff"/><stop offset="30%" stop-color="#fde047"/><stop offset="60%" stop-color="#f97316"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+              <radialGradient id="th2" cx="70%" cy="65%" r="18%"><stop offset="0%" stop-color="#fde047"/><stop offset="60%" stop-color="#f97316"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+              <linearGradient id="thBg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#0c0a47"/></linearGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#thBg)"/>
+            <ellipse cx="35" cy="40" rx="25" ry="20" fill="url(#th1)"/>
+            <ellipse cx="70" cy="65" rx="18" ry="15" fill="url(#th2)"/>
+            <text x="6" y="94" fill="#67e8f9" font-family="monospace" font-size="6" font-weight="700">98°C</text>
+            <text x="80" y="94" fill="#fde047" font-family="monospace" font-size="6" font-weight="700">142°C</text>
+          </svg>
+          <div class="type-tag" style="background:rgba(248,113,113,0.9);">THERMAL</div>
+          <div class="lbl">Thermal</div>
+        </div>
+      </div>
+
+      <table class="meta-table" id="meta">
+        <tr><th>FILE</th><td id="m-file">Wafer-Lot-2026A.png</td></tr>
+        <tr><th>TYPE</th><td id="m-type">웨이퍼 (Wafer Map)</td></tr>
+        <tr><th>SIZE</th><td id="m-size">1280 × 1024 px</td></tr>
+        <tr><th>UPLOADED</th><td>2026-05-12 14:23</td></tr>
+        <tr><th>SOURCE</th><td id="m-source">QE · 김상훈 책임</td></tr>
+      </table>
+
+      <div style="margin-top: 20px; display: flex; gap: 10px;">
+        <button class="btn" id="runBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          AI 분석 실행
+        </button>
+        <button class="btn outline" onclick="resetDemo()">초기화</button>
+      </div>
+
+      <div class="progress" id="progress">
+        <div class="progress-head">
+          <span style="font-weight:700;">3-Stage 분석 파이프라인 실행 중...</span>
+          <span id="progPct" style="font-family:'JetBrains Mono',monospace; font-weight:700;">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+
+        <!-- 3-Stage Tracker -->
+        <div class="pipeline" id="pipeline">
+          <div class="pipe-stage" data-stage="rule">
+            <div class="pipe-num">STAGE 1</div>
+            <div class="pipe-name">Rule 기반 검출</div>
+            <div class="pipe-tech">OpenCV · cv2</div>
+            <div class="pipe-status" data-s="rule">대기</div>
+          </div>
+          <div class="pipe-arrow">▸</div>
+          <div class="pipe-stage" data-stage="ai">
+            <div class="pipe-num">STAGE 2</div>
+            <div class="pipe-name">AI Vision 분류</div>
+            <div class="pipe-tech">YOLO v8 · SAM · ViT</div>
+            <div class="pipe-status" data-s="ai">대기</div>
+          </div>
+          <div class="pipe-arrow">▸</div>
+          <div class="pipe-stage" data-stage="report">
+            <div class="pipe-num">STAGE 3</div>
+            <div class="pipe-name">보고 자동화</div>
+            <div class="pipe-tech">JSON · Excel · 8D</div>
+            <div class="pipe-status" data-s="report">대기</div>
+          </div>
+        </div>
+
+        <div class="progress-steps" id="progSteps">
+          <div class="step pending" data-step="0">[1] 이미지 전처리 · 크롭·해상도·노이즈 제거 (OpenCV)</div>
+          <div class="step pending" data-step="1">[1] Rule 기반 1차 검출 · dead/hot pixel·stain·crack·burn</div>
+          <div class="step pending" data-step="2">[2] YOLO v8 객체 탐지 + SAM 세그멘테이션</div>
+          <div class="step pending" data-step="3">[2] ViT 불량 유형 분류 + 군집 패턴 분석</div>
+          <div class="step pending" data-step="4">[3] 좌표·면적·심각도 산출 + 과거 유사 사례 매칭</div>
+          <div class="step pending" data-step="5">[3] JSON·Excel·8D 보고서 자동 생성</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: OUTPUT -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title"><span class="num">OUTPUT</span> AI 분석 결과</div>
+        <span class="panel-tag" id="resultTag">대기 중</span>
+      </div>
+
+      <div class="image-stage" id="stage">
+        <div class="stage-empty">
+          ← 왼쪽에서 이미지를 선택하고<br>
+          <strong>"AI 분석 실행"</strong> 버튼을 눌러주세요
+        </div>
+      </div>
+
+      <div id="resultArea" style="display:none; margin-top: 18px;">
+
+        <div class="summary-grid">
+          <div class="sum-card danger"><div class="v" id="sCnt">3</div><div class="l">검출 불량</div></div>
+          <div class="sum-card warn"><div class="v" id="sArea">0.42%</div><div class="l">불량 면적률</div></div>
+          <div class="sum-card"><div class="v" id="sType">2</div><div class="l">불량 유형</div></div>
+          <div class="sum-card ok"><div class="v" id="sConf">98%</div><div class="l">분석 신뢰도</div></div>
+        </div>
+
+        <div class="result-tabs" style="margin-top: 18px;">
+          <button class="tab active" data-tab="table">📋 상세 표</button>
+          <button class="tab" data-tab="cluster">🎯 군집 분석</button>
+          <button class="tab" data-tab="similar">🔗 유사 사례</button>
+          <button class="tab" data-tab="trend">📈 Lot 추세</button>
+          <button class="tab" data-tab="json">{ } JSON</button>
+          <button class="tab" data-tab="excel">📊 Excel</button>
+        </div>
+
+        <div class="tab-content active" data-tab="table">
+          <table class="defect-table" id="defectTable">
+            <thead>
+              <tr><th>ID</th><th>유형</th><th>위치(x,y)</th><th>면적</th><th>심각도</th></tr>
+            </thead>
+            <tbody id="defectBody"></tbody>
+          </table>
+        </div>
+
+        <div class="tab-content" data-tab="cluster">
+          <div style="background:#faf5ff; border:1px solid #ddd6fe; border-radius:10px; padding:14px 16px; margin-bottom:12px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#6b21a8; letter-spacing:0.15em; font-weight:700; margin-bottom:8px;">🎯 CLUSTER DETECTION · DBSCAN + ViT</div>
+            <div style="font-size:0.88rem; color:var(--text); line-height:1.7;" id="clusterSummary"></div>
+          </div>
+          <div id="clusterList"></div>
+          <div style="margin-top:12px; padding:12px 14px; background:#f1f5f9; border-radius:8px; font-size:0.8rem; color:var(--text-light);">
+            💡 군집은 인접 불량 간 거리·면적·유형 유사도로 자동 묶음 → 단발성 vs 공정 불량 구분에 활용
+          </div>
+        </div>
+
+        <div class="tab-content" data-tab="similar">
+          <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:14px 16px; margin-bottom:12px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#9d174d; letter-spacing:0.15em; font-weight:700; margin-bottom:8px;">🔗 SIMILAR PAST CASES · Vector Embedding</div>
+            <div style="font-size:0.88rem; color:var(--text); line-height:1.7;">
+              과거 불량 이미지 <strong id="similarTotal">12,486</strong>건 인덱싱 중에서 임베딩 유사도 기준 상위 3건을 표시합니다.
+            </div>
+          </div>
+          <div id="similarList"></div>
+        </div>
+
+        <div class="tab-content" data-tab="trend">
+          <div style="background:#ecfeff; border:1px solid #a5f3fc; border-radius:10px; padding:14px 16px; margin-bottom:12px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#0e7490; letter-spacing:0.15em; font-weight:700; margin-bottom:8px;">📈 LOT TREND · 최근 7개 Lot</div>
+            <div style="font-size:0.88rem; color:var(--text); line-height:1.7;" id="trendSummary"></div>
+          </div>
+          <div style="background:#0f172a; border-radius:10px; padding:18px 16px; position:relative;">
+            <svg viewBox="0 0 600 200" id="trendSvg" style="width:100%; height:auto;"></svg>
+          </div>
+          <div style="margin-top:12px; display:flex; gap:10px;">
+            <div style="flex:1; background:#fef2f2; border-radius:8px; padding:10px 14px;">
+              <div style="font-size:0.72rem; color:#991b1b; font-weight:700; letter-spacing:0.05em;">⚠️ 현재 Lot</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:1.2rem; font-weight:800; color:#dc2626;" id="curLot">0.42%</div>
+              <div style="font-size:0.7rem; color:var(--text-muted);" id="curLotName">L2026A</div>
+            </div>
+            <div style="flex:1; background:#f0fdf4; border-radius:8px; padding:10px 14px;">
+              <div style="font-size:0.72rem; color:#065f46; font-weight:700; letter-spacing:0.05em;">📊 7Lot 평균</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:1.2rem; font-weight:800; color:#16a34a;" id="avgLot">0.18%</div>
+              <div style="font-size:0.7rem; color:var(--text-muted);">정상 범위</div>
+            </div>
+            <div style="flex:1; background:#fef3c7; border-radius:8px; padding:10px 14px;">
+              <div style="font-size:0.72rem; color:#92400e; font-weight:700; letter-spacing:0.05em;">📈 추세</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:1.2rem; font-weight:800; color:#ca8a04;" id="trendDir">+133%</div>
+              <div style="font-size:0.7rem; color:var(--text-muted);">평균 대비</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" data-tab="json">
+          <div class="code-block" id="jsonBlock"></div>
+        </div>
+
+        <div class="tab-content" data-tab="excel">
+          <div style="background: var(--bg-card-alt); border-radius: 10px; padding: 0; overflow: hidden; border: 1px solid var(--border-card);">
+            <div style="background:#10803d; color:#fff; padding: 8px 14px; font-size: 0.78rem; display:flex; align-items:center; gap:8px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect width="24" height="24" rx="3"/></svg>
+              defect_report_LotA_2026-05-12.xlsx
+            </div>
+            <div style="overflow-x:auto;">
+              <table style="width:100%; border-collapse: collapse; font-size: 0.78rem;" id="excelTable">
+                <thead>
+                  <tr style="background:#f1f5f9;">
+                    <th style="padding:8px 12px; text-align:left; border-bottom:1px solid #cbd5e1; font-weight:600;">A · ID</th>
+                    <th style="padding:8px 12px; text-align:left; border-bottom:1px solid #cbd5e1; font-weight:600;">B · Type</th>
+                    <th style="padding:8px 12px; text-align:left; border-bottom:1px solid #cbd5e1; font-weight:600;">C · X</th>
+                    <th style="padding:8px 12px; text-align:left; border-bottom:1px solid #cbd5e1; font-weight:600;">D · Y</th>
+                    <th style="padding:8px 12px; text-align:left; border-bottom:1px solid #cbd5e1; font-weight:600;">E · Area_um²</th>
+                    <th style="padding:8px 12px; text-align:left; border-bottom:1px solid #cbd5e1; font-weight:600;">F · Severity</th>
+                  </tr>
+                </thead>
+                <tbody id="excelBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <p style="margin-top: 10px; font-size: 0.8rem; color: var(--text-muted);">
+            ✦ 보고서 생성 시 본 시트를 <code>python-pptx</code>로 PPT 표에 자동 삽입합니다 (Pattern 03 연결).
+          </p>
+        </div>
+
+        <div style="margin-top: 16px; display: flex; gap: 8px;">
+          <button class="btn" style="font-size:0.82rem; padding: 10px 18px;">📊 Excel 다운로드</button>
+          <button class="btn outline" style="font-size:0.82rem; padding: 10px 18px;">📄 PDF 보고서 생성</button>
+          <button class="btn dark" style="font-size:0.82rem; padding: 10px 18px;">🔁 JSON 복사</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ 분석 이력 관리 패널 ═══════ -->
+  <div id="historyPanel" style="margin-top:32px; background:#fff; border:1px solid var(--border-card); border-radius:16px; padding:24px 28px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--demo-color); letter-spacing:0.2em; font-weight:700;">📚 ANALYSIS HISTORY</div>
+        <h3 style="margin-top:4px; font-size:1.2rem; font-weight:800; color:var(--text);">분석 이력 (브라우저 LocalStorage)</h3>
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-top:2px;">분석 실행한 이미지가 자동 누적됩니다. 클릭하면 즉시 결과를 재현합니다.</p>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <div style="background:var(--bg-card-alt); padding:6px 12px; border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text);">
+          <span id="histCount">0</span> 건 누적
+        </div>
+        <button class="btn outline" id="histExport" style="font-size:0.78rem; padding:7px 14px;">📤 CSV Export</button>
+        <button class="btn" id="histClear" style="font-size:0.78rem; padding:7px 14px; background:#dc2626;">🗑️ 전체 삭제</button>
+      </div>
+    </div>
+
+    <div id="histEmpty" style="text-align:center; padding:40px 20px; color:var(--text-muted); background:var(--bg-card-alt); border-radius:10px; border:1px dashed var(--border-card);">
+      <div style="font-size:2rem; opacity:0.3; margin-bottom:8px;">📂</div>
+      아직 분석 이력이 없습니다. 위에서 분석을 실행해보세요.
+    </div>
+
+    <div id="histList" style="display:none;"></div>
+  </div>
+
+  <!-- ═══════ Track 2 추가 제안 ═══════ -->
+  <div style="margin-top:32px; background:linear-gradient(135deg, #2e1065 0%, #4c1d95 100%); color:#fff; border-radius:16px; padding:32px; position:relative; overflow:hidden;">
+    <div style="position:absolute; top:-50%; right:-10%; width:500px; height:500px; background:radial-gradient(circle, rgba(167,139,250,0.2) 0%, transparent 60%); pointer-events:none;"></div>
+    <div style="position:relative;">
+      <div style="display:inline-block; padding:4px 14px; background:rgba(167,139,250,0.2); border:1px solid rgba(167,139,250,0.4); border-radius:100px; font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#c4b5fd; font-weight:700; letter-spacing:0.2em; margin-bottom:14px;">✨ 추가 제안 과제 · TRACK 2</div>
+      <h2 style="font-size:1.6rem; font-weight:900; letter-spacing:-0.02em; margin-bottom:14px;">AI Vision 기반 불량 이미지 분석 자동화</h2>
+      <p style="font-size:1rem; color:rgba(255,255,255,0.85); line-height:1.85; margin-bottom:20px; max-width:880px;">
+        반도체 다이·웨이퍼·PCB·현미경·열화상 이미지 내 <strong>불량 화소 및 결함 영역을 AI가 자동 탐지</strong>하고,
+        불량 위치·유형·면적·심각도·<strong>군집 패턴을 구조화 데이터</strong>로 변환하는 시스템을 구축합니다.
+        품질팀의 보고서 작성 시간을 줄이고, 과거 불량 이미지와의 <strong>유사도 비교</strong>를 통해 원인 분석 및 재발 방지 대응 속도를 높입니다.
+      </p>
+
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:24px;">
+        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:18px 20px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:#c4b5fd; font-weight:700; letter-spacing:0.15em; margin-bottom:8px;">STAGE 1</div>
+          <div style="font-size:1rem; font-weight:800; margin-bottom:6px;">Rule 기반 1차 검출</div>
+          <div style="font-size:0.82rem; color:rgba(255,255,255,0.7); line-height:1.6;">dead pixel · hot pixel · stain · crack · burn mark을 OpenCV로 빠르게 검출</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:18px 20px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:#c4b5fd; font-weight:700; letter-spacing:0.15em; margin-bottom:8px;">STAGE 2</div>
+          <div style="font-size:1rem; font-weight:800; margin-bottom:6px;">AI Vision 모델 적용</div>
+          <div style="font-size:0.82rem; color:rgba(255,255,255,0.7); line-height:1.6;">YOLO v8 · Segment Anything · U-Net · Vision Transformer로 위치·면적·유형 분류</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:18px 20px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:#c4b5fd; font-weight:700; letter-spacing:0.15em; margin-bottom:8px;">STAGE 3</div>
+          <div style="font-size:1rem; font-weight:800; margin-bottom:6px;">보고 자동화</div>
+          <div style="font-size:0.82rem; color:rgba(255,255,255,0.7); line-height:1.6;">좌표·면적·심각도·이미지 crop·추정 원인·유사 과거 사례를 Excel/8D/품질 DB에 자동 저장</div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px; padding:18px 22px; background:rgba(255,255,255,0.06); border-left:3px solid #a78bfa; border-radius:8px;">
+        <strong style="color:#c4b5fd;">💡 PoC 적용 시나리오</strong><br>
+        <span style="font-size:0.92rem; color:rgba(255,255,255,0.88); line-height:1.7;">
+          ① 과거 6개월 QE 불량 이미지 1,000건 인덱싱 →
+          ② 신규 불량 발생 시 자동 유사 사례 검색 →
+          ③ 8D 보고서 초안 자동 작성 →
+          ④ Lot별 추세 대시보드 자동 갱신
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TECH SECTION -->
+  <div class="tech-section">
+    <h3>HOW IT WORKS</h3>
+    <h2>3단계 파이프라인 구현 스택</h2>
+
+    <div class="tech-cols">
+      <div class="tech-col">
+        <h4>① RULE-BASED DETECTION</h4>
+        <ul>
+          <li>OpenCV (cv2)</li>
+          <li>Pillow / scikit-image</li>
+          <li>Adaptive Thresholding</li>
+          <li>Canny Edge Detection</li>
+          <li>Connected Components</li>
+          <li>DBSCAN (군집)</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>② AI VISION MODELS</h4>
+        <ul>
+          <li>YOLO v8 (객체 탐지)</li>
+          <li>Segment Anything (SAM)</li>
+          <li>U-Net (의료/반도체 특화)</li>
+          <li>Vision Transformer (ViT)</li>
+          <li>Claude / GPT-4o Vision (검증)</li>
+          <li>PyTorch / Ultralytics</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h4>③ REPORT + STORAGE</h4>
+        <ul>
+          <li>openpyxl · python-pptx</li>
+          <li>Chroma DB (이미지 임베딩)</li>
+          <li>PostgreSQL (품질 DB)</li>
+          <li>FastAPI + WebSocket</li>
+          <li>사내 NAS · Google Drive</li>
+          <li>QE 8D 보고서 자동 생성</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-block" style="margin-top: 24px;"><span class="com"># 실 구현 예시: 3-Stage 파이프라인 통합 호출</span>
+<span class="kw">import</span> cv2, torch
+<span class="kw">from</span> ultralytics <span class="kw">import</span> YOLO
+<span class="kw">from</span> segment_anything <span class="kw">import</span> SamPredictor
+<span class="kw">from</span> sklearn.cluster <span class="kw">import</span> DBSCAN
+
+<span class="kw">def</span> <span class="fn">analyze_defect_image</span>(img_path):
+    img = cv2.<span class="fn">imread</span>(img_path)
+
+    <span class="com"># Stage 1: Rule-based 1차 검출 (OpenCV)</span>
+    candidates = <span class="fn">opencv_detect</span>(img)  <span class="com"># dead/hot pixel·stain·crack</span>
+
+    <span class="com"># Stage 2: AI Vision으로 정밀 분류</span>
+    yolo = <span class="fn">YOLO</span>(<span class="str">"models/wafer_defect_v3.pt"</span>)
+    detections = yolo.<span class="fn">predict</span>(img, conf=<span class="num">0.4</span>)
+    sam = <span class="fn">SamPredictor</span>(sam_model)
+    masks = sam.<span class="fn">predict</span>(detections.boxes)
+
+    <span class="com"># DBSCAN으로 군집 분석</span>
+    clusters = <span class="fn">DBSCAN</span>(eps=<span class="num">8</span>, min_samples=<span class="num">2</span>).<span class="fn">fit_predict</span>(coords)
+
+    <span class="com"># Stage 3: 유사 사례 검색 (임베딩) + 보고서 생성</span>
+    similar = chroma.<span class="fn">query</span>(image_embedding, n_results=<span class="num">3</span>)
+    <span class="fn">save_to_excel_and_8d</span>(detections, clusters, similar)
+    <span class="kw">return</span> {<span class="str">"defects"</span>: ..., <span class="str">"clusters"</span>: ..., <span class="str">"similar"</span>: ...}</div>
+  </div>
+
+  <div class="demo-nav">
+    <a href="index.html" class="nav-link">
+      <div class="direction">← HUB</div>
+      <div class="name">데모 허브로 돌아가기</div>
+    </a>
+    <a href="02-integrity.html" class="nav-link next">
+      <div class="direction">NEXT DEMO →</div>
+      <div class="name">02 · MAP-Summary 정합성 검증</div>
+    </a>
+  </div>
+</div>
+
+<script>
+  const SAMPLES = {
+    A: {
+      file: "Wafer-Lot-2026A.png",
+      type: "웨이퍼 (Wafer Map)",
+      typeShort: "WAFER",
+      size: "1280 × 1024 px",
+      source: "QE · 김상훈 책임",
+      lotName: "L2026A",
+      defects: [
+        { id: "D-001", type: "스크래치", x: 38, y: 42, area: 156, severity: "H", note: "방향성 결함, 다이 5개 영향" },
+        { id: "D-002", type: "파티클", x: 62, y: 56, area: 89, severity: "M", note: "비드형 잔류물" },
+        { id: "D-003", type: "파티클", x: 55, y: 32, area: 32, severity: "L", note: "단일점 결함" }
+      ],
+      summary: { cnt: 3, area: "0.42%", types: 2, conf: 98 },
+      clusters: [
+        { id: "CL-1", count: 1, type: "스크래치", member: "D-001", pattern: "단일 방향성 결함", action: "핸들링·진공척 점검 우선" },
+        { id: "CL-2", count: 2, type: "파티클", member: "D-002, D-003", pattern: "근접 클러스터 (5mm 내)", action: "공정 챔버 파티클 청소 권고" }
+      ],
+      similar: [
+        { lot: "L2025M-038", sim: 92, date: "2025-09-14", cause: "진공척 패드 마모", note: "동일 위치·방향 스크래치 패턴" },
+        { lot: "L2025K-127", sim: 87, date: "2025-11-02", cause: "챔버 클리닝 주기 초과", note: "파티클 군집 유사도 87%" },
+        { lot: "L2025L-204", sim: 79, date: "2025-12-21", cause: "라인 진동 이상", note: "동일 라인·유사 시기" }
+      ],
+      trend: { rates: [0.12, 0.15, 0.14, 0.18, 0.16, 0.21, 0.42], lots: ['L047','L048','L049','L050','L051','L052','L2026A'], avg: 0.18 }
+    },
+    B: {
+      file: "Die-defect-section.png",
+      type: "다이 단면 (Die Section)",
+      typeShort: "DIE",
+      size: "1920 × 1440 px",
+      source: "QE · 전병욱 수석",
+      lotName: "L2026B-D",
+      defects: [
+        { id: "D-101", type: "Crack", x: 35, y: 55, area: 240, severity: "H", note: "수평 균열, 인접 셀 영향" },
+        { id: "D-102", type: "Crack", x: 50, y: 60, area: 180, severity: "H", note: "Crack 연장 의심" },
+        { id: "D-103", type: "Discolor", x: 42, y: 56, area: 24, severity: "L", note: "재료 변색" }
+      ],
+      summary: { cnt: 3, area: "0.88%", types: 2, conf: 96 },
+      clusters: [
+        { id: "CL-1", count: 2, type: "Crack", member: "D-101, D-102", pattern: "수평 연장 균열 (15mm)", action: "패키지 응력·온도 사이클 재현 시험 필요" },
+        { id: "CL-2", count: 1, type: "Discolor", member: "D-103", pattern: "단일 변색", action: "Crack 인접 → 동일 원인 의심" }
+      ],
+      similar: [
+        { lot: "L2025H-189", sim: 95, date: "2025-08-22", cause: "패키지 응력 누적", note: "동일 위치 Crack 길이 13mm" },
+        { lot: "L2025J-076", sim: 88, date: "2025-10-11", cause: "리플로우 온도 프로파일 이상", note: "Crack 시작점 위치 유사" },
+        { lot: "L2025I-220", sim: 76, date: "2025-09-30", cause: "취급 중 충격", note: "단발성 케이스" }
+      ],
+      trend: { rates: [0.22, 0.18, 0.28, 0.31, 0.45, 0.62, 0.88], lots: ['L101','L102','L103','L104','L105','L106','L2026B-D'], avg: 0.42 }
+    },
+    C: {
+      file: "PCB-component-burn.png",
+      type: "PCB 부품 (PCB Component)",
+      typeShort: "PCB",
+      size: "2048 × 1536 px",
+      source: "QE · 김상훈 책임",
+      lotName: "L2026C-PCB",
+      defects: [
+        { id: "D-201", type: "Burn", x: 48, y: 62, area: 312, severity: "H", note: "탄화 잔재, 즉시 격리 권고" },
+        { id: "D-202", type: "Solder", x: 35, y: 65, area: 56, severity: "M", note: "Cold Solder 의심" }
+      ],
+      summary: { cnt: 2, area: "1.24%", types: 2, conf: 99 },
+      clusters: [
+        { id: "CL-1", count: 1, type: "Burn", member: "D-201", pattern: "고온 손상 단일점", action: "전류 과부하 회로 보호 검토" },
+        { id: "CL-2", count: 1, type: "Solder", member: "D-202", pattern: "Cold Solder 단일점", action: "리플로우 온도 프로파일 점검" }
+      ],
+      similar: [
+        { lot: "L2025F-301", sim: 89, date: "2025-06-15", cause: "전류 과부하 보호 회로 미작동", note: "동일 부품 위치 Burn" },
+        { lot: "L2025G-088", sim: 82, date: "2025-07-22", cause: "리플로우 Peak 온도 부족", note: "Cold Solder 패턴 일치" },
+        { lot: "L2025E-244", sim: 71, date: "2025-05-08", cause: "전해 콘덴서 불량", note: "유사 Burn 패턴" }
+      ],
+      trend: { rates: [0.45, 0.52, 0.61, 0.78, 0.92, 1.08, 1.24], lots: ['L201','L202','L203','L204','L205','L206','L2026C-PCB'], avg: 0.80 }
+    },
+    D: {
+      file: "Microscope-die-pixel.png",
+      type: "현미경 (Microscope)",
+      typeShort: "SCOPE",
+      size: "3840 × 2160 px",
+      source: "QE · 류진규 위원",
+      lotName: "L2026D-MS",
+      defects: [
+        { id: "D-301", type: "Dead Pixel", x: 23, y: 35, area: 18, severity: "H", note: "검은 점 픽셀 (응답 없음)" },
+        { id: "D-302", type: "Dead Pixel", x: 47, y: 53, area: 18, severity: "H", note: "검은 점 픽셀" },
+        { id: "D-303", type: "Hot Pixel", x: 65, y: 29, area: 18, severity: "M", note: "흰 점 (지속 발광)" },
+        { id: "D-304", type: "Hot Pixel", x: 59, y: 71, area: 18, severity: "M", note: "흰 점 (지속 발광)" },
+        { id: "D-305", type: "Stain", x: 76, y: 74, area: 88, severity: "M", note: "보라색 잔류물·이물질" }
+      ],
+      summary: { cnt: 5, area: "0.62%", types: 3, conf: 97 },
+      clusters: [
+        { id: "CL-1", count: 2, type: "Dead Pixel", member: "D-301, D-302", pattern: "대각선 배치 (단발성)", action: "포토 마스크 결함 가능성 검토" },
+        { id: "CL-2", count: 2, type: "Hot Pixel", member: "D-303, D-304", pattern: "대칭 배치", action: "이온 주입 균일도 점검" },
+        { id: "CL-3", count: 1, type: "Stain", member: "D-305", pattern: "단일 이물질", action: "클리닝 공정 강화" }
+      ],
+      similar: [
+        { lot: "L2025A-512", sim: 91, date: "2025-04-18", cause: "포토 마스크 미세 결함", note: "Dead Pixel 동일 위치 패턴" },
+        { lot: "L2025C-188", sim: 84, date: "2025-05-29", cause: "이온 주입 장비 보정 필요", note: "Hot Pixel 좌우 대칭 동일" },
+        { lot: "L2025B-409", sim: 73, date: "2025-04-30", cause: "클리닝 공정 부족", note: "Stain 패턴 유사" }
+      ],
+      trend: { rates: [0.32, 0.28, 0.35, 0.38, 0.45, 0.51, 0.62], lots: ['L301','L302','L303','L304','L305','L306','L2026D-MS'], avg: 0.41 }
+    },
+    E: {
+      file: "Thermal-hot-spot.png",
+      type: "열화상 (Thermal Image)",
+      typeShort: "THERMAL",
+      size: "640 × 480 px",
+      source: "QE · 최아람 책임",
+      lotName: "L2026E-TH",
+      defects: [
+        { id: "D-401", type: "Hot Spot", x: 35, y: 40, area: 420, severity: "H", note: "142°C · 정상 대비 +60°C, 즉시 차단" },
+        { id: "D-402", type: "Warm Spot", x: 70, y: 65, area: 280, severity: "M", note: "98°C · 정상 대비 +18°C, 모니터링 필요" }
+      ],
+      summary: { cnt: 2, area: "2.18%", types: 2, conf: 99 },
+      clusters: [
+        { id: "CL-1", count: 1, type: "Hot Spot", member: "D-401", pattern: "Critical 발열 (단일)", action: "전원 회로 단락 의심 → 즉시 차단·검수" },
+        { id: "CL-2", count: 1, type: "Warm Spot", member: "D-402", pattern: "준 정상 발열", action: "1주 추세 모니터링 후 판정" }
+      ],
+      similar: [
+        { lot: "L2024X-091", sim: 93, date: "2024-11-12", cause: "전원 회로 단락", note: "동일 위치 142°C 발열" },
+        { lot: "L2024Y-218", sim: 86, date: "2024-12-03", cause: "방열판 부착 불량", note: "Hot Spot 면적 유사" },
+        { lot: "L2024W-377", sim: 78, date: "2024-10-28", cause: "구동 전류 과다", note: "Warm Spot 유사 분포" }
+      ],
+      trend: { rates: [0.55, 0.72, 0.88, 1.12, 1.45, 1.78, 2.18], lots: ['L401','L402','L403','L404','L405','L406','L2026E-TH'], avg: 1.24 }
+    }
+  };
+
+  let selected = "A";
+
+  // Image picker
+  function updateMeta() {
+    const d = SAMPLES[selected];
+    document.getElementById('m-file').textContent = d.file;
+    document.getElementById('m-type').textContent = d.type;
+    document.getElementById('m-size').textContent = d.size;
+    document.getElementById('m-source').textContent = d.source;
+  }
+  document.querySelectorAll('.img-thumb').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      document.querySelectorAll('.img-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+      selected = thumb.dataset.id;
+      updateMeta();
+      resetDemo();
+    });
+  });
+  updateMeta();
+
+  // Tabs
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector(`.tab-content[data-tab="${tab.dataset.tab}"]`).classList.add('active');
+    });
+  });
+
+  function resetDemo() {
+    document.getElementById('progress').classList.remove('active');
+    document.getElementById('resultArea').style.display = 'none';
+    document.getElementById('resultTag').textContent = '대기 중';
+    document.getElementById('progFill').style.width = '0%';
+    document.getElementById('progPct').textContent = '0%';
+    document.querySelectorAll('.progress-steps .step').forEach(s => s.className = 'step pending');
+    document.querySelectorAll('.pipe-stage').forEach(s => s.classList.remove('active', 'done'));
+    document.querySelectorAll('.pipe-status').forEach(s => s.textContent = '대기');
+    document.getElementById('pipeline').classList.remove('activated');
+    document.getElementById('stage').innerHTML = '<div class="stage-empty">← 왼쪽에서 이미지(5종)를 선택하고<br><strong>"AI 분석 실행"</strong> 버튼을 눌러주세요</div>';
+  }
+
+  function setStage(stage, state, statusText) {
+    const el = document.querySelector(`.pipe-stage[data-stage="${stage}"]`);
+    if (!el) return;
+    el.classList.remove('active', 'done');
+    if (state) el.classList.add(state);
+    const status = el.querySelector('.pipe-status');
+    if (statusText) status.textContent = statusText;
+  }
+
+  function runAnalysis() {
+    const btn = document.getElementById('runBtn');
+    btn.disabled = true;
+    const progress = document.getElementById('progress');
+    progress.classList.add('active');
+    document.getElementById('pipeline').classList.add('activated');
+    document.getElementById('resultArea').style.display = 'none';
+    document.getElementById('resultTag').textContent = '분석 중...';
+
+    const steps = document.querySelectorAll('.progress-steps .step');
+    const fill = document.getElementById('progFill');
+    const pct = document.getElementById('progPct');
+
+    // 6 steps mapped to 3 stages
+    // step 0,1 → stage rule
+    // step 2,3 → stage ai
+    // step 4,5 → stage report
+    const stageMap = ['rule','rule','ai','ai','report','report'];
+    const stepThresholds = [14, 30, 48, 68, 84, 100];
+
+    let stepIdx = 0;
+    let p = 0;
+    setStage('rule', 'active', '실행 중');
+
+    const interval = setInterval(() => {
+      p += 1.4;
+      const pInt = Math.min(Math.round(p), 100);
+      fill.style.width = pInt + '%';
+      pct.textContent = pInt + '%';
+
+      if (stepIdx < steps.length && p >= stepThresholds[stepIdx]) {
+        // mark current step done
+        steps[stepIdx].className = 'step done';
+        // activate next step
+        if (stepIdx + 1 < steps.length) steps[stepIdx + 1].className = 'step active';
+
+        // Stage transitions
+        const curStage = stageMap[stepIdx];
+        const nextStage = stageMap[stepIdx + 1];
+        if (nextStage && curStage !== nextStage) {
+          setStage(curStage, 'done', '완료');
+          setStage(nextStage, 'active', '실행 중');
+        }
+        stepIdx++;
+      }
+
+      if (p >= 100) {
+        clearInterval(interval);
+        setStage('report', 'done', '완료');
+        setTimeout(showResult, 350);
+        btn.disabled = false;
+      }
+    }, 55);
+
+    // Initialize first step as active
+    if (steps.length > 0) steps[0].className = 'step active';
+  }
+
+  function renderClusters(data) {
+    const sum = document.getElementById('clusterSummary');
+    sum.innerHTML = `총 <strong>${data.clusters.length}개 군집</strong>으로 분류됨 · 검출된 <strong>${data.summary.cnt}건</strong> 불량이 위치·유형·면적 유사도(DBSCAN ε=8mm)로 자동 묶임. 단발성 vs 공정 불량 판단에 활용.`;
+
+    document.getElementById('clusterList').innerHTML = data.clusters.map((c, i) => {
+      const colorMap = ['#ef4444', '#f59e0b', '#a855f7', '#06b6d4', '#10b981'];
+      const color = colorMap[i % colorMap.length];
+      return `<div style="background:#fff; border:1px solid var(--border-card); border-left:4px solid ${color}; border-radius:10px; padding:14px 16px; margin-bottom:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+          <div>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:${color}; font-weight:700;">${c.id}</span>
+            <strong style="margin-left:8px; font-size:0.95rem; color:var(--text);">${c.type}</strong>
+            <span style="margin-left:6px; background:#f1f5f9; color:var(--text-muted); padding:2px 8px; border-radius:100px; font-size:0.72rem; font-weight:600;">${c.count}건</span>
+          </div>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--text-muted);">${c.member}</span>
+        </div>
+        <div style="font-size:0.85rem; color:var(--text-light); margin-bottom:6px;">📍 <strong>패턴:</strong> ${c.pattern}</div>
+        <div style="font-size:0.85rem; color:var(--text-light);">💡 <strong>권고:</strong> ${c.action}</div>
+      </div>`;
+    }).join('');
+  }
+
+  function renderSimilar(data) {
+    document.getElementById('similarList').innerHTML = data.similar.map(s => {
+      const simColor = s.sim >= 90 ? '#dc2626' : s.sim >= 80 ? '#f59e0b' : '#65a30d';
+      return `<div style="background:#fff; border:1px solid var(--border-card); border-radius:10px; padding:14px 16px; margin-bottom:8px; display:grid; grid-template-columns: 70px 1fr auto; gap:14px; align-items:center;">
+        <div style="text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:1.4rem; font-weight:800; color:${simColor}; line-height:1;">${s.sim}%</div>
+          <div style="font-size:0.62rem; color:var(--text-muted); margin-top:2px; letter-spacing:0.1em;">유사도</div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text); font-weight:700; margin-bottom:3px;">📂 ${s.lot}</div>
+          <div style="font-size:0.78rem; color:var(--text-muted);">${s.date} · <strong style="color:#b45309;">원인: ${s.cause}</strong></div>
+          <div style="font-size:0.78rem; color:var(--text-light); margin-top:3px;">${s.note}</div>
+        </div>
+        <button style="padding:6px 12px; background:#fdf2f8; border:1px solid #fbcfe8; border-radius:6px; font-size:0.72rem; color:#9d174d; font-weight:700; cursor:pointer;">📑 8D 보기</button>
+      </div>`;
+    }).join('');
+  }
+
+  function renderTrend(data) {
+    const cur = data.trend.rates[data.trend.rates.length - 1];
+    const avg = data.trend.avg;
+    const pct = ((cur - avg) / avg * 100).toFixed(0);
+    document.getElementById('curLot').textContent = cur.toFixed(2) + '%';
+    document.getElementById('curLotName').textContent = data.lotName;
+    document.getElementById('avgLot').textContent = avg.toFixed(2) + '%';
+    document.getElementById('trendDir').textContent = (pct > 0 ? '+' : '') + pct + '%';
+    document.getElementById('trendSummary').innerHTML = `현재 Lot <strong>${data.lotName}</strong>의 불량률 <strong>${cur.toFixed(2)}%</strong>는 최근 7개 Lot 평균(<strong>${avg.toFixed(2)}%</strong>) 대비 <strong style="color:#dc2626;">${(pct > 0 ? '+' : '')}${pct}%</strong> 수준 · 평균 추세 대비 명확한 상승 → 공정 점검 권고`;
+
+    // Render SVG chart
+    const w = 600, h = 200, pad = 30;
+    const rates = data.trend.rates;
+    const lots = data.trend.lots;
+    const maxR = Math.max(...rates, avg) * 1.2;
+    const xStep = (w - pad * 2) / (rates.length - 1);
+    const points = rates.map((r, i) => `${pad + xStep * i},${h - pad - (r / maxR) * (h - pad * 2)}`).join(' ');
+
+    const avgY = h - pad - (avg / maxR) * (h - pad * 2);
+
+    document.getElementById('trendSvg').innerHTML = `
+      <defs>
+        <linearGradient id="trendG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f87171" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#f87171" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <g stroke="#1e293b" stroke-width="0.5">
+        ${[0, 1, 2, 3].map(i => `<line x1="${pad}" y1="${pad + i * 40}" x2="${w - pad}" y2="${pad + i * 40}"/>`).join('')}
+      </g>
+      <line x1="${pad}" y1="${avgY}" x2="${w - pad}" y2="${avgY}" stroke="#22c55e" stroke-width="1" stroke-dasharray="4 4"/>
+      <text x="${w - pad - 4}" y="${avgY - 4}" fill="#22c55e" font-family="monospace" font-size="10" text-anchor="end" font-weight="700">평균 ${avg.toFixed(2)}%</text>
+      <polygon points="${points} ${pad + xStep * (rates.length - 1)},${h - pad} ${pad},${h - pad}" fill="url(#trendG)"/>
+      <polyline points="${points}" stroke="#f87171" stroke-width="2" fill="none"/>
+      ${rates.map((r, i) => {
+        const cx = pad + xStep * i;
+        const cy = h - pad - (r / maxR) * (h - pad * 2);
+        const isCur = i === rates.length - 1;
+        return `<g><circle cx="${cx}" cy="${cy}" r="${isCur ? 6 : 4}" fill="${isCur ? '#dc2626' : '#f87171'}" stroke="#0f172a" stroke-width="${isCur ? 2 : 1}"/>
+          <text x="${cx}" y="${cy - 10}" fill="#fca5a5" font-family="monospace" font-size="9" text-anchor="middle">${r.toFixed(2)}%</text>
+          <text x="${cx}" y="${h - 10}" fill="#94a3b8" font-family="monospace" font-size="9" text-anchor="middle">${lots[i]}</text></g>`;
+      }).join('')}
+    `;
+  }
+
+  function showResult() {
+    const data = SAMPLES[selected];
+    document.getElementById('resultTag').textContent = '✓ 완료 · ' + data.summary.cnt + ' 건 검출';
+
+    // Render annotated SVG
+    const baseSvg = document.querySelector(`.img-thumb[data-id="${selected}"] svg`).cloneNode(true);
+    baseSvg.setAttribute('width', '100%');
+    baseSvg.setAttribute('height', '100%');
+
+    data.defects.forEach((d, i) => {
+      const ns = 'http://www.w3.org/2000/svg';
+      const circle = document.createElementNS(ns, 'circle');
+      circle.setAttribute('cx', d.x);
+      circle.setAttribute('cy', d.y);
+      circle.setAttribute('r', '6');
+      circle.setAttribute('class', 'anno-circle');
+      circle.style.animationDelay = (i * 0.15) + 's';
+      baseSvg.appendChild(circle);
+
+      const label = document.createElementNS(ns, 'text');
+      label.setAttribute('x', d.x + 8);
+      label.setAttribute('y', d.y - 8);
+      label.setAttribute('class', 'anno-label');
+      label.textContent = d.id;
+      label.style.animationDelay = (i * 0.15 + 0.1) + 's';
+      baseSvg.appendChild(label);
+    });
+
+    const stage = document.getElementById('stage');
+    stage.innerHTML = '';
+    stage.appendChild(baseSvg);
+
+    // Summary
+    document.getElementById('sCnt').textContent = data.summary.cnt;
+    document.getElementById('sArea').textContent = data.summary.area;
+    document.getElementById('sType').textContent = data.summary.types;
+    document.getElementById('sConf').textContent = data.summary.conf + '%';
+
+    // Table
+    const tbody = document.getElementById('defectBody');
+    tbody.innerHTML = data.defects.map(d => {
+      const sevClass = d.severity === 'H' ? 'sev-h' : d.severity === 'M' ? 'sev-m' : 'sev-l';
+      const sevText = d.severity === 'H' ? '심각' : d.severity === 'M' ? '주의' : '경미';
+      return `<tr>
+        <td style="font-family:'JetBrains Mono',monospace; font-weight:600;">${d.id}</td>
+        <td><strong>${d.type}</strong><br><span style="font-size:0.74rem; color:var(--text-muted);">${d.note}</span></td>
+        <td style="font-family:'JetBrains Mono',monospace;">(${d.x}, ${d.y})</td>
+        <td style="font-family:'JetBrains Mono',monospace;">${d.area} μm²</td>
+        <td><span class="${sevClass}">${sevText}</span></td>
+      </tr>`;
+    }).join('');
+
+    // JSON
+    const json = {
+      source: data.file,
+      analyzed_at: '2026-05-12T14:23:48+09:00',
+      model: 'claude-sonnet-4-6',
+      summary: data.summary,
+      defects: data.defects
+    };
+    const jsonStr = JSON.stringify(json, null, 2)
+      .replace(/"([^"]+)":/g, '<span class="kw">"$1"</span>:')
+      .replace(/: "([^"]+)"/g, ': <span class="str">"$1"</span>')
+      .replace(/: (\d+(\.\d+)?)/g, ': <span class="num">$1</span>');
+    document.getElementById('jsonBlock').innerHTML = jsonStr;
+
+    // Excel
+    const excelBody = document.getElementById('excelBody');
+    excelBody.innerHTML = data.defects.map((d, i) => `
+      <tr style="${i % 2 ? 'background:#fafbfc;' : ''}">
+        <td style="padding:6px 12px; border-bottom:1px solid #e2e8f0; font-family:'JetBrains Mono',monospace;">${d.id}</td>
+        <td style="padding:6px 12px; border-bottom:1px solid #e2e8f0;">${d.type}</td>
+        <td style="padding:6px 12px; border-bottom:1px solid #e2e8f0; text-align:right; font-family:'JetBrains Mono',monospace;">${d.x}</td>
+        <td style="padding:6px 12px; border-bottom:1px solid #e2e8f0; text-align:right; font-family:'JetBrains Mono',monospace;">${d.y}</td>
+        <td style="padding:6px 12px; border-bottom:1px solid #e2e8f0; text-align:right; font-family:'JetBrains Mono',monospace;">${d.area}</td>
+        <td style="padding:6px 12px; border-bottom:1px solid #e2e8f0; text-align:center; font-weight:600;">${d.severity}</td>
+      </tr>
+    `).join('');
+
+    // Render new tabs
+    renderClusters(data);
+    renderSimilar(data);
+    renderTrend(data);
+
+    document.getElementById('resultArea').style.display = 'block';
+
+    // Save to history
+    saveToHistory(data);
+  }
+
+  document.getElementById('runBtn').addEventListener('click', runAnalysis);
+
+  // ═══════ 분석 이력 관리 (LocalStorage) ═══════
+  const HISTORY_KEY = 'tp-semi-vision-history';
+
+  function loadHistory() {
+    try {
+      return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+    } catch (e) { return []; }
+  }
+
+  function saveHistory(arr) {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(arr.slice(0, 50)));  // cap 50
+  }
+
+  function saveToHistory(data) {
+    const arr = loadHistory();
+    const entry = {
+      timestamp: Date.now(),
+      sampleId: selected,
+      file: data.file,
+      type: data.type,
+      typeShort: data.typeShort,
+      lotName: data.lotName,
+      summary: data.summary,
+      defectCnt: data.summary.cnt,
+      area: data.summary.area,
+      conf: data.summary.conf,
+      clusterCnt: data.clusters.length,
+      worstSimilarity: data.similar[0]?.sim || 0,
+      worstSimilarLot: data.similar[0]?.lot || '-'
+    };
+    arr.unshift(entry);
+    saveHistory(arr);
+    renderHistory();
+  }
+
+  function typeBadgeColor(t) {
+    return {
+      WAFER: '#a78bfa', DIE: '#60a5fa', PCB: '#34d399',
+      SCOPE: '#f472b6', THERMAL: '#f87171'
+    }[t] || '#94a3b8';
+  }
+
+  function timeAgo(ts) {
+    const d = Math.floor((Date.now() - ts) / 1000);
+    if (d < 60) return d + '초 전';
+    if (d < 3600) return Math.floor(d / 60) + '분 전';
+    if (d < 86400) return Math.floor(d / 3600) + '시간 전';
+    return Math.floor(d / 86400) + '일 전';
+  }
+
+  function renderHistory() {
+    const arr = loadHistory();
+    document.getElementById('histCount').textContent = arr.length;
+
+    const empty = document.getElementById('histEmpty');
+    const list = document.getElementById('histList');
+
+    if (arr.length === 0) {
+      empty.style.display = 'block';
+      list.style.display = 'none';
+      return;
+    }
+    empty.style.display = 'none';
+    list.style.display = 'block';
+
+    list.innerHTML = `
+      <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+          <thead>
+            <tr style="background:var(--bg-2); color:#fff;">
+              <th style="padding:10px 12px; text-align:left; font-weight:700; font-size:0.74rem; letter-spacing:0.05em;">#</th>
+              <th style="padding:10px 12px; text-align:left; font-weight:700; font-size:0.74rem; letter-spacing:0.05em;">TIME</th>
+              <th style="padding:10px 12px; text-align:left; font-weight:700; font-size:0.74rem; letter-spacing:0.05em;">FILE</th>
+              <th style="padding:10px 12px; text-align:left; font-weight:700; font-size:0.74rem; letter-spacing:0.05em;">TYPE</th>
+              <th style="padding:10px 12px; text-align:left; font-weight:700; font-size:0.74rem; letter-spacing:0.05em;">LOT</th>
+              <th style="padding:10px 12px; text-align:right; font-weight:700; font-size:0.74rem; letter-spacing:0.05em;">불량</th>
+              <th style="padding:10px 12px; text-align:right; font-weight:700; font-size:0.74rem; letter-spacing:0.05em;">면적</th>
+              <th style="padding:10px 12px; text-align:right; font-weight:700; font-size:0.74rem; letter-spacing:0.05em;">신뢰도</th>
+              <th style="padding:10px 12px; text-align:left; font-weight:700; font-size:0.74rem; letter-spacing:0.05em;">유사 Lot</th>
+              <th style="padding:10px 12px; text-align:center; font-weight:700; font-size:0.74rem; letter-spacing:0.05em;">ACTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${arr.map((h, i) => {
+              const tcolor = typeBadgeColor(h.typeShort);
+              return `<tr style="border-bottom:1px solid var(--border-card); transition:background 0.2s;" onmouseover="this.style.background='var(--bg-card-alt)'" onmouseout="this.style.background='transparent'">
+                <td style="padding:10px 12px; font-family:'JetBrains Mono',monospace; color:var(--text-muted);">${arr.length - i}</td>
+                <td style="padding:10px 12px; font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-light);">${timeAgo(h.timestamp)}</td>
+                <td style="padding:10px 12px; font-family:'JetBrains Mono',monospace; font-size:0.78rem;">${h.file}</td>
+                <td style="padding:10px 12px;"><span style="background:${tcolor}; color:#fff; padding:2px 8px; border-radius:100px; font-size:0.68rem; font-weight:700; font-family:'JetBrains Mono',monospace;">${h.typeShort}</span></td>
+                <td style="padding:10px 12px; font-family:'JetBrains Mono',monospace; font-size:0.78rem;">${h.lotName}</td>
+                <td style="padding:10px 12px; text-align:right; font-family:'JetBrains Mono',monospace; font-weight:700; color:${h.defectCnt >= 4 ? '#dc2626' : h.defectCnt >= 2 ? '#ca8a04' : '#16a34a'};">${h.defectCnt}건</td>
+                <td style="padding:10px 12px; text-align:right; font-family:'JetBrains Mono',monospace; color:var(--text);">${h.area}</td>
+                <td style="padding:10px 12px; text-align:right; font-family:'JetBrains Mono',monospace; color:var(--text);">${h.conf}%</td>
+                <td style="padding:10px 12px;"><span style="font-family:'JetBrains Mono',monospace; font-size:0.78rem;">${h.worstSimilarLot}</span> <span style="color:#9d174d; font-size:0.72rem; font-weight:700;">(${h.worstSimilarity}%)</span></td>
+                <td style="padding:10px 12px; text-align:center; white-space:nowrap;">
+                  <button onclick="replayHistory(${h.timestamp})" style="padding:5px 10px; background:#f5f3ff; border:1px solid #ddd6fe; border-radius:6px; font-size:0.7rem; color:#6b21a8; font-weight:700; cursor:pointer; margin-right:4px;">🔁 재생</button>
+                  <button onclick="deleteHistory(${h.timestamp})" style="padding:5px 10px; background:#fef2f2; border:1px solid #fecaca; border-radius:6px; font-size:0.7rem; color:#991b1b; font-weight:700; cursor:pointer;">🗑️</button>
+                </td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  function replayHistory(ts) {
+    const arr = loadHistory();
+    const entry = arr.find(e => e.timestamp === ts);
+    if (!entry) return;
+    // Select the matching sample
+    selected = entry.sampleId;
+    document.querySelectorAll('.img-thumb').forEach(t => {
+      t.classList.toggle('active', t.dataset.id === entry.sampleId);
+    });
+    updateMeta();
+    // Re-run instantly (no progress animation)
+    document.getElementById('progress').classList.remove('active');
+    document.querySelectorAll('.pipe-stage').forEach(s => { s.classList.remove('active'); s.classList.add('done'); });
+    document.querySelectorAll('.pipe-status').forEach(s => s.textContent = '완료');
+    document.getElementById('pipeline').classList.add('activated');
+    showResult();
+    // Scroll back to result
+    document.querySelector('.workspace').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function deleteHistory(ts) {
+    const arr = loadHistory().filter(e => e.timestamp !== ts);
+    saveHistory(arr);
+    renderHistory();
+  }
+
+  function exportHistoryCSV() {
+    const arr = loadHistory();
+    if (arr.length === 0) { alert('내보낼 이력이 없습니다.'); return; }
+    const headers = ['Timestamp', 'File', 'Type', 'Lot', 'Defects', 'Area', 'Confidence', 'Clusters', 'TopSimilarLot', 'TopSimilarity'];
+    const rows = arr.map(h => [
+      new Date(h.timestamp).toISOString(),
+      h.file, h.typeShort, h.lotName, h.defectCnt, h.area, h.conf + '%',
+      h.clusterCnt, h.worstSimilarLot, h.worstSimilarity + '%'
+    ]);
+    const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `vision_history_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  document.getElementById('histClear').addEventListener('click', () => {
+    if (confirm('모든 분석 이력을 삭제할까요?')) {
+      localStorage.removeItem(HISTORY_KEY);
+      renderHistory();
+    }
+  });
+  document.getElementById('histExport').addEventListener('click', exportHistoryCSV);
+
+  renderHistory();
+  // Update relative times every 30s
+  setInterval(renderHistory, 30000);
+</script>
+
+</body>
+</html>
