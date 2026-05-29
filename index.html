@@ -1,523 +1,422 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kitt - AI 업무 자동화 파트너 | 반복 업무를 없애드립니다</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=9">
-    <script src="https://unpkg.com/lucide@latest"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kitt | AI Operating Partner</title>
+<meta name="description" content="AI Operating Partner — 슬라이드가 아닌, 실제로 일하는 AI를 만듭니다." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='Inter,sans-serif' font-size='64' font-weight='900' text-anchor='middle' fill='%23f48d65'%3EK%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="/assets/styles.css" />
+<link rel="stylesheet" href="/assets/pages/index.css" />
 </head>
-
 <body>
-    <div class="star-background"></div>
+<div class="cursor" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="grid-bg" aria-hidden="true"></div>
 
-    <!-- Navigation -->
-    <nav class="header">
-        <div class="container nav-container">
-            <div class="nav-logo">kitt</div>
-            <div class="nav-links">
-                <a href="about.html">About</a>
-                <a href="team.html">Team</a>
-                <a href="apps.html">Apps</a>
-                <a href="contact.html">Contact</a>
-                <a href="contact.html" class="nav-cta">무료 상담 신청하기</a>
-            </div>
-            <button class="nav-menu-btn">
-                <i data-lucide="menu"></i>
-            </button>
+<nav class="top">
+  <div class="wrap">
+    <div class="row">
+      <a href="/" class="logo" aria-label="Kitt">
+        <svg viewBox="0 0 2322.8 930.2" xmlns="http://www.w3.org/2000/svg">
+          <path fill="currentColor" d="M910.4,538.6l224.3-193.9v531.8h-224.3v-337.9ZM382,381.2l79-274.4-226,41L9.9,923l225.7-41,83.1-281.8h-80.3l143.6-219ZM697.7,457l-121.8-1.8L1017.7,4.7l-391.1,71.1-321.5,488.6,165.3,2.6-121.1,190.7,348.4-300.7ZM427.8,737.4h0s76,110.9,94.5,139.1h237.9l-183.9-267.4-148.5,128.3ZM1185.8,302l.3-.2h-.3v.2ZM1526.7,7.1l-340.6,294.7h115.6v346.2c0,157.9,80.8,235.4,242.5,232.5,37.4-.7,76.6-6.6,117.5-17.7,21.7-5.9,40.8-11.9,57.5-17.9v-172.3c-40.6,18.3-74.7,27.8-102.1,28.3s-47.9-4-61.4-13.5-21.7-21.5-24.6-36-4.4-33.6-4.4-57.3v-296.2h192.5v-155.8h-192.5V7.1ZM1526.7,7h0c0,0,.1,0,.1,0h-.1ZM2317,297.9v-155.8h-192.5V7l-340.7,294.8h-.2v.2l.3-.2h115.5v346.2c0,157.9,80.8,235.4,242.5,232.5,37.4-.7,76.6-6.6,117.5-17.7,21.7-5.9,40.8-11.9,57.5-17.9v-172.3c-40.6,18.3-74.7,27.8-102.1,28.3h.1c-27.4.5-47.9-4-61.4-13.5s-21.7-21.5-24.6-36c-2.9-14.5-4.4-33.6-4.4-57.3v-296.2h192.5ZM927.9,231.9h0c0,17.5,4.1,33.4,12.5,47.5,8.3,14.2,19.6,25.3,34,33.4,14.4,8,30.3,11.9,47.7,11.6,25.8-.5,48-10,66.7-28.6,18.7-18.6,28-41,28-67.2s-9.4-47.8-28-66.2c-18.7-18.4-40.9-27.3-66.7-26.9-26.2.5-48.4,10.2-66.7,29.2s-27.4,41.4-27.4,67.2Z"/>
+        </svg>
+      </a>
+      <div class="nav-links">
+        <a href="/about/" data-cursor="hover">About</a>
+        <a href="/services/" data-cursor="hover">Services</a>
+        <a href="/products/" data-cursor="hover">Products</a>
+        <a href="/portfolio/" data-cursor="hover">Portfolio</a>
+        <a href="/education/" data-cursor="hover">Education</a>
+      </div>
+      <button class="nav-toggle" aria-label="메뉴 열기" data-cursor="hover">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-meta-top">
+      <span class="dot">AI OPERATING PARTNER</span>
+      <span class="sep"></span>
+      <span style="color:var(--muted);">EST. 2026 · SEOUL</span>
+    </div>
+    <h1>
+      <span class="line"><span class="reveal-text">비즈니스를 움직이는</span></span>
+      <span class="line"><span class="reveal-text"><span class="signature">Working AI</span>.</span></span>
+    </h1>
+    <p>전략부터 실행까지. Kitt는 결과를 만드는 AI 실행 파트너입니다.</p>
+    <div class="hero-cta-row">
+      <a href="#contact" class="cta-primary magnetic" data-cursor="hover">
+        무료 상담하기
+        <span class="arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+    </div>
+    <div class="hero-trust">
+      <span>30분 무료 진단</span>
+      <span class="sep"></span>
+      <span>보통 1영업일 내 답변</span>
+    </div>
+  </div>
+  <div class="hero-foot">
+    <span class="scroll"></span>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem reveal">
+  <div class="wrap">
+    <h2>AI를 도입하고 싶지만,<br/><span class="fade">어디서부터 시작할지 막막합니다.</span></h2>
+    <div class="problem-grid">
+      <div class="problem-item">
+        <p>너무나 많은 기업들이 그럴듯한 PPT와 실패한 프로토타입만 남긴 채, 실질적인 성과는 이루지 못했습니다.</p>
+      </div>
+      <div class="problem-item">
+        <p>마케팅·디자인·사내 운영까지. 모든 영역에서 더 빠르고, 더 적은 인력으로, 더 나은 결과를 내야 하는 시대가 왔습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution reveal">
+  <div class="wrap">
+    <h2><span class="quote">"</span>AI로 결과를 만듭니다<span class="quote">."</span></h2>
+    <p class="sub">Kitt는 슬라이드가 아닌, 실제로 일하는 AI를 만듭니다.</p>
+    <div class="solution-grid">
+      <div class="solution-item">
+        <p>도메인과 업무에 딱 맞는, 매일 켜서 쓰는 생산성 소프트웨어를 만듭니다.</p>
+      </div>
+      <div class="solution-item">
+        <p>전략 컨설팅에서 그치지 않습니다. 마케팅·디자인·사진까지 실행 결과로 증명합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES — horizontal carousel -->
+<section id="services" class="services">
+  <div class="wrap">
+    <div class="services-head">
+      <h2>Services</h2>
+      <p class="desc">컨설팅부터 실행까지 한 자리에서. 4개의 영역을 하나의 팀이 일관되게 끌고 갑니다.</p>
+    </div>
+
+    <div class="services-controls">
+      <div class="right">
+        <div class="progress-dots" id="progressDots">
+          <div class="d active" data-i="0"></div>
+          <div class="d" data-i="1"></div>
+          <div class="d" data-i="2"></div>
         </div>
-    </nav>
-
-    <!-- Section 1: Hero -->
-    <section id="home" class="hero-section">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="assets/video/video_hero.mp4" type="video/mp4">
-        </video>
-        <div class="hero-video-overlay"></div>
-        <div class="hero-center">
-            <h1>반복 업무는 AI에게,<br>당신은 성장에만 집중하세요.</h1>
-            <p class="hero-tagline">AI AUTOMATION PARTNER FOR YOUR BUSINESS</p>
-            <p class="hero-desc">
-                맞춤형 AI 개발, 업무 자동화, DX 컨설팅까지.<br>
-                kitt는 기업의 비효율을 제거하고 본질적 성장을 만드는 파트너입니다.
-            </p>
-            <div class="hero-btn-group">
-                <a href="contact.html" class="cta-button primary-cta">무료 상담 신청하기</a>
-                <a href="apps.html" class="cta-button secondary-cta">솔루션 둘러보기</a>
-            </div>
+        <div class="carousel-arrows">
+          <button id="prevBtn" data-cursor="hover" aria-label="Previous">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </button>
+          <button id="nextBtn" data-cursor="hover" aria-label="Next">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- Section 2: Trust Logos -->
-    <section class="trust-bar">
-        <div class="container">
-            <p class="trust-label">Powered By</p>
-            <div class="trust-logos">
-                <div class="trust-row">
-                    <span class="trust-pill">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="#00A67E" d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/></svg>
-                        OpenAI
-                    </span>
-                    <span class="trust-pill">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="#D97757" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 1.5a8.5 8.5 0 1 1 0 17 8.5 8.5 0 0 1 0-17zm-.5 3a1 1 0 0 0-1 1v5a1 1 0 0 0 .5.866l4 2.31a1 1 0 0 0 1-1.732L12.5 12V7.5a1 1 0 0 0-1-1z"/></svg>
-                        Claude
-                    </span>
-                    <span class="trust-pill">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="#4285F4" d="M12 11h8.533c.044.385.067.78.067 1.184 0 2.734-.98 5.036-2.678 6.6-1.485 1.371-3.518 2.175-5.942 2.175A8.976 8.976 0 0 1 3 12.001 8.976 8.976 0 0 1 11.98 3.04c2.42 0 4.453.89 6.008 2.339L16.526 6.84C15.368 5.76 13.803 5.12 12 5.12A6.882 6.882 0 0 0 5.12 12 6.882 6.882 0 0 0 12 18.88c3.78 0 6.201-2.716 6.46-5.08H12V11z"/></svg>
-                        Gemini
-                    </span>
-                    <span class="trust-pill">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="white" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
-                        GitHub
-                    </span>
-                    <span class="trust-pill">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="white" d="M24 22.525H0l12-21.05 12 21.05z"/></svg>
-                        Vercel
-                    </span>
-                    <span class="trust-pill">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="white" d="M.113 0C.04 0 0 .073 0 .16v23.68c0 .093.04.16.113.16h3.774c.073 0 .113-.067.113-.16V.16C4 .073 3.96 0 3.887 0H.113zm10 5c-.073 0-.113.073-.113.16v18.68c0 .093.04.16.113.16h3.774c.073 0 .113-.067.113-.16V5.16c0-.087-.04-.16-.113-.16h-3.774zm10 5c-.073 0-.113.073-.113.16v13.68c0 .093.04.16.113.16h3.774c.073 0 .113-.067.113-.16V10.16c0-.087-.04-.16-.113-.16h-3.774z"/></svg>
-                        Railway
-                    </span>
-                </div>
-                <div class="trust-row">
-                    <span class="trust-pill">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="#D44638" d="M20 18h-2V9.25L12 13 6 9.25V18H4V6h1.2l6.8 4.25L18.8 6H20v12zM20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/></svg>
-                        Gmail
-                    </span>
-                    <span class="trust-pill">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="#E01E5A" d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zm-1.27 0a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.163 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.163 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.163 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zm0-1.27a2.527 2.527 0 0 1-2.52-2.523 2.527 2.527 0 0 1 2.52-2.52h6.315A2.528 2.528 0 0 1 24 15.163a2.528 2.528 0 0 1-2.522 2.523h-6.315z"/></svg>
-                        Slack
-                    </span>
-                    <span class="trust-pill">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="white" d="M4 4.5A.5.5 0 0 1 4.5 4h15a.5.5 0 0 1 .5.5v2.384a.5.5 0 0 1-.146.354l-5.708 5.708a.5.5 0 0 0-.146.354v4.838a.5.5 0 0 1-.235.424l-3.5 2.187A.5.5 0 0 1 10.5 20.5v-7.146a.5.5 0 0 0-.146-.354L4.146 6.884A.5.5 0 0 1 4 6.53V4.5z"/></svg>
-                        Notion
-                    </span>
-                    <span class="trust-pill">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="#FF6D00" d="M17.66 11.2c-.23-.3-.51-.56-.77-.82-.67-.6-1.43-1.03-2.07-1.66C13.33 7.26 13 5.86 13.95 4c-1.73.46-2.84 1.67-3.52 3.15-.95 2.03-.52 4.23.77 5.96.04.05.08.11.11.17.07.12.01.3-.11.36-.17.07-.33-.01-.42-.15-.15-.23-.26-.47-.32-.73-.14-.56-.08-1.14.04-1.7a.297.297 0 0 0-.38-.35 5.3 5.3 0 0 0-2.28 2.58C7.06 15.09 7.56 17.35 9.3 19c.03.03.07.05.1.08 1.9 1.53 4.63 2.04 6.88.89 2.5-1.27 3.57-4.1 2.66-6.64-.28-.77-.74-1.38-1.28-2.13zM12.2 17.5c-.59.48-1.44.56-2.1.3a2.38 2.38 0 0 1-.63-4.09c.88-.68 1.36-.95 1.52-1.83.44.72.6 1.56.33 2.38-.12.36-.04.79.25 1.05.52.47 1.32.58 1.9.25.6-.34.87-1.03.74-1.71-.24-1.3-.96-2.35-1.85-3.24.86.81 1.5 1.83 1.62 3.04.11 1.26-.59 2.48-1.78 3.85z"/></svg>
-                        Firebase
-                    </span>
-                    <span class="trust-pill">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="#EA580C" d="M12.7 2.4c.4-.7 1.5-.5 1.6.3l.8 6.4 5.6-.3c.7 0 1.1.8.7 1.3L9.3 21.6c-.4.7-1.5.5-1.6-.3l-.8-6.4-5.6.3c-.7 0-1.1-.8-.7-1.3L12.7 2.4z"/></svg>
-                        n8n
-                    </span>
-                    <span class="trust-pill">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="#4285F4" d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
-                        Google Cloud
-                    </span>
-                </div>
+    <div class="services-track-wrap">
+      <div class="services-track" id="servicesTrack">
+        <article class="svc-card" data-tag="CONSULTING">
+          <div class="head">
+            <div class="num"><strong>01</strong> / 04</div>
+            <div class="tag">CONSULTING</div>
+          </div>
+          <div class="body">
+            <h3>AI 진단 &amp; 전략 컨설팅</h3>
+            <p>현장 인터뷰와 데이터 분석으로 비효율 병목을 찾고, AI 임팩트가 가장 큰 영역을 정의합니다. 무엇을 자동화하고 무엇은 사람이 해야 하는지, 우선순위와 ROI를 함께 설계합니다.</p>
+            <div class="features">
+              <span>현장 진단</span><span>ROI 우선순위</span><span>로드맵 설계</span><span>온프레미스 검토</span>
             </div>
+          </div>
+        </article>
+
+        <article class="svc-card" data-tag="SOFTWARE">
+          <div class="head">
+            <div class="num"><strong>02</strong> / 04</div>
+            <div class="tag">SOFTWARE</div>
+          </div>
+          <div class="body">
+            <h3>도메인 맞춤 AI 소프트웨어</h3>
+            <p>예쁜 소프트웨어가 아니라, 현장 업무에 딱 맞는 소프트웨어를 만듭니다. 영업·재무·CS·HR 등 도메인 워크플로우를 그대로 흡수해 매일 켜서 쓰는 생산성 도구로 구축합니다.</p>
+            <div class="features">
+              <span>자체 SaaS</span><span>사내 자동화</span><span>RAG / 에이전트</span><span>API 통합</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="svc-card" data-tag="CREATIVE">
+          <div class="head">
+            <div class="num"><strong>03</strong> / 04</div>
+            <div class="tag">CREATIVE</div>
+          </div>
+          <div class="body">
+            <h3>AI 마케팅 &amp; 크리에이티브</h3>
+            <p>광고 운영, 콘텐츠 자동화, 제품 디자인부터 AI 기반 제품·모델 사진 연출까지. 마케팅 퍼널 전 구간을 AI로 가속하고, 크리에이티브 생산 비용을 1/10로 줄입니다.</p>
+            <div class="features">
+              <span>광고 운영</span><span>AI 사진</span><span>콘텐츠 스튜디오</span><span>브랜드 디자인</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="svc-card" data-tag="EDUCATION">
+          <div class="head">
+            <div class="num"><strong>04</strong> / 04</div>
+            <div class="tag">EDUCATION</div>
+          </div>
+          <div class="body">
+            <h3>AI 리터러시 &amp; 정착</h3>
+            <p>만드는 데서 그치지 않습니다. 구성원 교육과 변화 관리, 운영 내재화 컨설팅을 통해 조직 문화로 정착될 때까지 함께 동행합니다.</p>
+            <div class="features">
+              <span>구성원 교육</span><span>변화 관리</span><span>운영 내재화</span><span>월간 리테이너</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="reveal">
+  <div class="wrap">
+    <div class="process">
+      <div class="process-left">
+        <h2>복잡한 문제를<br/><span class="fade">가장 단순한<br/>해답으로.</span></h2>
+      </div>
+      <div class="process-steps" id="processSteps">
+        <div class="process-fill" id="processFill"></div>
+        <div class="step">
+          <div class="num">01 — DISCOVERY</div>
+          <h3>발견 및 진단</h3>
+          <p>현장 인터뷰와 데이터 분석을 통해 비효율이 발생하는 병목 구간을 찾고, AI 적용 시 가장 임팩트가 큰 영역을 정의합니다.</p>
         </div>
-    </section>
-
-    <!-- Section 3: Problem -->
-    <section id="about" class="problem">
-        <div class="container">
-            <div class="problem-content">
-                <div class="noise-graphic">
-                    <div class="noise-bar" style="--h: 40%"></div>
-                    <div class="noise-bar" style="--h: 70%"></div>
-                    <div class="noise-bar" style="--h: 30%"></div>
-                    <div class="noise-bar" style="--h: 85%"></div>
-                    <div class="noise-bar" style="--h: 50%"></div>
-                    <div class="noise-bar" style="--h: 90%"></div>
-                    <div class="noise-bar" style="--h: 20%"></div>
-                </div>
-                <h2 class="problem-copy">
-                    "당신의 하루 중 진짜 <span class="highlight-text">'일'</span>은 몇 시간입니까?"
-                </h2>
-                <p class="problem-desc">
-                    반복적인 데이터 입력, 의미 없는 회신, 비효율적인 프로세스...<br>
-                    비즈니스의 소음(Noise)이 당신의 성장을 방해하고 있습니다.
-                </p>
-            </div>
+        <div class="step">
+          <div class="num">02 — IMPLEMENTATION</div>
+          <h3>구축 및 실행</h3>
+          <p>도메인 맞춤형 AI 소프트웨어와 자동화 워크플로우를 설계·구축합니다. 마케팅·디자인 실행이 포함된 프로젝트의 경우, 실제 결과물을 함께 산출합니다.</p>
         </div>
-    </section>
-
-    <!-- Section 4: Solution (Dual Value) -->
-    <section id="solutions" class="solution">
-        <div class="container">
-            <div class="section-header-centered">
-                <h3 class="section-sub-title">What We Solve</h3>
-                <h2 class="section-main-title">두 가지 가치를 동시에</h2>
-                <p class="section-description">
-                    기업의 효율성과 개인의 창의성, 두 가지 가치를 동시에 실현합니다.
-                </p>
-            </div>
-
-            <div class="solution-grid">
-                <!-- Card 1: For Company -->
-                <div class="solution-card company-card">
-                    <div class="card-top-icon">
-                        <i data-lucide="building-2"></i>
-                    </div>
-                    <span class="card-subtitle">For Company</span>
-                    <h3 class="card-title">비즈니스 아키텍트</h3>
-                    <p class="card-text">
-                        단순한 툴 도입을 넘어, 기업의 구조적 비효율을 제거하는 전략적 파트너로 기능합니다.
-                    </p>
-
-                    <ul class="feature-list">
-                        <li>
-                            <i data-lucide="trending-up"></i>
-                            <div>
-                                <strong>압도적인 생산성</strong>
-                                <p>반복 업무 자동화로 생산성 400% 증대</p>
-                            </div>
-                        </li>
-                        <li>
-                            <i data-lucide="zap"></i>
-                            <div>
-                                <strong>비즈니스 스케일업</strong>
-                                <p>시스템 기반 성장 가속화 구조 마련</p>
-                            </div>
-                        </li>
-                        <li>
-                            <i data-lucide="coins"></i>
-                            <div>
-                                <strong>운영 비용 절감</strong>
-                                <p>효율화된 프로세스로 고정 비용 획기적 절감</p>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <div class="tag-group">
-                        <span class="tag">#비용절감</span>
-                        <span class="tag">#압도적생산성</span>
-                        <span class="tag">#성장가속화</span>
-                    </div>
-                </div>
-
-                <!-- Card 2: For Individual -->
-                <div class="solution-card individual-card">
-                    <div class="card-top-icon individual-icon">
-                        <i data-lucide="user"></i>
-                    </div>
-                    <span class="card-subtitle individual-subtitle">For Individual</span>
-                    <h3 class="card-title">크리에이티브 파트너</h3>
-                    <p class="card-text">
-                        소모성 업무에 갇혀 있던 개인을 해방시키고, 고유한 역량을 발현시키는 조력자입니다.
-                    </p>
-
-                    <ul class="feature-list">
-                        <li>
-                            <i data-lucide="sparkles" class="icon-individual"></i>
-                            <div>
-                                <strong>창의성 발현</strong>
-                                <p>본질적 업무에 집중할 수 있는 환경 제공</p>
-                            </div>
-                        </li>
-                        <li>
-                            <i data-lucide="focus" class="icon-individual"></i>
-                            <div>
-                                <strong>몰입 환경</strong>
-                                <p>불필요한 시간 소거, 깊이 있는 작업 가능</p>
-                            </div>
-                        </li>
-                        <li>
-                            <i data-lucide="scaling" class="icon-individual"></i>
-                            <div>
-                                <strong>잠재력 극대화</strong>
-                                <p>숨겨진 역량의 발견과 성장 지원</p>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <div class="tag-group">
-                        <span class="tag individual-tag">#본질몰입</span>
-                        <span class="tag individual-tag">#잠재력발현</span>
-                        <span class="tag individual-tag">#창의적성장</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-cta">
-                <a href="contact.html" class="cta-button primary-cta">맞춤 솔루션 상담받기</a>
-            </div>
+        <div class="step">
+          <div class="num">03 — ONBOARDING</div>
+          <h3>교육 및 정착</h3>
+          <p>단순 납품에서 끝나지 않습니다. 구성원 교육과 운영 내재화 컨설팅을 통해 조직 문화로 정착될 수 있도록 지속적으로 동행합니다.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Section 5: How It Works (Services) -->
-    <section id="how-it-works" class="process-section">
-        <div class="container">
-            <div class="section-header-centered">
-                <h3 class="section-sub-title">Our Services</h3>
-                <h2 class="section-main-title">이런 일을 합니다</h2>
-                <p class="section-description">
-                    복잡한 문제는 심플하게, 반복되는 과정은 자동으로.<br>
-                    kitt만의 체계적인 서비스를 경험해보세요.
-                </p>
-            </div>
+<!-- WORK — image-first grid (dark section) -->
+<section id="work" class="work" data-on-dark>
+  <div class="wrap">
+    <div class="work-head">
+      <h2>What we built</h2>
+      <p class="desc">우리는 자체 프로덕트와 클라이언트 작업을 같은 기준으로 만듭니다.<br/>진짜 일하는 사람들이 매일 쓰는 것.</p>
+    </div>
 
-            <div class="service-grid">
-                <div class="service-card">
-                    <div class="service-icon-wrapper">
-                        <i data-lucide="brain-circuit"></i>
-                    </div>
-                    <div class="service-body">
-                        <h4>AI Development</h4>
-                        <p class="service-desc">비즈니스 로직에 최적화된 맞춤형 AI 서비스를 개발합니다. 챗봇, 데이터 분석, 문서 자동화 등.</p>
-                        <ul class="service-tags">
-                            <li>GPT 연동</li>
-                            <li>RAG 구축</li>
-                            <li>AI 챗봇</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon-wrapper">
-                        <i data-lucide="settings"></i>
-                    </div>
-                    <div class="service-body">
-                        <h4>Automation</h4>
-                        <p class="service-desc">RPA & n8n 기반으로 수작업을 자동화합니다. 엑셀 처리, 이메일 발송, 데이터 동기화까지.</p>
-                        <ul class="service-tags">
-                            <li>n8n</li>
-                            <li>RPA</li>
-                            <li>API 연동</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon-wrapper">
-                        <i data-lucide="message-circle"></i>
-                    </div>
-                    <div class="service-body">
-                        <h4>Consulting</h4>
-                        <p class="service-desc">현재 업무 프로세스를 진단하고 AI/자동화 도입 로드맵을 설계합니다.</p>
-                        <ul class="service-tags">
-                            <li>DX 진단</li>
-                            <li>프로세스 설계</li>
-                            <li>ROI 분석</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon-wrapper">
-                        <i data-lucide="graduation-cap"></i>
-                    </div>
-                    <div class="service-body">
-                        <h4>Education</h4>
-                        <p class="service-desc">실무 중심의 AI 교육으로 팀의 AI 역량을 내재화합니다. 맞춤 커리큘럼 제공.</p>
-                        <ul class="service-tags">
-                            <li>AI 교육</li>
-                            <li>워크샵</li>
-                            <li>내재화</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    <div class="work-grid">
+      <a href="#" class="work-card" data-cursor="hover">
+        <div class="visual v-workkitt">
+          <div class="bg"></div>
+          <div class="grid-overlay"></div>
+          <div class="index">01 / OUR PRODUCT</div>
+          <div class="corner">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </div>
+          <div class="mark"><span class="light">Work</span>kitt</div>
         </div>
-    </section>
-
-    <!-- Section 6: Social Proof (Results + Testimonials) -->
-    <section id="case-study" class="social-proof">
-        <div class="container">
-            <div class="section-header-centered">
-                <h3 class="section-sub-title">Proven Results</h3>
-                <h2 class="section-main-title">숫자가 증명합니다</h2>
-                <p class="section-description">
-                    kitt와 함께 변화를 시작한 기업들의 실제 성과입니다.
-                </p>
-            </div>
-
-            <div class="data-dashboard">
-                <div class="data-item">
-                    <span class="data-value" data-start="0" data-end="40" data-suffix="%">40%</span>
-                    <h4 class="data-title">업무 시간 단축</h4>
-                </div>
-                <div class="data-item">
-                    <span class="data-value" data-start="100" data-end="0" data-suffix="%">0%</span>
-                    <h4 class="data-title">데이터 처리 오류</h4>
-                </div>
-                <div class="data-item">
-                    <span class="data-value" data-start="0" data-end="4" data-suffix="x">4x</span>
-                    <h4 class="data-title">프로젝트 생산성</h4>
-                </div>
-                <div class="data-item">
-                    <span class="data-value" data-start="0" data-end="35" data-suffix="%">35%</span>
-                    <h4 class="data-title">운영 비용 절감</h4>
-                </div>
-            </div>
-
-            <!-- Testimonials -->
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <span class="testimonial-industry">물류 / 유통</span>
-                    </div>
-                    <p class="testimonial-quote">"매일 3시간씩 걸리던 출고 데이터 정리가 자동화 후 15분으로 줄었습니다. 남은 시간에 신규 거래처 영업에 집중할 수 있게 됐어요."</p>
-                    <div class="testimonial-footer">
-                        <span class="testimonial-result"><i data-lucide="timer"></i> 월 54시간 절감</span>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <span class="testimonial-industry">병원 / 클리닉</span>
-                    </div>
-                    <p class="testimonial-quote">"전화 예약과 문의 응대를 AI로 전환하니 접수 누락이 사라졌고, 재방문 리마인드 자동화로 재방문율까지 올랐습니다."</p>
-                    <div class="testimonial-footer">
-                        <span class="testimonial-result"><i data-lucide="heart-pulse"></i> 재방문율 35% 향상</span>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <span class="testimonial-industry">교육 / 학원</span>
-                    </div>
-                    <p class="testimonial-quote">"수강생 관리, 문자 발송, 일정 조율을 모두 자동화했더니 원장이 교육 콘텐츠에만 몰입할 수 있게 됐습니다."</p>
-                    <div class="testimonial-footer">
-                        <span class="testimonial-result"><i data-lucide="zap"></i> 업무 효율 3배 향상</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-cta">
-                <a href="contact.html" class="cta-button primary-cta">도입 문의하기</a>
-            </div>
+        <div class="meta">
+          <div class="tag">INTERNAL OS · 2026</div>
+          <h3>Workkitt</h3>
+          <div class="blurb">팀의 일하는 방식을 다시 설계한 내부 업무 OS. 흩어진 도구를 하나로.</div>
+          <div class="foot"><span>OUR PRODUCT</span><span>→ 케이스 보기</span></div>
         </div>
-    </section>
+      </a>
 
-    <!-- Section 7: Onboarding Process -->
-    <section class="onboarding-section">
-        <div class="container">
-            <div class="section-header-centered">
-                <h3 class="section-sub-title">How To Start</h3>
-                <h2 class="section-main-title">도입은 이렇게 진행됩니다</h2>
-                <p class="section-description">
-                    구매 의무 없는 무료 상담부터 시작하세요.<br>
-                    현재 업무 프로세스를 분석하고, 최적의 자동화 방안을 제안합니다.
-                </p>
-            </div>
-
-            <div class="onboarding-grid">
-                <div class="onboarding-step">
-                    <div class="step-number">01</div>
-                    <h4>무료 상담</h4>
-                    <p>현재 업무 환경과 pain point를 파악합니다. 부담 없이 편하게 상담하세요.</p>
-                </div>
-                <div class="onboarding-connector"><i data-lucide="chevron-right"></i></div>
-                <div class="onboarding-step">
-                    <div class="step-number">02</div>
-                    <h4>업무 분석</h4>
-                    <p>반복 업무, 데이터 흐름, 병목 지점을 정밀 진단하고 자동화 가능 영역을 도출합니다.</p>
-                </div>
-                <div class="onboarding-connector"><i data-lucide="chevron-right"></i></div>
-                <div class="onboarding-step">
-                    <div class="step-number">03</div>
-                    <h4>솔루션 구축</h4>
-                    <p>AI 서비스 개발, RPA 자동화, 시스템 연동을 맞춤 설계하고 구축합니다.</p>
-                </div>
-                <div class="onboarding-connector"><i data-lucide="chevron-right"></i></div>
-                <div class="onboarding-step">
-                    <div class="step-number">04</div>
-                    <h4>운영 & 개선</h4>
-                    <p>지속적인 모니터링과 최적화로 성과를 극대화합니다. 교육까지 지원합니다.</p>
-                </div>
-            </div>
-
-            <div class="section-cta">
-                <a href="contact.html" class="cta-button primary-cta">무료 상담 시작하기</a>
-            </div>
+      <a href="#" class="work-card" data-cursor="hover">
+        <div class="visual v-sellkitt">
+          <div class="bg"></div>
+          <div class="grid-overlay"></div>
+          <div class="index">02 / OUR PRODUCT</div>
+          <div class="corner">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </div>
+          <div class="mark"><span class="light">Sell</span>kitt</div>
         </div>
-    </section>
-
-    <!-- Section 8: FAQ -->
-    <section class="faq-section">
-        <div class="container">
-            <div class="section-header-centered">
-                <h3 class="section-sub-title">FAQ</h3>
-                <h2 class="section-main-title">자주 묻는 질문</h2>
-            </div>
-
-            <div class="faq-list">
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>도입 비용은 어느 정도인가요?</span>
-                        <i data-lucide="chevron-down" class="faq-icon"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p>프로젝트 규모와 요구사항에 따라 달라집니다. 무료 상담을 통해 업무를 분석한 뒤 맞춤 견적을 제안드립니다. 소규모 자동화부터 시작할 수 있습니다.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>기존 시스템과 연동이 가능한가요?</span>
-                        <i data-lucide="chevron-down" class="faq-icon"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p>네, 가능합니다. Slack, Notion, Google Workspace, ERP 등 대부분의 비즈니스 도구와 API 연동을 지원합니다. 기존 워크플로우를 유지하면서 자동화를 도입할 수 있습니다.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>도입까지 얼마나 걸리나요?</span>
-                        <i data-lucide="chevron-down" class="faq-icon"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p>간단한 자동화는 1~2주, 맞춤 AI 서비스 개발은 4~8주 정도 소요됩니다. 상담 후 프로젝트 범위에 따라 정확한 일정을 안내드립니다.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>우리 회사는 규모가 작은데 가능한가요?</span>
-                        <i data-lucide="chevron-down" class="faq-icon"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p>오히려 소규모 기업일수록 자동화 효과가 크게 체감됩니다. 1인 사업자부터 중견기업까지 규모에 맞는 솔루션을 제안합니다.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>데이터 보안은 안전한가요?</span>
-                        <i data-lucide="chevron-down" class="faq-icon"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p>모든 데이터는 암호화 처리되며, 고객사 데이터는 프로젝트 외 목적으로 활용하지 않습니다. 필요 시 온프레미스 배포도 지원합니다.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="meta">
+          <div class="tag">COMMERCE · 2026</div>
+          <h3>Sellkitt</h3>
+          <div class="blurb">복잡한 발주 프로세스를 단순하게. AI 발주·재고·정산 자동화 서비스.</div>
+          <div class="foot"><span>OUR PRODUCT</span><span>→ 케이스 보기</span></div>
         </div>
-    </section>
+      </a>
 
-    <!-- Section 9: Footer -->
-    <footer id="contact" class="footer">
-        <div class="container footer-content">
-            <div class="footer-main">
-                <h2 class="footer-copy">
-                    반복 업무에서 해방될 준비 되셨나요?<br>
-                    지금, <strong>kitt</strong>와 함께 시작하세요.
-                </h2>
-                <a href="contact.html" class="footer-cta">무료 상담 신청 <i data-lucide="arrow-right"></i></a>
-            </div>
-            <div class="footer-info">
-                <div class="footer-brand">
-                    <h3>kitt</h3>
-                    <div class="footer-contact-info">
-                        <p>Email: kitt.ai.ceo@gmail.com</p>
-                        <p>Address: 서울특별시 서초구 언남길 82, 효정빌딩 301호</p>
-                    </div>
-                </div>
-                <div class="footer-sns">
-                    <a href="#" class="sns-link" aria-label="Instagram">
-                        <i data-lucide="instagram"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 kitt. All Rights Reserved.</p>
-            </div>
+      <a href="#" class="work-card" data-cursor="hover">
+        <div class="visual v-cold">
+          <div class="bg"></div>
+          <div class="grid-overlay"></div>
+          <div class="index">03 / CLIENT WORK</div>
+          <div class="corner">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </div>
+          <div class="mark">Cold Email</div>
         </div>
-    </footer>
+        <div class="meta">
+          <div class="tag">GROWTH AI · 2025</div>
+          <h3>Cold Email Marketing</h3>
+          <div class="blurb">CNC 코리아 — 자가진단 체크리스트 기반 콜드 이메일 리드젠 시스템.</div>
+          <div class="foot"><span>CLIENT WORK</span><span>→ 케이스 보기</span></div>
+        </div>
+      </a>
+    </div>
 
-    <script src="script.js?v=23"></script>
-    <script>
-        lucide.createIcons();
-    </script>
+    <a href="/portfolio/" class="view-all" data-cursor="hover">VIEW ALL PROJECTS <span class="arr">↗</span></a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="reveal">
+  <div class="wrap">
+    <div class="faq">
+      <div class="faq-left">
+        <h2>Frequently Asked Questions</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item" data-cursor="hover">
+          <div class="faq-q"><span class="q">Kitt는 어떤 기업에게 적합한가요?</span>
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div class="faq-a"><p>반복 업무가 많고 AI 도입을 검토 중인 SMB부터, IP 보안이 중요한 엔터프라이즈까지. 산업과 규모를 가리지 않습니다. "AI로 뭔가 바꾸고 싶은데 막막하다"면 Kitt의 진단부터 시작하시는 걸 추천드립니다.</p></div>
+        </div>
+        <div class="faq-item" data-cursor="hover">
+          <div class="faq-q"><span class="q">컨설팅만 의뢰할 수도 있나요? 마케팅 실행만 맡겨도 되나요?</span>
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div class="faq-a"><p>둘 다 가능합니다. 진단·전략만 단독으로 받으시는 분도 있고, 광고 운영이나 AI 콘텐츠 제작만 의뢰하시는 분도 있습니다. 다만 컨설팅과 실행을 함께 가시면 결과의 품질과 속도가 가장 좋습니다.</p></div>
+        </div>
+        <div class="faq-item" data-cursor="hover">
+          <div class="faq-q"><span class="q">개발 지식이 전혀 없어도 의뢰할 수 있나요?</span>
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div class="faq-a"><p>네, 전혀 문제없습니다. Kitt는 비즈니스 언어로 대화하고 기술 구현은 저희가 책임집니다. 의사결정자분이 알아야 할 만큼만 설명드리고, 나머지는 저희가 처리합니다.</p></div>
+        </div>
+        <div class="faq-item" data-cursor="hover">
+          <div class="faq-q"><span class="q">프로젝트 기간은 보통 얼마나 걸리나요?</span>
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div class="faq-a"><p>단일 자동화 워크플로우는 2~4주, 마케팅·크리에이티브 캠페인은 4~8주, 도메인 맞춤 소프트웨어 구축은 6~12주, 전사 AX 컨설팅은 3개월 이상이 일반적입니다. 진단 단계에서 정확한 일정을 함께 합의합니다.</p></div>
+        </div>
+        <div class="faq-item" data-cursor="hover">
+          <div class="faq-q"><span class="q">유지보수는 어떻게 진행되나요?</span>
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div class="faq-a"><p>납품 후 1개월은 무상 안정화 기간이며, 이후 월간 운영 계약 또는 리테이너 방식으로 진행됩니다. 운영 내재화 컨설팅을 통해 클라이언트가 자체적으로 관리할 수 있도록 돕는 방향도 가능합니다.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact reveal">
+  <div class="wrap">
+    <h2>LET'S WORK<span class="fade">TOGETHER.</span></h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="label">CONTACT</div>
+        <div class="val">partner@kitt.ai.kr</div>
+        <div class="label">OFFICE</div>
+        <div class="val addr">서울시 서초구 서초대로22길 22-18, 4F</div>
+      </div>
+      <div class="form">
+        <div class="field"><label>이름 *</label><input type="text" /></div>
+        <div class="field"><label>회사 이름 *</label><input type="text" /></div>
+        <div class="field"><label>이메일 주소 *</label><input type="email" /></div>
+        <div class="field"><label>연락처 * (- 없이 번호만 입력)</label><input type="tel" /></div>
+        <div class="field full">
+          <label>문의 유형을 선택해주세요 *</label>
+          <select>
+            <option>AI 진단 &amp; 전략 컨설팅</option>
+            <option>도메인 맞춤 AI 소프트웨어</option>
+            <option>AI 마케팅 &amp; 크리에이티브</option>
+            <option>AI 리터러시 &amp; 정착</option>
+            <option>기타</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label>문의 내용을 알려주세요 *</label>
+          <textarea placeholder="프로젝트 배경, 현재 고민, 기대하는 결과를 자유롭게 적어주세요."></textarea>
+        </div>
+        <div class="form-submit">
+          <button class="magnetic" data-cursor="hover">
+            문의 보내기
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer data-on-dark>
+  <div class="wrap">
+    <svg class="foot-logo" viewBox="0 0 2322.8 1400" xmlns="http://www.w3.org/2000/svg" aria-label="Kitt — AI Operating Partner">
+      <path fill="currentColor" d="M907.9,879.9h224.3V348.1l-224.3,193.9v337.9ZM379.4,384.5l79.1-274.4-226.1,41.1L7.3,926.4l225.7-41,83.1-281.8h-80.3l143.6-219.1ZM695.1,460.4l-121.8-1.8L1015.1,8.1l-391.1,71-321.5,488.6,165.3,2.6-121,190.7,348.3-300.6ZM757.7,879.9l-183.9-267.4-148.5,128.3s76,110.9,94.5,139.1h237.9,0ZM1299.3,651.4c0,157.9,80.8,235.4,242.5,232.5,37.4-.7,76.6-6.6,117.5-17.7,21.7-5.9,40.7-11.9,57.5-17.9v-172.3c-40.6,18.3-74.7,27.8-102.1,28.3s-47.9-4-61.4-13.5-21.7-21.5-24.6-36-4.4-33.6-4.4-57.3v-296.2h192.5v-155.9h-192.5V10.3l-340.8,295h115.8v346.1ZM1183.4,305.3h0,0ZM1781.2,305.4h0,0ZM2314.6,301.3v-155.9h-192.5V10.3l-340.8,295h115.8v346.1c0,157.9,80.8,235.4,242.5,232.5,37.4-.7,76.6-6.6,117.5-17.7,21.7-5.9,40.7-11.9,57.5-17.9v-172.3c-40.6,18.3-74.7,27.8-102.1,28.3s-47.9-4-61.4-13.5-21.7-21.5-24.6-36-4.4-33.6-4.4-57.3v-296.2h192.5ZM925.1,235.3c0,17.4,4.2,33.2,12.5,47.4s19.7,25.3,34,33.4c14.4,8,30.3,11.9,47.7,11.6,25.8-.4,48-10,66.7-28.6s28.1-41,28.1-67.2h0c0-25.6-9.4-47.7-28.1-66.1s-40.9-27.4-66.7-26.9c-26.2.4-48.4,10.2-66.7,29.2s-27.4,41.4-27.4,67.2h0ZM543.3,1087.7c14.7,0,25.6,5,34.1,11.6v-10.1c-8.3-6.2-21.8-10.4-34.1-10.4v.2c-28.9,0-53.2,20.6-53.2,54.2s24.3,54.2,53.2,54.2,25.8-4.2,34.1-10.4v-10.1c-8.5,6.6-9,11.6-34.1,11.6s-43.3-18.2-43.3-45.4,18.2-45.4,43.3-45.4h0ZM668.8,1147.6c0-21.9-16.3-39.9-39.2-39.9s-39.2,18-39.2,39.9,16.3,39.9,39.2,39.9,39.2-18,39.2-39.9ZM629.6,1179c-17,0-30-13.2-30-31.5s13-31.5,30-31.5,30,13.2,30,31.5-13,31.5-30,31.5ZM685.8,1081h9.2v104h-9.2v-104ZM717.1,1081h9.2v104h-9.2v-104ZM811.7,1169.7l.3,15.4h8v-74.9h-8l-.3,15.4c-5.7-12-19.4-17.5-30.3-17.5h0c-21.7,0-37.3,16.9-37.3,39.6s15.6,39.5,37.3,39.5,24.6-5.5,30.3-17.5ZM782.5,1178.9c-15.9,0-29.1-11.6-29.1-31.4s13.2-31.4,29.1-31.4,29.1,11.6,29.1,31.4-13.2,31.4-29.1,31.4ZM881,1108c-11,0-23.8,5.6-29.5,15.8v-42.8h-9.2v104h8l.3-15.4c5.7,12,19.4,17.5,30.3,17.5h0c21.7,0,37.3-16.9,37.3-39.6s-15.6-39.5-37.3-39.5h0ZM879.9,1179c-15.9,0-29.1-11.6-29.1-31.4s13.2-31.4,29.1-31.4,29.1,11.6,29.1,31.4-13.2,31.4-29.1,31.4ZM970,1107.7c-22.9,0-39.2,18-39.2,39.9s16.3,39.9,39.2,39.9,39.2-18,39.2-39.9-16.3-39.9-39.2-39.9ZM970,1179c-17,0-30-13.2-30-31.5s13-31.5,30-31.5,30,13.2,30,31.5-13,31.5-30,31.5ZM1063.5,1107.9c-11.5,0-23.4,8-28.8,16.5l-1-15.2-7.6,1.6v74h9.2v-44.7c0-13.2,14.5-23.6,28.2-21.5v-10.7h0ZM1026.1,1110.8h0v-.2.2ZM1138.9,1125.6c-5.7-12-19.4-17.5-30.3-17.5h0c-21.7,0-37.3,16.9-37.3,39.6s15.6,39.5,37.3,39.5,24.6-5.5,30.3-17.5l.3,15.4h8v-74.9h-8l-.3,15.4ZM1109.6,1178.9c-15.9,0-29.1-11.6-29.1-31.4s13.2-31.4,29.1-31.4,29.1,11.6,29.1,31.4-13.2,31.4-29.1,31.4ZM1187.6,1185v-67.1h16.8v-7.8h-16.8v-20.4h-9.2v20.4h-16.8v7.8h16.8v67.1h9.2ZM1279.3,1144.1c.4-2.4.7,9.2.7-7.6s-13.2-28.6-30.7-28.6-34.8,16-34.8,39,15.4,40,36.2,40,22.2-3.6,28.4-8.8v-8c-6.9,5.1.5,8.7-23.9,8.7s-32.9-17.9-31.5-34.7h55.6ZM1249.8,1115.7c13.6,0,22.7,9.3,21.1,21.3h-46.6c3-14.5,14.1-21.3,25.5-21.3ZM1249.3,1107.9h0ZM1435.7,1110.1h-8.5l-21.5,60.8-22.9-60.8h-6.1l-22.4,60.8-22-60.8h-9.1l27.4,74.9h6.6l22.5-60.1,21.8,60.1h6.8l27.4-74.9ZM1449.5,1081h9.2v11.8h-9.2v-11.8ZM1449.5,1110.1h9.2v74.9h-9.2v-74.9ZM1499,1185v-67.1h16.8v-7.8h-16.8v-20.4h-9.2v20.4h-16.8v7.8h16.8v67.1h9.2ZM1586.7,1185h9.2v-44c0-21.3-9.3-32.9-27.7-32.9h0c-12.1,0-23.5,6.9-28.9,16.4v-43.5h-9.2v104h9.2v-42.6c0-13.1,14.3-25.6,26.9-25.6s20.6,6.2,20.6,25.6v42.6h0ZM1725.6,1185h10.4l-43-104h-7.8l-43,104h9.9l12.3-30.2h48.7l12.5,30.2ZM1667.8,1146.3l20.8-51.1,21,51.1h-41.8ZM1749.5,1081h9.5v104h-9.5v-104ZM1780.7,1205.4h0ZM1793.2,1183.9v-10.4h-11.4v11.4h5c0,7.1-2.4,14.3-8.1,17.2l2.1,3.3c8.1-2.6,12.4-11.1,12.4-21.5ZM494.5,1239.1l-43,104h9.9l12.3-30.2h48.7l12.5,30.2h10.4l-43-104h-7.8ZM477.2,1304.4l20.8-51.1,21,51.1h-41.8ZM615.2,1310.8c0,13.1-14.3,25.6-26.9,25.6s-20.6-6.2-20.6-25.6v-42.5h-9.2v44c0,21.3,9.3,32.9,27.7,32.9s24.3-7.3,29.5-17.2l.7,15.1h8v-74.9h-9.2v42.6ZM664.7,1247.8h-9.2v20.4h-16.8v7.8h16.8v67.1h9.2v-67.1h16.8v-7.8h-16.8v-20.4ZM729.7,1265.8c-22.9,0-39.2,18-39.2,39.9s16.3,39.9,39.2,39.9,39.2-18,39.2-39.9-16.3-39.9-39.2-39.9ZM729.7,1337.1c-17,0-30-13.2-30-31.5s13-31.5,30-31.5,30,13.2,30,31.5-13,31.5-30,31.5ZM874.2,1266.1h0c-12.5,0-22,6.9-28.1,17.6-3.3-10.6-12.3-17.7-24.8-17.7s-22.2,7.2-26.9,16.6l-.7-14.6h-8v74.9h9.2v-42.6c0-13.1,12.8-25.6,24.6-25.6s19.1,5.4,19.1,24.8v43.5h9.2v-42.6c0-13.1,12.8-25.6,24.6-25.6s19.1,5.4,19.1,24.8v43.5h9.2v-44.9c0-21.4-9-32.1-26.5-32.1h0ZM986,1283.6c-5.7-12-19.4-17.5-30.3-17.5h0c-21.7,0-37.3,16.9-37.3,39.6s15.6,39.5,37.3,39.5,24.6-5.5,30.3-17.5l.3,15.4h8v-74.9h-8l-.3,15.4ZM956.7,1337c-15.9,0-29.1-11.6-29.1-31.4s13.2-31.4,29.1-31.4,29.1,11.6,29.1,31.4-13.2,31.4-29.1,31.4ZM1034.7,1247.8h-9.2v20.4h-16.8v7.8h16.8v67.1h9.2v-67.1h16.8v-7.8h-16.8v-20.4ZM1096.4,1265.9c-17.3,0-34.8,16-34.8,39s15.4,40,36.2,40,22.2-3.6,28.4-8.8v-8c-6.9,5.1.5,8.7-23.9,8.7s-32.9-17.9-31.5-34.7h55.6c.4-2.4.7,9.2.7-7.6s-13.2-28.6-30.7-28.6h0ZM1118,1295h-46.6c3-14.5,14.1-21.3,25.5-21.3s22.7,9.3,21.1,21.3ZM1096.4,1265.9h0ZM1178.7,1343.1h58.9v-8.5h-49.4v-41.9h40.7v-8.5h-40.7v-36.6h49.4v-8.5h-58.9v104ZM1279.2,1330.4l-25.8-62.2h-9.7l31.5,74.9h7.1l31.5-74.9h-9l-25.6,62.2ZM1355.6,1265.9c-17.3,0-34.8,16-34.8,39s15.4,40,36.2,40,22.2-3.6,28.4-8.8v-8c-6.9,5.1.5,8.7-23.9,8.7s-32.9-17.9-31.5-34.7h55.6c.4-2.4.7,9.2.7-7.6s-13.2-28.6-30.7-28.6h0ZM1377.3,1295h-46.6c3-14.5,14.1-21.3,25.5-21.3s22.7,9.3,21.1,21.3ZM1355.6,1265.9h0ZM1413.3,1282.5l-1-15.2-7.6,1.6v74h9.2v-44.7c0-13.2,14.5-23.6,28.2-21.5v-10.7c-11.5,0-23.4,8-28.8,16.5h0ZM1404.7,1268.9h0v-.2.2ZM1486.2,1330.5l-25.8-62.2h-9.7l30.7,72.6-15.2,36h-.2c0,0,9,0,9,0l45.8-108.7h-9l-25.6,62.2ZM1551.8,1247.8h-9.2v20.4h-16.8v7.8h16.8v67.1h9.2v-67.1h16.8v-7.8h-16.8v-20.4ZM1621,1266.1h0c-12.1,0-23.5,6.9-28.9,16.4v-43.5h-9.2v104h9.2v-42.6c0-13.1,14.3-25.6,26.9-25.6s20.6,6.2,20.6,25.6v42.6h9.2v-44c0-21.3-9.3-32.9-27.7-32.9h0ZM1670.7,1239.1h9.2v11.8h-9.2v-11.8ZM1670.7,1268.2h9.2v74.9h-9.2v-74.9ZM1740.2,1266.1c-12.5,0-24.3,7.3-29.5,17.2l-.7-15.1h-8v74.9h9.2v-42.6c0-13.1,14.3-25.6,26.9-25.6s20.6,6.2,20.6,25.6v42.5h9.2v-44c0-21.3-9.3-32.9-27.7-32.9ZM1853,1283.7c-5.7-12-8.6-17.5-30.3-17.5s-37.3,16.8-37.3,39.5,15.6,39.5,37.3,39.5,23.8-5.6,29.5-15.8v7.6c0,25.6-16.9,33.1-28.9,33.1s-22-3.3-31.2-8.8v9c7.2,4.3,19.5,8.1,30.2,8.1h-.2c17.4,0,39.2-7.2,39.2-41.5v-68.6h-8l-.3,15.4h0ZM1823.9,1337c-15.9,0-29.1-11.6-29.1-31.4s13.2-31.4,29.1-31.4,29.1,11.6,29.1,31.4-13.2,31.4-29.1,31.4Z"/>
+    </svg>
+    <div class="foot-meta">
+      <div class="foot-col">
+        <div class="label">CONTACT</div>
+        <div class="v">partner@kitt.ai.kr</div>
+        <div class="sub">서울시 서초구<br/>서초대로22길 22-18, 4F</div>
+      </div>
+      <div class="foot-col">
+        <div class="label">COMPANY</div>
+        <div class="v">Kitt AI inc.</div>
+        <div class="sub">대표 유승범<br/>사업자등록번호 332-81-03825</div>
+      </div>
+      <div class="foot-col">
+        <div class="label">PRODUCTS</div>
+        <a href="#" data-cursor="hover">Workkitt</a>
+        <a href="#" data-cursor="hover">Sellkitt</a>
+        <a href="#" data-cursor="hover">Kitt</a>
+      </div>
+      <div class="foot-col">
+        <div class="label">SITEMAP</div>
+        <a href="/about/" data-cursor="hover">About</a>
+        <a href="/services/" data-cursor="hover">Services</a>
+        <a href="/products/" data-cursor="hover">Products</a>
+        <a href="/portfolio/" data-cursor="hover">Portfolio</a>
+        <a href="/education/" data-cursor="hover">Education</a>
+        <a href="/#contact" data-cursor="hover">Contact</a>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="copy">© 2026 KITT AI INC.</div>
+      <div class="biz">ALL RIGHTS RESERVED.</div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/assets/app.js"></script>
+<script src="/assets/pages/index.js"></script>
 </body>
-
 </html>

@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>About | Kitt</title>
-<meta name="description" content="Kitt — 슬라이드가 아닌, 실제로 일하는 AI를 만드는 AI Operating Partner." />
+<title>Portfolio | Kitt</title>
+<meta name="description" content="자체 프로덕트부터 클라이언트 작업까지. Kitt가 만든 결과물을 한 자리에서." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='Inter,sans-serif' font-size='64' font-weight='900' text-anchor='middle' fill='%23f48d65'%3EK%3C/text%3E%3C/svg%3E" />
 <link rel="stylesheet" href="/assets/styles.css" />
-<link rel="stylesheet" href="/assets/pages/about.css" />
+<link rel="stylesheet" href="/assets/pages/portfolio.css" />
 </head>
-<body>
+<body class="theme-dark">
 <div class="cursor" aria-hidden="true"></div>
 <div class="cursor-ring" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
@@ -28,10 +28,10 @@
         </svg>
       </a>
       <div class="nav-links">
-        <a href="/about/" class="active" data-cursor="hover">About</a>
+        <a href="/about/" data-cursor="hover">About</a>
         <a href="/services/" data-cursor="hover">Services</a>
         <a href="/products/" data-cursor="hover">Products</a>
-        <a href="/portfolio/" data-cursor="hover">Portfolio</a>
+        <a href="/portfolio/" class="active" data-cursor="hover">Portfolio</a>
         <a href="/education/" data-cursor="hover">Education</a>
       </div>
       <button class="nav-toggle" aria-label="메뉴 열기" data-cursor="hover">
@@ -45,108 +45,124 @@
 
 <section class="page-hero">
   <div class="wrap">
-    <h1>We build<br/><span class="light">working AI</span>.</h1>
-    <p>컨설팅과 소프트웨어 구축, 마케팅과 크리에이티브까지 —<br/>비즈니스의 결과를 만드는 모든 영역을 AI로 가속합니다.</p>
-  </div>
-</section>
-
-<section class="manifesto reveal">
-  <div class="wrap">
-    <blockquote>"우리는 슬라이드를 만들지 않습니다.<br/>지금 당장 일하는 사람들이 매일 쓰는<br/>AI 에이전트를 만듭니다."</blockquote>
-    <div class="sig">— KITT MANIFESTO</div>
-  </div>
-</section>
-
-<section class="reveal">
-  <div class="wrap">
-    <div class="team-head">
-      <h2>The Team</h2>
-      <p class="desc">비즈니스 통찰력과 기술 전문성, 그리고 디자인 감각.<br/>세 가지를 한 팀 안에 담았습니다.</p>
-    </div>
-    <div class="team">
-      <div class="member">
-        <div class="photo">
-          <img src="/assets/images/team/yoo-seungbeom.png" alt="유승범 CEO 애니메이션 프로필 이미지" loading="lazy" decoding="async">
-        </div>
-        <div class="role">CEO / VISIONARY</div>
-        <div class="name">유승범</div>
-        <div class="bio">AI 오케스트레이션 총괄. 비즈니스 모델·전략·마케팅 실행까지 직접 끌고 가며, Kitt의 프로덕트 라인업(Workkitt, Sellkitt)의 방향을 책임지는 리더.</div>
-      </div>
-      <div class="member">
-        <div class="photo">
-          <img src="/assets/images/team/kim-sanghoon.png" alt="김상훈 CTO 애니메이션 프로필 이미지" loading="lazy" decoding="async">
-        </div>
-        <div class="role">CTO</div>
-        <div class="name">김상훈</div>
-        <div class="bio">다양한 산업의 도메인을 기술적으로 해석해 AI 서비스를 만듭니다. RAG 챗봇·멀티 에이전트 구축 등 실질적인 AX 전환을 이끄는 기술 총괄.</div>
-      </div>
-      <div class="member">
-        <div class="photo">
-          <img src="/assets/images/team/nam-heeseon.png" alt="남희선 디자인 리드 애니메이션 프로필 이미지" loading="lazy" decoding="async">
-        </div>
-        <div class="role">MANAGER / DESIGN</div>
-        <div class="name">남희선</div>
-        <div class="bio">프로덕트와 브랜드의 시각 언어를 설계합니다. UI·UX부터 마케팅 크리에이티브까지, Kitt의 모든 인터페이스에 일관된 톤을 만드는 디자인 리드.</div>
-      </div>
+    <div class="count">SELECTED WORK · 06 PROJECTS</div>
+    <div class="row">
+      <h1>Portfolio<span class="light">.</span></h1>
+      <p class="desc">자체 프로덕트부터 클라이언트 작업까지. Kitt가 만든 결과물 모두를 한 자리에서 확인하세요.</p>
     </div>
   </div>
 </section>
 
-<section class="values reveal" data-on-dark>
+<section class="portfolio">
   <div class="wrap">
-    <h2>일하는 방식</h2>
-    <div class="values-grid">
-      <div class="value">
-        <div class="num">01</div>
-        <h3>작동하는 것만 납품합니다</h3>
-        <p>실험실 데모가 아닌, 실제 업무에 투입 가능한 견고한 소프트웨어. 만들지 못할 것은 약속하지 않습니다.</p>
-      </div>
-      <div class="value">
-        <div class="num">02</div>
-        <h3>비즈니스 언어로 대화합니다</h3>
-        <p>기술 용어를 던지지 않습니다. 의사결정자가 알아야 할 만큼만 설명하고, 나머지는 우리가 책임집니다.</p>
-      </div>
-      <div class="value">
-        <div class="num">03</div>
-        <h3>납품에서 끝나지 않습니다</h3>
-        <p>구성원 교육과 운영 내재화까지. 조직의 일하는 방식이 진짜로 바뀔 때까지 함께 동행합니다.</p>
-      </div>
+    <div class="filter-row">
+      <button class="filter-btn active" data-cursor="hover">ALL</button>
+      <button class="filter-btn" data-cursor="hover">AI MARKETING</button>
+      <button class="filter-btn" data-cursor="hover">AI CREATIVE</button>
+      <button class="filter-btn" data-cursor="hover">ENTERPRISE AX</button>
+      <button class="filter-btn" data-cursor="hover">GROWTH AI</button>
     </div>
-  </div>
-</section>
 
-<section class="reveal">
-  <div class="wrap">
-    <div class="facts-grid">
-      <div class="fact">
-        <div class="label">FOUNDED</div>
-        <div class="val">2026</div>
-        <div class="sub">Kitt AI inc.</div>
-      </div>
-      <div class="fact">
-        <div class="label">BASED IN</div>
-        <div class="val">Seoul</div>
-        <div class="sub">서초구 서초대로</div>
-      </div>
-      <div class="fact">
-        <div class="label">PROJECTS</div>
-        <div class="val">200+</div>
-        <div class="sub">누적 자동화 · AI 도입</div>
-      </div>
-      <div class="fact">
-        <div class="label">FOCUS</div>
-        <div class="val">AX</div>
-        <div class="sub">AI Transformation</div>
-      </div>
+    <div class="pf-grid">
+      <a href="#" class="pf-card reveal" data-category="GROWTH AI" data-cursor="hover">
+        <div class="visual v-cold">
+          <div class="bg"></div><div class="grid-overlay"></div>
+          <div class="index">01 / CLIENT WORK</div>
+          <div class="corner"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          <div class="mark">Cold Email</div>
+        </div>
+        <div class="meta">
+          <div class="tag">GROWTH AI · 2025</div>
+          <h3>Cold Email Marketing</h3>
+          <div class="blurb">CNC 코리아 — 자가진단 체크리스트 기반 콜드 이메일 리드젠 시스템.</div>
+          <div class="foot"><span>CLIENT WORK</span><span>→ 케이스 보기</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="pf-card reveal" data-category="AI MARKETING" data-cursor="hover">
+        <div class="visual v-hamoa">
+          <div class="bg"></div><div class="grid-overlay"></div>
+          <div class="index">02 / CLIENT WORK</div>
+          <div class="corner"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          <div class="mark">하모아</div>
+        </div>
+        <div class="meta">
+          <div class="tag">AI MARKETING · 2025</div>
+          <h3>하모아 콘텐츠 스튜디오</h3>
+          <div class="blurb">식품 이커머스 브랜드 마케팅 자동화 및 AI 콘텐츠 생산 파이프라인 구축.</div>
+          <div class="foot"><span>CLIENT WORK</span><span>→ 케이스 보기</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="pf-card reveal" data-category="AI CREATIVE" data-cursor="hover">
+        <div class="visual v-aero">
+          <div class="bg"></div><div class="grid-overlay"></div>
+          <div class="index">03 / CLIENT WORK</div>
+          <div class="corner"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          <div class="mark">에어로웨이</div>
+        </div>
+        <div class="meta">
+          <div class="tag">AI CREATIVE · 2025</div>
+          <h3>에어로웨이 광고 자동화</h3>
+          <div class="blurb">프리미엄 천장형 팬 브랜드 Meta 광고 크리에이티브 자동화 및 운영.</div>
+          <div class="foot"><span>CLIENT WORK</span><span>→ 케이스 보기</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="pf-card reveal" data-category="AI CREATIVE" data-cursor="hover">
+        <div class="visual v-iga">
+          <div class="bg"></div><div class="grid-overlay"></div>
+          <div class="index">04 / CLIENT WORK</div>
+          <div class="corner"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          <div class="mark">이가네돈까스</div>
+        </div>
+        <div class="meta">
+          <div class="tag">AI CREATIVE · 2025</div>
+          <h3>이가네돈까스 AI 사진</h3>
+          <div class="blurb">제품 50종 5각도 AI 백그라운드 연출 사진 제작. 전통 식품 브랜드 비주얼 리뉴얼.</div>
+          <div class="foot"><span>CLIENT WORK</span><span>→ 케이스 보기</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="pf-card reveal" data-category="AI MARKETING" data-cursor="hover">
+        <div class="visual v-rivas">
+          <div class="bg"></div><div class="grid-overlay"></div>
+          <div class="index">05 / CLIENT WORK</div>
+          <div class="corner"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          <div class="mark">리바스인테리어</div>
+        </div>
+        <div class="meta">
+          <div class="tag">AI MARKETING · 2025</div>
+          <h3>리바스인테리어 성과 인텔리전스</h3>
+          <div class="blurb">욕실 리노베이션 브랜드 광고 운영 및 성과 지표 통합 인텔리전스 대시보드.</div>
+          <div class="foot"><span>CLIENT WORK</span><span>→ 케이스 보기</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="pf-card reveal" data-category="ENTERPRISE AX" data-cursor="hover">
+        <div class="visual v-semi">
+          <div class="bg"></div><div class="grid-overlay"></div>
+          <div class="index">06 / CLIENT WORK</div>
+          <div class="corner"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          <div class="mark">반도체 IC</div>
+        </div>
+        <div class="meta">
+          <div class="tag">ENTERPRISE AX · 2025</div>
+          <h3>반도체 IC 기업 AX 진단</h3>
+          <div class="blurb">팹리스 반도체 기업 온프레미스 RAG 기반 AI 도입 진단 및 ROI 우선순위 설계.</div>
+          <div class="foot"><span>CLIENT WORK</span><span>→ 케이스 보기</span></div>
+        </div>
+      </a>
     </div>
   </div>
 </section>
 
 <section class="cta-section reveal">
   <div class="wrap">
-    <h2>Let's build something<br/><span class="fade">that actually works.</span></h2>
+    <h2>새로운 프로젝트를<br/><span class="fade">함께 시작할 준비가 되셨나요?</span></h2>
+    <p>전략 진단부터 실행까지, Kitt가 함께합니다. 무료 상담을 통해 가능성을 먼저 확인해보세요.</p>
     <a href="/#contact" class="cta-primary magnetic" data-cursor="hover">
-      프로젝트 시작하기
+      무료 상담하기
       <span class="arrow">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </span>

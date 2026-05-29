@@ -1,0 +1,211 @@
+/* ============================================================
+   Kitt — Services page styles
+   ============================================================ */
+
+/* ---------- PAGE HERO (light variant) ---------- */
+.page-hero { padding: 180px 0 100px; text-align: center; }
+.page-hero h1 {
+  font-weight: 900;
+  font-size: clamp(56px, 10vw, 140px); line-height: 0.95;
+  letter-spacing: -0.05em; margin-bottom: 32px;
+}
+.page-hero h1 .light { font-weight: 300; color: var(--muted-2); }
+.page-hero p {
+  font-size: clamp(16px, 1.4vw, 19px);
+  color: var(--ink-2);
+  max-width: 720px; margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* ---------- SECTION HEAD ---------- */
+.sec { padding: 120px 0; }
+.sec-head { margin-bottom: 64px; max-width: 760px; }
+.sec-head .eyebrow {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.2em; color: var(--muted);
+  margin-bottom: 20px;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.sec-head .eyebrow::before {
+  content: ""; width: 5px; height: 5px;
+  border-radius: 50%; background: var(--accent);
+}
+.sec-head h2 {
+  font-size: clamp(40px, 5.5vw, 72px);
+  font-weight: 900; letter-spacing: -0.045em;
+  line-height: 1.05; margin-bottom: 24px;
+  word-break: keep-all;
+}
+.sec-head h2 .fade { color: var(--muted-2); }
+.sec-head p {
+  font-size: 16px; line-height: 1.7; color: var(--ink-2);
+  max-width: 560px; word-break: keep-all;
+}
+
+/* ---------- CATEGORIES — 2x2 ---------- */
+.cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.cat-card {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 48px 44px;
+  transition: transform .35s cubic-bezier(.2, .7, .2, 1), border-color .25s;
+  display: flex; flex-direction: column; min-height: 380px;
+}
+.cat-card:hover { transform: translateY(-4px); border-color: var(--muted-2); }
+.cat-card .num {
+  font-family: var(--mono); font-size: 13px;
+  color: var(--muted); letter-spacing: 0.1em;
+  margin-bottom: auto;
+}
+.cat-card .num strong { color: var(--ink); font-weight: 500; }
+.cat-card .tag {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.22em; color: var(--accent);
+  margin-bottom: 14px; margin-top: 24px;
+  font-weight: 500;
+}
+.cat-card h3 {
+  font-size: clamp(26px, 2.6vw, 34px); font-weight: 800;
+  letter-spacing: -0.035em; line-height: 1.2;
+  margin-bottom: 14px;
+}
+.cat-card p {
+  font-size: 15px; line-height: 1.7; color: var(--ink-2);
+  margin-bottom: 20px; word-break: keep-all;
+}
+.cat-card .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.cat-card .chips span {
+  font-family: var(--mono); font-size: 11px;
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 6px 12px; color: var(--ink-2);
+}
+.cat-card .link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: var(--ink);
+  padding-bottom: 4px; border-bottom: 1px solid var(--ink);
+  align-self: flex-start;
+  transition: gap .2s;
+}
+.cat-card .link:hover { gap: 12px; }
+
+/* ---------- PROCESS CARDS ---------- */
+.process-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  counter-reset: proc;
+}
+.pc {
+  background: var(--paper);
+  border: 1px solid var(--line); border-radius: 20px;
+  padding: 36px 32px;
+  counter-increment: proc;
+  position: relative;
+  transition: transform .35s cubic-bezier(.2, .7, .2, 1), border-color .25s;
+}
+.pc:hover { transform: translateY(-4px); border-color: var(--muted-2); }
+.pc::before {
+  content: counter(proc, decimal-leading-zero);
+  font-family: var(--mono); font-size: 12px;
+  color: var(--muted); letter-spacing: 0.15em;
+  display: block; margin-bottom: 32px;
+}
+.pc .stage {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.22em; color: var(--accent);
+  margin-bottom: 14px; font-weight: 500;
+}
+.pc h3 {
+  font-size: 22px; font-weight: 800; letter-spacing: -0.025em;
+  margin-bottom: 14px; line-height: 1.25;
+}
+.pc p {
+  font-size: 14px; line-height: 1.65; color: var(--muted);
+  margin-bottom: 20px; word-break: keep-all;
+}
+.pc .deliv {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.15em; color: var(--ink-2);
+  text-transform: uppercase;
+}
+
+/* ---------- ENGAGEMENT MODELS ---------- */
+.eng-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.eng {
+  padding: 48px 32px;
+  border-right: 1px solid var(--line);
+  transition: background .25s;
+}
+.eng:last-child { border-right: none; }
+.eng:hover { background: #f6f6f6; }
+.eng .kind {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.22em; color: var(--muted);
+  margin-bottom: 24px; font-weight: 500;
+}
+.eng h3 { font-size: 20px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 12px; }
+.eng p { font-size: 13px; line-height: 1.65; color: var(--muted); word-break: keep-all; }
+
+@media (max-width: 900px) {
+  .cat-grid { grid-template-columns: 1fr; }
+  .process-cards { grid-template-columns: 1fr; }
+  .eng-grid { grid-template-columns: 1fr 1fr; }
+  .eng:nth-child(2) { border-right: none; }
+  .eng:nth-child(1), .eng:nth-child(2) { border-bottom: 1px solid var(--line); }
+}
+
+/* ---------- CTA ---------- */
+.cta-section { text-align: center; }
+.cta-section h2 {
+  font-weight: 900;
+  font-size: clamp(48px, 8vw, 108px); letter-spacing: -0.05em;
+  line-height: 0.95; margin-bottom: 48px;
+}
+.cta-section h2 .fade { color: var(--muted-2); }
+.cta-primary {
+  display: inline-flex; align-items: center; gap: 16px;
+  background: var(--ink); color: var(--paper);
+  padding: 20px 14px 20px 40px;
+  border-radius: 999px;
+  font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
+  transition: transform .25s cubic-bezier(.2, .7, .2, 1);
+  will-change: transform;
+}
+.cta-primary .arrow {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--paper); color: var(--ink);
+  display: grid; place-items: center;
+  transition: transform .3s;
+}
+.cta-primary:hover .arrow { transform: rotate(-45deg); }
+
+/* ============================================================
+   MOBILE PASS — services
+   ============================================================ */
+@media (max-width: 768px) {
+  .page-hero { padding: 120px 0 60px; }
+  .sec { padding: 80px 0; }
+  .sec-head { margin-bottom: 40px; }
+  .sec-head h2 { margin-bottom: 18px; }
+
+  .cat-card { padding: 36px 28px; min-height: auto; border-radius: 20px; }
+  .cat-card h3 { margin-bottom: 12px; }
+
+  .pc { padding: 28px 24px; }
+  .pc::before { margin-bottom: 24px; }
+
+  .eng { padding: 36px 24px; }
+
+  .cta-section h2 { margin-bottom: 36px; }
+  .cta-primary { padding: 16px 12px 16px 28px; font-size: 14px; gap: 12px; }
+  .cta-primary .arrow { width: 36px; height: 36px; }
+}
+@media (max-width: 480px) {
+  .eng-grid { grid-template-columns: 1fr; }
+  .eng { border-right: none !important; border-bottom: 1px solid var(--line); }
+  .eng:last-child { border-bottom: none; }
+}
