@@ -109,4 +109,43 @@
     addEventListener('resize', updateProcess);
     updateProcess();
   }
+
+  /* ---------- Contact form submit ---------- */
+  const contactForm = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+  if (contactForm) {
+    const API_BASE = 'https://workkit-production.up.railway.app';
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const setStatus = (msg, kind) => {
+      if (!formStatus) return;
+      formStatus.textContent = msg;
+      formStatus.className = 'form-status full' + (kind ? ' is-' + kind : '');
+    };
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!contactForm.reportValidity()) return;
+      const data = Object.fromEntries(new FormData(contactForm).entries());
+      submitBtn.disabled = true;
+      setStatus('전송 중…', 'pending');
+      try {
+        const res = await fetch(API_BASE + '/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if (res.ok) {
+          contactForm.reset();
+          setStatus('문의가 접수되었습니다. 빠르게 연락드리겠습니다.', 'success');
+        } else if (res.status === 429) {
+          setStatus('요청이 많습니다. 잠시 후 다시 시도해주세요.', 'error');
+        } else {
+          setStatus('전송에 실패했습니다. 잠시 후 다시 시도하거나 partner@kitt.ai.kr 로 연락주세요.', 'error');
+        }
+      } catch (err) {
+        setStatus('네트워크 오류로 전송하지 못했습니다. partner@kitt.ai.kr 로 연락주세요.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
 })();

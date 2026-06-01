@@ -635,6 +635,17 @@ section.hero {
   transition: transform .2s;
 }
 .form-submit button:hover { transform: translateY(-2px); }
+.form-submit button:disabled { opacity: .55; pointer-events: none; }
+
+/* Honeypot — kept off-screen for real users, visible to bots */
+.hp-field { position: absolute; left: -5000px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Contact form status message */
+.form-status { display: none; margin-top: 16px; font-size: 14px; line-height: 1.5; }
+.form-status:not(:empty) { display: block; }
+.form-status.is-pending { color: var(--muted); }
+.form-status.is-success { color: #1a7f55; }
+.form-status.is-error { color: #c0392b; }
 
 @media (max-width: 900px) {
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }

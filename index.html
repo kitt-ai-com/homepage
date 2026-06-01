@@ -345,14 +345,14 @@
         <div class="label">OFFICE</div>
         <div class="val addr">서울시 서초구 서초대로22길 22-18, 4F</div>
       </div>
-      <div class="form">
-        <div class="field"><label>이름 *</label><input type="text" /></div>
-        <div class="field"><label>회사 이름 *</label><input type="text" /></div>
-        <div class="field"><label>이메일 주소 *</label><input type="email" /></div>
-        <div class="field"><label>연락처 * (- 없이 번호만 입력)</label><input type="tel" /></div>
+      <form class="form" id="contactForm" novalidate>
+        <div class="field"><label>이름 *</label><input type="text" name="name" required /></div>
+        <div class="field"><label>회사 이름 *</label><input type="text" name="company" required /></div>
+        <div class="field"><label>이메일 주소 *</label><input type="email" name="email" required /></div>
+        <div class="field"><label>연락처 * (- 없이 번호만 입력)</label><input type="tel" name="phone" required /></div>
         <div class="field full">
           <label>문의 유형을 선택해주세요 *</label>
-          <select>
+          <select name="inquiryType" required>
             <option>AI 진단 &amp; 전략 컨설팅</option>
             <option>도메인 맞춤 AI 소프트웨어</option>
             <option>AI 마케팅 &amp; 크리에이티브</option>
@@ -362,15 +362,20 @@
         </div>
         <div class="field full">
           <label>문의 내용을 알려주세요 *</label>
-          <textarea placeholder="프로젝트 배경, 현재 고민, 기대하는 결과를 자유롭게 적어주세요."></textarea>
+          <textarea name="message" required placeholder="프로젝트 배경, 현재 고민, 기대하는 결과를 자유롭게 적어주세요."></textarea>
         </div>
+        <div class="hp-field" aria-hidden="true">
+          <label>이 칸은 비워두세요</label>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+        <div class="form-status full" id="formStatus" role="status" aria-live="polite"></div>
         <div class="form-submit">
-          <button class="magnetic" data-cursor="hover">
+          <button class="magnetic" type="submit" data-cursor="hover">
             문의 보내기
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </button>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </section>
