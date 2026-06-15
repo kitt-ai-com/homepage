@@ -1,0 +1,21 @@
+# kitt.ai.kr
+
+User-agent: *
+Allow: /
+# 고객사 제안서·아카이브는 검색 노출 차단
+Disallow: /proposals/
+Disallow: /archive/
+
+# 네이버 검색로봇
+User-agent: Yeti
+Allow: /
+Disallow: /proposals/
+Disallow: /archive/
+
+# 다음 검색로봇
+User-agent: Daumoa
+Allow: /
+Disallow: /proposals/
+Disallow: /archive/
+
+Sitemap: https://kitt.ai.kr/sitemap.xml
