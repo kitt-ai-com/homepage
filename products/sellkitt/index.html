@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sellkitt | Kitt</title>
+<meta name="description" content="복잡한 발주·재고·정산 프로세스를 단순하게. 식자재·소형 유통사를 위한 AI 발주 자동화 서비스로, 카카오톡·전화로 받던 주문을 표준화된 데이터로 흡수합니다." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='Inter,sans-serif' font-size='64' font-weight='900' text-anchor='middle' fill='%23f48d65'%3EK%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="/assets/styles.css" />
+<link rel="stylesheet" href="/assets/pages/product-detail.css" />
+</head>
+<body>
+<div class="cursor" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="grid-bg" aria-hidden="true"></div>
+
+<nav class="top">
+  <div class="wrap">
+    <div class="row">
+      <a href="/" class="logo" aria-label="Kitt">
+        <svg viewBox="0 0 2322.8 930.2" xmlns="http://www.w3.org/2000/svg">
+          <path fill="currentColor" d="M910.4,538.6l224.3-193.9v531.8h-224.3v-337.9ZM382,381.2l79-274.4-226,41L9.9,923l225.7-41,83.1-281.8h-80.3l143.6-219ZM697.7,457l-121.8-1.8L1017.7,4.7l-391.1,71.1-321.5,488.6,165.3,2.6-121.1,190.7,348.4-300.7ZM427.8,737.4h0s76,110.9,94.5,139.1h237.9l-183.9-267.4-148.5,128.3ZM1185.8,302l.3-.2h-.3v.2ZM1526.7,7.1l-340.6,294.7h115.6v346.2c0,157.9,80.8,235.4,242.5,232.5,37.4-.7,76.6-6.6,117.5-17.7,21.7-5.9,40.8-11.9,57.5-17.9v-172.3c-40.6,18.3-74.7,27.8-102.1,28.3s-47.9-4-61.4-13.5-21.7-21.5-24.6-36-4.4-33.6-4.4-57.3v-296.2h192.5v-155.8h-192.5V7.1ZM1526.7,7h0c0,0,.1,0,.1,0h-.1ZM2317,297.9v-155.8h-192.5V7l-340.7,294.8h-.2v.2l.3-.2h115.5v346.2c0,157.9,80.8,235.4,242.5,232.5,37.4-.7,76.6-6.6,117.5-17.7,21.7-5.9,40.8-11.9,57.5-17.9v-172.3c-40.6,18.3-74.7,27.8-102.1,28.3h.1c-27.4.5-47.9-4-61.4-13.5s-21.7-21.5-24.6-36c-2.9-14.5-4.4-33.6-4.4-57.3v-296.2h192.5ZM927.9,231.9h0c0,17.5,4.1,33.4,12.5,47.5,8.3,14.2,19.6,25.3,34,33.4,14.4,8,30.3,11.9,47.7,11.6,25.8-.5,48-10,66.7-28.6,18.7-18.6,28-41,28-67.2s-9.4-47.8-28-66.2c-18.7-18.4-40.9-27.3-66.7-26.9-26.2.5-48.4,10.2-66.7,29.2s-27.4,41.4-27.4,67.2Z"/>
+        </svg>
+      </a>
+      <div class="nav-links">
+        <a href="/about/" data-cursor="hover">About</a>
+        <a href="/services/" data-cursor="hover">Services</a>
+        <a href="/products/" data-cursor="hover">Products</a>
+        <a href="/portfolio/" data-cursor="hover">Portfolio</a>
+        <a href="/education/" data-cursor="hover">Education</a>
+      </div>
+      <button class="nav-toggle" aria-label="메뉴 열기" data-cursor="hover">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+
+
+<section class="pd-hero">
+  <div class="wrap">
+    <nav class="pd-crumb" aria-label="breadcrumb">
+      <a href="/products/" data-cursor="hover">Products</a>
+      <span aria-hidden="true">/</span>
+      <span class="here">Sellkitt</span>
+    </nav>
+
+    <div class="pd-hero-grid">
+      <div class="pd-hero-text">
+        <div class="pd-eyebrow">COMMERCE</div>
+        <h1><span class="light">Sell</span>kitt</h1>
+        <p class="pd-tagline">복잡한 발주·재고·정산 프로세스를 단순하게. 식자재·소형 유통사를 위한 AI 발주 자동화 서비스로, 카카오톡·전화로 받던 주문을 표준화된 데이터로 흡수합니다.</p>
+        <div class="pd-pills">
+          <span>카카오톡 발주 자동화</span><span>재고 관리</span><span>정산 자동화</span><span>거래처 CRM</span>
+        </div>
+        <div class="pd-actions">
+          <a href="/#contact" class="cta-primary magnetic" data-cursor="hover">
+            무료 상담하기
+            <span class="arrow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </span>
+          </a>
+          <a href="/products/" class="pd-back" data-cursor="hover">제품 목록으로</a>
+        </div>
+      </div>
+
+      <div class="pd-visual v-sellkitt">
+        <div class="bg"></div>
+        <div class="grid-overlay"></div>
+        <div class="mark"><span class="light">Sell</span>kitt</div>
+        <div class="index">02 / COMMERCE OS · 2026</div>
+        <div class="pd-mock" aria-hidden="true">
+          <div class="pd-mock-row"><span></span><b></b></div>
+          <div class="pd-mock-row"><span></span><b></b></div>
+          <div class="pd-mock-row"><span></span><b></b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="pd-problem reveal">
+  <div class="wrap">
+    <div class="pd-eyebrow accent">THE PROBLEM</div>
+    <div class="pd-problem-grid">
+      <h2>주문은 메신저에,<br/>재고는 머릿속에.</h2>
+      <div class="pd-problem-body">
+        <p>식자재·소형 유통 현장의 주문은 여전히 카카오톡과 전화로 오갑니다. 같은 거래처가 매번 다른 형식으로 품목을 적어 보내고, 사장님은 그걸 일일이 엑셀에 옮겨 적으며 하루를 시작합니다.</p><p>주문을 옮기다 빠뜨리고, 재고는 감으로 관리되고, 월말 정산은 영수증 더미와 씨름하는 밤이 됩니다. Sellkitt는 이 흐름 전체를 하나의 자동화된 데이터 파이프라인으로 바꿉니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="pd-features reveal">
+  <div class="wrap">
+    <div class="pd-eyebrow accent">KEY FEATURES</div>
+    <h2 class="pd-section-title">핵심 기능</h2>
+    <div class="pd-feature-grid">
+      
+      <article class="pd-feature">
+        <span class="pd-feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+        </span>
+        <h3>AI 엑셀 자동 업로드</h3>
+        <p>거래처가 엑셀로 보낸 주문을 AI가 읽어 품목·수량·거래처까지 자동으로 업로드합니다. 양식이 제각각이어도 그대로 흡수합니다.</p>
+      </article>
+      
+      <article class="pd-feature">
+        <span class="pd-feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        <h3>AI 채팅</h3>
+        <p>상품·주문 조회부터 가격 수정, 주문서·리포트 생성까지. 채팅창에 말하듯 시키면 Sellkitt가 바로 처리합니다.</p>
+      </article>
+      
+      <article class="pd-feature">
+        <span class="pd-feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </span>
+        <h3>이미지 주문 추출</h3>
+        <p>사진·캡처·손글씨로 온 주문도 AI가 이미지에서 품목과 수량을 추출해 주문에 자동으로 넣습니다.</p>
+      </article>
+      
+      <article class="pd-feature">
+        <span class="pd-feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </span>
+        <h3>발주부터 정산까지 한 번에</h3>
+        <p>주문 접수 → 재고 차감 → 공급사 발주 → 정산까지, 흩어져 있던 과정을 한 흐름으로 자동 처리합니다.</p>
+      </article>
+      
+    </div>
+  </div>
+</section>
+
+
+
+<section class="pd-flow reveal">
+  <div class="wrap">
+    <div class="pd-eyebrow accent">HOW IT WORKS</div>
+    <h2 class="pd-section-title">메시지 한 통이 정리된 주문이 되기까지</h2>
+    <div class="pd-steps">
+      
+      <div class="pd-step">
+        <div class="pd-step-n">01</div>
+        <h3>주문 수신</h3>
+        <p>카카오톡·전화·문자로 들어온 주문이 Sellkitt 한 곳으로 모입니다.</p>
+      </div>
+      
+      <div class="pd-step">
+        <div class="pd-step-n">02</div>
+        <h3>AI 표준화</h3>
+        <p>비정형 메시지를 품목·수량·거래처 단위로 구조화합니다.</p>
+      </div>
+      
+      <div class="pd-step">
+        <div class="pd-step-n">03</div>
+        <h3>자동 처리</h3>
+        <p>재고 차감, 발주서 발행, 정산 반영까지 사람 손 없이 이어집니다.</p>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+
+
+<section class="pd-highlights reveal">
+  <div class="wrap">
+    <div class="pd-eyebrow accent">WHY SELLKITT</div>
+    <h2 class="pd-section-title">이래서 다릅니다</h2>
+    <div class="pd-highlight-list">
+      
+      <article class="pd-highlight">
+        <div class="pd-highlight-label">AI CHAT</div>
+        <div class="pd-highlight-main">
+          <h3>채팅으로 시키면 끝</h3>
+          <p>상품·주문 조회부터 가격 수정, 주문서·리포트 생성까지. 채팅창에 말하듯 시키면 Sellkitt가 바로 처리합니다. 엑셀과 메뉴를 헤맬 필요가 없습니다.</p>
+        </div>
+        <div class="pd-highlight-stat">
+          <strong>월 700회</strong>
+          <span>BUSINESS 기준 AI 작업</span>
+        </div>
+      </article>
+      
+      <article class="pd-highlight">
+        <div class="pd-highlight-label">ZERO INPUT</div>
+        <div class="pd-highlight-main">
+          <h3>카카오톡 주문, 그대로 흡수</h3>
+          <p>카톡·전화·문자로 흩어져 오던 비정형 주문을 AI가 품목·수량·거래처로 구조화합니다. 받는 즉시 표준 데이터가 됩니다.</p>
+        </div>
+        <div class="pd-highlight-stat">
+          <strong>0건</strong>
+          <span>수기 입력</span>
+        </div>
+      </article>
+      
+      <article class="pd-highlight">
+        <div class="pd-highlight-label">AUTO SETTLE</div>
+        <div class="pd-highlight-main">
+          <h3>예치금 기반 자동 정산</h3>
+          <p>셀러가 주문하면 잔액에서 자동 차감되고, 공급사 원가까지 자동으로 정산·지급됩니다. 월말 정산의 밤이 사라집니다.</p>
+        </div>
+        <div class="pd-highlight-stat">
+          <strong>100%</strong>
+          <span>정산 자동화</span>
+        </div>
+      </article>
+      
+    </div>
+  </div>
+</section>
+
+
+
+<section class="pd-caps reveal">
+  <div class="wrap">
+    <div class="pd-eyebrow accent">FULL CAPABILITIES</div>
+    <h2 class="pd-section-title">주요 기능 한눈에</h2>
+    <div class="pd-cap-grid">
+      
+      <div class="pd-cap-group">
+        <h3>주문 처리</h3>
+        <ul>
+          <li>이미지 주문 인식</li><li>엑셀 주문 일괄 등록</li><li>AI 채팅 주문·조회</li><li>비정형 메시지 표준화</li>
+        </ul>
+      </div>
+      
+      <div class="pd-cap-group">
+        <h3>재고·발주</h3>
+        <ul>
+          <li>실시간 재고 관리</li><li>품절·과잉 재고 경고</li><li>공급사별 발주서 자동 생성</li><li>묶음배송·합배송</li>
+        </ul>
+      </div>
+      
+      <div class="pd-cap-group">
+        <h3>가격·등급</h3>
+        <ul>
+          <li>등급별 가격 설정</li><li>셀러 수수료 개별 설정</li><li>고정·구간 배송 정책</li><li>카테고리 계층 관리</li>
+        </ul>
+      </div>
+      
+      <div class="pd-cap-group">
+        <h3>정산·예치금</h3>
+        <ul>
+          <li>수수료·원가 자동 계산</li><li>예치금 자동 차감·지급</li><li>월 정산서 자동 발행</li><li>초과분 월말 자동 정산</li>
+        </ul>
+      </div>
+      
+      <div class="pd-cap-group">
+        <h3>CRM·운영</h3>
+        <ul>
+          <li>거래처 CRM·통계</li><li>클레임 미처리 알림</li><li>통합 CS 관리</li><li>셀러 초대 코드</li>
+        </ul>
+      </div>
+      
+      <div class="pd-cap-group">
+        <h3>데이터·연동</h3>
+        <ul>
+          <li>데이터 보관·내보내기</li><li>정기 백업</li><li>외부 ERP 연동</li><li>다중 관리자·감사 로그</li>
+        </ul>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+
+
+<section class="pd-pricing reveal">
+  <div class="wrap">
+    <div class="pd-eyebrow accent">PRICING</div>
+    <div class="pd-pricing-head">
+      <h2>규모에 맞춰 선택하는<br/>합리적인 요금제</h2>
+      <p>실제 셀러 운영 데이터(월 평균 300~5,000건) 기반으로 책정. 부담 없이 시작해 성장에 맞춰 단계별로 업그레이드하세요.</p>
+    </div>
+    <div class="pd-pricing-note">요금은 ‘월 처리 주문량’이 핵심 기준 · 계정·상품 한도는 잘 닿지 않을 만큼 넉넉히 포함</div>
+
+    <div class="pd-plan-grid">
+      
+      <article class="pd-plan">
+        
+        <div class="pd-plan-name">STARTER</div>
+        <p class="pd-plan-for">소규모 셀러 · 1인 도매 · 단일 채널 운영</p>
+        <div class="pd-plan-price"><strong>₩50,000</strong><span>/월</span></div>
+        <div class="pd-plan-quota">
+          <div class="q-label">월 처리 주문</div>
+          <div class="q-value">500건</div>
+          <div class="q-sub">초과 시 100건당 ₩9,900 · 1,000건 초과 시 업그레이드 안내</div>
+        </div>
+        <ul class="pd-plan-features">
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>주문 전량 AI 자동 인식·정리 — 수기 입력 없음</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>AI 2종 — 이미지 주문 입력 + 엑셀 주문 일괄 등록</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>셀러 10계정 · 공급사 3계정 · 상품 100개</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>핵심 10개 메뉴 (대시보드·상품·가격·배송·주문·발주·셀러·공급사·정산·클레임)</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>단일 등급 가격 · 고정/구간 배송</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>공급사별 발주서 자동 생성</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>기본 정산 자동화 (수수료·원가 자동계산)</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>데이터 보관 · 내보내기(Export) 지원</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>이메일 지원(영업일 2~3일)</span>
+          </li>
+          
+        </ul>
+        <div class="pd-plan-annual">연간 약정 시 −10% 할인</div>
+        <a href="/#contact" class="pd-plan-cta" data-cursor="hover">14일 무료체험 <span aria-hidden="true">→</span></a>
+      </article>
+      
+      <article class="pd-plan">
+        
+        <div class="pd-plan-name">GROWTH</div>
+        <p class="pd-plan-for">성장기 도매 · 소규모 공구 · 멀티 셀러 운영</p>
+        <div class="pd-plan-price"><strong>₩110,000</strong><span>/월</span></div>
+        <div class="pd-plan-quota">
+          <div class="q-label">월 처리 주문</div>
+          <div class="q-value">2,000건</div>
+          <div class="q-sub">초과 시 100건당 ₩7,900 · 4,000건 초과 시 업그레이드 안내</div>
+        </div>
+        <ul class="pd-plan-features">
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>주문 전량 AI 자동 인식·정리 — 수기 입력 없음</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>AI 3종 — 이미지 주문 입력 · 엑셀 주문 일괄 등록 · AI 채팅</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>AI 채팅 — 상품·주문 조회부터 가격 수정·주문서 다운로드까지, 채팅창에 말하듯 시키면 바로 처리 (월 작업 200회)</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>셀러 30계정 · 공급사 8계정 · 상품 500개</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>주요 12개 메뉴 (STARTER 10개 + 등급 관리·합배송 등)</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>등급별 가격 + 셀러 수수료 개별 설정</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>카테고리 계층 관리 + 배송정책 합배송</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>공급사별 발주서 자동 생성</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>데이터 보관 · 내보내기 지원</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>이메일+카카오 지원(영업일 1~2일)</span>
+          </li>
+          
+        </ul>
+        <div class="pd-plan-annual">연간 약정 시 −15% 할인</div>
+        <a href="/#contact" class="pd-plan-cta" data-cursor="hover">14일 무료체험 <span aria-hidden="true">→</span></a>
+      </article>
+      
+      <article class="pd-plan is-popular">
+        <div class="pd-plan-badge">★ 인기</div>
+        <div class="pd-plan-name">BUSINESS</div>
+        <p class="pd-plan-for">중견 도매 · 공구 · 인플루언서 · 다채널 유통사</p>
+        <div class="pd-plan-price"><strong>₩190,000</strong><span>/월</span></div>
+        <div class="pd-plan-quota">
+          <div class="q-label">월 처리 주문</div>
+          <div class="q-value">5,000건</div>
+          <div class="q-sub">초과 시 100건당 ₩5,900 · 10,000건 초과 시 업그레이드 안내</div>
+        </div>
+        <ul class="pd-plan-features">
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>주문 전량 AI 자동 인식·정리 — 수기 입력 없음</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>AI 3종 전체 — 이미지 주문 입력 · 엑셀 주문 일괄 등록 · AI 채팅</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>AI 채팅 — 조회·분석부터 가격 수정·주문서·리포트 생성까지 채팅으로 시키면 처리 (월 작업 700회 — GROWTH의 3.5배)</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>셀러 100계정 · 공급사 20계정 · 상품 1,000개</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>전체 15개 메뉴 (묶음배송·상품매칭·통계 포함)</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>예치금 충전식 거래 — 셀러 주문 시 잔액 자동 차감, 공급사 원가도 자동 정산·지급</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>데이터 보관 · 내보내기 + 정기 백업</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>이메일+카카오 지원(영업일 1일)</span>
+          </li>
+          
+        </ul>
+        <div class="pd-plan-annual">연간 약정 시 −20% 할인</div>
+        <a href="/#contact" class="pd-plan-cta" data-cursor="hover">14일 무료체험 <span aria-hidden="true">→</span></a>
+      </article>
+      
+      <article class="pd-plan">
+        
+        <div class="pd-plan-name">ENTERPRISE</div>
+        <p class="pd-plan-for">대형 B2B 유통 · 프랜차이즈 본사 · 다지점 운영</p>
+        <div class="pd-plan-price"><strong>₩590,000</strong><span>~/월</span></div>
+        <div class="pd-plan-quota">
+          <div class="q-label">월 처리 주문</div>
+          <div class="q-value">무제한</div>
+          <div class="q-sub">적정 사용 정책(Fair-Use) 적용</div>
+        </div>
+        <ul class="pd-plan-features">
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>BUSINESS의 모든 기능 포함</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>셀러·공급사·상품 전부 무제한</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>AI 채팅 작업 무제한 · AI 주문 인식 무제한</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>공급사별 커스텀 발주서 양식 자동화</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>외부 ERP 연동 (이카운트·더존 등 · 별도 견적)</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>대시보드 이상탐지 + 매출·주문 고급 통계</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>다중 관리자 권한 + 감사 로그</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>장기 보관 · 내보내기 + 전용 백업 정책</span>
+          </li>
+          
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>전담 매니저 · 목표 가용성 99.9% · 장애 시 우선 대응</span>
+          </li>
+          
+        </ul>
+        <div class="pd-plan-annual">연간 약정 시 별도 협의</div>
+        <a href="/#contact" class="pd-plan-cta" data-cursor="hover">맞춤 상담 <span aria-hidden="true">→</span></a>
+      </article>
+      
+    </div>
+
+    
+    <ul class="pd-pricing-notes">
+      <li>전 플랜 공통 — 셀러 초대 코드 · 클레임 미처리 알림 · 통합 CS 관리</li><li>14일 무료체험 · 카드 없이 · 사업자번호 인증 후 시작</li><li>체험 기간 AI 작업 30회 제공 · 종료 후 자동 과금 없음</li><li>AI 채팅 조회는 공정사용 정책 내 무제한</li><li>초과분은 월말 자동 정산 · 사용 전 알림</li>
+    </ul>
+    
+  </div>
+</section>
+
+
+<section class="cta-section reveal">
+  <div class="wrap">
+    <h2>주문을 데이터로<br/><span class="fade">바꿀 준비가 되셨나요?</span></h2>
+    <p>식자재·유통 현장에 맞춘 Sellkitt 도입 상담을 무료로 받아보세요. 현재 주문 흐름을 진단하고 자동화 가능 지점을 먼저 알려드립니다.</p>
+    <a href="/#contact" class="cta-primary magnetic" data-cursor="hover">
+      무료 상담하기
+      <span class="arrow">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </span>
+    </a>
+  </div>
+</section>
+
+
+<footer data-on-dark>
+  <div class="wrap">
+    <svg class="foot-logo" viewBox="0 0 2322.8 1400" xmlns="http://www.w3.org/2000/svg" aria-label="Kitt — AI Operating Partner">
+      <path fill="currentColor" d="M907.9,879.9h224.3V348.1l-224.3,193.9v337.9ZM379.4,384.5l79.1-274.4-226.1,41.1L7.3,926.4l225.7-41,83.1-281.8h-80.3l143.6-219.1ZM695.1,460.4l-121.8-1.8L1015.1,8.1l-391.1,71-321.5,488.6,165.3,2.6-121,190.7,348.3-300.6ZM757.7,879.9l-183.9-267.4-148.5,128.3s76,110.9,94.5,139.1h237.9,0ZM1299.3,651.4c0,157.9,80.8,235.4,242.5,232.5,37.4-.7,76.6-6.6,117.5-17.7,21.7-5.9,40.7-11.9,57.5-17.9v-172.3c-40.6,18.3-74.7,27.8-102.1,28.3s-47.9-4-61.4-13.5-21.7-21.5-24.6-36-4.4-33.6-4.4-57.3v-296.2h192.5v-155.9h-192.5V10.3l-340.8,295h115.8v346.1ZM1183.4,305.3h0,0ZM1781.2,305.4h0,0ZM2314.6,301.3v-155.9h-192.5V10.3l-340.8,295h115.8v346.1c0,157.9,80.8,235.4,242.5,232.5,37.4-.7,76.6-6.6,117.5-17.7,21.7-5.9,40.7-11.9,57.5-17.9v-172.3c-40.6,18.3-74.7,27.8-102.1,28.3s-47.9-4-61.4-13.5-21.7-21.5-24.6-36-4.4-33.6-4.4-57.3v-296.2h192.5ZM925.1,235.3c0,17.4,4.2,33.2,12.5,47.4s19.7,25.3,34,33.4c14.4,8,30.3,11.9,47.7,11.6,25.8-.4,48-10,66.7-28.6s28.1-41,28.1-67.2h0c0-25.6-9.4-47.7-28.1-66.1s-40.9-27.4-66.7-26.9c-26.2.4-48.4,10.2-66.7,29.2s-27.4,41.4-27.4,67.2h0ZM543.3,1087.7c14.7,0,25.6,5,34.1,11.6v-10.1c-8.3-6.2-21.8-10.4-34.1-10.4v.2c-28.9,0-53.2,20.6-53.2,54.2s24.3,54.2,53.2,54.2,25.8-4.2,34.1-10.4v-10.1c-8.5,6.6-9,11.6-34.1,11.6s-43.3-18.2-43.3-45.4,18.2-45.4,43.3-45.4h0ZM668.8,1147.6c0-21.9-16.3-39.9-39.2-39.9s-39.2,18-39.2,39.9,16.3,39.9,39.2,39.9,39.2-18,39.2-39.9ZM629.6,1179c-17,0-30-13.2-30-31.5s13-31.5,30-31.5,30,13.2,30,31.5-13,31.5-30,31.5ZM685.8,1081h9.2v104h-9.2v-104ZM717.1,1081h9.2v104h-9.2v-104ZM811.7,1169.7l.3,15.4h8v-74.9h-8l-.3,15.4c-5.7-12-19.4-17.5-30.3-17.5h0c-21.7,0-37.3,16.9-37.3,39.6s15.6,39.5,37.3,39.5,24.6-5.5,30.3-17.5ZM782.5,1178.9c-15.9,0-29.1-11.6-29.1-31.4s13.2-31.4,29.1-31.4,29.1,11.6,29.1,31.4-13.2,31.4-29.1,31.4ZM881,1108c-11,0-23.8,5.6-29.5,15.8v-42.8h-9.2v104h8l.3-15.4c5.7,12,19.4,17.5,30.3,17.5h0c21.7,0,37.3-16.9,37.3-39.6s-15.6-39.5-37.3-39.5h0ZM879.9,1179c-15.9,0-29.1-11.6-29.1-31.4s13.2-31.4,29.1-31.4,29.1,11.6,29.1,31.4-13.2,31.4-29.1,31.4ZM970,1107.7c-22.9,0-39.2,18-39.2,39.9s16.3,39.9,39.2,39.9,39.2-18,39.2-39.9-16.3-39.9-39.2-39.9ZM970,1179c-17,0-30-13.2-30-31.5s13-31.5,30-31.5,30,13.2,30,31.5-13,31.5-30,31.5ZM1063.5,1107.9c-11.5,0-23.4,8-28.8,16.5l-1-15.2-7.6,1.6v74h9.2v-44.7c0-13.2,14.5-23.6,28.2-21.5v-10.7h0ZM1026.1,1110.8h0v-.2.2ZM1138.9,1125.6c-5.7-12-19.4-17.5-30.3-17.5h0c-21.7,0-37.3,16.9-37.3,39.6s15.6,39.5,37.3,39.5,24.6-5.5,30.3-17.5l.3,15.4h8v-74.9h-8l-.3,15.4ZM1109.6,1178.9c-15.9,0-29.1-11.6-29.1-31.4s13.2-31.4,29.1-31.4,29.1,11.6,29.1,31.4-13.2,31.4-29.1,31.4ZM1187.6,1185v-67.1h16.8v-7.8h-16.8v-20.4h-9.2v20.4h-16.8v7.8h16.8v67.1h9.2ZM1279.3,1144.1c.4-2.4.7,9.2.7-7.6s-13.2-28.6-30.7-28.6-34.8,16-34.8,39,15.4,40,36.2,40,22.2-3.6,28.4-8.8v-8c-6.9,5.1.5,8.7-23.9,8.7s-32.9-17.9-31.5-34.7h55.6ZM1249.8,1115.7c13.6,0,22.7,9.3,21.1,21.3h-46.6c3-14.5,14.1-21.3,25.5-21.3ZM1249.3,1107.9h0ZM1435.7,1110.1h-8.5l-21.5,60.8-22.9-60.8h-6.1l-22.4,60.8-22-60.8h-9.1l27.4,74.9h6.6l22.5-60.1,21.8,60.1h6.8l27.4-74.9ZM1449.5,1081h9.2v11.8h-9.2v-11.8ZM1449.5,1110.1h9.2v74.9h-9.2v-74.9ZM1499,1185v-67.1h16.8v-7.8h-16.8v-20.4h-9.2v20.4h-16.8v7.8h16.8v67.1h9.2ZM1586.7,1185h9.2v-44c0-21.3-9.3-32.9-27.7-32.9h0c-12.1,0-23.5,6.9-28.9,16.4v-43.5h-9.2v104h9.2v-42.6c0-13.1,14.3-25.6,26.9-25.6s20.6,6.2,20.6,25.6v42.6h0ZM1725.6,1185h10.4l-43-104h-7.8l-43,104h9.9l12.3-30.2h48.7l12.5,30.2ZM1667.8,1146.3l20.8-51.1,21,51.1h-41.8ZM1749.5,1081h9.5v104h-9.5v-104ZM1780.7,1205.4h0ZM1793.2,1183.9v-10.4h-11.4v11.4h5c0,7.1-2.4,14.3-8.1,17.2l2.1,3.3c8.1-2.6,12.4-11.1,12.4-21.5ZM494.5,1239.1l-43,104h9.9l12.3-30.2h48.7l12.5,30.2h10.4l-43-104h-7.8ZM477.2,1304.4l20.8-51.1,21,51.1h-41.8ZM615.2,1310.8c0,13.1-14.3,25.6-26.9,25.6s-20.6-6.2-20.6-25.6v-42.5h-9.2v44c0,21.3,9.3,32.9,27.7,32.9s24.3-7.3,29.5-17.2l.7,15.1h8v-74.9h-9.2v42.6ZM664.7,1247.8h-9.2v20.4h-16.8v7.8h16.8v67.1h9.2v-67.1h16.8v-7.8h-16.8v-20.4ZM729.7,1265.8c-22.9,0-39.2,18-39.2,39.9s16.3,39.9,39.2,39.9,39.2-18,39.2-39.9-16.3-39.9-39.2-39.9ZM729.7,1337.1c-17,0-30-13.2-30-31.5s13-31.5,30-31.5,30,13.2,30,31.5-13,31.5-30,31.5ZM874.2,1266.1h0c-12.5,0-22,6.9-28.1,17.6-3.3-10.6-12.3-17.7-24.8-17.7s-22.2,7.2-26.9,16.6l-.7-14.6h-8v74.9h9.2v-42.6c0-13.1,12.8-25.6,24.6-25.6s19.1,5.4,19.1,24.8v43.5h9.2v-42.6c0-13.1,12.8-25.6,24.6-25.6s19.1,5.4,19.1,24.8v43.5h9.2v-44.9c0-21.4-9-32.1-26.5-32.1h0ZM986,1283.6c-5.7-12-19.4-17.5-30.3-17.5h0c-21.7,0-37.3,16.9-37.3,39.6s15.6,39.5,37.3,39.5,24.6-5.5,30.3-17.5l.3,15.4h8v-74.9h-8l-.3,15.4ZM956.7,1337c-15.9,0-29.1-11.6-29.1-31.4s13.2-31.4,29.1-31.4,29.1,11.6,29.1,31.4-13.2,31.4-29.1,31.4ZM1034.7,1247.8h-9.2v20.4h-16.8v7.8h16.8v67.1h9.2v-67.1h16.8v-7.8h-16.8v-20.4ZM1096.4,1265.9c-17.3,0-34.8,16-34.8,39s15.4,40,36.2,40,22.2-3.6,28.4-8.8v-8c-6.9,5.1.5,8.7-23.9,8.7s-32.9-17.9-31.5-34.7h55.6c.4-2.4.7,9.2.7-7.6s-13.2-28.6-30.7-28.6h0ZM1118,1295h-46.6c3-14.5,14.1-21.3,25.5-21.3s22.7,9.3,21.1,21.3ZM1096.4,1265.9h0ZM1178.7,1343.1h58.9v-8.5h-49.4v-41.9h40.7v-8.5h-40.7v-36.6h49.4v-8.5h-58.9v104ZM1279.2,1330.4l-25.8-62.2h-9.7l31.5,74.9h7.1l31.5-74.9h-9l-25.6,62.2ZM1355.6,1265.9c-17.3,0-34.8,16-34.8,39s15.4,40,36.2,40,22.2-3.6,28.4-8.8v-8c-6.9,5.1.5,8.7-23.9,8.7s-32.9-17.9-31.5-34.7h55.6c.4-2.4.7,9.2.7-7.6s-13.2-28.6-30.7-28.6h0ZM1377.3,1295h-46.6c3-14.5,14.1-21.3,25.5-21.3s22.7,9.3,21.1,21.3ZM1355.6,1265.9h0ZM1413.3,1282.5l-1-15.2-7.6,1.6v74h9.2v-44.7c0-13.2,14.5-23.6,28.2-21.5v-10.7c-11.5,0-23.4,8-28.8,16.5h0ZM1404.7,1268.9h0v-.2.2ZM1486.2,1330.5l-25.8-62.2h-9.7l30.7,72.6-15.2,36h-.2c0,0,9,0,9,0l45.8-108.7h-9l-25.6,62.2ZM1551.8,1247.8h-9.2v20.4h-16.8v7.8h16.8v67.1h9.2v-67.1h16.8v-7.8h-16.8v-20.4ZM1621,1266.1h0c-12.1,0-23.5,6.9-28.9,16.4v-43.5h-9.2v104h9.2v-42.6c0-13.1,14.3-25.6,26.9-25.6s20.6,6.2,20.6,25.6v42.6h9.2v-44c0-21.3-9.3-32.9-27.7-32.9h0ZM1670.7,1239.1h9.2v11.8h-9.2v-11.8ZM1670.7,1268.2h9.2v74.9h-9.2v-74.9ZM1740.2,1266.1c-12.5,0-24.3,7.3-29.5,17.2l-.7-15.1h-8v74.9h9.2v-42.6c0-13.1,14.3-25.6,26.9-25.6s20.6,6.2,20.6,25.6v42.5h9.2v-44c0-21.3-9.3-32.9-27.7-32.9ZM1853,1283.7c-5.7-12-8.6-17.5-30.3-17.5s-37.3,16.8-37.3,39.5,15.6,39.5,37.3,39.5,23.8-5.6,29.5-15.8v7.6c0,25.6-16.9,33.1-28.9,33.1s-22-3.3-31.2-8.8v9c7.2,4.3,19.5,8.1,30.2,8.1h-.2c17.4,0,39.2-7.2,39.2-41.5v-68.6h-8l-.3,15.4h0ZM1823.9,1337c-15.9,0-29.1-11.6-29.1-31.4s13.2-31.4,29.1-31.4,29.1,11.6,29.1,31.4-13.2,31.4-29.1,31.4Z"/>
+    </svg>
+    <div class="foot-meta">
+      <div class="foot-col">
+        <div class="label">CONTACT</div>
+        <div class="v">partner@kitt.ai.kr</div>
+        <div class="sub">서울시 서초구<br/>서초대로22길 22-18, 4F</div>
+      </div>
+      <div class="foot-col">
+        <div class="label">COMPANY</div>
+        <div class="v">Kitt AI inc.</div>
+        <div class="sub">대표 유승범<br/>사업자등록번호 332-81-03825</div>
+      </div>
+      <div class="foot-col">
+        <div class="label">PRODUCTS</div>
+        <a href="#" data-cursor="hover">Workkitt</a>
+        <a href="#" data-cursor="hover">Sellkitt</a>
+        <a href="#" data-cursor="hover">Kitt</a>
+      </div>
+      <div class="foot-col">
+        <div class="label">SITEMAP</div>
+        <a href="/about/" data-cursor="hover">About</a>
+        <a href="/services/" data-cursor="hover">Services</a>
+        <a href="/products/" data-cursor="hover">Products</a>
+        <a href="/portfolio/" data-cursor="hover">Portfolio</a>
+        <a href="/education/" data-cursor="hover">Education</a>
+        <a href="/#contact" data-cursor="hover">Contact</a>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="copy">© 2026 KITT AI INC.</div>
+      <div class="biz">ALL RIGHTS RESERVED.</div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/assets/app.js"></script>
+
+</body>
+</html>
