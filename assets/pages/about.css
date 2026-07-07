@@ -65,6 +65,13 @@
   padding-bottom: 20px;
   scrollbar-width: thin;
   scrollbar-color: #d4d4d4 transparent;
+  cursor: grab;
+}
+.team.dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+  scroll-behavior: auto;
 }
 .team::-webkit-scrollbar { height: 6px; }
 .team::-webkit-scrollbar-track { background: transparent; }

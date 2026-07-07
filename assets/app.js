@@ -106,6 +106,45 @@
     });
   }
 
+  /* ---------- Team slider drag-to-scroll ----------
+     Touch devices scroll the strip natively; this adds
+     mouse dragging on the cards. Snap is disabled while
+     dragging and the strip smooth-snaps to the nearest
+     card on release. */
+  const teamSlider = $('.team');
+  if (teamSlider) {
+    let down = false, dragged = false, startX = 0, startLeft = 0;
+    teamSlider.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true; dragged = false;
+      startX = e.clientX; startLeft = teamSlider.scrollLeft;
+      teamSlider.classList.add('dragging');
+    });
+    addEventListener('pointermove', (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 5) dragged = true;
+      teamSlider.scrollLeft = startLeft - dx;
+    });
+    const release = () => {
+      if (!down) return;
+      down = false;
+      const card = $('.member', teamSlider);
+      if (card && dragged) {
+        const gap  = parseFloat(getComputedStyle(teamSlider).columnGap) || 0;
+        const step = card.offsetWidth + gap;
+        teamSlider.scrollTo({ left: Math.round(teamSlider.scrollLeft / step) * step, behavior: 'smooth' });
+      }
+      setTimeout(() => teamSlider.classList.remove('dragging'), 400);
+    };
+    addEventListener('pointerup', release);
+    addEventListener('pointercancel', release);
+    teamSlider.addEventListener('dragstart', (e) => e.preventDefault());
+    teamSlider.addEventListener('click', (e) => {
+      if (dragged) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+  }
+
   /* ---------- Dark-section cursor inversion ----------
      Light-theme pages only. Mark dark sections in markup
      with the [data-on-dark] attribute; when one crosses
