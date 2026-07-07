@@ -57,8 +57,23 @@
   line-height: 1.7;
   color: var(--muted); text-align: right;
 }
-.team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-.member { position: relative; }
+.team {
+  display: flex; gap: 40px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d4 transparent;
+}
+.team::-webkit-scrollbar { height: 6px; }
+.team::-webkit-scrollbar-track { background: transparent; }
+.team::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 3px; }
+.member {
+  position: relative;
+  flex: 0 0 calc((100% - 80px) / 3);
+  scroll-snap-align: start;
+}
 .member .photo {
   width: 100%; aspect-ratio: 1 / 1.1;
   background: #e8e8e8; border-radius: 4px;
@@ -86,7 +101,8 @@
 .member .name { font-size: 28px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 16px; }
 .member .bio { font-size: 14px; line-height: 1.7; color: var(--ink-2); }
 @media (max-width: 768px) {
-  .team { grid-template-columns: 1fr; gap: 48px; }
+  .team { gap: 24px; }
+  .member { flex-basis: 82%; }
   .team-head .desc { text-align: left; }
 }
 
