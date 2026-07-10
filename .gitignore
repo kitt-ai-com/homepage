@@ -1,0 +1,4 @@
+# local agent/IDE state
+.idea/
+.omc/
+.claude/
