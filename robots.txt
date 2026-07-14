@@ -18,4 +18,72 @@ Allow: /
 Disallow: /proposals/
 Disallow: /archive/
 
+# ---------------------------------------------------------------
+# AI 검색·답변 엔진 (GEO)
+# 아래 크롤러를 명시적으로 허용해 LLM 기반 검색·답변에서
+# kitt.ai.kr이 인용되도록 합니다. 고객사 문서는 동일하게 차단합니다.
+# ---------------------------------------------------------------
+
+# OpenAI — ChatGPT
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /proposals/
+Disallow: /archive/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /proposals/
+Disallow: /archive/
+
+User-agent: GPTBot
+Allow: /
+Disallow: /proposals/
+Disallow: /archive/
+
+# Anthropic — Claude
+User-agent: ClaudeBot
+Allow: /
+Disallow: /proposals/
+Disallow: /archive/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /proposals/
+Disallow: /archive/
+
+User-agent: Claude-User
+Allow: /
+Disallow: /proposals/
+Disallow: /archive/
+
+# Google — Gemini / AI Overviews
+User-agent: Google-Extended
+Allow: /
+Disallow: /proposals/
+Disallow: /archive/
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+Disallow: /proposals/
+Disallow: /archive/
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /proposals/
+Disallow: /archive/
+
+# Meta AI
+User-agent: meta-externalagent
+Allow: /
+Disallow: /proposals/
+Disallow: /archive/
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /proposals/
+Disallow: /archive/
+
+# LLM용 사이트 요약: https://kitt.ai.kr/llms.txt
 Sitemap: https://kitt.ai.kr/sitemap.xml

@@ -531,38 +531,7 @@ section.hero {
 .view-all .arr { transition: transform .3s; }
 .view-all:hover .arr { transform: translate(4px, -4px); }
 
-/* ---------- FAQ ---------- */
-.faq { display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; }
-.faq-left h2 {
-  font-size: clamp(40px, 5vw, 56px);
-  font-weight: 800; letter-spacing: -0.04em; line-height: 1.1;
-}
-.faq-list { display: flex; flex-direction: column; }
-.faq-item { border-top: 1px solid var(--line); padding: 28px 0; }
-.faq-item:last-child { border-bottom: 1px solid var(--line); }
-.faq-q {
-  display: flex; justify-content: space-between; align-items: center;
-  gap: 24px;
-}
-.faq-q .q {
-  font-size: 17px; font-weight: 700; letter-spacing: -0.015em;
-  transition: color .2s;
-}
-.faq-item:hover .faq-q .q { color: var(--accent); }
-.faq-q .ic {
-  width: 24px; height: 24px;
-  color: var(--muted);
-  transition: transform .3s, color .3s;
-  flex-shrink: 0;
-}
-.faq-item:hover .faq-q .ic { color: var(--accent); }
-.faq-item.open .faq-q .ic { transform: rotate(45deg); color: var(--ink); }
-.faq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease, margin-top .3s; }
-.faq-item.open .faq-a { max-height: 360px; margin-top: 18px; }
-.faq-a p { font-size: 15px; line-height: 1.8; color: var(--ink-2); max-width: 680px; }
-@media (max-width: 900px) {
-  .faq { grid-template-columns: 1fr; gap: 48px; }
-}
+/* FAQ accordion styles are shared — see assets/styles.css */
 
 /* ---------- CONTACT ---------- */
 .contact h2 {

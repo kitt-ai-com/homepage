@@ -3,14 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Products | Kitt</title>
-<meta name="description" content="Kitt가 직접 만들고 운영하는 SaaS 라인업 — Workkitt, Sellkitt, Kitt." />
+<title>Products | Workkitt·Sellkitt — Kitt AI가 만든 업무 AI SaaS</title>
+<meta name="description" content="Kitt AI가 직접 만들고 운영하는 SaaS 라인업. Workkitt(내부 업무 OS), Sellkitt(AI 발주 자동화), Kitt(AI 오케스트레이션 코어)." />
+<meta name="robots" content="index, follow" />
+<meta name="keywords" content="Workkitt, Sellkitt, 업무 자동화 SaaS, AI 발주 자동화, 업무 OS, AI 에이전트 플랫폼" />
+<link rel="canonical" href="https://kitt.ai.kr/products/" />
 <!-- Open Graph (링크드인·카카오톡·페이스북 공유 썸네일) -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Kitt AI" />
 <meta property="og:locale" content="ko_KR" />
-<meta property="og:title" content="Products | Kitt" />
-<meta property="og:description" content="Kitt가 직접 만들고 운영하는 SaaS 라인업 — Workkitt, Sellkitt, Kitt." />
+<meta property="og:title" content="Products | Workkitt·Sellkitt — Kitt AI가 만든 업무 AI SaaS" />
+<meta property="og:description" content="Kitt AI가 직접 만들고 운영하는 SaaS 라인업. Workkitt(내부 업무 OS), Sellkitt(AI 발주 자동화), Kitt(AI 오케스트레이션 코어)." />
 <meta property="og:url" content="https://kitt.ai.kr/products/" />
 <meta property="og:image" content="https://kitt.ai.kr/assets/sns_image.png" />
 <meta property="og:image:width" content="1024" />
@@ -18,9 +21,88 @@
 <meta property="og:image:alt" content="Kitt AI — 실제로 일하는 AI를 만듭니다" />
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Products | Kitt" />
-<meta name="twitter:description" content="Kitt가 직접 만들고 운영하는 SaaS 라인업 — Workkitt, Sellkitt, Kitt." />
+<meta name="twitter:title" content="Products | Workkitt·Sellkitt — Kitt AI가 만든 업무 AI SaaS" />
+<meta name="twitter:description" content="Kitt AI가 직접 만들고 운영하는 SaaS 라인업. Workkitt(내부 업무 OS), Sellkitt(AI 발주 자동화), Kitt(AI 오케스트레이션 코어)." />
 <meta name="twitter:image" content="https://kitt.ai.kr/assets/sns_image.png" />
+<!-- JSON-LD: 자체 SaaS 제품 라인업 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://kitt.ai.kr/products/#webpage",
+      "url": "https://kitt.ai.kr/products/",
+      "name": "Products | Workkitt·Sellkitt — Kitt AI가 만든 업무 AI SaaS",
+      "description": "Kitt AI가 직접 만들고 운영하는 SaaS 라인업. Workkitt(내부 업무 OS), Sellkitt(AI 발주 자동화), Kitt(AI 오케스트레이션 코어).",
+      "isPartOf": { "@id": "https://kitt.ai.kr/#website" },
+      "about": { "@id": "https://kitt.ai.kr/#organization" },
+      "inLanguage": "ko-KR",
+      "breadcrumb": { "@id": "https://kitt.ai.kr/products/#breadcrumb" },
+      "mainEntity": { "@id": "https://kitt.ai.kr/products/#productlist" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://kitt.ai.kr/products/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://kitt.ai.kr/" },
+        { "@type": "ListItem", "position": 2, "name": "제품", "item": "https://kitt.ai.kr/products/" }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://kitt.ai.kr/products/#productlist",
+      "name": "Kitt AI 제품 라인업",
+      "numberOfItems": 3,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "SoftwareApplication",
+            "@id": "https://kitt.ai.kr/products/#workkitt",
+            "name": "Workkitt",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "description": "팀의 일하는 방식을 다시 설계한 내부 업무 OS. Slack·Notion·Drive로 흩어져 있던 도구를 하나의 흐름으로 통합하고, AI가 자동으로 정리·요약·후속 액션을 만듭니다.",
+            "publisher": { "@id": "https://kitt.ai.kr/#organization" },
+            "inLanguage": "ko-KR"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "SoftwareApplication",
+            "@id": "https://kitt.ai.kr/products/#sellkitt",
+            "name": "Sellkitt",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "description": "복잡한 발주·재고·정산 프로세스를 단순하게 만드는 AI 발주 자동화 서비스. 식자재·소형 유통사가 카카오톡·전화로 받던 주문을 표준화된 데이터로 흡수합니다.",
+            "publisher": { "@id": "https://kitt.ai.kr/#organization" },
+            "url": "https://kitt.ai.kr/products/sellkitt/",
+            "inLanguage": "ko-KR"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "SoftwareApplication",
+            "@id": "https://kitt.ai.kr/products/#kitt",
+            "name": "Kitt",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "description": "Workkitt·Sellkitt를 포함한 Kitt 제품 라인업과 외부 도구를 연결하는 AI 오케스트레이션 코어. 도메인 맞춤 에이전트를 코드 없이 설계하고 운영합니다.",
+            "publisher": { "@id": "https://kitt.ai.kr/#organization" },
+            "inLanguage": "ko-KR"
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -170,11 +252,16 @@
         <a href="/products/" data-cursor="hover">Products</a>
         <a href="/portfolio/" data-cursor="hover">Portfolio</a>
         <a href="/education/" data-cursor="hover">Education</a>
+        <a href="/faq/" data-cursor="hover">FAQ</a>
         <a href="/#contact" data-cursor="hover">Contact</a>
       </div>
     </div>
     <div class="foot">
       <div class="copy">© 2026 KITT AI INC.</div>
+      <div class="legal-links">
+        <a href="/privacy/" data-cursor="hover">개인정보처리방침</a>
+        <a href="/terms/" data-cursor="hover">이용약관</a>
+      </div>
       <div class="biz">ALL RIGHTS RESERVED.</div>
     </div>
   </div>

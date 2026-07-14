@@ -282,6 +282,12 @@ body.theme-dark footer { border-top: 1px solid var(--line-dark); }
   font-size: 11px; color: var(--muted);
   font-family: var(--mono); letter-spacing: 0.08em;
 }
+.foot .legal-links { display: flex; gap: 20px; }
+.foot .legal-links a {
+  font-size: 11px; color: var(--muted-2);
+  transition: color .2s;
+}
+.foot .legal-links a:hover { color: var(--accent); }
 .foot-business {
   font-size: 11px; color: var(--muted); line-height: 1.7;
   margin-bottom: 16px;
@@ -292,6 +298,56 @@ body.theme-dark footer { border-top: 1px solid var(--line-dark); }
 .foot-business .item .v { color: var(--muted-2); }
 
 @media (max-width: 768px) { .foot-meta { grid-template-columns: 1fr 1fr; gap: 32px; } }
+
+/* ---------- FAQ ACCORDION ----------
+   Behaviour lives in app.js (.faq-item toggle), so the styles are
+   shared too — used by the home FAQ section and the /faq/ page. */
+.faq { display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; }
+.faq-left h2 {
+  font-size: clamp(40px, 5vw, 56px);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.1;
+}
+.faq-list { display: flex; flex-direction: column; }
+.faq-item { border-top: 1px solid var(--line); padding: 28px 0; }
+.faq-item:last-child { border-bottom: 1px solid var(--line); }
+body.theme-dark .faq-item { border-top-color: var(--line-dark); }
+body.theme-dark .faq-item:last-child { border-bottom-color: var(--line-dark); }
+.faq-q {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 24px;
+}
+.faq-q .q {
+  font-size: 17px; font-weight: 700; letter-spacing: -0.015em;
+  transition: color .2s;
+}
+.faq-item:hover .faq-q .q { color: var(--accent); }
+.faq-q .ic {
+  width: 24px; height: 24px;
+  color: var(--muted);
+  transition: transform .3s, color .3s;
+  flex-shrink: 0;
+}
+.faq-item:hover .faq-q .ic { color: var(--accent); }
+.faq-item.open .faq-q .ic { transform: rotate(45deg); color: var(--ink); }
+body.theme-dark .faq-item.open .faq-q .ic { color: var(--paper); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease, margin-top .3s; }
+.faq-item.open .faq-a { max-height: 600px; margin-top: 18px; }
+.faq-a p { font-size: 15px; line-height: 1.8; color: var(--ink-2); max-width: 680px; }
+body.theme-dark .faq-a p { color: var(--muted-2); }
+.faq-all {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 28px;
+  font-family: var(--mono);
+  font-size: 12px; letter-spacing: 0.08em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 6px;
+  transition: color .2s, border-color .2s;
+}
+.faq-all:hover { color: var(--accent); border-bottom-color: var(--accent); }
+@media (max-width: 900px) {
+  .faq { grid-template-columns: 1fr; gap: 48px; }
+}
 
 /* ---------- SCROLL REVEAL ---------- */
 .reveal {

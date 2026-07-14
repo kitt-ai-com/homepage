@@ -1,0 +1,191 @@
+/* ============================================================
+   Kitt — document pages
+   Shared by /faq/, /privacy/, /terms/.
+   Light theme, text-forward layout. Depends on styles.css tokens.
+   ============================================================ */
+
+/* ---------- PAGE HERO ---------- */
+.page-hero { padding: 180px 0 72px; }
+.page-hero .crumb {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: 0.16em;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+.page-hero .crumb a { transition: color .2s; }
+.page-hero .crumb a:hover { color: var(--accent); }
+.page-hero .crumb .sep { color: var(--muted-2); }
+.page-hero .crumb [aria-current] { color: var(--ink); }
+.page-hero h1 {
+  font-size: clamp(44px, 7vw, 88px);
+  font-weight: 900; letter-spacing: -0.045em; line-height: 1.02;
+  margin-bottom: 28px;
+}
+.page-hero .lead {
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.75;
+  color: var(--ink-2);
+  max-width: 720px;
+}
+.page-hero .updated {
+  margin-top: 32px;
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+/* ---------- FAQ PAGE ---------- */
+.faq-page { padding: 0 0 120px; }
+.faq-group { padding-top: 72px; }
+.faq-group + .faq-group { padding-top: 88px; }
+.faq-group > .head {
+  display: flex; align-items: baseline; gap: 16px;
+  margin-bottom: 12px;
+}
+.faq-group > .head .num {
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: 0.16em;
+  color: var(--accent);
+}
+.faq-group > .head h2 {
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 800; letter-spacing: -0.03em;
+}
+.faq-group > .desc {
+  font-size: 15px; line-height: 1.8; color: var(--muted);
+  max-width: 640px;
+  margin-bottom: 28px;
+}
+
+/* On the FAQ page every answer is open by default so that crawlers and
+   readers get the text without a click; the accordion still toggles. */
+.faq-page .faq-item.open .faq-a { max-height: 900px; }
+.faq-page .faq-a p + p { margin-top: 14px; }
+.faq-page .faq-a ul {
+  margin-top: 14px;
+  padding-left: 18px;
+  max-width: 680px;
+}
+.faq-page .faq-a li {
+  font-size: 15px; line-height: 1.8; color: var(--ink-2);
+  margin-bottom: 6px;
+}
+.faq-page .faq-a a { color: var(--accent); border-bottom: 1px solid currentColor; }
+
+/* ---------- LEGAL DOCUMENT ---------- */
+.doc { padding: 0 0 120px; }
+.doc-body { max-width: 760px; }
+.doc-body section { padding: 0; margin-bottom: 56px; }
+.doc-body h2 {
+  font-size: 22px; font-weight: 800; letter-spacing: -0.025em;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.doc-body h3 {
+  font-size: 16px; font-weight: 700; letter-spacing: -0.015em;
+  margin: 24px 0 10px;
+}
+.doc-body p {
+  font-size: 15px; line-height: 1.85; color: var(--ink-2);
+  margin-bottom: 14px;
+}
+.doc-body ul, .doc-body ol { padding-left: 20px; margin-bottom: 16px; }
+.doc-body li {
+  font-size: 15px; line-height: 1.85; color: var(--ink-2);
+  margin-bottom: 8px;
+}
+.doc-body a { color: var(--accent); border-bottom: 1px solid currentColor; }
+.doc-body strong { font-weight: 700; color: var(--ink); }
+
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 16px;
+  font-size: 14px;
+}
+.doc-table th, .doc-table td {
+  text-align: left;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  line-height: 1.7;
+  vertical-align: top;
+}
+.doc-table th {
+  background: var(--paper);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+}
+.doc-table td { color: var(--ink-2); }
+
+.doc-note {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--accent);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+.doc-note p:last-child { margin-bottom: 0; }
+
+/* ---------- TOC ---------- */
+.doc-grid { display: grid; grid-template-columns: 220px 1fr; gap: 72px; align-items: start; }
+.doc-toc { position: sticky; top: 104px; }
+.doc-toc .label {
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.doc-toc a {
+  display: block;
+  font-size: 13px; line-height: 1.6;
+  color: var(--muted);
+  padding: 7px 0;
+  transition: color .2s;
+}
+.doc-toc a:hover { color: var(--accent); }
+
+/* ---------- CLOSING CTA (light theme) ---------- */
+.cta-section {
+  text-align: center; padding: 120px 0;
+  border-top: 1px solid var(--line);
+}
+.cta-section h2 {
+  font-weight: 900;
+  font-size: clamp(40px, 7vw, 88px); letter-spacing: -0.05em;
+  line-height: 0.95; margin-bottom: 32px;
+}
+.cta-section h2 .fade { color: var(--muted-2); }
+.cta-section p {
+  font-size: 15px; color: var(--muted);
+  max-width: 560px; margin: 0 auto 48px;
+  line-height: 1.7;
+}
+.cta-primary {
+  display: inline-flex; align-items: center; gap: 20px;
+  background: var(--ink); color: var(--paper);
+  padding: 14px 14px 14px 44px;
+  border-radius: 999px;
+  font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
+  transition: transform .25s cubic-bezier(.2, .7, .2, 1);
+  will-change: transform;
+}
+.cta-primary .arrow {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--paper); color: var(--ink);
+  display: grid; place-items: center;
+  transition: transform .3s;
+}
+.cta-primary:hover .arrow { transform: rotate(-45deg); }
+
+@media (max-width: 900px) {
+  .doc-grid { grid-template-columns: 1fr; gap: 40px; }
+  .doc-toc { position: static; }
+  .page-hero { padding: 140px 0 56px; }
+}
+@media (max-width: 768px) {
+  .cta-section h2 { font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+}

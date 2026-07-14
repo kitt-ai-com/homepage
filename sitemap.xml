@@ -2,38 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://kitt.ai.kr/</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://kitt.ai.kr/about/</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://kitt.ai.kr/services/</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://kitt.ai.kr/faq/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kitt.ai.kr/about/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://kitt.ai.kr/products/</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kitt.ai.kr/education/</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kitt.ai.kr/portfolio/</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kitt.ai.kr/products/sellkitt/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kitt.ai.kr/privacy/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://kitt.ai.kr/terms/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>
