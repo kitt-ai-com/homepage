@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cardnews | 카드뉴스 · AI 인사이트 | Kitt AI</title>
+<meta name="description" content="Kitt AI가 전하는 AI 인사이트 카드뉴스 — 파인튜닝, LLM, 에이전트, 자동화까지 실무에 바로 쓰는 지식을 한 장씩 정리합니다." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://kitt.ai.kr/cardnews/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Kitt AI" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:title" content="Cardnews | 카드뉴스 · AI 인사이트 | Kitt AI" />
+<meta property="og:description" content="AI 인사이트 카드뉴스 — 실무에 바로 쓰는 지식을 한 장씩 정리합니다." />
+<meta property="og:url" content="https://kitt.ai.kr/cardnews/" />
+<meta property="og:image" content="https://kitt.ai.kr/assets/sns_image.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='Inter,sans-serif' font-size='64' font-weight='900' text-anchor='middle' fill='%23f48d65'%3EK%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="/assets/styles.css" />
+<style>
+  .cnx-hero { padding: 120px 0 48px; }
+  .cnx-hero .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .cnx-hero .count { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 22px; }
+  .cnx-hero h1 { font-size: clamp(44px, 8vw, 84px); line-height: 1.02; letter-spacing: -0.03em; }
+  .cnx-hero h1 .light { color: var(--accent); }
+  .cnx-hero .desc { margin-top: 22px; max-width: 560px; color: var(--muted-2); font-size: 17px; line-height: 1.85; letter-spacing: -0.01em; }
+
+  .cnx-grid {
+    max-width: 1080px; margin: 0 auto; padding: 8px 24px 120px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px;
+  }
+  .cnx-card {
+    display: block; text-decoration: none; border: 1px solid var(--line-dark);
+    border-radius: 16px; overflow: hidden; background: #0d0d0d;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .cnx-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .cnx-thumb { aspect-ratio: 16 / 10; background-size: cover; background-position: center; position: relative; }
+  .cnx-thumb::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent 60%); }
+  .cnx-thumb .badge {
+    position: absolute; top: 14px; left: 14px; z-index: 1;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em;
+    color: #0e0e10; background: #c4ff3d; border-radius: 6px; padding: 5px 10px; font-weight: 600;
+  }
+  .cnx-body { padding: 22px 22px 26px; }
+  .cnx-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--muted); }
+  .cnx-card h3 { font-size: 21px; color: var(--paper); margin: 12px 0 10px; line-height: 1.35; letter-spacing: -0.01em; font-weight: 600; }
+  .cnx-blurb { font-size: 14px; color: var(--muted-2); line-height: 1.75; }
+  .cnx-foot { margin-top: 18px; display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--muted); }
+  .cnx-card:hover .cnx-foot .go { color: var(--accent); }
+</style>
+</head>
+<body class="theme-dark">
+<div class="cursor" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="grid-bg" aria-hidden="true"></div>
+
+<nav class="top">
+  <div class="wrap">
+    <div class="row">
+      <a href="/" class="logo" aria-label="Kitt">
+        <svg viewBox="0 0 2322.8 930.2" xmlns="http://www.w3.org/2000/svg">
+          <path fill="currentColor" d="M910.4,538.6l224.3-193.9v531.8h-224.3v-337.9ZM382,381.2l79-274.4-226,41L9.9,923l225.7-41,83.1-281.8h-80.3l143.6-219ZM697.7,457l-121.8-1.8L1017.7,4.7l-391.1,71.1-321.5,488.6,165.3,2.6-121.1,190.7,348.4-300.7ZM427.8,737.4h0s76,110.9,94.5,139.1h237.9l-183.9-267.4-148.5,128.3ZM1185.8,302l.3-.2h-.3v.2ZM1526.7,7.1l-340.6,294.7h115.6v346.2c0,157.9,80.8,235.4,242.5,232.5,37.4-.7,76.6-6.6,117.5-17.7,21.7-5.9,40.8-11.9,57.5-17.9v-172.3c-40.6,18.3-74.7,27.8-102.1,28.3s-47.9-4-61.4-13.5-21.7-21.5-24.6-36-4.4-33.6-4.4-57.3v-296.2h192.5v-155.8h-192.5V7.1ZM1526.7,7h0c0,0,.1,0,.1,0h-.1ZM2317,297.9v-155.8h-192.5V7l-340.7,294.8h-.2v.2l.3-.2h115.5v346.2c0,157.9,80.8,235.4,242.5,232.5,37.4-.7,76.6-6.6,117.5-17.7,21.7-5.9,40.8-11.9,57.5-17.9v-172.3c-40.6,18.3-74.7,27.8-102.1,28.3h.1c-27.4.5-47.9-4-61.4-13.5s-21.7-21.5-24.6-36c-2.9-14.5-4.4-33.6-4.4-57.3v-296.2h192.5ZM927.9,231.9h0c0,17.5,4.1,33.4,12.5,47.5,8.3,14.2,19.6,25.3,34,33.4,14.4,8,30.3,11.9,47.7,11.6,25.8-.5,48-10,66.7-28.6,18.7-18.6,28-41,28-67.2s-9.4-47.8-28-66.2c-18.7-18.4-40.9-27.3-66.7-26.9-26.2.5-48.4,10.2-66.7,29.2s-27.4,41.4-27.4,67.2Z"/>
+        </svg>
+      </a>
+      <div class="nav-links">
+        <a href="/about/" data-cursor="hover">About</a>
+        <a href="/services/" data-cursor="hover">Services</a>
+        <a href="/products/" data-cursor="hover">Products</a>
+        <a href="/portfolio/" data-cursor="hover">Portfolio</a>
+        <a href="/education/" data-cursor="hover">Education</a>
+        <a href="/cardnews/" class="active" data-cursor="hover">Cardnews</a>
+      </div>
+      <button class="nav-toggle" aria-label="메뉴 열기" data-cursor="hover">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<section class="cnx-hero">
+  <div class="wrap">
+    <div class="count">CARDNEWS · AI INSIGHTS</div>
+    <h1>Cardnews<span class="light">.</span></h1>
+    <p class="desc">실무에 바로 쓰는 AI 지식을 한 장씩. 파인튜닝, LLM, 에이전트, 자동화까지 — 카드뉴스로 정리합니다.</p>
+  </div>
+</section>
+
+<section class="cnx-grid">
+  <a href="/cardnews/finetuning-your-own-llm/" class="cnx-card" data-cursor="hover">
+    <div class="cnx-thumb" style="background-image:url('/cardnews/finetuning-your-own-llm/images/page-01-bg.png')">
+      <span class="badge">FINE-TUNING</span>
+    </div>
+    <div class="cnx-body">
+      <div class="cnx-kicker">2026.07.21 · 9 CARDS</div>
+      <h3>파인튜닝으로 나만의 LLM 만들기</h3>
+      <div class="cnx-blurb">GPU 한 장이면 만들 수 있는 시대 — 근데 대부분은 필요 없습니다. 언제·어떻게 파인튜닝해야 하는지 정리했습니다.</div>
+      <div class="cnx-foot"><span>파인튜닝 입문</span><span class="go">읽기 →</span></div>
+    </div>
+  </a>
+</section>
+
+<footer data-on-dark>
+  <div class="wrap">
+    <svg class="foot-logo" viewBox="0 0 2322.8 1400" xmlns="http://www.w3.org/2000/svg" aria-label="Kitt — AI Operating Partner">
+      <path fill="currentColor" d="M907.9,879.9h224.3V348.1l-224.3,193.9v337.9ZM379.4,384.5l79.1-274.4-226.1,41.1L7.3,926.4l225.7-41,83.1-281.8h-80.3l143.6-219.1ZM695.1,460.4l-121.8-1.8L1015.1,8.1l-391.1,71-321.5,488.6,165.3,2.6-121,190.7,348.3-300.6ZM757.7,879.9l-183.9-267.4-148.5,128.3s76,110.9,94.5,139.1h237.9,0ZM1299.3,651.4c0,157.9,80.8,235.4,242.5,232.5,37.4-.7,76.6-6.6,117.5-17.7,21.7-5.9,40.7-11.9,57.5-17.9v-172.3c-40.6,18.3-74.7,27.8-102.1,28.3s-47.9-4-61.4-13.5-21.7-21.5-24.6-36-4.4-33.6-4.4-57.3v-296.2h192.5v-155.9h-192.5V10.3l-340.8,295h115.8v346.1ZM1183.4,305.3h0,0ZM1781.2,305.4h0,0ZM2314.6,301.3v-155.9h-192.5V10.3l-340.8,295h115.8v346.1c0,157.9,80.8,235.4,242.5,232.5,37.4-.7,76.6-6.6,117.5-17.7,21.7-5.9,40.7-11.9,57.5-17.9v-172.3c-40.6,18.3-74.7,27.8-102.1,28.3s-47.9-4-61.4-13.5-21.7-21.5-24.6-36-4.4-33.6-4.4-57.3v-296.2h192.5ZM925.1,235.3c0,17.4,4.2,33.2,12.5,47.4s19.7,25.3,34,33.4c14.4,8,30.3,11.9,47.7,11.6,25.8-.4,48-10,66.7-28.6s28.1-41,28.1-67.2h0c0-25.6-9.4-47.7-28.1-66.1s-40.9-27.4-66.7-26.9c-26.2.4-48.4,10.2-66.7,29.2s-27.4,41.4-27.4,67.2h0Z"/>
+    </svg>
+    <div class="foot-meta">
+      <div class="foot-col">
+        <div class="label">CONTACT</div>
+        <div class="v">partner@kitt.ai.kr</div>
+        <div class="sub">서울시 서초구<br/>서초대로22길 22-18, 4F</div>
+      </div>
+      <div class="foot-col">
+        <div class="label">COMPANY</div>
+        <div class="v">Kitt AI inc.</div>
+        <div class="sub">대표 유승범<br/>사업자등록번호 332-81-03825</div>
+      </div>
+      <div class="foot-col">
+        <div class="label">PRODUCTS</div>
+        <a href="#" data-cursor="hover">Workkitt</a>
+        <a href="#" data-cursor="hover">Sellkitt</a>
+        <a href="#" data-cursor="hover">Kitt</a>
+      </div>
+      <div class="foot-col">
+        <div class="label">SITEMAP</div>
+        <a href="/about/" data-cursor="hover">About</a>
+        <a href="/services/" data-cursor="hover">Services</a>
+        <a href="/products/" data-cursor="hover">Products</a>
+        <a href="/portfolio/" data-cursor="hover">Portfolio</a>
+        <a href="/education/" data-cursor="hover">Education</a>
+        <a href="/cardnews/" data-cursor="hover">Cardnews</a>
+        <a href="/faq/" data-cursor="hover">FAQ</a>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="copy">© 2026 KITT AI INC.</div>
+      <div class="legal-links">
+        <a href="/privacy/" data-cursor="hover">개인정보처리방침</a>
+        <a href="/terms/" data-cursor="hover">이용약관</a>
+      </div>
+      <div class="biz">ALL RIGHTS RESERVED.</div>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>
