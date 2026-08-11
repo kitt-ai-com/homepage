@@ -134,6 +134,14 @@
           body: JSON.stringify(data),
         });
         if (res.ok) {
+          /* Meta Pixel Lead — 접수 성공 시점에만 발생 (개인정보는 전송하지 않음) */
+          if (typeof window.fbq === 'function') {
+            window.fbq('track', 'Lead', {
+              content_name: '홈페이지 문의폼',
+              content_category: data.inquiryType || '기타',
+              source_url: location.pathname,
+            });
+          }
           contactForm.reset();
           setStatus('문의가 접수되었습니다. 빠르게 연락드리겠습니다.', 'success');
         } else if (res.status === 429) {
