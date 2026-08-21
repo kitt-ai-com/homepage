@@ -387,3 +387,52 @@ body.theme-dark .faq-a p { color: var(--muted-2); }
   .foot-meta { grid-template-columns: 1fr 1fr; gap: 32px 20px; }
   .foot { flex-direction: column; align-items: flex-start; }
 }
+
+/* ---------- QUICK MENU (contact / kakao / scroll-to-top) ---------- */
+.quick-menu {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+.qm-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  transition: transform 0.2s ease;
+}
+.qm-btn:hover { transform: translateY(-3px); }
+.qm-label { display: none; }
+.qm-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--ink);
+  color: var(--paper);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+  transition: box-shadow 0.2s ease;
+}
+.qm-btn:hover .qm-icon { box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18); }
+.qm-contact .qm-icon { background: var(--accent); color: #fff; }
+.qm-kakao .qm-icon { background: #fee500; color: #191600; }
+.qm-top {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+.qm-top .qm-icon { background: var(--paper); color: var(--ink); border: 1px solid var(--line); }
+.qm-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+@media (max-width: 640px) {
+  .quick-menu { right: 14px; bottom: 14px; gap: 8px; }
+}
