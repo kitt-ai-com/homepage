@@ -402,13 +402,26 @@ body.theme-dark .faq-a p { color: var(--muted-2); }
 .qm-btn {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 48px;
+  justify-content: flex-end;
+  width: auto;
   height: 48px;
   transition: transform 0.2s ease;
 }
 .qm-btn:hover { transform: translateY(-3px); }
-.qm-label { display: none; }
+.qm-label {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  margin-right: 8px;
+  padding: 0 14px;
+  border-radius: 18px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
 .qm-icon {
   display: flex;
   align-items: center;
