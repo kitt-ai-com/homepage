@@ -1,0 +1,11 @@
+{
+  "name": "kitt-ai-homepage",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.js\""
+  },
+  "dependencies": {
+    "@vercel/functions": "^3.9.5"
+  }
+}
