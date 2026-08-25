@@ -3,3 +3,6 @@
 .omc/
 .claude/
 .bkit/
+
+# dependencies
+node_modules/
