@@ -22,5 +22,5 @@ export default function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/((?!assets/|archive/).*)"],
+  matcher: ["/((?!assets/|archive/|proposals/|favicon\\.ico|robots\\.txt|sitemap\\.xml|llms\\.txt).*)"],
 };
