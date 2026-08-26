@@ -1,5 +1,6 @@
-import { next } from "@vercel/functions";
+import { next, waitUntil } from "@vercel/functions";
 import { detectAiBot } from "./lib/detect-ai-bot.js";
+import { reportBotVisit } from "./lib/report-bot-visit.js";
 
 export default function middleware(request) {
   try {
@@ -7,7 +8,9 @@ export default function middleware(request) {
     const bot = detectAiBot(userAgent);
     if (bot) {
       const path = new URL(request.url).pathname;
-      console.log(JSON.stringify({ bot, path, timestamp: new Date().toISOString() }));
+      const timestamp = new Date().toISOString();
+      console.log(JSON.stringify({ bot, path, timestamp }));
+      waitUntil(reportBotVisit({ bot, path, timestamp }));
     }
   } catch (error) {
     console.error("bot-detect middleware error", error);
