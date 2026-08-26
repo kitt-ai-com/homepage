@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { detectAiBot } from "../lib/detect-ai-bot.js";
+import { detectAiBot, isOwnCrawler } from "../lib/detect-ai-bot.js";
 
 const KNOWN_BOTS = [
   ["GPTBot", "Mozilla/5.0 AppleWebKit (compatible; GPTBot/1.1; +https://openai.com/gptbot)"],
@@ -35,4 +35,22 @@ test("returns null for an empty or missing user-agent", () => {
   assert.equal(detectAiBot(""), null);
   assert.equal(detectAiBot(undefined), null);
   assert.equal(detectAiBot(null), null);
+});
+
+test("isOwnCrawler recognizes diagkitt's diagnosis crawler user-agent", () => {
+  assert.equal(isOwnCrawler("DiagkittBot/1.0 (+https://diagkitt.vercel.app)"), true);
+});
+
+test("isOwnCrawler returns false for a regular browser or a real AI bot", () => {
+  assert.equal(
+    isOwnCrawler("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"),
+    false,
+  );
+  assert.equal(isOwnCrawler("Mozilla/5.0 AppleWebKit (compatible; GPTBot/1.1; +https://openai.com/gptbot)"), false);
+});
+
+test("isOwnCrawler returns false for an empty or missing user-agent", () => {
+  assert.equal(isOwnCrawler(""), false);
+  assert.equal(isOwnCrawler(undefined), false);
+  assert.equal(isOwnCrawler(null), false);
 });
