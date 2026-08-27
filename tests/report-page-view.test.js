@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { reportPageView } from "../lib/report-page-view.js";
 
-const EVENT = { path: "/", timestamp: "2026-08-26T00:00:00.000Z" };
+const EVENT = { site: "kitt-ai-kr", path: "/", timestamp: "2026-08-26T00:00:00.000Z" };
 
 test("reportPageView does nothing when the ingest URL or secret is missing", async () => {
   let called = false;

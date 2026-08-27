@@ -13,11 +13,12 @@ export default function middleware(request) {
     const bot = detectAiBot(userAgent);
     const path = new URL(request.url).pathname;
     const timestamp = new Date().toISOString();
+    const site = "kitt-ai-kr";
     if (bot) {
       console.log(JSON.stringify({ bot, path, timestamp }));
-      waitUntil(reportBotVisit({ bot, path, timestamp }));
+      waitUntil(reportBotVisit({ site, bot, path, timestamp }));
     } else if (isKnownPath(path)) {
-      waitUntil(reportPageView({ path, timestamp }));
+      waitUntil(reportPageView({ site, path, timestamp }));
     }
   } catch (error) {
     console.error("bot-detect middleware error", error);

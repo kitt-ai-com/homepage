@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { reportBotVisit } from "../lib/report-bot-visit.js";
 
-const EVENT = { bot: "GPTBot", path: "/", timestamp: "2026-08-26T00:00:00.000Z" };
+const EVENT = { site: "kitt-ai-kr", bot: "GPTBot", path: "/", timestamp: "2026-08-26T00:00:00.000Z" };
 
 test("reportBotVisit does nothing when the ingest URL or secret is missing", async () => {
   let called = false;
