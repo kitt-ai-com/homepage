@@ -1,5 +1,6 @@
 import { next, waitUntil } from "@vercel/functions";
 import { detectAiBot, isOwnCrawler } from "./lib/detect-ai-bot.js";
+import { isKnownPath } from "./lib/is-known-path.js";
 import { reportBotVisit } from "./lib/report-bot-visit.js";
 import { reportPageView } from "./lib/report-page-view.js";
 
@@ -15,7 +16,7 @@ export default function middleware(request) {
     if (bot) {
       console.log(JSON.stringify({ bot, path, timestamp }));
       waitUntil(reportBotVisit({ bot, path, timestamp }));
-    } else {
+    } else if (isKnownPath(path)) {
       waitUntil(reportPageView({ path, timestamp }));
     }
   } catch (error) {
@@ -25,5 +26,5 @@ export default function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/((?!assets/|archive/|proposals/|favicon\\.ico|robots\\.txt|sitemap\\.xml|llms\\.txt).*)"],
+  matcher: ["/((?!assets/|archive/|proposals/|favicon\\.ico).*)"],
 };
