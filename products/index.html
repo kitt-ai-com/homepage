@@ -53,7 +53,7 @@
       "@type": "ItemList",
       "@id": "https://kitt.ai.kr/products/#productlist",
       "name": "Kitt AI 제품 라인업",
-      "numberOfItems": 3,
+      "numberOfItems": 4,
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -97,6 +97,19 @@
             "publisher": { "@id": "https://kitt.ai.kr/#organization" },
             "inLanguage": "ko-KR"
           }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "Service",
+            "@id": "https://kitt.ai.kr/products/#kittlaunchers",
+            "name": "킷 런처스",
+            "description": "공식 가이드에 맞춰, AI 전문가와 함께. 4주면 기획부터 런칭까지. 3,000만이 쓰는 토스 앱인토스에 노코딩으로 앱을 출시하는 서비스입니다.",
+            "provider": { "@id": "https://kitt.ai.kr/#organization" },
+            "url": "https://kitt.ai.kr/edu/kittlaunchers.html",
+            "inLanguage": "ko-KR"
+          }
         }
       ]
     }
@@ -105,8 +118,13 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=JetBrains+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+</noscript>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='Inter,sans-serif' font-size='64' font-weight='900' text-anchor='middle' fill='%23f48d65'%3EK%3C/text%3E%3C/svg%3E" />
 <link rel="stylesheet" href="/assets/styles.css" />
 <link rel="stylesheet" href="/assets/pages/products.css" />
@@ -118,8 +136,9 @@
   gtag('js', new Date());
   gtag('config', 'G-GK8EFQ3XGF');
 </script>
-<!-- Meta Pixel Code -->
+<!-- Meta Pixel Code (deferred to idle/load so it doesn't compete with initial render) -->
 <script>
+function loadMetaPixel(){
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -130,8 +149,11 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '28083316991264807');
 fbq('track', 'PageView');
+}
+if ('requestIdleCallback' in window) { requestIdleCallback(loadMetaPixel); }
+else { window.addEventListener('load', loadMetaPixel); }
 </script>
-<noscript><img height="1" width="1" style="display:none"
+<noscript><img height="1" width="1" style="display:none" alt=""
 src="https://www.facebook.com/tr?id=28083316991264807&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
@@ -178,7 +200,7 @@ src="https://www.facebook.com/tr?id=28083316991264807&ev=PageView&noscript=1"
 
 <section class="portfolio">
   <div class="wrap">
-    <article class="product-row reveal">
+    <article class="product-row reveal" id="workkitt">
       <div class="product-visual v-workkitt">
         <div class="bg"></div><div class="grid-overlay"></div>
         <div class="mark"><span class="light">Work</span>kitt</div>
@@ -192,7 +214,6 @@ src="https://www.facebook.com/tr?id=28083316991264807&ev=PageView&noscript=1"
         <div class="features">
           <span>Slack 통합</span><span>자동 요약</span><span>액션 추출</span><span>리포트 자동화</span>
         </div>
-        <a href="#" class="link" data-cursor="hover">자세히 보기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
       </div>
     </article>
 
@@ -214,7 +235,7 @@ src="https://www.facebook.com/tr?id=28083316991264807&ev=PageView&noscript=1"
       </div>
     </article>
 
-    <article class="product-row reveal">
+    <article class="product-row reveal" id="kitt">
       <div class="product-visual v-kitt">
         <div class="bg"></div><div class="grid-overlay"></div>
         <div class="mark">Kitt</div>
@@ -228,7 +249,24 @@ src="https://www.facebook.com/tr?id=28083316991264807&ev=PageView&noscript=1"
         <div class="features">
           <span>멀티 에이전트</span><span>도메인 맞춤</span><span>온프레미스 옵션</span><span>RAG 통합</span>
         </div>
-        <a href="#" class="link" data-cursor="hover">자세히 보기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </div>
+    </article>
+
+    <article class="product-row reveal reverse">
+      <div class="product-visual">
+        <div class="bg"></div><div class="grid-overlay"></div>
+        <div class="mark">런처스</div>
+        <div class="index">04 / SERVICE · 2026</div>
+        <div class="corner"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="product-info">
+        <div class="tag">APP LAUNCH</div>
+        <h3>킷 런처스</h3>
+        <p class="desc">공식 가이드에 맞춰, AI 전문가와 함께. 4주면 기획부터 런칭까지. 3,000만이 쓰는 토스에 내 앱을 노코딩으로 출시하세요.</p>
+        <div class="features">
+          <span>앱인토스 출시</span><span>노코딩</span><span>4주 런칭</span>
+        </div>
+        <a href="/edu/kittlaunchers.html" class="link" data-cursor="hover">자세히 보기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
       </div>
     </article>
   </div>
@@ -257,6 +295,7 @@ src="https://www.facebook.com/tr?id=28083316991264807&ev=PageView&noscript=1"
       <div class="foot-col">
         <div class="label">CONTACT</div>
         <div class="v">partner@kitt.ai.kr</div>
+        <div class="v">02-6959-0715</div>
         <div class="sub">서울시 서초구<br/>서초대로29길 22-18, 4F</div>
       </div>
       <div class="foot-col">
@@ -267,9 +306,9 @@ src="https://www.facebook.com/tr?id=28083316991264807&ev=PageView&noscript=1"
       <div class="foot-col">
         <div class="label">PRODUCTS</div>
         <a href="https://growkit.kitt.ai.kr/" target="_blank" rel="noopener noreferrer" data-cursor="hover">GrowKitt</a>
-        <a href="#" data-cursor="hover">Workkitt</a>
+        <a href="/products/#workkitt" data-cursor="hover">Workkitt</a>
         <a href="/products/sellkitt/" data-cursor="hover">Sellkitt</a>
-        <a href="#" data-cursor="hover">Kitt</a>
+        <a href="/products/#kitt" data-cursor="hover">Kitt</a>
       </div>
       <div class="foot-col">
         <div class="label">SITEMAP</div>
@@ -294,7 +333,7 @@ src="https://www.facebook.com/tr?id=28083316991264807&ev=PageView&noscript=1"
 </footer>
 
 
-<script src="/assets/app.js"></script>
+<script src="/assets/app.js" defer></script>
 
 <script src="/assets/meta-events.js" defer></script>
 </body>
