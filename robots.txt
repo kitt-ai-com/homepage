@@ -85,5 +85,23 @@ Allow: /
 Disallow: /proposals/
 Disallow: /archive/
 
+# ---------------------------------------------------------------
+# 학습 전용 크롤러 (답변 엔진에 인용되지 않고 학습 데이터로만 수집)
+# 검색·답변 노출에는 기여하지 않으므로 차단합니다.
+# ---------------------------------------------------------------
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: ByteSpider
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+# Content Signals — 검색·AI 답변 인용은 허용, 모델 학습은 거부
+# https://contentsignals.org/
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+
 # LLM용 사이트 요약: https://kitt.ai.kr/llms.txt
 Sitemap: https://kitt.ai.kr/sitemap.xml
