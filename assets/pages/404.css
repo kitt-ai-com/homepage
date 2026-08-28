@@ -1,0 +1,110 @@
+/* ============================================================
+   Kitt — 404 page styles
+   ============================================================ */
+
+.page-hero { padding: 180px 0 72px; text-align: center; }
+.page-hero .eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.2em; color: var(--muted);
+  margin-bottom: 32px;
+}
+.page-hero .eyebrow::before {
+  content: ""; width: 5px; height: 5px;
+  border-radius: 50%; background: var(--accent);
+}
+.page-hero h1 {
+  font-weight: 900;
+  font-size: clamp(56px, 10vw, 140px); line-height: 0.95;
+  letter-spacing: -0.05em;
+  margin-bottom: 32px;
+}
+.page-hero h1 .light { font-weight: 300; color: var(--muted-2); }
+.page-hero p {
+  font-size: clamp(16px, 1.4vw, 19px);
+  color: var(--ink-2);
+  max-width: 640px; margin: 0 auto;
+  line-height: 1.75; word-break: keep-all;
+}
+
+/* ---------- RECOVERY LINKS ---------- */
+.nf-label {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.22em; color: var(--accent);
+  margin-bottom: 24px; font-weight: 500;
+}
+.nf-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 72px;
+}
+.nf-grid a {
+  display: block; padding: 32px 28px;
+  border-right: 1px solid var(--line);
+  transition: background .25s;
+}
+.nf-grid a:nth-child(4n) { border-right: none; }
+.nf-grid a:nth-child(-n+4) { border-bottom: 1px solid var(--line); }
+.nf-grid a:hover { background: #f6f6f6; }
+.nf-grid .k {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.2em; color: var(--muted);
+  margin-bottom: 14px;
+}
+.nf-grid strong {
+  display: block; font-size: 18px; font-weight: 800;
+  letter-spacing: -0.025em; margin-bottom: 8px;
+}
+.nf-grid span.d {
+  display: block; font-size: 13px; line-height: 1.6;
+  color: var(--muted); word-break: keep-all;
+}
+
+/* ---------- AGENT / CRAWLER PANEL ---------- */
+.nf-agents {
+  border: 1px solid var(--line); border-radius: 20px;
+  padding: 36px 32px; margin-bottom: 72px;
+}
+.nf-agents > p {
+  font-size: 14px; line-height: 1.7; color: var(--muted);
+  margin-bottom: 24px; max-width: 68ch; word-break: keep-all;
+}
+.nf-agents pre {
+  font-family: var(--mono); font-size: 12px; line-height: 1.9;
+  color: var(--ink-2); overflow-x: auto;
+  background: #f6f6f6; border-radius: 12px;
+  padding: 24px 22px; margin: 0;
+}
+.nf-agents pre a { color: var(--ink-2); text-decoration: underline; }
+.nf-agents pre a:hover { color: var(--accent); }
+
+/* ---------- CTA (ported from about.css so 404 is self-contained) ---------- */
+.cta-section { text-align: center; }
+.cta-primary {
+  display: inline-flex; align-items: center; gap: 16px;
+  background: var(--ink); color: var(--paper);
+  padding: 20px 14px 20px 40px;
+  border-radius: 999px;
+  font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
+  transition: transform .25s cubic-bezier(.2, .7, .2, 1);
+  will-change: transform;
+}
+.cta-primary .arrow {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--paper); color: var(--ink);
+  display: grid; place-items: center;
+  transition: transform .3s;
+}
+.cta-primary:hover .arrow { transform: rotate(-45deg); }
+
+@media (max-width: 900px) {
+  .page-hero { padding: 120px 0 48px; }
+  .nf-grid { grid-template-columns: 1fr 1fr; }
+  .nf-grid a:nth-child(2n) { border-right: none; }
+  .nf-grid a:nth-child(-n+6) { border-bottom: 1px solid var(--line); }
+  .nf-grid a:last-child { border-bottom: none; }
+  .nf-agents { padding: 28px 22px; }
+  .cta-primary { padding: 16px 12px 16px 28px; font-size: 14px; gap: 12px; }
+  .cta-primary .arrow { width: 36px; height: 36px; }
+}

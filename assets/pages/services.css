@@ -209,3 +209,37 @@
   .eng { border-right: none !important; border-bottom: 1px solid var(--line); }
   .eng:last-child { border-bottom: none; }
 }
+
+/* ---------- PRICING ---------- */
+.price-note {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 40px; align-items: end;
+  margin-top: 40px;
+}
+.price-vars .label {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.22em; color: var(--accent);
+  margin-bottom: 18px; font-weight: 500;
+}
+.price-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.price-chips span {
+  font-family: var(--mono); font-size: 11px;
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 6px 12px; color: var(--ink-2);
+}
+.price-vars p {
+  font-size: 14px; line-height: 1.7; color: var(--muted);
+  word-break: keep-all; max-width: 60ch;
+}
+.price-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: var(--ink);
+  padding-bottom: 4px; border-bottom: 1px solid var(--ink);
+  white-space: nowrap; transition: gap .2s;
+}
+.price-link:hover { gap: 12px; }
+
+@media (max-width: 900px) {
+  .price-note { grid-template-columns: 1fr; gap: 28px; align-items: start; }
+  .price-link { align-self: start; }
+}
