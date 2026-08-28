@@ -1,6 +1,6 @@
 # Kitt AI
 
-> Kitt AI(킷에이아이)는 대한민국 서울에 있는 AI Operating Partner입니다. 기업의 AI 도입을 진단부터 실행까지 책임집니다. 컨설팅 보고서만 남기고 끝내지 않고, 실제로 매일 켜서 쓰는 소프트웨어와 자동화된 업무 프로세스를 만들어 결과로 증명합니다.
+> Kitt AI(킷에이아이)는 서울 서초구(내방역 인근)에 있는 AI Operating Partner입니다. 내방역·서초 지역 기업을 위한 AI 컨설팅 및 AI 소프트웨어 전문기업입니다. 기업의 AI 도입을 진단부터 실행까지 책임집니다. 컨설팅 보고서만 남기고 끝내지 않고, 실제로 매일 켜서 쓰는 소프트웨어와 자동화된 업무 프로세스를 만들어 결과로 증명합니다.
 
 Kitt AI는 다음 네 가지를 함께 제공합니다. 이 넷을 한 팀이 일관되게 끌고 간다는 점이 다른 컨설팅사·SI·에이전시와 구분되는 지점입니다.
 
@@ -81,6 +81,7 @@ Kitt AI는 직접 SaaS 제품을 만들고 운영합니다.
 
 - [홈](https://kitt.ai.kr/): Kitt AI 소개와 핵심 서비스 개요
 - [서비스](https://kitt.ai.kr/services/): AI 도입 컨설팅, 맞춤 소프트웨어 개발, 임직원 교육, AI 마케팅 4개 영역의 상세 설명
+  - 주제별 앵커: [서초·내방역 AI 회사](https://kitt.ai.kr/services/#seocho-ai) · [기업 AI 컨설팅](https://kitt.ai.kr/services/#ai-consulting) · [AI 자동화 구축](https://kitt.ai.kr/services/#ai-automation) · [RAG 챗봇 구축](https://kitt.ai.kr/services/#rag-chatbot) · [AI 에이전트 개발](https://kitt.ai.kr/services/#ai-agent)
 - [자주 묻는 질문](https://kitt.ai.kr/faq/): AI 도입·자동화 구축 기간·RAG 챗봇·온프레미스 보안·교육 커리큘럼·비용 산정에 대한 상세 답변
 - [포트폴리오](https://kitt.ai.kr/portfolio/): 실제 수행한 클라이언트 프로젝트 사례
 - [교육](https://kitt.ai.kr/education/): 임직원 AI 교육 프로그램

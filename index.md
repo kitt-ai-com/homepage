@@ -1,6 +1,6 @@
 ---
 title: "Kitt AI — 비즈니스를 움직이는 Working AI"
-description: "Kitt AI(킷에이아이)는 기업의 AI 도입을 진단부터 실행까지 책임지는 AI Operating Partner입니다. AI 도입 컨설팅, 도메인 맞춤 AI 소프트웨어 개발, 임직원 AI 교육, AI 마케팅 자동화를 하나의 팀이 수행합니다."
+description: "내방역·서초 지역 기업을 위한 AI 컨설팅 및 AI 소프트웨어 전문기업 Kitt AI(킷에이아이). 기업의 AI 도입을 진단부터 실행까지 책임지는 AI Operating Partner입니다. AI 도입 컨설팅, 도메인 맞춤 AI 소프트웨어 개발, 임직원 AI 교육, AI 마케팅 자동화를 하나의 팀이 수행합니다."
 url: "https://kitt.ai.kr/index.md"
 canonical: "https://kitt.ai.kr/"
 organization: "Kitt AI inc."
@@ -12,6 +12,7 @@ lastUpdated: "2026-08-28"
 
 > AI Operating Partner · EST. 2026 · Seoul, Korea
 > 진단부터 실행까지. Kitt는 결과를 만드는 AI 실행 파트너입니다.
+> **내방역·서초 지역 기업을 위한 AI 컨설팅 및 AI 소프트웨어 전문기업**입니다.
 
 이 문서는 https://kitt.ai.kr/ 홈페이지의 마크다운 표현입니다. 사이트 전체 요약과 인용 지침은
 [llms.txt](https://kitt.ai.kr/llms.txt), 전체 URL 목록은 [sitemap.xml](https://kitt.ai.kr/sitemap.xml)에 있습니다.
@@ -86,6 +87,14 @@ AI로 가속합니다. 이 영역은 AI 마케팅 구독 서비스 **그로킷(G
 | 이메일 | partner@kitt.ai.kr |
 | 전화 | 02-6959-0715 (평일 09:00–18:00 KST) |
 | 서비스 지역 | 대한민국 |
+
+## 주제별 안내 (서비스)
+
+- [서초 AI 회사 · 내방역 AI 회사](https://kitt.ai.kr/services/#seocho-ai) — 서초구 소재, 현장 방문 진단 가능
+- [기업 AI 컨설팅 (AX 진단)](https://kitt.ai.kr/services/#ai-consulting)
+- [AI 자동화 구축](https://kitt.ai.kr/services/#ai-automation) — 단일 워크플로우 2~4주
+- [RAG 챗봇 구축](https://kitt.ai.kr/services/#rag-chatbot) — 온프레미스 / VPC 내부 구축 가능
+- [AI 에이전트 개발](https://kitt.ai.kr/services/#ai-agent)
 
 ## 주요 페이지
 
