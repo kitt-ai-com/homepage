@@ -76,8 +76,6 @@
   background: #f6f6f6; border-radius: 12px;
   padding: 24px 22px; margin: 0;
 }
-.nf-agents pre a { color: var(--ink-2); text-decoration: underline; }
-.nf-agents pre a:hover { color: var(--accent); }
 
 /* ---------- CTA (ported from about.css so 404 is self-contained) ---------- */
 .cta-section { text-align: center; }
