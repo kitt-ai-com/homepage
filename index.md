@@ -86,6 +86,7 @@ AI로 가속합니다. 이 영역은 AI 마케팅 구독 서비스 **그로킷(G
 | 주소 | 서울특별시 서초구 서초대로29길 22-18, 4F (06640) |
 | 이메일 | partner@kitt.ai.kr |
 | 전화 | 02-6959-0715 (평일 09:00–18:00 KST) |
+| LinkedIn | [https://www.linkedin.com/company/kitt-ai-inc/](https://www.linkedin.com/company/kitt-ai-inc/) |
 | 서비스 지역 | 대한민국 |
 
 ## 주제별 안내 (서비스)
